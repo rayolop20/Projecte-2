@@ -36,14 +36,80 @@ bool Player::Awake(pugi::xml_node& config) {
 bool Player::Start()
 {
 	bool ret = true;
+	P1.Pcol = app->collisions->AddCollider({ P1.position.x,P1.position.y, 100, 100 }, Collider::Type::PLAYER, this);
+	Wall = app->collisions->AddCollider({ 500,500, 100, 100 }, Collider::Type::WALL, this);
 
 	return ret;
 }
 
 bool Player::Update(float dt)
 {
+	player = { P1.position.x,P1.position.y, 100, 100 };
+	app->render->DrawRectangle(player, 200, 200, 200);
 
+	//movement
+	{
+		//left
+		{
+			if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && P1.MoveXD == false)
+			{
+				P1.position.x++;
+				P1.MoveXA = true;
+			}
 
+			if (app->input->GetKey(SDL_SCANCODE_D) == KEY_UP)
+			{
+				P1.MoveXA = false;
+			}
+		}
+		//right
+		{
+			if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && P1.MoveXA == false)
+			{
+				P1.position.x--;
+				P1.MoveXD = true;
+			}
+
+			if (app->input->GetKey(SDL_SCANCODE_A) == KEY_UP)
+			{
+				P1.MoveXD = false;
+			}
+		}
+		//up
+		{
+			if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT && P1.MoveYW == false)
+			{
+				P1.position.y--;
+				P1.MoveYS = true;
+			}
+
+			if (app->input->GetKey(SDL_SCANCODE_W) == KEY_UP)
+			{
+				P1.MoveYS = false;
+			}
+		}
+		//down
+		{
+			if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT && P1.MoveYS == false)
+			{
+				P1.position.y++;
+				P1.MoveYW = true;
+			}
+
+			if (app->input->GetKey(SDL_SCANCODE_S) == KEY_UP)
+			{
+				P1.MoveYW = false;
+			}
+		}
+	}
+
+	//debug
+	if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_IDLE)
+	{
+		app->collisions->DebugDraw();
+	}
+
+	P1.Pcol->SetPos(P1.position.x, P1.position.y);
 	return true;
 }
 

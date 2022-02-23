@@ -8,6 +8,13 @@
 struct SDL_Texture;
 struct Collider;
 
+struct playr1
+{
+	iPoint position;
+	Collider* Pcol = nullptr;
+	bool MoveXD = false, MoveXA = false, MoveYW = false, MoveYS = false;
+};
+
 class Player : public Module
 {
 public:
@@ -35,10 +42,11 @@ public:
 	void OnCollision(Collider* c1, Collider* c2);
 
 	//int Timer(int second);
-
+	playr1 P1;
 
 public:
-
+	SDL_Rect player;
+	Collider* Wall = nullptr;
 
 };
 
