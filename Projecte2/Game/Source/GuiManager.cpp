@@ -42,7 +42,7 @@ GuiControl* GuiManager::CreateGuiControl(GuiControlType type, int id, const char
 	//control->SetTexture(texture);
 
 	// Created GuiControls are added to the list of controls
-	if (control != nullptr) controls.Add(control);
+	if (control != nullptr) controls.add(control);
 
 	return control;
 }

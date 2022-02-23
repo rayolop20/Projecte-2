@@ -3,8 +3,7 @@
 
 #include "Module.h"
 #include "GuiButton.h"
-
-//class GuiControl;
+#include "Item.h"
 
 struct SDL_Texture;
 
@@ -41,9 +40,12 @@ public:
 private:
 	SDL_Texture* img;
 
+	// L13: TODO 2: Declare an Item and create it using the EntityManager
+
 	// L14: TODO 2: Declare a GUI Button and create it using the GuiManager
 	GuiButton* btn1;
 	GuiButton* btn2;
+ 
 
 };
 

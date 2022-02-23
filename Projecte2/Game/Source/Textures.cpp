@@ -55,7 +55,7 @@ bool Textures::CleanUp()
 		SDL_DestroyTexture(item->data);
 	}
 
-	textures.Clear();
+	textures.clear();
 	IMG_Quit();
 	return true;
 }
@@ -89,7 +89,7 @@ bool Textures::UnLoad(SDL_Texture* texture)
 		if(texture == item->data)
 		{
 			SDL_DestroyTexture(item->data);
-			textures.Del(item);
+			textures.del(item);
 			return true;
 		}
 	}
@@ -108,7 +108,7 @@ SDL_Texture* const Textures::LoadSurface(SDL_Surface* surface)
 	}
 	else
 	{
-		textures.Add(texture);
+		textures.add(texture);
 	}
 
 	return texture;

@@ -4,6 +4,7 @@
 #include "Module.h"
 #include "PerfTimer.h"
 #include "Timer.h"
+
 #include "List.h"
 
 #include "PugiXml/src/pugixml.hpp"
@@ -18,11 +19,9 @@ class Render;
 class Textures;
 class Audio;
 class Scene;
-class PathFinding;
 class Map;
 class GuiManager;
-class Collisions;
-class Player;
+class EntityManager; 
 
 class App
 {
@@ -94,10 +93,8 @@ public:
 	Audio* audio;
 	Scene* scene;
 	Map* map;
-	Player* player;
 	GuiManager* guiManager;
-	Collisions* collisions;
-	PathFinding* pathfinding;
+	EntityManager* entityManager; 
 
 private:
 

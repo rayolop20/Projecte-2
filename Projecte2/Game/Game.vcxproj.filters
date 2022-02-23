@@ -20,15 +20,8 @@
     <ClCompile Include="Source\Timer.cpp" />
     <ClCompile Include="Source\GuiButton.cpp" />
     <ClCompile Include="Source\GuiManager.cpp" />
-    <ClCompile Include="Source\GuiCheckBox.cpp" />
-    <ClCompile Include="Source\GuiSlider.cpp" />
-    <ClCompile Include="Source\PQueue.h" />
-    <ClCompile Include="Source\pugiconfig.hpp" />
-    <ClCompile Include="Source\pugixml.cpp" />
-    <ClCompile Include="Source\Collider.cpp" />
-    <ClCompile Include="Source\Collisions.cpp" />
-    <ClCompile Include="Source\Player.cpp" />
-    <ClCompile Include="Source\Pathfinding.cpp" />
+    <ClCompile Include="Source\EntityManager.cpp" />
+    <ClCompile Include="Source\Item.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -69,14 +62,9 @@
     <ClInclude Include="Source\GuiButton.h" />
     <ClInclude Include="Source\GuiControl.h" />
     <ClInclude Include="Source\GuiManager.h" />
-    <ClInclude Include="Source\Animation.h" />
-    <ClInclude Include="Source\GuiCheckBox.h" />
-    <ClInclude Include="Source\GuiSlider.h" />
-    <ClInclude Include="Source\pugixml.hpp" />
-    <ClInclude Include="Source\Collider.h" />
-    <ClInclude Include="Source\Collisions.h" />
-    <ClInclude Include="Source\Player.h" />
-    <ClInclude Include="Source\Pathfinding.h" />
+    <ClInclude Include="Source\Entity.h" />
+    <ClInclude Include="Source\EntityManager.h" />
+    <ClInclude Include="Source\Item.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">

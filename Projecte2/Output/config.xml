@@ -22,4 +22,7 @@
   <map>
     <folder>Assets/maps/</folder>
   </map>
+  
+  <!-- L13: Create a structure in XML to store multiple entities -->
+  
 </config>

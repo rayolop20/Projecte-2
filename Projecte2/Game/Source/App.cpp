@@ -7,9 +7,7 @@
 #include "Scene.h"
 #include "Map.h"
 #include "GuiManager.h"
-#include "Collisions.h"
-#include "Player.h"
-#include "Pathfinding.h"
+#include "EntityManager.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -31,10 +29,8 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	audio = new Audio();
 	scene = new Scene();
 	map = new Map();
-	pathfinding = new PathFinding();
-	player = new Player();
 	guiManager = new GuiManager();
-	collisions = new Collisions();
+	entityManager = new EntityManager();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -44,10 +40,9 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(audio);
 	AddModule(scene);
 	AddModule(map);
-	AddModule(pathfinding);
 	AddModule(guiManager);
-	AddModule(collisions);
-	AddModule(player);
+	AddModule(entityManager);
+
 	// Render last to swap buffer
 	AddModule(render);
 }
@@ -64,13 +59,13 @@ App::~App()
 		item = item->prev;
 	}
 
-	modules.Clear();
+	modules.clear();
 }
 
 void App::AddModule(Module* module)
 {
 	module->Init();
-	modules.Add(module);
+	modules.add(module);
 }
 
 // Called before render is available
