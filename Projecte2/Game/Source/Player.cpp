@@ -36,14 +36,49 @@ bool Player::Awake(pugi::xml_node& config) {
 bool Player::Start()
 {
 	bool ret = true;
-
+	P1.Pcol = app->collisions->AddCollider({ P1.position.x,P1.position.y, 100, 100 }, Collider::Type::PLAYER, this);
 	return ret;
 }
 
 bool Player::Update(float dt)
 {
+	player = { P1.position.x,P1.position.y, 100, 100 };
+	app->render->DrawRectangle(player, 200, 200, 200);
 
+	//movement
+	{
+		//left
+		if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+		{
+			P1.position.x++;
+		}
 
+		//right
+		if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+		{
+			P1.position.x--;
+		}
+
+		//up
+		if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
+		{
+			P1.position.y--;
+		}
+
+		//down
+		if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
+		{
+			P1.position.y++;
+		}
+	}
+
+	//debug
+	if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_IDLE)
+	{
+		app->collisions->DebugDraw();
+	}
+
+	P1.Pcol->SetPos(P1.position.x, P1.position.y);
 	return true;
 }
 

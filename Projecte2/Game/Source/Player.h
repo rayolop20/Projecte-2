@@ -8,6 +8,12 @@
 struct SDL_Texture;
 struct Collider;
 
+struct play
+{
+	iPoint position;
+	Collider* Pcol = nullptr;
+}P1;
+
 class Player : public Module
 {
 public:
@@ -42,7 +48,7 @@ public:
 
 public:
 	// Position of the player in the map
-
+	SDL_Rect player;
 
 	// Countdown to handle shot spacing
 
