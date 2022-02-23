@@ -21,6 +21,7 @@ class Audio;
 class Scene;
 class Map;
 class GuiManager;
+class Collisions;
 class EntityManager; 
 
 class App
@@ -95,7 +96,7 @@ public:
 	Map* map;
 	GuiManager* guiManager;
 	EntityManager* entityManager; 
-
+	Collisions* collisions;
 private:
 
 	int argc;

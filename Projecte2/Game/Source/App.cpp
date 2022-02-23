@@ -8,6 +8,7 @@
 #include "Map.h"
 #include "GuiManager.h"
 #include "EntityManager.h"
+#include "Collisions.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -31,6 +32,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	map = new Map();
 	guiManager = new GuiManager();
 	entityManager = new EntityManager();
+	collisions = new Collisions();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -42,6 +44,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(map);
 	AddModule(guiManager);
 	AddModule(entityManager);
+	AddModule(collisions);
 
 	// Render last to swap buffer
 	AddModule(render);
