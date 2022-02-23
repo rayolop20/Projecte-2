@@ -7,6 +7,7 @@
 #include "Scene.h"
 #include "Map.h"
 #include "GuiManager.h"
+#include "Player.h"
 #include "EntityManager.h"
 #include "Collisions.h"
 
@@ -31,6 +32,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	scene = new Scene();
 	map = new Map();
 	guiManager = new GuiManager();
+	player = new Player();
 	entityManager = new EntityManager();
 	collisions = new Collisions();
 
@@ -44,6 +46,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(map);
 	AddModule(guiManager);
 	AddModule(entityManager);
+	AddModule(player);
 	AddModule(collisions);
 
 	// Render last to swap buffer

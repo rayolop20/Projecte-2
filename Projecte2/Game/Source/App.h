@@ -22,6 +22,7 @@ class Scene;
 class Map;
 class GuiManager;
 class Collisions;
+class Player;
 class EntityManager; 
 
 class App
@@ -95,6 +96,7 @@ public:
 	Scene* scene;
 	Map* map;
 	GuiManager* guiManager;
+	Player* player;
 	EntityManager* entityManager; 
 	Collisions* collisions;
 private:
