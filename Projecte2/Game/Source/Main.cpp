@@ -2,13 +2,22 @@
 
 #include "Defs.h"
 #include "Log.h"
+#include "Input.h"
 
+#include <windows.h>
+#include <stdlib.h>
+#include <time.h>
+#include <stdlib.h>
+#include <iostream>
+#include <chrono>
+using namespace std;
 // NOTE: SDL redefines main function
 #include "SDL/include/SDL.h"
 
 // NOTE: Library linkage is configured in Linker Options
 //#pragma comment(lib, "../Game/Source/External/SDL/libx86/SDL2.lib")
 //#pragma comment(lib, "../Game/Source/External/SDL/libx86/SDL2main.lib")
+
 
 #include <stdlib.h>
 
@@ -27,22 +36,24 @@ App* app = NULL;
 
 int main(int argc, char* args[])
 {
-	LOG("Engine starting ...");
 
+	LOG("Engine starting ...");
+	float dt = 16.0f;
 	MainState state = CREATE;
 	int result = EXIT_FAILURE;
 
-	while(state != EXIT)
+	while (state != EXIT)
 	{
-		switch(state)
+		auto start = chrono::steady_clock::now();
+		switch (state)
 		{
 			// Allocate the engine --------------------------------------------
-			case CREATE:
+		case CREATE:
 			LOG("CREATION PHASE ===============================");
 
 			app = new App(argc, args);
 
-			if(app != NULL)
+			if (app != NULL)
 				state = AWAKE;
 			else
 				state = FAIL;
@@ -50,9 +61,9 @@ int main(int argc, char* args[])
 			break;
 
 			// Awake all modules -----------------------------------------------
-			case AWAKE:
+		case AWAKE:
 			LOG("AWAKE PHASE ===============================");
-			if(app->Awake() == true)
+			if (app->Awake() == true)
 				state = START;
 			else
 			{
@@ -63,9 +74,9 @@ int main(int argc, char* args[])
 			break;
 
 			// Call all modules before first frame  ----------------------------
-			case START:
+		case START:
 			LOG("START PHASE ===============================");
-			if(app->Start() == true)
+			if (app->Start() == true)
 			{
 				state = LOOP;
 				LOG("UPDATE PHASE ===============================");
@@ -78,15 +89,15 @@ int main(int argc, char* args[])
 			break;
 
 			// Loop all modules until we are asked to leave ---------------------
-			case LOOP:
-			if(app->Update() == false)
+		case LOOP:
+			if (app->Update() == false)
 				state = CLEAN;
 			break;
 
 			// Cleanup allocated memory -----------------------------------------
-			case CLEAN:
+		case CLEAN:
 			LOG("CLEANUP PHASE ===============================");
-			if(app->CleanUp() == true)
+			if (app->CleanUp() == true)
 			{
 				RELEASE(app);
 				result = EXIT_SUCCESS;
@@ -98,13 +109,21 @@ int main(int argc, char* args[])
 			break;
 
 			// Exit with errors and shame ---------------------------------------
-			case FAIL:
+		case FAIL:
 			LOG("Exiting with errors :(");
 			result = EXIT_FAILURE;
 			state = EXIT;
 			break;
 		}
+		auto end = chrono::steady_clock::now();
+		auto CelapsetTime = chrono::duration_cast<chrono::milliseconds>(end - start).count();
+
+		if (dt - CelapsetTime > 0.0f) {
+			SDL_Delay(dt - CelapsetTime);
+		}
+		LOG("delta time is: %f ms", dt - CelapsetTime);
 	}
+
 
 	LOG("... Bye! :)\n");
 
