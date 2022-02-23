@@ -12,6 +12,7 @@ struct play
 {
 	iPoint position;
 	Collider* Pcol = nullptr;
+	bool MoveXD = false, MoveXA = false, MoveYW = false, MoveYS = false;
 }P;
 
 
@@ -50,7 +51,7 @@ public:
 public:
 	// Position of the player in the map
 	SDL_Rect player;
-
+	Collider* Wall = nullptr;
 	// Countdown to handle shot spacing
 
 	// The player spritesheet loaded into an SDL_Texture
