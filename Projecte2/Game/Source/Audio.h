@@ -2,6 +2,7 @@
 #define __AUDIO_H__
 
 #include "Module.h"
+#include "List.h"
 
 #define DEFAULT_MUSIC_FADE_TIME 2.0f
 
@@ -32,6 +33,17 @@ public:
 	// Play a previously loaded WAV
 	bool PlayFx(unsigned int fx, int repeat = 0);
 
+	void MusicVolumeControl(int index);
+
+	void FxVolumeControl(int index);
+
+	int musicVolume = 25;
+
+	int fxVolume = 120;
+
+	int maxMusicValue = 125;
+
+	int maxFxValue = 125;
 private:
 
 	_Mix_Music* music;

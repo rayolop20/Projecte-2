@@ -176,3 +176,89 @@ bool Audio::PlayFx(unsigned int id, int repeat)
 
 	return ret;
 }
+
+
+void Audio::MusicVolumeControl(int VM)
+{
+	musicVolume = VM;
+
+	if (VM <= 0)
+	{
+		if (musicVolume <= 0)
+		{
+			musicVolume = 0;
+			LOG("Min music volume reached");
+			Mix_VolumeMusic(musicVolume);
+		}
+		else
+		{
+			Mix_VolumeMusic(musicVolume);
+
+			LOG("Music volume: %i", musicVolume);
+		}
+
+	}
+
+	if (VM > 0)
+	{
+		if (musicVolume >= 125)
+		{
+			musicVolume = 128;
+			LOG("Max music volume reached");
+			Mix_VolumeMusic(musicVolume);
+		}
+		else
+		{
+			Mix_VolumeMusic(musicVolume);
+
+			LOG("Music volume: %i", musicVolume);
+		}
+	}
+}
+
+void Audio::FxVolumeControl(int volume)
+{
+	fxVolume = volume;
+
+	if (volume < 0)
+	{
+		if (fxVolume <= 0)
+		{
+			fxVolume = 0;
+			LOG("Min Fx volume reached");
+		}
+		else
+		{
+			fxVolume = volume;
+			ListItem<Mix_Chunk*>* effects = fx.start;
+			while (effects != NULL)
+			{
+				Mix_VolumeChunk(effects->data, fxVolume);
+				effects = effects->next;
+			}
+
+			LOG("Fx volume: %i", fxVolume);
+		}
+
+	}
+
+	if (volume > 0)
+	{
+		if (fxVolume >= 125)
+		{
+			fxVolume = 128;
+			LOG("Max Fx volume reached");
+		}
+		else
+		{
+			ListItem<Mix_Chunk*>* effects = fx.start;
+			while (effects != NULL)
+			{
+				Mix_VolumeChunk(effects->data, fxVolume);
+				effects = effects->next;
+			}
+
+			LOG("Fx volume: %i", fxVolume);
+		}
+	}
+}

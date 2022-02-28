@@ -21,6 +21,7 @@ class Audio;
 class Scene;
 class Map;
 class GuiManager;
+class Menu_Screen;
 class Collisions;
 class Player;
 class EntityManager; 
@@ -99,6 +100,7 @@ public:
 	Player* player;
 	EntityManager* entityManager; 
 	Collisions* collisions;
+	Menu_Screen* menu;
 private:
 
 	int argc;

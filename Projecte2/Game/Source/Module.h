@@ -76,6 +76,23 @@ public:
 	virtual void OnCollision(Collider* c1, Collider* c2) {
 
 	}
+	void Module::Enable()
+	{
+		if (!active)
+		{
+			active = true;
+			//Start();
+		}
+	}
+
+	void Module::Disable()
+	{
+		if (active)
+		{
+			active = false;
+			CleanUp();
+		}
+	}
 public:
 
 	SString name;
