@@ -23,6 +23,9 @@
     <folder>Assets/maps/</folder>
   </map>
   
+  <player>
+	<Position PositionX = "0" PositionY = "0"/>
+  </player>
   <!-- L13: Create a structure in XML to store multiple entities -->
   
 </config>

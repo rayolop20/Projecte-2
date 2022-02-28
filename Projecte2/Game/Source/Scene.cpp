@@ -8,6 +8,7 @@
 #include "Map.h"
 #include "GuiManager.h"
 #include "EntityManager.h"
+#include "Player.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -63,11 +64,15 @@ bool Scene::Update(float dt)
 	if(app->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
 		app->LoadGameRequest();
 
-	if(app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
+	if(app->input->GetKey(SDL_SCANCODE_O) == KEY_DOWN)
 		app->SaveGameRequest();
 
+	app->render->camera.x = (app->player->P1.position.x - 550) * -1;
+	app->render->camera.y = (app->player->P1.position.y - 300) * -1;
+
+
 	// L08: TODO 6: Make the camera movement independent of framerate
-	float speed = 1; 
+	/*float speed = 1;
 	if(app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 		app->render->camera.y -= speed;
 
@@ -79,7 +84,7 @@ bool Scene::Update(float dt)
 
 	if(app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		app->render->camera.x += speed;
-
+		*/
 	// Draw map
 	app->map->Draw();
 
