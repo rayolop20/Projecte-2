@@ -47,6 +47,7 @@ bool Player::Start()
 
 bool Player::Update(float dt)
 {
+	
 	player = { P1.position.x,P1.position.y, 100, 100 };
 	app->render->DrawRectangle(player, 200, 200, 200);
 
@@ -105,14 +106,12 @@ bool Player::Update(float dt)
 			}
 		}
 	}
-
-	//debug
-	if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_IDLE)
+	if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
 	{
 		app->collisions->DebugDraw();
 	}
-
 	P1.Pcol->SetPos(P1.position.x, P1.position.y);
+
 	return true;
 }
 
@@ -126,7 +125,14 @@ bool Player::PostUpdate()
 
 void Player::OnCollision(Collider* c1, Collider* c2)
 {
-	
+	if ((c1 == P1.Pcol))
+	{
+		//Ground gravity
+		if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::WALL)
+		{
+		
+		}
 
+	}
 }
 

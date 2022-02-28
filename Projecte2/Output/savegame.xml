@@ -11,7 +11,7 @@
 	<player />
 	<:anonymous />
 	<renderer>
-		<camera x="424" y="130" />
-		<Player x="126" y="170" />
+		<camera x="338" y="124" />
+		<Player x="212" y="176" />
 	</renderer>
 </save_state>

@@ -481,7 +481,7 @@ void Map::DColisions()
 						SDL_Rect r = tileset->GetTileRect(gid);
 						iPoint pos = MapToWorld(x, y);
 
-						MapC[i] = app->collisions->AddCollider({ pos.x,pos.y,48,48 }, Collider::Type::WALL, this);
+						MapC[i] = app->collisions->AddCollider({pos.x,pos.y,32,32}, Collider::Type::WALL, this);
 						i++;
 
 					}
