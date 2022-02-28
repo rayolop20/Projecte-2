@@ -131,6 +131,8 @@ public:
     // Load new map
     bool Load(const char* path);
 
+	void DebugColisions();
+	void DColisions();
 	// L04: DONE 8: Create a method that translates x,y coordinates from map positions to world positions
 	iPoint MapToWorld(int x, int y) const;
 
@@ -159,7 +161,7 @@ public:
 
     // L03: DONE 1: Add your struct for map info
 	MapData mapData;
-
+	Collider* MapC[500];
 private:
 
     SString folder;

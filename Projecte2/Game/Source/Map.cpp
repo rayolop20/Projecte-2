@@ -3,7 +3,7 @@
 #include "Render.h"
 #include "Textures.h"
 #include "Map.h"
-
+#include "Collisions.h"
 #include "Defs.h"
 #include "Log.h"
 
@@ -46,6 +46,45 @@ bool Map::Awake(pugi::xml_node& config)
     return ret;
 }
 
+void Map::DebugColisions() {
+	if (mapLoaded == false) return;
+
+	// L04: DONE 5: Prepare the loop to draw all tilesets + DrawTexture()
+	ListItem<MapLayer*>* mapLayerItem;
+	mapLayerItem = mapData.layers.start;
+
+	// L06: TODO 4: Make sure we draw all the layers and not just the first one
+	while (mapLayerItem != NULL) {
+		//Draw Ground
+		if (mapLayerItem->data->properties.GetProperty("Navegation") == 2) {
+
+			for (int x = 0; x < mapLayerItem->data->width; x++)
+			{
+				for (int y = 0; y < mapLayerItem->data->height; y++)
+				{
+					// L04: DONE 9: Complete the draw function
+					int gid = mapLayerItem->data->Get(x, y);
+
+					if (gid > 0) {
+
+						//L06: TODO 4: Obtain the tile set using GetTilesetFromTileId
+						//now we always use the firt tileset in the list
+						//TileSet* tileset = mapData.tilesets.start->data;
+						TileSet* tileset = GetTilesetFromTileId(gid);
+
+						SDL_Rect r = tileset->GetTileRect(gid);
+						iPoint pos = MapToWorld(x, y);
+
+						app->render->DrawRectangle({ pos.x,pos.y,48,48 }, 0, 255, 0, 80);
+
+					}
+
+				}
+			}
+		}
+		mapLayerItem = mapLayerItem->next;
+	}
+}
 // Draw the map (all requried layers)
 void Map::Draw()
 {
@@ -409,4 +448,47 @@ bool Map::LoadProperties(pugi::xml_node& node, Properties& properties)
 	}
 	
 	return ret;
+}
+
+void Map::DColisions()
+{
+	if (mapLoaded == false) return;
+
+	// L04: DONE 5: Prepare the loop to draw all tilesets + DrawTexture()
+	ListItem<MapLayer*>* mapLayerItem;
+	mapLayerItem = mapData.layers.start;
+
+	// L06: TODO 4: Make sure we draw all the layers and not just the first one
+	while (mapLayerItem != NULL) {
+
+		int i = 0;
+		if (mapLayerItem->data->properties.GetProperty("Navegation") == 2) {
+
+			for (int x = 0; x < mapLayerItem->data->width; x++)
+			{
+				for (int y = 0; y < mapLayerItem->data->height; y++)
+				{
+					// L04: DONE 9: Complete the draw function
+					int gid = mapLayerItem->data->Get(x, y);
+
+					if (gid > 0) {
+
+						//L06: TODO 4: Obtain the tile set using GetTilesetFromTileId
+						//now we always use the firt tileset in the list
+						//TileSet* tileset = mapData.tilesets.start->data;
+						TileSet* tileset = GetTilesetFromTileId(gid);
+
+						SDL_Rect r = tileset->GetTileRect(gid);
+						iPoint pos = MapToWorld(x, y);
+
+						MapC[i] = app->collisions->AddCollider({ pos.x,pos.y,48,48 }, Collider::Type::WALL, this);
+						i++;
+
+					}
+
+				}
+			}
+		}
+	mapLayerItem = mapLayerItem->next;
+	}
 }

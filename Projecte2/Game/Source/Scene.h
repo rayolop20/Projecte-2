@@ -37,6 +37,7 @@ public:
 	// Define multiple Gui Event methods
 	bool OnGuiMouseClickEvent(GuiControl* control);
 
+	bool debug = false;
 private:
 	SDL_Texture* img;
 
