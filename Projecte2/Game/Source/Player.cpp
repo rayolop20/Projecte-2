@@ -130,7 +130,7 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 		//Ground gravity
 		if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::WALL)
 		{
-		
+			P1.position.x = 100; 
 		}
 
 	}
