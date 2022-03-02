@@ -1,4 +1,5 @@
 #include "Entity.h"
+#include "App.h"
 #include "VampirEnem.h"
 #include "Collisions.h"
 
@@ -19,19 +20,15 @@ bool VampirEnem::Awake(pugi::xml_node&)
 
 bool VampirEnem::Start()
 {
+
+
 	return false;
 }
 
 bool VampirEnem::Update(float dt)
 {
+	SDL_Rect Vampyr = {100, 100, 150, 150};
+	app->render->DrawRectangle(Vampyr, 255, 0, 255);
 	return false;
 }
 
-bool VampirEnem::PostUpdate()
-{
-	return false;
-}
-
-void VampirEnem::OnCollision(Collider* c1, Collider* c2)
-{
-}
