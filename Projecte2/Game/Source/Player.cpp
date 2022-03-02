@@ -29,6 +29,7 @@ bool Player::Awake(pugi::xml_node& config) {
 
 	LOG("Loading Player");
 	bool ret = true;
+	
 
 	P1.position.x = config.child("Position").attribute("PositionX").as_int();
 	P1.position.y = config.child("Position").attribute("PositionY").as_int();
@@ -39,7 +40,8 @@ bool Player::Awake(pugi::xml_node& config) {
 bool Player::Start()
 {
 	bool ret = true;
-	P1.Pcol = app->collisions->AddCollider({ P1.position.x,P1.position.y, 100, 100 }, Collider::Type::PLAYER, this);
+	
+	P1.Pcol = app->collisions->AddCollider({ P1.position.x,P1.position.y, 64, 64 }, Collider::Type::PLAYER, this);
 	Wall = app->collisions->AddCollider({ 500,500, 100, 100 }, Collider::Type::WALL, this);
 
 	return ret;
@@ -48,7 +50,7 @@ bool Player::Start()
 bool Player::Update(float dt)
 {
 	
-	player = { P1.position.x,P1.position.y, 100, 100 };
+	player = { P1.position.x,P1.position.y, 64, 64 };
 	app->render->DrawRectangle(player, 200, 200, 200);
 
 	//movement
@@ -59,6 +61,8 @@ bool Player::Update(float dt)
 			{
 				P1.position.x++;
 				P1.MoveXA = true;
+				block1 = false;
+				block2 = true;
 			}
 
 			if (app->input->GetKey(SDL_SCANCODE_D) == KEY_UP)
@@ -72,6 +76,8 @@ bool Player::Update(float dt)
 			{
 				P1.position.x--;
 				P1.MoveXD = true;
+				block1 = true;
+				block2 = false;
 			}
 
 			if (app->input->GetKey(SDL_SCANCODE_A) == KEY_UP)
@@ -98,6 +104,7 @@ bool Player::Update(float dt)
 			{
 				P1.position.y++;
 				P1.MoveYW = true;
+				block2 = true;
 			}
 
 			if (app->input->GetKey(SDL_SCANCODE_S) == KEY_UP)
@@ -131,27 +138,34 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 
 		if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::WALL)
 		{
-			if (c1->rect.x < c2->rect.x && c1->rect.x + 64 > c2->rect.x && P1.MoveXA == true)//Esquerra
+			if (c1->rect.x < c2->rect.x&& c1->rect.x + 64 > c2->rect.x && P1.MoveXA == true && block1 == false && block2 == true )//Esquerra
 			{
 				P1.position.x = c2->rect.x - 64;
+				block1 = false;
 			}
-			if (c1->rect.x > c2->rect.x && c1->rect.x + 64 > c2->rect.x && P1.MoveXA == false)//Adalt
-			{
+			else {
+				block1 = true;
+			}
+			if (c1->rect.x > c2->rect.x && c1->rect.x + 64 > c2->rect.x && P1.MoveXD == true && block1 == true && block2 == false)//Dreta
+			{	
 				P1.position.x = c2->rect.x + 32;
+				block2 = false;
 			}
-
-			if (c1->rect.y < c2->rect.y && c1->rect.y + 64 > c2->rect.y && P1.MoveXA == false)//Dreta
+			else {
+				block2 = true;
+			}
+			if (c1->rect.y < c2->rect.y && c1->rect.y + 64 > c2->rect.y && P1.MoveYW == true && block1 == true && block2 == true && block3 == false)//Adalt
 			{
 				P1.position.y = c2->rect.y - 64;
 			}
-
-			if (c1->rect.y > c2->rect.y && c1->rect.y + 64 > c2->rect.y && P1.MoveXA == false)//Abaix
+			if (c1->rect.y > c2->rect.y && c1->rect.y + 64 > c2->rect.y && P1.MoveYS == true && block1 == true && block2 == true)//Abaix
 			{
 				P1.position.y = c2->rect.y + 32;
 			}
+
 		}
-
-
+		
 	}
+
 }
 

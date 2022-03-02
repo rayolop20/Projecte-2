@@ -43,7 +43,9 @@ public:
 
 	//int Timer(int second);
 	playr1 P1;
-
+	bool block1 = true;
+	bool block2 = true;
+	bool block3 = true;
 public:
 	SDL_Rect player;
 	Collider* Wall = nullptr;
