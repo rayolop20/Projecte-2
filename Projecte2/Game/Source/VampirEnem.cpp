@@ -1,8 +1,8 @@
-#include "EntityManager.h"
+#include "Entity.h"
 #include "VampirEnem.h"
 #include "Collisions.h"
 
-VampirEnem::VampirEnem(EntityType )
+VampirEnem::VampirEnem():Entity (EntityType::VAMPYRENEM)
 {
 	name.Create("VampirEnem");
 
