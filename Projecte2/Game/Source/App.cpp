@@ -35,7 +35,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	map = new Map();
 	guiManager = new GuiManager();
 	menu = new Menu_Screen();
-	player = new Player();
+	player = new VampirEnem();
 	entityManager = new EntityManager();
 	collisions = new Collisions();
 

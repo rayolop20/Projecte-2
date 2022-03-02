@@ -95,8 +95,7 @@ bool Scene::Update(float dt)
 	app->map->Draw();
 
 	//Draw GUI
-	app->guiManager->Draw();
-
+	
 	//Draw Entities
 	//L13 
 	app->entityManager->Draw();

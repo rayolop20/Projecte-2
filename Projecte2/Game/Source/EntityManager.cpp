@@ -48,7 +48,21 @@ Entity* EntityManager::CreateEntity(EntityType type, int id, SDL_Rect bounds)
 	Entity* entity = nullptr; 
 
 	//L13: TODO 1: Create an Entity and add it to the list of Entities
-
+	switch (type)
+	{
+	case EntityType::VAMPYRENEM:entity = new;
+		break;
+	case EntityType::GROUNDENEMY:
+		break;
+	case EntityType::ITEM:
+		break;
+	case EntityType::LIFE:
+		break;
+	case EntityType::UNKNOWN:
+		break;
+	default:
+		break;
+	}
 
 	return entity;
 }

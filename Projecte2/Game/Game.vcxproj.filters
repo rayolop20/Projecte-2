@@ -28,6 +28,7 @@
     <ClCompile Include="Source\Menu.cpp" />
     <ClCompile Include="Source\GuiCheckBox.cpp" />
     <ClCompile Include="Source\GuiSlider.cpp" />
+    <ClCompile Include="Source\VampirEnem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -78,6 +79,7 @@
     <ClInclude Include="Source\Menu.h" />
     <ClInclude Include="Source\GuiCheckBox.h" />
     <ClInclude Include="Source\GuiSlider.h" />
+    <ClInclude Include="Source\VampirEnem.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">

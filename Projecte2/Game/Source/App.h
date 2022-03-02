@@ -23,7 +23,7 @@ class Map;
 class GuiManager;
 class Menu_Screen;
 class Collisions;
-class Player;
+class VampirEnem;
 class EntityManager; 
 
 class App
@@ -97,7 +97,7 @@ public:
 	Scene* scene;
 	Map* map;
 	GuiManager* guiManager;
-	Player* player;
+	VampirEnem* player;
 	EntityManager* entityManager; 
 	Collisions* collisions;
 	Menu_Screen* menu;

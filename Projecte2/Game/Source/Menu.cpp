@@ -70,6 +70,8 @@ bool Menu_Screen::Update(float dt)
 	int mouseX, mouseY;
 	app->input->GetMousePosition(mouseX, mouseY);
 
+	app->guiManager->Draw();
+
 	return true;
 }
 
