@@ -24,7 +24,7 @@
   </map>
   
   <player>
-	<Position PositionX = "0" PositionY = "0"/>
+	<Position PositionX = "70" PositionY = "70"/>
   </player>
   <!-- L13: Create a structure in XML to store multiple entities -->
   

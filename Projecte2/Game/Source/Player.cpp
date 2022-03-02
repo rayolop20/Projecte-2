@@ -59,7 +59,7 @@ bool Player::Update(float dt)
 		{
 			if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && P1.MoveXD == false)
 			{
-				P1.position.x++;
+				P1.position.x +=3;
 				P1.MoveXA = true;
 				block1 = false;
 				block2 = true;
@@ -74,7 +74,7 @@ bool Player::Update(float dt)
 		{
 			if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && P1.MoveXA == false)
 			{
-				P1.position.x--;
+				P1.position.x-=3;
 				P1.MoveXD = true;
 				block1 = true;
 				block2 = false;
@@ -89,7 +89,7 @@ bool Player::Update(float dt)
 		{
 			if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT && P1.MoveYW == false)
 			{
-				P1.position.y--;
+				P1.position.y-=3;
 				P1.MoveYS = true;
 			}
 
@@ -102,9 +102,8 @@ bool Player::Update(float dt)
 		{
 			if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT && P1.MoveYS == false)
 			{
-				P1.position.y++;
+				P1.position.y+=3;
 				P1.MoveYW = true;
-				block2 = true;
 			}
 
 			if (app->input->GetKey(SDL_SCANCODE_S) == KEY_UP)
@@ -138,7 +137,8 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 
 		if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::WALL)
 		{
-			if (c1->rect.x < c2->rect.x&& c1->rect.x + 64 > c2->rect.x && P1.MoveXA == true && block1 == false && block2 == true )//Esquerra
+			
+			if (c1->rect.x < c2->rect.x&& c1->rect.x + 64 > c2->rect.x && P1.MoveXA == true && block1 == false && block2 == true)//Esquerra
 			{
 				P1.position.x = c2->rect.x - 64;
 				block1 = false;
@@ -146,7 +146,8 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 			else {
 				block1 = true;
 			}
-			if (c1->rect.x > c2->rect.x && c1->rect.x + 64 > c2->rect.x && P1.MoveXD == true && block1 == true && block2 == false)//Dreta
+
+			if (c1->rect.x > c2->rect.x && c1->rect.x + 64 > c2->rect.x && P1.MoveXD == true && block1 == true && block2 == false && block3 == true && block4 == true)//Dreta
 			{	
 				P1.position.x = c2->rect.x + 32;
 				block2 = false;
@@ -154,13 +155,23 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 			else {
 				block2 = true;
 			}
-			if (c1->rect.y < c2->rect.y && c1->rect.y + 64 > c2->rect.y && P1.MoveYW == true && block1 == true && block2 == true && block3 == false)//Adalt
+
+			if (c1->rect.y < c2->rect.y && c1->rect.y + 64 > c2->rect.y && P1.MoveYW == true && block1 == true && block2 == true)//Adalt
 			{
 				P1.position.y = c2->rect.y - 64;
+				block3 = false;
 			}
+			else {
+				block3 = true;
+			}
+
 			if (c1->rect.y > c2->rect.y && c1->rect.y + 64 > c2->rect.y && P1.MoveYS == true && block1 == true && block2 == true)//Abaix
 			{
 				P1.position.y = c2->rect.y + 32;
+				block4 = false;
+			}
+			else {
+				block4 = true;
 			}
 
 		}

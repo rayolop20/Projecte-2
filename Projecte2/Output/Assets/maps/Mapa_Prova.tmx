@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.0" orientation="orthogonal" renderorder="right-down" width="18" height="12" tilewidth="32" tileheight="32" infinite="0" nextlayerid="3" nextobjectid="1">
+<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="18" height="12" tilewidth="32" tileheight="32" infinite="0" nextlayerid="3" nextobjectid="1">
  <tileset firstgid="1" name="[Base]BaseChip_pipo" tilewidth="32" tileheight="32" tilecount="1064" columns="8">
   <image source="[Base]BaseChip_pipo.png" width="256" height="4256"/>
  </tileset>
@@ -232,10 +232,25 @@
    <property name="Navegation" value="2"/>
   </properties>
   <data>
+   <tile gid="192"/>
+   <tile gid="192"/>
+   <tile gid="192"/>
+   <tile gid="192"/>
+   <tile gid="192"/>
+   <tile gid="192"/>
+   <tile gid="192"/>
    <tile/>
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="192"/>
+   <tile gid="192"/>
+   <tile gid="192"/>
+   <tile gid="192"/>
+   <tile gid="192"/>
+   <tile gid="192"/>
+   <tile gid="192"/>
+   <tile gid="192"/>
    <tile/>
    <tile/>
    <tile/>
@@ -252,6 +267,8 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="192"/>
+   <tile gid="192"/>
    <tile/>
    <tile/>
    <tile/>
@@ -268,6 +285,8 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="192"/>
+   <tile gid="192"/>
    <tile/>
    <tile/>
    <tile/>
@@ -284,6 +303,8 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="192"/>
+   <tile gid="192"/>
    <tile/>
    <tile/>
    <tile/>
@@ -300,29 +321,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="192"/>
+   <tile gid="192"/>
    <tile/>
    <tile/>
    <tile gid="211"/>
@@ -339,8 +339,8 @@
    <tile gid="212"/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="192"/>
+   <tile gid="192"/>
    <tile/>
    <tile/>
    <tile gid="219"/>
@@ -357,6 +357,8 @@
    <tile gid="220"/>
    <tile/>
    <tile/>
+   <tile gid="192"/>
+   <tile gid="192"/>
    <tile/>
    <tile/>
    <tile/>
@@ -373,6 +375,8 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="192"/>
+   <tile gid="192"/>
    <tile/>
    <tile/>
    <tile/>
@@ -389,6 +393,8 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="192"/>
+   <tile gid="192"/>
    <tile/>
    <tile/>
    <tile/>
@@ -405,6 +411,8 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="192"/>
+   <tile gid="192"/>
    <tile/>
    <tile/>
    <tile/>
@@ -421,33 +429,25 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="192"/>
+   <tile gid="192"/>
+   <tile gid="192"/>
+   <tile gid="192"/>
+   <tile gid="192"/>
+   <tile gid="192"/>
+   <tile gid="192"/>
+   <tile gid="192"/>
+   <tile gid="192"/>
+   <tile gid="192"/>
+   <tile gid="192"/>
+   <tile gid="192"/>
+   <tile gid="192"/>
+   <tile gid="192"/>
+   <tile gid="192"/>
+   <tile gid="192"/>
+   <tile gid="192"/>
+   <tile gid="192"/>
+   <tile gid="192"/>
   </data>
  </layer>
 </map>
