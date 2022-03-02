@@ -2,7 +2,7 @@
 #include "VampirEnem.h"
 #include "Collisions.h"
 
-VampirEnem::VampirEnem()
+VampirEnem::VampirEnem(EntityType )
 {
 	name.Create("VampirEnem");
 

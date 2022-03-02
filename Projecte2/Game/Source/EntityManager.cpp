@@ -1,7 +1,7 @@
 #include "EntityManager.h"
 #include "Item.h"
 #include "App.h"
-
+#include "VampirEnem.h"
 #include "Defs.h"
 #include "Log.h"
 
@@ -50,7 +50,7 @@ Entity* EntityManager::CreateEntity(EntityType type, int id, SDL_Rect bounds)
 	//L13: TODO 1: Create an Entity and add it to the list of Entities
 	switch (type)
 	{
-	case EntityType::VAMPYRENEM:entity = new;
+	case EntityType::VAMPYRENEM:entity = new VampirEnem();
 		break;
 	case EntityType::GROUNDENEMY:
 		break;
