@@ -47,6 +47,10 @@ public:
 	bool block2 = true;
 	bool block3 = true;
 	bool block4 = true;
+	bool block1_ = true;
+	bool block2_ = true;
+	bool block3_ = true;
+	bool block4_ = true;
 public:
 	SDL_Rect player;
 	Collider* Wall = nullptr;
