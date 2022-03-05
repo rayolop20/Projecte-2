@@ -7,6 +7,8 @@
 #include "Scene.h"
 #include "Log.h"
 #include "Point.h"
+#include "VampirEnem.h"
+#include "EntityManager.h"
 
 Item::Item(uint32 id, SDL_Rect bounds) : Entity(EntityType::ITEM)
 {

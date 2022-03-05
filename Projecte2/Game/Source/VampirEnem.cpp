@@ -29,6 +29,7 @@ bool VampirEnem::Update(float dt)
 {
 	SDL_Rect Vampyr = {100, 100, 150, 150};
 	app->render->DrawRectangle(Vampyr, 255, 0, 255);
+
 	return false;
 }
 

@@ -47,7 +47,7 @@ Entity* EntityManager::CreateEntity(EntityType type, int id, SDL_Rect bounds)
 {
 	Entity* entity = nullptr; 
 
-	//L13: TODO 1: Create an Entity and add it to the list of Entities
+	//L13:L13: TODO 1: Create an Entity and add it to the list of Entities
 	switch (type)
 	{
 	case EntityType::VAMPYRENEM:entity = new VampirEnem();
@@ -63,6 +63,8 @@ Entity* EntityManager::CreateEntity(EntityType type, int id, SDL_Rect bounds)
 	default:
 		break;
 	}
+	
+	//if (entity != nullptr) entities.Push(entity);
 
 	return entity;
 }

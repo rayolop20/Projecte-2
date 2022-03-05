@@ -9,6 +9,7 @@
 #include "GuiManager.h"
 #include "EntityManager.h"
 #include "Player.h"
+#include "VampirEnem.h"
 #include "Collisions.h"
 
 #include "Defs.h"
@@ -42,8 +43,10 @@ bool Scene::Start()
 	//app->audio->PlayMusic("Assets/audio/music/music_spy.ogg");
 
 	//L13: TODO 2: Declare an Item and create it using the EntityManager
-
+	Vampire = (Item*)app->entityManager->CreateEntity(EntityType::VAMPYRENEM, 0, { 60, 60, 56, 60 });
+	//VampirEnem* Vampir = (VampirEnem*)app->entityManager->CreateEntity(EntityType::VAMPYRENEM, 0, {10, 10});
 	//L13: TODO 4: Create multiple Items
+	VampirEnem* Vampir = (VampirEnem*)app->entityManager->CreateEntity(EntityType::VAMPYRENEM, 0, { 10, 10 });
 
 	// L14: TODO 2: Declare a GUI Button and create it using the GuiManager
 	//btn1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Test1", { (app->win->GetWidth() / 2) - 300, app->win->GetWidth() / 10, 160, 40 }, this);
@@ -61,6 +64,9 @@ bool Scene::PreUpdate()
 // Called each loop iteration
 bool Scene::Update(float dt)
 {
+
+	
+
 	app->map->DColisions();
     // L02: DONE 3: Request Load / Save when pressing L/S
 	if(app->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
