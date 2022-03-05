@@ -123,15 +123,34 @@ bool Player::PostUpdate()
 }
 
 
+
 void Player::OnCollision(Collider* c1, Collider* c2)
 {
 	if ((c1 == P1.Pcol))
 	{
-		//Ground gravity
+
 		if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::WALL)
 		{
-			P1.position.x = 100; 
+			if (c1->rect.x < c2->rect.x && c1->rect.x + 64 > c2->rect.x && P1.MoveXA == true)//Esquerra
+			{
+				P1.position.x = c2->rect.x - 64;
+			}
+			if (c1->rect.x > c2->rect.x && c1->rect.x + 64 > c2->rect.x && P1.MoveXA == false)//Adalt
+			{
+				P1.position.x = c2->rect.x + 32;
+			}
+
+			if (c1->rect.y < c2->rect.y && c1->rect.y + 64 > c2->rect.y && P1.MoveXA == false)//Dreta
+			{
+				P1.position.y = c2->rect.y - 64;
+			}
+
+			if (c1->rect.y > c2->rect.y && c1->rect.y + 64 > c2->rect.y && P1.MoveXA == false)//Abaix
+			{
+				P1.position.y = c2->rect.y + 32;
+			}
 		}
+
 
 	}
 }
