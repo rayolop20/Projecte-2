@@ -3,7 +3,7 @@
 
 #include "Module.h"
 #include "GuiButton.h"
-#include "Item.h"
+#include "Entity.h"
 
 struct SDL_Texture;
 
@@ -42,7 +42,7 @@ private:
 	SDL_Texture* img;
 
 	// L13: TODO 2: Declare an Item and create it using the EntityManager
-	Item* Vampire;
+	EntityType* Vampire;
 	// L14: TODO 2: Declare a GUI Button and create it using the GuiManager
 	GuiButton* btn1;
 	GuiButton* btn2;

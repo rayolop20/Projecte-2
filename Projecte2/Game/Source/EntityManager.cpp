@@ -64,7 +64,7 @@ Entity* EntityManager::CreateEntity(EntityType type, int id, SDL_Rect bounds)
 		break;
 	}
 	
-	//if (entity != nullptr) entities.Push(entity);
+	if (entity != nullptr) entities.add(entity);
 
 	return entity;
 }

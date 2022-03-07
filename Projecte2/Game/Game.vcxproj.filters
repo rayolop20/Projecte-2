@@ -21,7 +21,6 @@
     <ClCompile Include="Source\GuiButton.cpp" />
     <ClCompile Include="Source\GuiManager.cpp" />
     <ClCompile Include="Source\EntityManager.cpp" />
-    <ClCompile Include="Source\Item.cpp" />
     <ClCompile Include="Source\Collider.cpp" />
     <ClCompile Include="Source\Collisions.cpp" />
     <ClCompile Include="Source\Player.cpp" />
@@ -71,7 +70,6 @@
     <ClInclude Include="Source\GuiManager.h" />
     <ClInclude Include="Source\Entity.h" />
     <ClInclude Include="Source\EntityManager.h" />
-    <ClInclude Include="Source\Item.h" />
     <ClInclude Include="Source\Collider.h" />
     <ClInclude Include="Source\Collisions.h" />
     <ClInclude Include="Source\Animation.h" />
