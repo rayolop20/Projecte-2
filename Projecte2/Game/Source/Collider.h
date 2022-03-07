@@ -13,7 +13,8 @@ struct Collider
 	{
 		NONE = -1,
 		PLAYER,
-		WALL,
+		WALLV,
+		WALLH,
 		MAX
 	};
 public:

@@ -12,10 +12,16 @@ Collisions::Collisions() : Module()
 	for (uint i = 0; i < MAX_COLLIDERS; ++i)
 		colliders[i] = nullptr;
 
-	matrix[Collider::Type::WALL][Collider::Type::WALL] = false;
-	matrix[Collider::Type::WALL][Collider::Type::PLAYER] = true;
+	matrix[Collider::Type::WALLH][Collider::Type::WALLH] = false;
+	matrix[Collider::Type::WALLH][Collider::Type::PLAYER] = true;
 
-	matrix[Collider::Type::PLAYER][Collider::Type::WALL] = true;
+	matrix[Collider::Type::PLAYER][Collider::Type::WALLH] = true;
+	matrix[Collider::Type::PLAYER][Collider::Type::PLAYER] = false;
+	
+	matrix[Collider::Type::WALLV][Collider::Type::WALLV] = false;
+	matrix[Collider::Type::WALLV][Collider::Type::PLAYER] = true;
+
+	matrix[Collider::Type::PLAYER][Collider::Type::WALLV] = true;
 	matrix[Collider::Type::PLAYER][Collider::Type::PLAYER] = false;
 }
 
@@ -100,7 +106,10 @@ void Collisions::DebugDraw()
 		case Collider::Type::NONE: // white
 			app->render->DrawRectangle(colliders[i]->rect, 255, 255, 255, alpha);
 			break;
-		case Collider::Type::WALL: // blue
+		case Collider::Type::WALLH: // blue
+			app->render->DrawRectangle(colliders[i]->rect, 255, 0, 255, alpha);
+			break;
+		case Collider::Type::WALLV: // blue
 			app->render->DrawRectangle(colliders[i]->rect, 255, 0, 255, alpha);
 			break;
 		case Collider::Type::PLAYER: // green
