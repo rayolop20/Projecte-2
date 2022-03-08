@@ -63,6 +63,8 @@ bool Menu_Screen::PreUpdate()
 // Called each loop iteration
 bool Menu_Screen::Update(float dt)
 {
+	btnPlay->state = GuiControlState::NORMAL;
+
 	SDL_Rect Play{ 150, 150, 150, 90 };
 	app->render->DrawRectangle(Play, 200, 200, 200);
 
@@ -103,6 +105,7 @@ bool Menu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 					app->render->camera.x = (app->player->P1.position.x - 550) * -1;
 					app->render->camera.y = (app->player->P1.position.y - 300) * -1;
 					LOG("Click on button 1");
+					btnPlay->state = GuiControlState::DISABLED;
 				}
 
 				default: break;

@@ -37,7 +37,6 @@ bool Scene::Awake()
 // Called before the first frame
 bool Scene::Start()
 {
-	
 	// L03: DONE: Load map
 	app->map->Load("Mapa_Prova.tmx");
 	
@@ -65,6 +64,7 @@ bool Scene::PreUpdate()
 // Called each loop iteration
 bool Scene::Update(float dt)
 {
+
 	app->map->DColisions();
     // L02: DONE 3: Request Load / Save when pressing L/S
 	if(app->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
@@ -116,13 +116,16 @@ bool Scene::Update(float dt)
 
 		Pause();
 
+		btnResume->state = GuiControlState::NORMAL;
+		btnMenu->state = GuiControlState::NORMAL;
+		btnExit->state = GuiControlState::NORMAL;
 		//rendered on last layer(collision.cpp)
 	}
-	
-
-	//block = { -app->render->camera.x + (app->win->GetWidth()/2 - 80), -app->render->camera.y + 250, 160, 40 };
-	//app->render->DrawRectangle(block, 100, 100, 100);
-
+	if (paused)
+	{
+		btnResume->Update(dt);
+		btnExit->Update(dt);
+	}
 
 	return true;
 }
@@ -148,10 +151,14 @@ bool Scene::CleanUp()
 
 void Scene::Pause()
 {
+
 	btnResume = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Resume", { -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -app->render->camera.y + 250, 160, 40 }, this);
-	btnExit = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 3, "Exit", { -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -app->render->camera.y + 320, 160, 40 }, this);
-	btnResume->state = GuiControlState::NORMAL;
-	btnExit->state = GuiControlState::NORMAL;
+	btnMenu = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 3, "Exit", { -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -app->render->camera.y + 320, 160, 40 }, this);
+	btnExit = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 4, "Exit", { -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -app->render->camera.y + 390, 160, 40 }, this);
+
+	btnResume->state = GuiControlState::DISABLED;
+	btnMenu->state = GuiControlState::DISABLED;
+	btnExit->state = GuiControlState::DISABLED;
 }
 
 bool Scene::OnGuiMouseClickEvent(GuiControl* control)
@@ -167,10 +174,26 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 		{
 			paused = false;
 			btnResume->state = GuiControlState::DISABLED;
+			btnMenu->state = GuiControlState::DISABLED;
 			btnExit->state = GuiControlState::DISABLED;
 		}
 
 		if (control->id == 3)
+		{
+			paused = false;
+			Disable();
+			app->menu->Enable();
+			app->player->Disable();
+			app->render->camera.x = 0;
+			app->render->camera.y = 0;
+			btnResume->state = GuiControlState::DISABLED;
+			btnMenu->state = GuiControlState::DISABLED;
+			btnExit->state = GuiControlState::DISABLED;
+
+			
+		}
+
+		if (control->id == 4)
 		{
 			app->menu->exit = true;
 		}

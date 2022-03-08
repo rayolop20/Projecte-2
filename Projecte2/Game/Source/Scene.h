@@ -42,6 +42,7 @@ public:
 	bool debug = false;
 	bool paused = false;
 private:
+
 	SDL_Texture* img;
 
 	// L13: TODO 2: Declare an Item and create it using the EntityManager
@@ -51,6 +52,7 @@ private:
 	GuiButton* btn2;
 
 	GuiButton* btnResume;
+	GuiButton* btnMenu;
 	GuiButton* btnExit;
 
 	SDL_Rect block;
