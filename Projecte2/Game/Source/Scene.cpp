@@ -150,6 +150,8 @@ void Scene::Pause()
 {
 	btnResume = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Resume", { -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -app->render->camera.y + 250, 160, 40 }, this);
 	btnExit = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 3, "Exit", { -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -app->render->camera.y + 320, 160, 40 }, this);
+	btnResume->state = GuiControlState::NORMAL;
+	btnExit->state = GuiControlState::NORMAL;
 }
 
 bool Scene::OnGuiMouseClickEvent(GuiControl* control)
@@ -164,6 +166,8 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 		if (control->id == 2)
 		{
 			paused = false;
+			btnResume->state = GuiControlState::DISABLED;
+			btnExit->state = GuiControlState::DISABLED;
 		}
 
 		if (control->id == 3)
