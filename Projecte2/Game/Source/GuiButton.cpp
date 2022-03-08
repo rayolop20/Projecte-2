@@ -2,6 +2,8 @@
 #include "Render.h"
 #include "App.h"
 #include "Audio.h"
+#include "Scene.h"
+#include "Window.h"
 
 GuiButton::GuiButton(uint32 id, SDL_Rect bounds, const char* text) : GuiControl(GuiControlType::BUTTON, id)
 {
@@ -24,6 +26,9 @@ bool GuiButton::Update(float dt)
 		// L14: TODO 3: Update the state of the GUiButton according to the mouse position
 		int mouseX, mouseY;
 		app->input->GetMousePosition(mouseX, mouseY);
+
+		mouseX += -app->render->camera.x / app->win->GetScale();
+		mouseY += -app->render->camera.y / app->win->GetScale();
 
 		if ((mouseX > bounds.x ) && (mouseX < (bounds.x + bounds.w )) &&
 			(mouseY > bounds.y ) && (mouseY < (bounds.y + bounds.h )))
@@ -83,6 +88,7 @@ bool GuiButton::Draw(Render* render)
 	default:
 		break;
 	}
+
 
 	return false;
 }

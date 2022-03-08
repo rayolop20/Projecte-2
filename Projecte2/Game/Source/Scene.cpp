@@ -11,6 +11,7 @@
 #include "Player.h"
 #include "VampirEnem.h"
 #include "Collisions.h"
+#include "Menu.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -36,6 +37,7 @@ bool Scene::Awake()
 // Called before the first frame
 bool Scene::Start()
 {
+	
 	// L03: DONE: Load map
 	app->map->Load("Mapa_Prova.tmx");
 	
@@ -63,9 +65,6 @@ bool Scene::PreUpdate()
 // Called each loop iteration
 bool Scene::Update(float dt)
 {
-
-	
-
 	app->map->DColisions();
     // L02: DONE 3: Request Load / Save when pressing L/S
 	if(app->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
@@ -109,6 +108,22 @@ bool Scene::Update(float dt)
 		//Debug Collisions
 		app->collisions->DebugDraw();
 	}
+
+	//InGameMenu
+	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+	{
+		paused = true;
+
+		Pause();
+
+		//rendered on last layer(collision.cpp)
+	}
+	
+
+	//block = { -app->render->camera.x + (app->win->GetWidth()/2 - 80), -app->render->camera.y + 250, 160, 40 };
+	//app->render->DrawRectangle(block, 100, 100, 100);
+
+
 	return true;
 }
 
@@ -117,12 +132,25 @@ bool Scene::PostUpdate()
 {
 	bool ret = true;
 
-	if(app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+	if(app->menu->exit)
 		ret = false;
 
 	return ret;
 }
 
+// Called before quitting
+bool Scene::CleanUp()
+{
+	LOG("Freeing scene");
+
+	return true;
+}
+
+void Scene::Pause()
+{
+	btnResume = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Resume", { -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -app->render->camera.y + 250, 160, 40 }, this);
+	btnExit = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 3, "Exit", { -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -app->render->camera.y + 320, 160, 40 }, this);
+}
 
 bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 {
@@ -131,30 +159,23 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 	{
 	case GuiControlType::BUTTON:
 	{
-		//Checks the GUI element ID
-		if (control->id == 1) 
-		{
-			LOG("Click on button 1");
-		}
+		//Checks the GUI element ID		
 
 		if (control->id == 2)
 		{
-			LOG("Click on button 2");
+			paused = false;
 		}
-		
+
+		if (control->id == 3)
+		{
+			app->menu->exit = true;
+		}
+
 	}
 	//Other cases here
 
 	default: break;
 	}
-
-	return true;
-}
-
-// Called before quitting
-bool Scene::CleanUp()
-{
-	LOG("Freeing scene");
 
 	return true;
 }

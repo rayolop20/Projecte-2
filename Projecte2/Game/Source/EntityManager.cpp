@@ -1,5 +1,5 @@
 #include "EntityManager.h"
-#include "Item.h"
+//#include "Item.h"
 #include "App.h"
 #include "VampirEnem.h"
 #include "Defs.h"

@@ -55,6 +55,7 @@ bool Player::Update(float dt)
 	app->render->DrawRectangle(player, 200, 200, 200);
 
 	//movement
+	if(!app->scene->paused)
 	{
 		//left
 		{

@@ -38,6 +38,7 @@ public:
 	bool CleanUp();
 	bool EScreen = true;
 	bool MenuScreen = true;
+	bool exit = false;
 
 private:
 

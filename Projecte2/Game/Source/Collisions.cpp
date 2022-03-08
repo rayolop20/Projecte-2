@@ -5,6 +5,7 @@
 #include "Input.h"
 #include "Scene.h"
 #include "SString.h"
+#include "GuiManager.h"
 
 
 Collisions::Collisions() : Module()
@@ -89,6 +90,9 @@ bool Collisions::PostUpdate()
 {
 	if (debug)
 		DebugDraw();
+
+	if (app->scene->paused)
+		app->guiManager->Draw();
 
 	return true;
 }

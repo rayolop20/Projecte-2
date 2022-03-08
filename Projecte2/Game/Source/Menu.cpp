@@ -79,6 +79,8 @@ bool Menu_Screen::Update(float dt)
 bool Menu_Screen::PostUpdate()
 {
 	bool ret = true;
+	if (exit == true) ret = false;
+
 	int mouseX, mouseY;
 	app->input->GetMousePosition(mouseX, mouseY);
 	return ret;
