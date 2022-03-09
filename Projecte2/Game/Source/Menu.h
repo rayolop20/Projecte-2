@@ -36,12 +36,15 @@ public:
 
 	void Menu();
 
+	void MenuConfig();
+
 	// Called before quitting
 	bool CleanUp();
 	bool EScreen = true;
 	bool menuScreen = true;
 	bool exit = false;
 	bool starting = true;
+	bool config = false;
 
 private:
 
@@ -56,6 +59,9 @@ private:
 	GuiButton* btnMenuPlay;
 	GuiButton* btnMenuConfig;
 	GuiButton* btnMenuExit;
+
+	GuiButton* btnConfigEx1;
+	GuiButton* btnConfigBack;
 
 
 };

@@ -55,6 +55,7 @@ public:
 	SDL_Rect player;
 	Collider* wall = nullptr;
 
+	iPoint resetPlayerPos;
 };
 
 #endif // __MODULEPLAYER_H__

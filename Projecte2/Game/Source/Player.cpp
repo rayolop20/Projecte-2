@@ -34,6 +34,9 @@ bool Player::Awake(pugi::xml_node& config) {
 	P1.position.x = config.child("Position").attribute("PositionX").as_int();
 	P1.position.y = config.child("Position").attribute("PositionY").as_int();
 
+	resetPlayerPos.x = config.child("Position").attribute("PositionX").as_int();
+	resetPlayerPos.y = config.child("Position").attribute("PositionY").as_int();
+
 	return ret;
 }
 

@@ -35,7 +35,7 @@ bool Menu_Screen::Awake()
 // Called before the first frame
 bool Menu_Screen::Start()
 {
-	
+
 	if (app->scene->active == true)
 	{
 		app->scene->Disable();
@@ -66,6 +66,16 @@ bool Menu_Screen::Update(float dt)
 		btnMenuPlay->state = GuiControlState::NORMAL;
 		btnMenuConfig->state = GuiControlState::NORMAL;
 		btnMenuExit->state = GuiControlState::NORMAL;
+	}
+
+	if (config)
+	{
+		MenuConfig();
+
+		config = false;
+
+		btnConfigEx1->state = GuiControlState::NORMAL;
+		btnConfigBack->state = GuiControlState::NORMAL;
 	}
 	//btnMenuPlay->state = GuiControlState::NORMAL;
 	//btnMenuConfig->state = GuiControlState::NORMAL;
@@ -104,6 +114,15 @@ void Menu_Screen::Menu()
 	btnMenuExit->state = GuiControlState::DISABLED;
 }
 
+void Menu_Screen::MenuConfig()
+{
+	btnConfigEx1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 7, "Ex1", { 150, 240, 150, 30 }, this);
+	btnConfigBack = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 8, "Back to menu", { 150, 285, 150, 30 }, this);
+
+	btnConfigEx1->state = GuiControlState::DISABLED;
+	btnConfigBack->state = GuiControlState::DISABLED;
+}
+
 bool Menu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 {
 	if (app->guiManager->CheackA1 == true)
@@ -120,6 +139,8 @@ bool Menu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 					app->player->Enable();
 					app->render->camera.x = (app->player->P1.position.x - 550) * -1;
 					app->render->camera.y = (app->player->P1.position.y - 300) * -1;
+					app->player->P1.position.x = app->player->resetPlayerPos.x;
+					app->player->P1.position.y = app->player->resetPlayerPos.y;
 					LOG("Click on button 1");
 					btnMenuPlay->state = GuiControlState::DISABLED;
 					btnMenuConfig->state = GuiControlState::DISABLED;
@@ -130,6 +151,10 @@ bool Menu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 				if (control->id == 2)
 				{
 					LOG("Config ON");
+					config = true;
+					btnMenuPlay->state = GuiControlState::DISABLED;
+					btnMenuConfig->state = GuiControlState::DISABLED;
+					btnMenuExit->state = GuiControlState::DISABLED;
 				}
 
 				if (control->id == 3)
@@ -137,6 +162,18 @@ bool Menu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 					exit = true;
 				}
 
+				if (control->id == 7)
+				{
+					LOG("Press Ex1");
+				}
+
+				if (control->id == 8)
+				{
+					starting = true;
+
+					btnConfigEx1->state = GuiControlState::DISABLED;
+					btnConfigBack->state = GuiControlState::DISABLED;
+				}
 				default: break;
 			}
 		}
