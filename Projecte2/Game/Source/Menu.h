@@ -36,18 +36,19 @@ public:
 
 	void Menu();
 
+	void MenuConfig();
+
 	// Called before quitting
 	bool CleanUp();
 	bool EScreen = true;
 	bool MenuScreen = true;
 	bool exit = false;
 	bool starting = true;
+	bool config = false;
 
 private:
 
 	int ClickFx = 1;
-
-	
 
 	SDL_Texture* Enter = nullptr;
 
@@ -56,6 +57,9 @@ private:
 	GuiButton* btnMenuPlay;
 	GuiButton* btnMenuConfig;
 	GuiButton* btnMenuExit;
+
+	GuiButton* btnConfigEx1;
+	GuiButton* btnConfigBack;
 
 
 };
