@@ -34,11 +34,14 @@ public:
 
 	bool OnGuiMouseClickEvent(GuiControl* control);
 
+	void Menu();
+
 	// Called before quitting
 	bool CleanUp();
 	bool EScreen = true;
 	bool MenuScreen = true;
 	bool exit = false;
+	bool starting = true;
 
 private:
 
@@ -50,7 +53,9 @@ private:
 
 	// L12b: Debug pathfing
 	iPoint origin;
-	GuiButton* btnPlay;
+	GuiButton* btnMenuPlay;
+	GuiButton* btnMenuConfig;
+	GuiButton* btnMenuExit;
 
 
 };

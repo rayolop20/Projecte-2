@@ -35,13 +35,7 @@ bool Menu_Screen::Awake()
 // Called before the first frame
 bool Menu_Screen::Start()
 {
-	// L03: DONE: Load map
-	// L12b: Create walkability map on map loading
-
-
-	// L14: TODO 2: Declare a GUI Button and create it using the GuiManager
-	btnPlay = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Test1", { 150, 150, 150, 90 }, this);
-
+	
 	if (app->scene->active == true)
 	{
 		app->scene->Disable();
@@ -63,11 +57,22 @@ bool Menu_Screen::PreUpdate()
 // Called each loop iteration
 bool Menu_Screen::Update(float dt)
 {
-	btnPlay->state = GuiControlState::NORMAL;
+	if (!app->scene->paused && starting)
+	{
+		Menu();
 
-	SDL_Rect Play{ 150, 150, 150, 90 };
-	app->render->DrawRectangle(Play, 200, 200, 200);
+		starting = false;
 
+		btnMenuPlay->state = GuiControlState::NORMAL;
+		btnMenuConfig->state = GuiControlState::NORMAL;
+		btnMenuExit->state = GuiControlState::NORMAL;
+	}
+	//btnMenuPlay->state = GuiControlState::NORMAL;
+	//btnMenuConfig->state = GuiControlState::NORMAL;
+	//btnMenuExit->state = GuiControlState::NORMAL;
+
+	//SDL_Rect Play{ 150, 150, 150, 90 };
+	//app->render->DrawRectangle(Play, 200, 200, 200);
 	
 	int mouseX, mouseY;
 	app->input->GetMousePosition(mouseX, mouseY);
@@ -88,6 +93,17 @@ bool Menu_Screen::PostUpdate()
 	return ret;
 }
 
+void Menu_Screen::Menu()
+{
+	btnMenuPlay = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Play", { 150, 150, 150, 60 }, this);
+	btnMenuConfig = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Config", { 150, 240, 150, 30 }, this);
+	btnMenuExit = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 3, "Exit", { 150, 285, 150, 30 }, this);
+
+	btnMenuPlay->state = GuiControlState::DISABLED;
+	btnMenuConfig->state = GuiControlState::DISABLED;
+	btnMenuExit->state = GuiControlState::DISABLED;
+}
+
 bool Menu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 {
 	if (app->guiManager->CheackA1 == true)
@@ -105,7 +121,20 @@ bool Menu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 					app->render->camera.x = (app->player->P1.position.x - 550) * -1;
 					app->render->camera.y = (app->player->P1.position.y - 300) * -1;
 					LOG("Click on button 1");
-					btnPlay->state = GuiControlState::DISABLED;
+					btnMenuPlay->state = GuiControlState::DISABLED;
+					btnMenuConfig->state = GuiControlState::DISABLED;
+					btnMenuExit->state = GuiControlState::DISABLED;
+
+				}
+
+				if (control->id == 2)
+				{
+					LOG("Config ON");
+				}
+
+				if (control->id == 3)
+				{
+					exit = true;
 				}
 
 				default: break;
@@ -121,5 +150,6 @@ bool Menu_Screen::CleanUp()
 
 		return true;
 }
+
 
 
