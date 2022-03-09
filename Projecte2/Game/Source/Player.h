@@ -12,7 +12,7 @@ struct playr1
 {
 	iPoint position;
 	Collider* Pcol = nullptr;
-	bool MoveXD = false, MoveXA = false, MoveYW = false, MoveYS = false;
+	bool moveXD = false, moveXA = false, moveYW = false, moveYS = false;
 };
 
 class Player : public Module
@@ -53,7 +53,7 @@ public:
 	bool block4_ = true;
 public:
 	SDL_Rect player;
-	Collider* Wall = nullptr;
+	Collider* wall = nullptr;
 
 };
 

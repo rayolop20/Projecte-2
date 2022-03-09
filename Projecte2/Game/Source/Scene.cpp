@@ -81,20 +81,6 @@ bool Scene::Update(float dt)
 	app->render->camera.y = (app->player->P1.position.y - 300) * -1;
 
 
-	// L08: TODO 6: Make the camera movement independent of framerate
-	/*float speed = 1;
-	if(app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
-		app->render->camera.y -= speed;
-
-	if(app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-		app->render->camera.y += speed;
-
-	if(app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-		app->render->camera.x -= speed;
-
-	if(app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-		app->render->camera.x += speed;
-		*/
 	// Draw map
 	app->map->Draw();
 
