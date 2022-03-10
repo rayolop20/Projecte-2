@@ -229,7 +229,7 @@
  <layer id="2" name="Obstacles AUXILIARS" width="18" height="12" locked="1">
   <properties>
    <property name="Draw" value="1"/>
-   <property name="Navegation" value="2"/>
+   <property name="Navegation" value="3"/>
   </properties>
   <data>
    <tile/>
