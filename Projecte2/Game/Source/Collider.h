@@ -13,6 +13,7 @@ struct Collider
 	{
 		NONE = -1,
 		PLAYER,
+		VAMPIRE,
 		WALLV,
 		WALLH,
 		MAX

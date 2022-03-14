@@ -8,6 +8,12 @@
 struct SDL_Texture;
 struct Collider;
 
+struct Vampire
+{
+	iPoint position;
+	Collider* Vcol = nullptr;
+	//bool moveXD = false, moveXA = false, moveYW = false, moveYS = false;
+};
 
 class VampirEnem : public Entity
 {
@@ -33,6 +39,8 @@ public:
 
 
 public:
+
+	Vampire Vpir;
 
 };
 

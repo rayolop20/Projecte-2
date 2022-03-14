@@ -45,9 +45,6 @@ bool Player::Start()
 	bool ret = true;
 	
 	P1.Pcol = app->collisions->AddCollider({ P1.position.x,P1.position.y, 64, 64 }, Collider::Type::PLAYER, this);
-	wall = app->collisions->AddCollider({ 500,500, 100, 100 }, Collider::Type::WALLV, this);
-	wall = app->collisions->AddCollider({ 500,500, 100, 100 }, Collider::Type::WALLH, this);
-
 	return ret;
 }
 

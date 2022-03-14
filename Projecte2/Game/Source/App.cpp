@@ -11,6 +11,7 @@
 #include "EntityManager.h"
 #include "Collisions.h"
 #include "GuiManager.h"
+#include "BattleSystem.h"
 #include "Menu.h"
 
 #include "Defs.h"
@@ -38,6 +39,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	player = new Player();
 	entityManager = new EntityManager();
 	collisions = new Collisions();
+	BTSystem = new battleSystem();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -46,6 +48,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(tex);
 	AddModule(audio);
 	AddModule(scene);
+	AddModule(BTSystem);
 	AddModule(map);
 	AddModule(guiManager);
 	AddModule(entityManager);
