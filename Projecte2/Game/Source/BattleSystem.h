@@ -1,5 +1,5 @@
-#ifndef __SCENE_H__
-#define __SCENE_H__
+#ifndef __BATTLESYSTEM_H__
+#define __BATTLESYSTEM_H__
 
 #include "Module.h"
 #include "GuiButton.h"
@@ -7,14 +7,14 @@
 
 struct SDL_Texture;
 
-class Scene : public Module
+class battleSystem : public Module
 {
 public:
 
-	Scene();
+	battleSystem();
 
 	// Destructor
-	virtual ~Scene();
+	virtual ~battleSystem();
 
 	// Called before render is available
 	bool Awake();
@@ -38,26 +38,11 @@ public:
 	bool OnGuiMouseClickEvent(GuiControl* control);
 
 	void Pause();
-
 	bool debug = false;
-	bool paused = false;
 private:
 
-	SDL_Texture* img;
 
-	// L13: TODO 2: Declare an Item and create it using the EntityManager
-
-	// L14: TODO 2: Declare a GUI Button and create it using the GuiManager
-	GuiButton* btn1;
-	GuiButton* btn2;
-
-	GuiButton* btnResume;
-	GuiButton* btnMenu;
-	GuiButton* btnExit;
-
-	SDL_Rect block;
- 
 
 };
 
-#endif // __SCENE_H__
+#endif // __BATTLESYSTEM_H__

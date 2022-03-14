@@ -25,6 +25,7 @@ class Menu_Screen;
 class Collisions;
 class Player;
 class EntityManager; 
+class battleSystem; 
 
 class App
 {
@@ -101,6 +102,7 @@ public:
 	EntityManager* entityManager; 
 	Collisions* collisions;
 	Menu_Screen* menu;
+	battleSystem* BTSystem;
 private:
 
 	int argc;

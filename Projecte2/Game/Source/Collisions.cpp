@@ -14,16 +14,25 @@ Collisions::Collisions() : Module()
 		colliders[i] = nullptr;
 
 	matrix[Collider::Type::WALLH][Collider::Type::WALLH] = false;
+	matrix[Collider::Type::WALLH][Collider::Type::WALLV] = false;
 	matrix[Collider::Type::WALLH][Collider::Type::PLAYER] = true;
+	matrix[Collider::Type::WALLH][Collider::Type::VAMPIRE] = true;
 
 	matrix[Collider::Type::PLAYER][Collider::Type::WALLH] = true;
+	matrix[Collider::Type::PLAYER][Collider::Type::WALLV] = true;
+	matrix[Collider::Type::PLAYER][Collider::Type::VAMPIRE] = true;
 	matrix[Collider::Type::PLAYER][Collider::Type::PLAYER] = false;
 	
+	
 	matrix[Collider::Type::WALLV][Collider::Type::WALLV] = false;
+	matrix[Collider::Type::WALLV][Collider::Type::WALLH] = false;
 	matrix[Collider::Type::WALLV][Collider::Type::PLAYER] = true;
-
-	matrix[Collider::Type::PLAYER][Collider::Type::WALLV] = true;
-	matrix[Collider::Type::PLAYER][Collider::Type::PLAYER] = false;
+	matrix[Collider::Type::WALLV][Collider::Type::VAMPIRE] = true;
+	
+	matrix[Collider::Type::VAMPIRE][Collider::Type::WALLV] = true;
+	matrix[Collider::Type::VAMPIRE][Collider::Type::WALLH] = true;
+	matrix[Collider::Type::VAMPIRE][Collider::Type::PLAYER] = true;
+	matrix[Collider::Type::VAMPIRE][Collider::Type::VAMPIRE] = false;
 }
 
 // Destructor
@@ -118,6 +127,9 @@ void Collisions::DebugDraw()
 			break;
 		case Collider::Type::PLAYER: // green
 			app->render->DrawRectangle(colliders[i]->rect, 0, 255, 0, alpha);
+			break;
+		case Collider::Type::VAMPIRE: // RED
+			app->render->DrawRectangle(colliders[i]->rect, 255, 0, 0, alpha);
 			break;
 		}
 	}

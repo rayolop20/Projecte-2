@@ -20,6 +20,10 @@ bool VampirEnem::Awake(pugi::xml_node&)
 
 bool VampirEnem::Start()
 {
+	Vpir.position.x = 150;
+	Vpir.position.y = 150;
+
+	Vpir.Vcol = app->collisions->AddCollider({ Vpir.position.x,Vpir.position.y, 50, 50 }, Collider::Type::VAMPIRE);
 
 
 	return false;
@@ -27,7 +31,7 @@ bool VampirEnem::Start()
 
 bool VampirEnem::Update(float dt)
 {
-	SDL_Rect Vampyr = {100, 100, 150, 150};
+	SDL_Rect Vampyr = { Vpir.position.x,Vpir.position.y, 50, 50};
 	app->render->DrawRectangle(Vampyr, 0, 0, 255);
 
 	return false;
