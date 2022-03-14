@@ -54,7 +54,6 @@ public:
 	Collisions* collisions;
 	PathFinding* path;
 	Render* render;
-	EntityType* Vampire;
 	float accumulatedTime = 0.0f;
 	float updateMsCycle = 0.0f;
 	bool doLogic = false;
