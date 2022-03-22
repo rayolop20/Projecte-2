@@ -8,6 +8,7 @@
 #include "Window.h"
 #include "Audio.h"
 #include "Collisions.h"
+#include "EntityManager.h"
 #include "Scene.h"
 
 #include "Map.h"
@@ -228,7 +229,7 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 		{
 			if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::VAMPIRE)
 			{
-				int a = 0;
+
 			}
 		
 		}

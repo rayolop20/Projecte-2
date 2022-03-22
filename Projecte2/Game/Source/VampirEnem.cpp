@@ -1,5 +1,6 @@
 #include "Entity.h"
 #include "App.h"
+#include "Textures.h"
 #include "VampirEnem.h"
 #include "EntityManager.h"
 #include "Collisions.h"
@@ -21,18 +22,36 @@ bool VampirEnem::Awake(pugi::xml_node&)
 
 bool VampirEnem::Start()
 {
-	Vpir.position.x = 200;
-	Vpir.position.y = 200;
 
-	app->entityManager->Vcol = app->collisions->AddCollider({ 200,200, 50, 50 }, Collider::Type::VAMPIRE, (Module*)app->entityManager);
+	TextureVampire = app->tex->Load("Assets/Textures/test.png");
+	//coinFx = app->audio->LoadFx("Assets/audio/fx/coin.wav");
+
+
+	for (int i = 0; i < NUM_VAMPIRE; i++)
+	{
+		//currentAnimation[i] = &idle;
+	}
+
+	Vpir[0] = CreateVampire(200, 200, TextureVampire);
 
 	return false;
 }
 
 bool VampirEnem::Update(float dt)
 {
-	SDL_Rect Vampyr = {200,200, 50, 50};
-	app->render->DrawRectangle(Vampyr, 0, 0, 255);
+	
+	for (int i = 0; i < NUM_VAMPIRE; i++)
+	{
+		//currentAnimation[i]->Update();
+
+		if (Vpir[i].Destroyed == true)
+		{
+			Vpir[i].dead = true;
+			Vpir[i].colliderV->pendingToDelete = true;
+		}
+	}
+	//SDL_Rect Vampyr = {200,200, 50, 50};
+	//app->render->DrawRectangle(Vampyr, 0, 0, 255);
 
 	return false;
 }
