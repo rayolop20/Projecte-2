@@ -34,7 +34,6 @@ enum MapTypes
 {
 	MAPTYPE_UNKNOWN = 0,
 	MAPTYPE_ORTHOGONAL,
-	MAPTYPE_ISOMETRIC,
 	MAPTYPE_STAGGERED
 };
 
@@ -138,6 +137,8 @@ public:
 
 	// L05: DONE 2: Add orthographic world to map coordinates
 	iPoint WorldToMap(int x, int y) const;
+
+	bool CreateWalkabilityMap(int& width, int& height, uchar** buffer) const;
 
 private:
 

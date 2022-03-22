@@ -12,6 +12,7 @@
 #include "Collisions.h"
 #include "GuiManager.h"
 #include "BattleSystem.h"
+#include "Pathfinding.h"
 #include "Menu.h"
 
 #include "Defs.h"
@@ -40,6 +41,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	entityManager = new EntityManager();
 	collisions = new Collisions();
 	BTSystem = new battleSystem();
+	pathfinding = new PathFinding();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -47,6 +49,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(input);
 	AddModule(tex);
 	AddModule(audio);
+	AddModule(pathfinding);
 	AddModule(scene);
 	AddModule(BTSystem);
 	AddModule(map);
