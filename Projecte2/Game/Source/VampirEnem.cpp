@@ -1,6 +1,7 @@
 #include "Entity.h"
 #include "App.h"
 #include "VampirEnem.h"
+#include "EntityManager.h"
 #include "Collisions.h"
 
 VampirEnem::VampirEnem():Entity (EntityType::VAMPYRENEM)
@@ -23,8 +24,7 @@ bool VampirEnem::Start()
 	Vpir.position.x = 200;
 	Vpir.position.y = 200;
 
-	Vpir.Vcol = app->collisions->AddCollider({ 200,200, 50, 50 }, Collider::Type::VAMPIRE);
-
+	app->entityManager->Vcol = app->collisions->AddCollider({ 200,200, 50, 50 }, Collider::Type::VAMPIRE, (Module*)app->entityManager);
 
 	return false;
 }

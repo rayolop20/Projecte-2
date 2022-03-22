@@ -64,6 +64,8 @@ Entity* EntityManager::CreateEntity(EntityType type, int id, SDL_Rect bounds)
 		break;
 	}
 	
+	entity->Start();
+
 	if (entity != nullptr) entities.add(entity);
 
 	return entity;
@@ -169,4 +171,14 @@ bool EntityManager::Draw() {
 
 	return ret;
 
+}
+
+void EntityManager::OnCollision(Collider* c1, Collider* c2)
+{
+	if (c1 == Vcol)
+	{
+		if (c1->type == Collider::Type::VAMPIRE && c2->type == Collider::Type::PLAYER) {
+			int a = 0;
+		}
+	}
 }

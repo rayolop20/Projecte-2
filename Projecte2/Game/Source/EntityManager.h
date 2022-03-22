@@ -44,6 +44,7 @@ public:
 
 	bool SaveState(pugi::xml_node& data);
 
+	void OnCollision(Collider* c1, Collider* c2);
 public:
 
 	List<Entity*> entities;
@@ -54,6 +55,10 @@ public:
 	Collisions* collisions;
 	PathFinding* path;
 	Render* render;
+
+	//enemy colisions
+	Collider* Vcol = nullptr;
+
 	float accumulatedTime = 0.0f;
 	float updateMsCycle = 0.0f;
 	bool doLogic = false;
