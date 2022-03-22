@@ -29,6 +29,7 @@
     <ClCompile Include="Source\GuiSlider.cpp" />
     <ClCompile Include="Source\VampirEnem.cpp" />
     <ClCompile Include="Source\BattleSystem.cpp" />
+    <ClCompile Include="Source\Pathfinding.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -80,6 +81,7 @@
     <ClInclude Include="Source\GuiSlider.h" />
     <ClInclude Include="Source\VampirEnem.h" />
     <ClInclude Include="Source\BattleSystem.h" />
+    <ClInclude Include="Source\Pathfinding.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">
