@@ -45,8 +45,6 @@ private:
 
 	SDL_Texture* img;
 
-	SDL_Texture* pathTex;
-	SDL_Texture* originTex;
 	// L13: TODO 2: Declare an Item and create it using the EntityManager
 
 	// L14: TODO 2: Declare a GUI Button and create it using the GuiManager
@@ -59,8 +57,7 @@ private:
 
 	SDL_Rect block;
  
-	iPoint origin;
-	bool originSelected = false;
+
 };
 
 #endif // __SCENE_H__

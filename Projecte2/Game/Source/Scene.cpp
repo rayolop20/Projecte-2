@@ -12,7 +12,6 @@
 #include "VampirEnem.h"
 #include "Collisions.h"
 #include "Menu.h"
-#include "PathFinding.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -39,25 +38,14 @@ bool Scene::Awake()
 bool Scene::Start()
 {
 	// L03: DONE: Load map
-	if (app->map->Load("Mapa_Prova.tmx")==true)
-	{
-		int w, h;
-		uchar* data = NULL;
-
-		if (app->map->CreateWalkabilityMap(w, h, &data)) app->pathfinding->SetMap(w, h, data);
-
-		RELEASE_ARRAY(data);
-	};
+	app->map->Load("Mapa_Prova.tmx");
 	
-	pathTex = app->tex->Load("Assets/maps/path2.png");
-	originTex = app->tex->Load("Assets/maps/x.png");
 	// Load music
 	//app->audio->PlayMusic("Assets/audio/music/music_spy.ogg");
 
 	//L13: TODO 2: Declare an Item and create it using the EntityManager
 	VampirEnem* Vampir = (VampirEnem*)app->entityManager->CreateEntity(EntityType::VAMPYRENEM, 0, {10, 10});
 	
-
 	//L13: TODO 4: Create multiple Items
 
 	// L14: TODO 2: Declare a GUI Button and create it using the GuiManager
@@ -70,24 +58,6 @@ bool Scene::Start()
 // Called each loop iteration
 bool Scene::PreUpdate()
 {
-	int mouseX, mouseY;
-	app->input->GetMousePosition(mouseX, mouseY);
-	iPoint p = app->render->ScreenToWorld(mouseX, mouseY);
-	p = app->map->WorldToMap(p.x, p.y);
-
-	if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
-	{
-		if (originSelected == true)
-		{
-			app->pathfinding->CreatePath(origin, p);
-			originSelected = false;
-		}
-		else
-		{
-			origin = p;
-			originSelected = true;
-		}
-	}
 	return true;
 }
 
@@ -142,37 +112,6 @@ bool Scene::Update(float dt)
 		btnResume->Update(dt);
 		btnExit->Update(dt);
 	}
-
-	//don't touch PLS (POL MARESCH IS TRYING THINGS)
-	int mouseX, mouseY;
-	app->input->GetMousePosition(mouseX, mouseY);
-	iPoint mouseTile = app->map->WorldToMap(mouseX - app->render->camera.x, mouseY - app->render->camera.y);
-
-	SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d Tile:[%d,%d]",
-		app->map->mapData.width, app->map->mapData.height,
-		app->map->mapData.tileWidth, app->map->mapData.tileHeight,
-		app->map->mapData.tilesets.count(), mouseTile.x, mouseTile.y);
-
-	app->win->SetTitle(title.GetString());
-
-	//pathfinding debug
-	app->input->GetMousePosition(mouseX, mouseY);
-	iPoint p = app->render->ScreenToWorld(mouseX, mouseY);
-	p = app->map->WorldToMap(p.x, p.y);
-	p = app->map->MapToWorld(p.x, p.y);
-
-	app->render->DrawTexture(pathTex, p.x, p.y);
-
-	const DynArray<iPoint>* path = app->pathfinding->GetLastPath();
-
-	for (uint i = 0; i < path->Count(); ++i)
-	{
-		iPoint pos = app->map->MapToWorld(path->At(i)->x, path->At(i)->y);
-		app->render->DrawTexture(pathTex, pos.x, pos.y);
-	}
-
-	iPoint originScreen = app->map->MapToWorld(origin.x, origin.y);
-	app->render->DrawTexture(originTex, originScreen.x, originScreen.y);
 
 	return true;
 }
