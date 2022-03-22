@@ -64,6 +64,8 @@ Entity* EntityManager::CreateEntity(EntityType type, int id, SDL_Rect bounds)
 		break;
 	}
 	
+	entity->Start();
+
 	if (entity != nullptr) entities.add(entity);
 
 	return entity;
@@ -168,5 +170,10 @@ bool EntityManager::Draw() {
 	}
 
 	return ret;
+
+}
+
+void EntityManager::OnCollision(Collider* c1, Collider* c2)
+{
 
 }

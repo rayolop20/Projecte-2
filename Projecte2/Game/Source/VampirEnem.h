@@ -11,7 +11,6 @@ struct Collider;
 struct Vampire
 {
 	iPoint position;
-	Collider* Vcol = nullptr;
 	//bool moveXD = false, moveXA = false, moveYW = false, moveYS = false;
 };
 

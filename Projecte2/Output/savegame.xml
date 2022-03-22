@@ -13,5 +13,6 @@
 	<renderer>
 		<camera x="338" y="124" />
 		<Player x="212" y="176" />
+		<Vampir x="0" y="0" />
 	</renderer>
 </save_state>

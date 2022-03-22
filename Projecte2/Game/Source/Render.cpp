@@ -2,6 +2,8 @@
 #include "Window.h"
 #include "Render.h"
 #include "Player.h"
+#include "EntityManager.h"
+#include "Entity.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -97,6 +99,10 @@ bool Render::LoadState(pugi::xml_node& data)
 	camera.y = data.child("camera").attribute("y").as_int();
 	app->player->P1.position.x = data.child("Player").attribute("x").as_int();
 	app->player->P1.position.y = data.child("Player").attribute("y").as_int();
+	
+	/*app->entityManager
+		->P1.position.y = data.child("Player").attribute("y").as_int();
+	app->player->P1.position.y = data.child("Player").attribute("y").as_int();*/
 	return true;
 }
 

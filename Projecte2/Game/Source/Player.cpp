@@ -140,88 +140,98 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 {
 	if ((c1 == P1.Pcol))
 	{
-
-		if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::WALLV)
+		//walls
 		{
-			
-			if (c1->rect.x < c2->rect.x&& c1->rect.x + 64 > c2->rect.x && P1.moveXA == true && block1 == false && block2 == true)//Esquerra
+			if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::WALLV)
 			{
-				P1.position.x = c2->rect.x - 64;
-				block1 = false;
-			}
-			else {
-				block1 = true;
-			}
 
-			if (c1->rect.x > c2->rect.x && c1->rect.x + 64 > c2->rect.x && P1.moveXD == true && block1 == true && block2 == false && block3 == true && block4 == true)//Dreta
-			{	
-				P1.position.x = c2->rect.x + 32;
-				block2 = false;
-			}
-			else {
-				block2 = true;
-			}
+				if (c1->rect.x < c2->rect.x && c1->rect.x + 64 > c2->rect.x && P1.moveXA == true && block1 == false && block2 == true)//Esquerra
+				{
+					P1.position.x = c2->rect.x - 64;
+					block1 = false;
+				}
+				else {
+					block1 = true;
+				}
 
-			if (c1->rect.y < c2->rect.y && c1->rect.y + 64 > c2->rect.y && P1.moveYW == true && block1 == true && block2 == true)//Adalt
+				if (c1->rect.x > c2->rect.x && c1->rect.x + 64 > c2->rect.x && P1.moveXD == true && block1 == true && block2 == false && block3 == true && block4 == true)//Dreta
+				{
+					P1.position.x = c2->rect.x + 32;
+					block2 = false;
+				}
+				else {
+					block2 = true;
+				}
+
+				if (c1->rect.y < c2->rect.y && c1->rect.y + 64 > c2->rect.y && P1.moveYW == true && block1 == true && block2 == true)//Adalt
+				{
+					P1.position.y = c2->rect.y - 64;
+					block3 = false;
+				}
+				else {
+					block3 = true;
+				}
+
+				if (c1->rect.y > c2->rect.y && c1->rect.y + 64 > c2->rect.y && P1.moveYS == true && block1 == true && block2 == true)//Abaix
+				{
+					P1.position.y = c2->rect.y + 32;
+					block4 = false;
+				}
+				else {
+					block4 = true;
+				}
+
+			}
+			if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::WALLH)
 			{
-				P1.position.y = c2->rect.y - 64;
-				block3 = false;
-			}
-			else {
-				block3 = true;
-			}
 
-			if (c1->rect.y > c2->rect.y && c1->rect.y + 64 > c2->rect.y && P1.moveYS == true && block1 == true && block2 == true)//Abaix
-			{
-				P1.position.y = c2->rect.y + 32;
-				block4 = false;
-			}
-			else {
-				block4 = true;
-			}
+				if (c1->rect.x < c2->rect.x && c1->rect.x + 64 > c2->rect.x && P1.moveXA == true && block1_ == false && block2_ == true)//Esquerra
+				{
+					P1.position.x = c2->rect.x - 64;
+					block1_ = false;
+				}
+				else {
+					block1_ = true;
+				}
 
+				if (c1->rect.x > c2->rect.x && c1->rect.x + 64 > c2->rect.x && P1.moveXD == true && block1_ == true && block2_ == false && block3_ == true && block4_ == true)//Dreta
+				{
+					P1.position.x = c2->rect.x + 32;
+					block2_ = false;
+				}
+				else {
+					block2_ = true;
+				}
+
+				if (c1->rect.y < c2->rect.y && c1->rect.y + 64 > c2->rect.y && P1.moveYW == true && block1_ == true && block2_ == true)//Adalt
+				{
+					P1.position.y = c2->rect.y - 64;
+					block3_ = false;
+				}
+				else {
+					block3_ = true;
+				}
+
+				if (c1->rect.y > c2->rect.y && c1->rect.y + 64 > c2->rect.y && P1.moveYS == true && block1_ == true && block2_ == true)//Abaix
+				{
+					P1.position.y = c2->rect.y + 32;
+					block4_ = false;
+				}
+				else {
+					block4_ = true;
+				}
+
+			}
 		}
-		if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::WALLH)
+
+		//Enemies
 		{
-			
-			if (c1->rect.x < c2->rect.x&& c1->rect.x + 64 > c2->rect.x && P1.moveXA == true && block1_ == false && block2_ == true)//Esquerra
+			if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::VAMPIRE)
 			{
-				P1.position.x = c2->rect.x - 64;
-				block1_ = false;
+				int a = 0;
 			}
-			else {
-				block1_ = true;
-			}
-
-			if (c1->rect.x > c2->rect.x && c1->rect.x + 64 > c2->rect.x && P1.moveXD == true && block1_ == true && block2_ == false && block3_ == true && block4_ == true)//Dreta
-			{	
-				P1.position.x = c2->rect.x + 32;
-				block2_ = false;
-			}
-			else {
-				block2_ = true;
-			}
-
-			if (c1->rect.y < c2->rect.y && c1->rect.y + 64 > c2->rect.y && P1.moveYW == true && block1_ == true && block2_ == true)//Adalt
-			{
-				P1.position.y = c2->rect.y - 64;
-				block3_ = false;
-			}
-			else {
-				block3_ = true;
-			}
-
-			if (c1->rect.y > c2->rect.y && c1->rect.y + 64 > c2->rect.y && P1.moveYS == true && block1_ == true && block2_ == true)//Abaix
-			{
-				P1.position.y = c2->rect.y + 32;
-				block4_ = false;
-			}
-			else {
-				block4_ = true;
-			}
-
-		}
 		
+		}
 	}
 
 }
