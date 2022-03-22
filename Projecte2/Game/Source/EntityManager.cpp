@@ -175,10 +175,5 @@ bool EntityManager::Draw() {
 
 void EntityManager::OnCollision(Collider* c1, Collider* c2)
 {
-	if (c1 == Vcol)
-	{
-		if (c1->type == Collider::Type::VAMPIRE && c2->type == Collider::Type::PLAYER) {
-			int a = 0;
-		}
-	}
+
 }

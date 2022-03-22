@@ -228,8 +228,9 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 		{
 			if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::VAMPIRE)
 			{
-				P1.position.x + 100;
+				int a = 0;
 			}
+		
 		}
 	}
 
