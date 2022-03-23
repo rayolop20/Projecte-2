@@ -108,7 +108,6 @@ bool battleSystem::Update(float dt)
 
 	}
 	else{
-
 		Attack->state = GuiControlState::DISABLED;
 		Attack1->state = GuiControlState::DISABLED;
 		Attack2->state = GuiControlState::DISABLED;
@@ -173,6 +172,7 @@ void battleSystem::AttackPhase() {
 	Attack1->state = GuiControlState::NORMAL;
 	Attack2->state = GuiControlState::NORMAL;
 	AttackPhaseActive = true;
+	AttackPhaseEnable = true;
 	if (AttackType == 1) {
 		//enemy.hp = enemy.hp - player.attack + weapon1.power
 	/*
@@ -215,7 +215,6 @@ void battleSystem::InventoryPhase() {
 }
 
 void battleSystem::SpecialAttackPhase() {
-	//SpecialAttack->state = GuiControlState::DISABLED;
 	srand((unsigned)time(0));
 	int randomAttack;
 	randomAttack = (rand() % 1) + 1;
@@ -231,7 +230,7 @@ void battleSystem::SpecialAttackPhase() {
 		if (AttackAux > 50) {
 			AttackAux = 50;
 		}
-		if (timer1 > timer1_ + 5) {
+		if (timer1 > timer1_ + 5 && AttackAux != 0) {
 			randomAttack = 0;
 			//enemy.hp = enemy.hp - player.attack + AttackAux;
 			SpecialAttackEnable = false;
@@ -249,20 +248,28 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 	case GuiControlType::BUTTON:
 	{
 		//Checks the GUI element ID
-
-		if (control->id == 1 && AttackPhaseActive == false)
+		if (control->id == 1 && AttackPhaseActive == true && AttackPhaseEnable == true) {
+			AttackPhaseDisabled();
+		}
+		if (control->id == 1 && AttackPhaseActive == false && AttackPhaseEnable == false)
 		{
 			AttackPhase();
+			AttackPhaseEnable = true;
+		}
+		if (AttackPhaseActive == false && AttackPhaseEnable == true) {
+			AttackPhaseEnable = false;
 		}
 		if (control->id == 2)
 		{
 			AttackType = 1;
 			AttackPhaseDisabled();
+			AttackPhaseEnable = false;
 		}
 		if (control->id == 3)
 		{
 			AttackType = 2;
 			AttackPhaseDisabled();
+			AttackPhaseEnable = false;
 		}
 		if (control->id == 4)
 		{
