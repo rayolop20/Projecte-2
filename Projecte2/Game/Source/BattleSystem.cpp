@@ -79,9 +79,7 @@ bool battleSystem::PreUpdate()
 // Called each loop iteration
 bool battleSystem::Update(float dt)
 {
-	if (SpecialAttackEnable) {
-		SpecialAttackPhase();
-	}
+	
 	
 	//app->map->DColisions();
 	// L02: DONE 3: Request Load / Save when pressing L/S
@@ -114,6 +112,22 @@ bool battleSystem::Update(float dt)
 		SpecialAttack->state = GuiControlState::DISABLED;
 		Inventory->state = GuiControlState::DISABLED;
 		Run->state = GuiControlState::DISABLED;
+	}
+
+	if (SpecialAttackEnable) {
+		SpecialAttackPhase();
+		Attack->state = GuiControlState::DISABLED;
+		Attack1->state = GuiControlState::DISABLED;
+		Attack2->state = GuiControlState::DISABLED;
+		SpecialAttack->state = GuiControlState::DISABLED;
+		Inventory->state = GuiControlState::DISABLED;
+		Run->state = GuiControlState::DISABLED;
+	}
+	if (SpecialAttackEnable == false && battle == true) {
+		Attack->state = GuiControlState::NORMAL;
+		SpecialAttack->state = GuiControlState::NORMAL;
+		Inventory->state = GuiControlState::NORMAL;
+		Run->state = GuiControlState::NORMAL;
 	}
 	
 	//Draw Entities
@@ -233,6 +247,7 @@ void battleSystem::SpecialAttackPhase() {
 		if (timer1 > timer1_ + 5 && AttackAux != 0) {
 			randomAttack = 0;
 			//enemy.hp = enemy.hp - player.attack + AttackAux;
+			AttackAux = 0;
 			SpecialAttackEnable = false;
 		}
 	}
