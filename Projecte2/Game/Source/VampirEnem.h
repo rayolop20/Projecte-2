@@ -8,10 +8,18 @@
 struct SDL_Texture;
 struct Collider;
 
+#define NUM_VAMPIRE 100
+
 struct Vampire
 {
-	iPoint position;
 	//bool moveXD = false, moveXA = false, moveYW = false, moveYS = false;
+	Collider* colliderV = nullptr;
+	SDL_Texture* vampireT = nullptr;
+	int x;
+	int y;
+	bool Destroyed = false;
+	uint vCount = 0;
+	bool dead = false;
 };
 
 class VampirEnem : public Entity
@@ -33,13 +41,24 @@ public:
 	// Processes new input and handles player movement
 	bool Update(float dt);
 
+	bool PostUpdate();
+
 	// Called at the end of the application loop
 	// Performs the render call of the player sprite
-
+	void OnCollision(Collider* c1, Collider* c2) override;
 
 public:
+	iPoint position;
 
-	Vampire Vpir;
+	SDL_Texture* TextureVampire = nullptr;
+
+	Vampire Vpir[NUM_VAMPIRE] = { nullptr };
+
+	Vampire CreateVampire(int x, int y, SDL_Texture* v);
+
+	Animation* currentAnimation[NUM_VAMPIRE] = { nullptr };
+	Animation idle;
+	Animation dead;
 
 };
 

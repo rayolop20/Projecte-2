@@ -229,7 +229,7 @@
  <layer id="2" name="Obstacles AUXILIARS" width="18" height="12">
   <properties>
    <property name="Draw" value="1"/>
-   <property name="Navegation" value="2"/>
+   <property name="Navegation" value="3"/>
   </properties>
   <data>
    <tile/>
@@ -453,7 +453,7 @@
  <layer id="4" name="Obstacles" width="18" height="12">
   <properties>
    <property name="Draw" type="int" value="1"/>
-   <property name="Navegation" type="int" value="3"/>
+   <property name="Navegation" type="int" value="2"/>
   </properties>
   <data>
    <tile gid="192"/>
