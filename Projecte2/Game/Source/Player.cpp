@@ -9,6 +9,7 @@
 #include "Audio.h"
 #include "Collisions.h"
 #include "Scene.h"
+#include "BattleSystem.h"
 
 #include "Map.h"
 #include "Defs.h"
@@ -228,7 +229,8 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 		{
 			if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::VAMPIRE)
 			{
-				int a = 0;
+
+				app->BTSystem->battle = true;
 			}
 		
 		}

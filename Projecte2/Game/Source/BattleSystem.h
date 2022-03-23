@@ -39,6 +39,34 @@ public:
 
 	void Pause();
 	bool debug = false;
+
+	GuiButton* Attack;
+	GuiButton* Attack1;
+	GuiButton* Attack2;
+	GuiButton* SpecialAttack;
+	GuiButton* Inventory;
+	GuiButton* Run;
+	GuiButton* CloseInventory;
+
+	int AttackType = 0;
+	bool battle;
+	bool AttackPhaseActive;
+
+	void AttackPhase();
+	void AttackPhaseDisabled();
+
+	void InventoryPhase();
+	void SpecialAttackPhase();
+
+	float timer1 = 0;
+	float timer1_ = 0;
+	float AttackAux = 0;
+
+	int PlayerTurn = 1;
+	int EnemyTurn = 0;
+
+	bool SpecialAttackEnable = false;
+	bool InventoryEnable = false;
 private:
 
 
