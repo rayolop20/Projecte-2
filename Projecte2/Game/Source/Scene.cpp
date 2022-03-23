@@ -123,6 +123,7 @@ bool Scene::Update(float dt)
 	if (debug == true) {
 		//Debug Collisions
 		app->collisions->DebugDraw();
+		app->scene->DebugPath();
 	}
 
 	//InGameMenu
@@ -147,13 +148,6 @@ bool Scene::Update(float dt)
 	int mouseX, mouseY;
 	app->input->GetMousePosition(mouseX, mouseY);
 	iPoint mouseTile = app->map->WorldToMap(mouseX - app->render->camera.x, mouseY - app->render->camera.y);
-
-	SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d Tile:[%d,%d]",
-		app->map->mapData.width, app->map->mapData.height,
-		app->map->mapData.tileWidth, app->map->mapData.tileHeight,
-		app->map->mapData.tilesets.count(), mouseTile.x, mouseTile.y);
-
-	app->win->SetTitle(title.GetString());
 
 	//pathfinding debug
 	app->input->GetMousePosition(mouseX, mouseY);
@@ -253,4 +247,16 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 	}
 
 	return true;
+}
+
+void Scene::DebugPath()
+{
+	const DynArray<iPoint>* path = app->pathfinding->GetLastPath();
+
+	for (uint i = 0; i < path->Count(); ++i)
+	{
+		iPoint pos = app->map->MapToWorld(path->At(i)->x, path->At(i)->y);
+		app->render->DrawTexture(pathTex, pos.x, pos.y);
+	}
+	int a = 0;
 }
