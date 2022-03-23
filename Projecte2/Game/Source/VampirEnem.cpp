@@ -40,6 +40,8 @@ bool VampirEnem::Start()
 	}
 
 	Vpir[0] = CreateVampire(200, 200, TextureVampire);
+	Vpir[1] = CreateVampire(150, 150, TextureVampire);
+	Vpir[2] = CreateVampire(100, 100, TextureVampire);
 
 	return false;
 }
@@ -76,6 +78,7 @@ bool VampirEnem::PostUpdate()
 
 void VampirEnem::OnCollision(Collider* c1, Collider* c2)
 {
+	
 	for (uint i = 0; i < NUM_VAMPIRE; ++i)
 	{
 		if (Vpir[i].colliderV == c1 && !Vpir[i].Destroyed)

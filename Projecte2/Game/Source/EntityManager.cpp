@@ -175,5 +175,5 @@ bool EntityManager::Draw() {
 
 void EntityManager::OnCollision(Collider* c1, Collider* c2)
 {
-
+	entities[0]->OnCollision();
 }
