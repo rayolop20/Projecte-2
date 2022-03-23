@@ -88,6 +88,7 @@ void EntityManager::AddEntity(Entity* entity)
 
 bool EntityManager::Update(float dt)
 {
+
 	accumulatedTime += dt;
 	if (accumulatedTime >= updateMsCycle) doLogic = true;
 
@@ -98,9 +99,10 @@ bool EntityManager::Update(float dt)
 		accumulatedTime = 0.0f;
 		doLogic = false;
 	}
-
+	entities[0]->PostUpdate();
 	return true;
 }
+
 
 bool EntityManager::UpdateAll(float dt, bool doLogic)
 {
@@ -175,5 +177,7 @@ bool EntityManager::Draw() {
 
 void EntityManager::OnCollision(Collider* c1, Collider* c2)
 {
-	entities[0]->OnCollision();
+	if (c1->type == Collider::Type::VAMPIRE && c2->type == Collider::Type::PLAYER) {
+		entities[0]->OnCollision(c1, c2);
+	}
 }

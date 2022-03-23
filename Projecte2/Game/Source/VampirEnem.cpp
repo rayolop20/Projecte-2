@@ -40,8 +40,6 @@ bool VampirEnem::Start()
 	}
 
 	Vpir[0] = CreateVampire(200, 200, TextureVampire);
-	Vpir[1] = CreateVampire(150, 150, TextureVampire);
-	Vpir[2] = CreateVampire(100, 100, TextureVampire);
 
 	return false;
 }
@@ -67,6 +65,7 @@ bool VampirEnem::Update(float dt)
 
 bool VampirEnem::PostUpdate()
 {
+	LOG("FUNCIONA?");
 	for (int i = 0; i < NUM_VAMPIRE; i++)
 	{
 
