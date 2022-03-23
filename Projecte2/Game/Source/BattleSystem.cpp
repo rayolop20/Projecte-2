@@ -79,8 +79,6 @@ bool battleSystem::PreUpdate()
 // Called each loop iteration
 bool battleSystem::Update(float dt)
 {
-	
-	
 	//app->map->DColisions();
 	// L02: DONE 3: Request Load / Save when pressing L/S
 
@@ -188,7 +186,9 @@ void battleSystem::AttackPhase() {
 	AttackPhaseActive = true;
 	AttackPhaseEnable = true;
 	if (AttackType == 1) {
-		//enemy.hp = enemy.hp - player.attack + weapon1.power
+		app->player->P1.damage += 20.0;
+		app->player->P1.speed += 20.0;
+		app->player->P1.mana += 35.0;
 	/*
 		srand((unsigned) time(0));
 		int randomNumber;
@@ -199,7 +199,9 @@ void battleSystem::AttackPhase() {
 	*/
 	}
 	if (AttackType == 2) {
-		//enemy.hp = enemy.hp - player.attack + weapon2.power
+		app->player->P1.damage += 35.0;
+		app->player->P1.speed += 15.0;
+		app->player->P1.mana += 45.0;
 	/*
 		srand((unsigned) time(0));
 		int randomNumber;
