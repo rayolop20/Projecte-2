@@ -11,7 +11,6 @@
 #include "Scene.h"
 #include "BattleSystem.h"
 
-#include "Map.h"
 #include "Defs.h"
 #include "Log.h"
 
