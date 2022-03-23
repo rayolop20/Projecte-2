@@ -57,10 +57,8 @@ bool VampirEnem::Update(float dt)
 			Vpir[i].colliderV->pendingToDelete = true;
 		}
 	}
-	//SDL_Rect Vampyr = {200,200, 50, 50};
-	//app->render->DrawRectangle(Vampyr, 0, 0, 255);
 
-	return false;
+	return true;
 }
 
 bool VampirEnem::PostUpdate()
@@ -68,9 +66,10 @@ bool VampirEnem::PostUpdate()
 	LOG("FUNCIONA?");
 	for (int i = 0; i < NUM_VAMPIRE; i++)
 	{
-
+		if (Vpir[i].dead == false) 
+		{
 		app->render->DrawTexture(Vpir[i].vampireT, Vpir[i].x, Vpir[i].y, &(currentAnimation[i]->GetCurrentFrame()));
-	
+		}
 	}
 	return true;
 }
@@ -84,7 +83,6 @@ void VampirEnem::OnCollision(Collider* c1, Collider* c2)
 		{
 			if (c2->type == Collider::Type::PLAYER)
 			{
-				LOG("FUNCIONA?");
 				Vpir[i].Destroyed = true;
 			}
 		}
