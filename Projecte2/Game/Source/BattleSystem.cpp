@@ -310,13 +310,13 @@ void battleSystem::SpecialAttackPhase() {
 
 			}
 			if (timer1_ < 280 && rectDirection == false) {//PointRect right movement
-				timer1_++;
+				timer1_+=3.5;
 			}
 			else {
 				rectDirection = true;
 			}
 			if (timer1_ > 0 && rectDirection == true) {//PointRect left movement
-				timer1_--;
+				timer1_-=3.5;
 			}
 			else {
 				rectDirection = false;
