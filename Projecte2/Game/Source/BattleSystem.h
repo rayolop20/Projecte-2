@@ -69,6 +69,11 @@ public:
 	int randomx = 0, randomy = 0;
 	int EnemyTurn = 0;
 
+	bool rectDirection = true;
+	int randomtargetRect = 0;
+	int randomtargetRect_ = 0;
+	float finalpos = 0;
+
 	bool SpecialAttackEnable = false;
 	bool InventoryEnable = false;
 private:

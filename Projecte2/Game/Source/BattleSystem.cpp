@@ -235,7 +235,7 @@ void battleSystem::InventoryPhase() {
 void battleSystem::SpecialAttackPhase() {
 	srand(time(NULL));
 	if (randomAttack == 0) {
-		randomAttack = (rand() % 1) + 2;
+		randomAttack = (rand() % 3) + 1;
 	}
 	if (randomAttack == 1) {//QTE 1
 		timer1 = SDL_GetTicks() / 1000;
@@ -273,7 +273,7 @@ void battleSystem::SpecialAttackPhase() {
 		if (AttackAux > 50) {
 			AttackAux = 50 ;
 		}
-		if (timer1 > timer1_ + 15 && AttackAux != 0) {
+		if (timer1 > timer1_ + 5 && AttackAux != 0) {
 			randomAttack = 0;
 			QTE2->state = GuiControlState::DISABLED;
 			//enemy.hp = enemy.hp - player.attack + AttackAux;
@@ -282,7 +282,56 @@ void battleSystem::SpecialAttackPhase() {
 		}
 		//pp->render->DrawRectangle(block1, 250, 0, 0);
 	}
-	if (randomAttack == 3) {
+	if (randomAttack == 3) {//QTE 3
+		randomtargetRect = (rand() % 185) + 165;
+		if (AttackAux == 0 && app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+			timer1_ = timer1;
+			AttackAux = 1;
+			randomtargetRect = (rand() % 185) + 165;
+			randomtargetRect_ = randomtargetRect;
+		}
+		if (AttackAux != 0) {
+
+			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && timer1_ > timer1 + 0.5) {
+				finalpos = timer1_ + 125;
+				if (finalpos > randomtargetRect_ && finalpos + 20 < randomtargetRect_ + 30) {
+					AttackAux = 50;
+				}
+				else if (finalpos > randomtargetRect_ - 30 && finalpos + 20 < randomtargetRect_ + 60) {
+					AttackAux = 25;
+				}
+				else {
+					AttackAux = 10;
+				}
+				randomAttack = 0;
+				//enemy.hp = enemy.hp - player.attack + AttackAux;
+				AttackAux = 0;
+				SpecialAttackEnable = false;
+
+			}
+			if (timer1_ < 280 && rectDirection == false) {//PointRect right movement
+				timer1_++;
+			}
+			else {
+				rectDirection = true;
+			}
+			if (timer1_ > 0 && rectDirection == true) {//PointRect left movement
+				timer1_--;
+			}
+			else {
+				rectDirection = false;
+			}
+			
+			SDL_Rect largeRect = { 125,300,300,40 };
+			app->render->DrawRectangle(largeRect, 0, 250, 0);
+			SDL_Rect targetRect2 = { randomtargetRect_ - 30,300,90,40 };
+			app->render->DrawRectangle(targetRect2, 255, 128, 0);
+			SDL_Rect targetRect = { randomtargetRect_,300,30,40 };
+			app->render->DrawRectangle(targetRect, 250, 250, 0);
+			SDL_Rect PointRect = { 125 + timer1_,310,20,20 };
+			app->render->DrawRectangle(PointRect, 250, 0, 0);
+		}
+		
 
 	}
 }
