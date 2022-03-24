@@ -60,6 +60,8 @@ bool battleSystem::Start()
 	Run->state = GuiControlState::DISABLED;
 	CloseInventory = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 7, "CloseInventory", { (app->win->GetWidth() / 2) - 130, app->win->GetHeight() / 10 - 30, 15, 15 }, this);
 	CloseInventory->state = GuiControlState::DISABLED;
+	QTE2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 8, "QTE2", { (app->win->GetWidth() / 2) + 0, app->win->GetHeight() / 10 + 0, 50, 50 }, this);
+	QTE2->state = GuiControlState::DISABLED;
 
 	AttackPhaseActive = false;
 
@@ -231,9 +233,10 @@ void battleSystem::InventoryPhase() {
 }
 
 void battleSystem::SpecialAttackPhase() {
-	srand((unsigned)time(0));
-	int randomAttack;
-	randomAttack = (rand() % 1) + 1;
+	srand(time(NULL));
+	if (randomAttack == 0) {
+		randomAttack = (rand() % 2) + 1;
+	}
 	if (randomAttack == 1) {//QTE 1
 		timer1 = SDL_GetTicks() / 1000;
 		if (AttackAux == 0 && app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
@@ -244,7 +247,7 @@ void battleSystem::SpecialAttackPhase() {
 			AttackAux++;
 		}
 		if (AttackAux > 50) {
-			AttackAux = 50;
+   			AttackAux = 50;
 		}
 		if (timer1 > timer1_ + 5 && AttackAux != 0) {
 			randomAttack = 0;
@@ -254,7 +257,29 @@ void battleSystem::SpecialAttackPhase() {
 		}
 	}
 	if (randomAttack == 2) {//QTE 2
-
+		timer1 = SDL_GetTicks() / 1000;
+		if (AttackAux == 0 && app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+			timer1_ = timer1;
+			AttackAux = 1;
+		}
+		int randomx = 0, randomy = 0;
+		randomx = (rand() % 500);
+		randomy = (rand() % 300);
+		if (QTE2->state == GuiControlState::DISABLED && AttackAux != 0) {
+			QTE2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 8, "QTE2", { (app->win->GetWidth() / 2) + randomx - 600, app->win->GetHeight() / 10 + randomy-10, 50, 50 }, this);
+			QTE2->state = GuiControlState::NORMAL;
+		}
+		if (AttackAux > 50) {
+			AttackAux = 50 ;
+		}
+		if (timer1 > timer1_ + 5 && AttackAux != 0) {
+			randomAttack = 0;
+			QTE2->state = GuiControlState::DISABLED;
+			//enemy.hp = enemy.hp - player.attack + AttackAux;
+			AttackAux = 0;
+			SpecialAttackEnable = false;
+		}
+		//pp->render->DrawRectangle(block1, 250, 0, 0);
 	}
 }
 
@@ -303,7 +328,12 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 		if (control->id == 7) {
 			InventoryEnable = false;
 			CloseInventory->state = GuiControlState::DISABLED;
+		}
+		if (control->id == 8) {
+			QTE2->state = GuiControlState::DISABLED;
+			AttackAux += 2.5;
 
+			
 		}
 	}
 

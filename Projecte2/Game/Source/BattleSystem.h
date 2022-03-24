@@ -47,6 +47,7 @@ public:
 	GuiButton* Inventory;
 	GuiButton* Run;
 	GuiButton* CloseInventory;
+	GuiButton* QTE2;
 
 	int AttackType = 0;
 	bool battle;
@@ -62,6 +63,7 @@ public:
 	float timer1 = 0;
 	float timer1_ = 0;
 	float AttackAux = 0;
+	int randomAttack = 0;
 
 	int PlayerTurn = 1;
 	int EnemyTurn = 0;
