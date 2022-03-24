@@ -5,8 +5,11 @@
 #include "EntityManager.h"
 #include "Scene.h"
 #include "Collisions.h"
+#include "PathFinding.h"
 
 #include "Log.h"
+#include "DynArray.h"
+
 VampirEnem::VampirEnem():Entity (EntityType::VAMPYRENEM)
 {
 	name.Create("VampirEnem");
@@ -88,6 +91,31 @@ void VampirEnem::OnCollision(Collider* c1, Collider* c2)
 		}
 	}
 }
+void VampirEnem::PathFindVamp()
+{
+	if (path == true)
+	{
+		const DynArray <iPoint>* path = app->pathfinding->GetLastPath();
+		//pathfinding debug
+		app->input->GetMousePosition(mouseX, mouseY);
+		iPoint p = app->render->ScreenToWorld(mouseX, mouseY);
+		p = app->map->WorldToMap(p.x, p.y);
+		p = app->map->MapToWorld(p.x, p.y);
+
+		app->render->DrawTexture(pathTex, p.x, p.y);
+
+		for (uint i = 0; i < path->Count(); ++i)
+		{
+			iPoint pos = app->map->MapToWorld(path->At(i)->x, path->At(i)->y);
+			app->render->DrawTexture(pathTex, pos.x, pos.y);
+		}
+
+		iPoint originScreen = app->map->MapToWorld(origin.x, origin.y);
+		app->render->DrawTexture(originTex, originScreen.x, originScreen.y);
+
+	}
+	
+}
 Vampire VampirEnem::CreateVampire(int x, int y, SDL_Texture* t)
 {
 	Vampire Vampires;
@@ -99,3 +127,4 @@ Vampire VampirEnem::CreateVampire(int x, int y, SDL_Texture* t)
 
 	return Vampires;
 }
+

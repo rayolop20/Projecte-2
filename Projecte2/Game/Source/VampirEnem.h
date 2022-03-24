@@ -47,6 +47,10 @@ public:
 	// Performs the render call of the player sprite
 	void OnCollision(Collider* c1, Collider* c2) override;
 
+	Vampire CreateVampire(int x, int y, SDL_Texture* v);
+
+	void PathFindVamp();
+
 public:
 	iPoint position;
 
@@ -54,11 +58,11 @@ public:
 
 	Vampire Vpir[NUM_VAMPIRE] = { nullptr };
 
-	Vampire CreateVampire(int x, int y, SDL_Texture* v);
-
 	Animation* currentAnimation[NUM_VAMPIRE] = { nullptr };
 	Animation idle;
 	Animation dead;
+
+	bool path = false;
 
 };
 
