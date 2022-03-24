@@ -8,6 +8,7 @@
 #include "Window.h"
 #include "Audio.h"
 #include "Collisions.h"
+#include "EntityManager.h"
 #include "Scene.h"
 #include "BattleSystem.h"
 
@@ -29,7 +30,7 @@ bool Player::Awake(pugi::xml_node& config) {
 
 	LOG("Loading Player");
 	bool ret = true;
-	
+
 
 	P1.position.x = config.child("Position").attribute("PositionX").as_int();
 	P1.position.y = config.child("Position").attribute("PositionY").as_int();
@@ -43,14 +44,14 @@ bool Player::Awake(pugi::xml_node& config) {
 bool Player::Start()
 {
 	bool ret = true;
-	
+
 	P1.Pcol = app->collisions->AddCollider({ P1.position.x,P1.position.y, 64, 64 }, Collider::Type::PLAYER, this);
 	return ret;
 }
 
 bool Player::Update(float dt)
 {
-	
+
 	player = { P1.position.x,P1.position.y, 64, 64 };
 	app->render->DrawRectangle(player, 200, 200, 200);
 
@@ -231,9 +232,8 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 
 				app->BTSystem->battle = true;
 			}
-		
+
 		}
 	}
 
 }
-
