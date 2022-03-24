@@ -235,7 +235,7 @@ void battleSystem::InventoryPhase() {
 void battleSystem::SpecialAttackPhase() {
 	srand(time(NULL));
 	if (randomAttack == 0) {
-		randomAttack = (rand() % 2) + 1;
+		randomAttack = (rand() % 1) + 2;
 	}
 	if (randomAttack == 1) {//QTE 1
 		timer1 = SDL_GetTicks() / 1000;
@@ -262,17 +262,18 @@ void battleSystem::SpecialAttackPhase() {
 			timer1_ = timer1;
 			AttackAux = 1;
 		}
-		int randomx = 0, randomy = 0;
 		randomx = (rand() % 500);
 		randomy = (rand() % 300);
 		if (QTE2->state == GuiControlState::DISABLED && AttackAux != 0) {
+			randomx = (rand() % 500);
+			randomy = (rand() % 300);
 			QTE2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 8, "QTE2", { (app->win->GetWidth() / 2) + randomx - 600, app->win->GetHeight() / 10 + randomy-10, 50, 50 }, this);
 			QTE2->state = GuiControlState::NORMAL;
 		}
 		if (AttackAux > 50) {
 			AttackAux = 50 ;
 		}
-		if (timer1 > timer1_ + 5 && AttackAux != 0) {
+		if (timer1 > timer1_ + 15 && AttackAux != 0) {
 			randomAttack = 0;
 			QTE2->state = GuiControlState::DISABLED;
 			//enemy.hp = enemy.hp - player.attack + AttackAux;
@@ -280,6 +281,9 @@ void battleSystem::SpecialAttackPhase() {
 			SpecialAttackEnable = false;
 		}
 		//pp->render->DrawRectangle(block1, 250, 0, 0);
+	}
+	if (randomAttack == 3) {
+
 	}
 }
 

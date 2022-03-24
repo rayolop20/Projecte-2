@@ -65,7 +65,8 @@ public:
 	float AttackAux = 0;
 	int randomAttack = 0;
 
-	int PlayerTurn = 1;
+	int PlayerTurn = 1; 
+	int randomx = 0, randomy = 0;
 	int EnemyTurn = 0;
 
 	bool SpecialAttackEnable = false;
