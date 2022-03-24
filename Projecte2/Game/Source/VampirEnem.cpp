@@ -5,7 +5,9 @@
 #include "EntityManager.h"
 #include "Scene.h"
 #include "Collisions.h"
+#include "Player.h"
 #include "PathFinding.h"
+#include "Map.h"
 
 #include "Log.h"
 #include "DynArray.h"
@@ -95,6 +97,7 @@ void VampirEnem::PathFindVamp()
 {
 	if (path == true)
 	{
+		app->pathfinding->CreatePath(app->map->WorldToMap(Vpir->x, Vpir->y), app->map->WorldToMap(app->player->P1.position.x, app->player->P1.position.y + app->map->mapData.tileHeight + app->map->mapData.tileHeight / 2));
 		const DynArray <iPoint>* path = app->pathfinding->GetLastPath();
 		//pathfinding debug
 		app->input->GetMousePosition(mouseX, mouseY);
