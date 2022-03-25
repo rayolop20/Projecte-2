@@ -12,6 +12,8 @@
 #include "VampirEnem.h"
 #include "Collisions.h"
 #include "Menu.h"
+#include "BattleSystem.h"
+
 
 #include "Defs.h"
 #include "Log.h"
@@ -67,10 +69,10 @@ bool Scene::Update(float dt)
 
 	app->map->DColisions();
     // L02: DONE 3: Request Load / Save when pressing L/S
-	if(app->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
+	if(app->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN && app->BTSystem->battle == false)
 		app->LoadGameRequest();
 
-	if(app->input->GetKey(SDL_SCANCODE_O) == KEY_DOWN)
+	if(app->input->GetKey(SDL_SCANCODE_O) == KEY_DOWN && app->BTSystem->battle == false)
 		app->SaveGameRequest();
 
 	if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN) {

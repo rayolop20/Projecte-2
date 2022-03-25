@@ -62,7 +62,9 @@ public:
 
 	float timer1 = 0;
 	float timer1_ = 0;
-	float AttackAux = 0;
+	float timer2 = 0;
+	float timer2_ = 0;
+	float AttackAux;
 	int randomAttack = 0;
 
 	int PlayerTurn = 1; 
@@ -74,8 +76,15 @@ public:
 	int randomtargetRect_ = 0;
 	float finalpos = 0;
 
+	bool Delay = true;
+
 	bool SpecialAttackEnable = false;
 	bool InventoryEnable = false;
+
+	int randomLetterGenerator = 0;
+	bool LetterGenerator = true;
+
+	SDL_Texture* TypoSpecialAttack;
 private:
 
 
