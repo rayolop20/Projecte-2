@@ -51,7 +51,12 @@ bool VampirEnem::Start()
 
 bool VampirEnem::Update(float dt)
 {
-	
+	PathFindVamp();
+	if (app->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
+	{
+		path = true;
+	}
+
 	for (int i = 0; i < NUM_VAMPIRE; i++)
 	{
 		currentAnimation[i]->Update();
@@ -62,7 +67,7 @@ bool VampirEnem::Update(float dt)
 			Vpir[i].colliderV->pendingToDelete = true;
 		}
 	}
-
+	Vpir->colliderV->SetPos(Vpir->Pos.x, Vpir->Pos.x);
 	return true;
 }
 
@@ -73,7 +78,7 @@ bool VampirEnem::PostUpdate()
 	{
 		if (Vpir[i].dead == false) 
 		{
-		app->render->DrawTexture(Vpir[i].vampireT, Vpir[i].x, Vpir[i].y, &(currentAnimation[i]->GetCurrentFrame()));
+		app->render->DrawTexture(Vpir[i].vampireT, Vpir[i].Pos.x, Vpir[i].Pos.y, &(currentAnimation[i]->GetCurrentFrame()));
 		}
 	}
 	return true;
@@ -97,25 +102,23 @@ void VampirEnem::PathFindVamp()
 {
 	if (path == true)
 	{
-		app->pathfinding->CreatePath(app->map->WorldToMap(Vpir->x, Vpir->y), app->map->WorldToMap(app->player->P1.position.x, app->player->P1.position.y + app->map->mapData.tileHeight + app->map->mapData.tileHeight / 2));
-		const DynArray <iPoint>* path = app->pathfinding->GetLastPath();
-		//pathfinding debug
-		app->input->GetMousePosition(mouseX, mouseY);
-		iPoint p = app->render->ScreenToWorld(mouseX, mouseY);
-		p = app->map->WorldToMap(p.x, p.y);
-		p = app->map->MapToWorld(p.x, p.y);
+		app->pathfinding->CreatePath(app->map->WorldToMap(Vpir->Pos.x, Vpir->Pos.x), app->map->WorldToMap(app->player->P1.position.x, app->player->P1.position.y));
 
-		app->render->DrawTexture(pathTex, p.x, p.y);
+		const DynArray<iPoint>* path = app->pathfinding->GetLastPath();
 
 		for (uint i = 0; i < path->Count(); ++i)
 		{
 			iPoint pos = app->map->MapToWorld(path->At(i)->x, path->At(i)->y);
-			app->render->DrawTexture(pathTex, pos.x, pos.y);
+			if (Vpir->Pos.x <= pos.x)
+			{
+				Vpir->Pos.x++;
+			}
+			if (Vpir->Pos.x >= pos.x)
+			{
+				Vpir->Pos.x--;
+			}
+			
 		}
-
-		iPoint originScreen = app->map->MapToWorld(origin.x, origin.y);
-		app->render->DrawTexture(originTex, originScreen.x, originScreen.y);
-
 	}
 	
 }
@@ -125,8 +128,8 @@ Vampire VampirEnem::CreateVampire(int x, int y, SDL_Texture* t)
 
 	Vampires.colliderV = app->collisions->AddCollider({ x, y, 80, 80 }, Collider::Type::VAMPIRE, (Module*)app->entityManager);
 	Vampires.vampireT = t;
-	Vampires.x = x;
-	Vampires.y = y;
+	Vampires.Pos.x = x;
+	Vampires.Pos.y = y;
 
 	return Vampires;
 }

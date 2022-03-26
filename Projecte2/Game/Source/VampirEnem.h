@@ -15,8 +15,7 @@ struct Vampire
 	//bool moveXD = false, moveXA = false, moveYW = false, moveYS = false;
 	Collider* colliderV = nullptr;
 	SDL_Texture* vampireT = nullptr;
-	int x;
-	int y;
+	iPoint Pos;
 	bool Destroyed = false;
 	uint vCount = 0;
 	bool dead = false;
