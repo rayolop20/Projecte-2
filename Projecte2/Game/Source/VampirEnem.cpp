@@ -11,6 +11,7 @@
 
 #include "Log.h"
 #include "DynArray.h"
+#include "BattleSystem.h"
 
 VampirEnem::VampirEnem():Entity (EntityType::VAMPYRENEM)
 {
@@ -52,8 +53,14 @@ bool VampirEnem::Start()
 bool VampirEnem::Update(float dt)
 {
 	PathFindVamp();
+	timer3 = SDL_GetTicks() / 10;
+
 	if (app->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
 	{
+		if (pathfindingaux == true) {
+			pathfindingtimer = timer3;
+			pathfindingaux = false;
+		}
 		path = true;
 	}
 
@@ -103,6 +110,11 @@ void VampirEnem::PathFindVamp()
 {
 	if (path == true)
 	{
+		
+
+		if (timer3 > pathfindingtimer + 1 && pathfindingaux == false) {
+			int klk = 0;
+		}
 		for (uint i = 0; i < NUM_VAMPIRE; ++i)
 		{
 			app->pathfinding->CreatePath(app->map->WorldToMap(Vpir[i].Pos.x, Vpir[i].Pos.y), app->map->WorldToMap(app->player->P1.position.x, app->player->P1.position.y));
@@ -112,23 +124,42 @@ void VampirEnem::PathFindVamp()
 			for (uint j = 0; j < path->Count(); ++j)
 			{
 				iPoint pos = app->map->MapToWorld(path->At(j)->x, path->At(j)->y);
-				if (Vpir[i].Pos.x <= pos.x)
+				if (Vpir[i].Pos.x <= pos.x - 32 && timer3 > pathfindingtimer + enemySpeed)
 				{
-					Vpir[i].Pos.x++;
+					pathfindingtimer = timer3;
+					Vpir[i].Pos.x+=16;
 				}
-				if (Vpir[i].Pos.x >= pos.x)
+				if (Vpir[i].Pos.x >= pos.x + 32 && timer3 > pathfindingtimer + enemySpeed)
 				{
-					Vpir[i].Pos.x--;
+					pathfindingtimer = timer3;
+					Vpir[i].Pos.x-=16;
 				}
-				if (Vpir[i].Pos.y <= pos.y)
+				if (Vpir[i].Pos.y <= pos.y - 32 &&  timer3 > pathfindingtimer + enemySpeed)
 				{
-					Vpir[i].Pos.y++;
+					pathfindingtimer = timer3;
+					Vpir[i].Pos.y+=16;
 				}
-				if (Vpir[i].Pos.y >= pos.y)
+				if (Vpir[i].Pos.y >= pos.y + 32 && timer3 > pathfindingtimer + enemySpeed)
 				{
-					Vpir[i].Pos.y--;
+					pathfindingtimer = timer3;
+					Vpir[i].Pos.y-=16;
 				}
-
+				/*if (Vpir[i].Pos.x <= pos.x)
+                {
+                    Vpir[i].Pos.x++;
+                }
+                if (Vpir[i].Pos.x >= pos.x)
+                {
+                    Vpir[i].Pos.x--;
+                }
+                if (Vpir[i].Pos.y <= pos.y)
+                {
+                    Vpir[i].Pos.y++;
+                }
+                if (Vpir[i].Pos.y >= pos.y)
+                {
+                    Vpir[i].Pos.y--;
+                }*/
 			}
 		}
 	}

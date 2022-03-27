@@ -255,10 +255,10 @@ void battleSystem::SpecialAttackPhase() {
 			AttackAux = 1;
 		}
 		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
-			AttackAux++;
+			AttackAux+=2;
 		}
-		if (AttackAux > 50) {
-    		AttackAux = 50;
+		if (AttackAux > 100) {
+    		AttackAux = 100;
 		}
 		if (timer1 > timer1_ + 5 && AttackAux != 0) {
 			randomAttack = 0;
@@ -281,8 +281,8 @@ void battleSystem::SpecialAttackPhase() {
 			QTE2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 8, "QTE2", { (app->win->GetWidth() / 2) + randomx - 600, app->win->GetHeight() / 10 + randomy-10, 50, 50 }, this);
 			QTE2->state = GuiControlState::NORMAL;
 		}
-		if (AttackAux > 50) {
-			AttackAux = 50 ;
+		if (AttackAux > 100) {
+			AttackAux = 100 ;
 		}
 		if (timer1 > timer1_ + 5 && AttackAux != 0) {
 			randomAttack = 0;
@@ -306,13 +306,13 @@ void battleSystem::SpecialAttackPhase() {
 			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && timer1_ > timer1 + 0.5) {
 				finalpos = timer1_ + 125;
 				if (finalpos > randomtargetRect_ && finalpos + 20 < randomtargetRect_ + 30) {
-					AttackAux = 50;
+					AttackAux = 100;
 				}
 				else if (finalpos > randomtargetRect_ - 30 && finalpos + 20 < randomtargetRect_ + 60) {
-					AttackAux = 25;
+					AttackAux = 50;
 				}
 				else {
-					AttackAux = 10;
+					AttackAux = 25;
 				}
 				randomAttack = 0;
 				//enemy.hp = enemy.hp - player.attack + AttackAux;
@@ -357,119 +357,119 @@ void battleSystem::SpecialAttackPhase() {
 				randomLetterGenerator = (rand() % 26) + 1;
 				LetterGenerator = false;
 			}
-			SDL_Rect* TypoLetter = new SDL_Rect();
+			SDL_Rect *TypoLetter = new SDL_Rect();
 			TypoLetter->x = (randomLetterGenerator-1)*22;
 			TypoLetter->y = 0;
 			TypoLetter->w = 22;
 			TypoLetter->h = 54;
 			app->render->DrawTexture(TypoSpecialAttack, 250, 140,TypoLetter);
 			if (app->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN && randomLetterGenerator == 1) {
-				AttackAux += 5;
+				AttackAux += 10;
 				LetterGenerator = true;
 			}
 			if (app->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN && randomLetterGenerator == 2) {
-				AttackAux += 5;
+				AttackAux += 10;
 				LetterGenerator = true;
 			}
 			if (app->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN && randomLetterGenerator == 3) {
-				AttackAux += 5;
+				AttackAux += 10;
 				LetterGenerator = true;
 			}
 			if (app->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN && randomLetterGenerator == 4) {
-				AttackAux += 5;
+				AttackAux += 10;
 				LetterGenerator = true;
 			}
 			if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN && randomLetterGenerator == 5) {
-				AttackAux += 5;
+				AttackAux += 10;
 				LetterGenerator = true;
 			}
 			if (app->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN && randomLetterGenerator == 6) {
-				AttackAux += 5;
+				AttackAux += 10;
 				LetterGenerator = true;
 			}
 			if (app->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN && randomLetterGenerator == 7) {
-				AttackAux += 5;
+				AttackAux += 10;
 				LetterGenerator = true;
 			}
 			if (app->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN && randomLetterGenerator == 8) {
-				AttackAux += 5;
+				AttackAux += 10;
 				LetterGenerator = true;
 			}
 			if (app->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN && randomLetterGenerator == 9) {
-				AttackAux += 5;
+				AttackAux += 10;
 				LetterGenerator = true;
 			}
 			if (app->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN && randomLetterGenerator == 10) {
-				AttackAux += 5;
+				AttackAux += 10;
 				LetterGenerator = true;
 			}
 			if (app->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN && randomLetterGenerator == 11) {
-				AttackAux += 5;
+				AttackAux += 10;
 				LetterGenerator = true;
 			}
 			if (app->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN && randomLetterGenerator == 12) {
-				AttackAux += 5;
+				AttackAux += 10;
 				LetterGenerator = true;
 			}
 			if (app->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN && randomLetterGenerator == 13) {
-				AttackAux += 5;
+				AttackAux += 10;
 				LetterGenerator = true;
 			}
 			if (app->input->GetKey(SDL_SCANCODE_N) == KEY_DOWN && randomLetterGenerator == 14) {
-				AttackAux += 5;
+				AttackAux += 10;
 				LetterGenerator = true;
 			}
 			if (app->input->GetKey(SDL_SCANCODE_O) == KEY_DOWN && randomLetterGenerator == 15) {
-				AttackAux += 5;
+				AttackAux += 10;
 				LetterGenerator = true;
 			}
 			if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN && randomLetterGenerator == 16) {
-				AttackAux += 5;
+				AttackAux += 10;
 				LetterGenerator = true;
 			}
 			if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN && randomLetterGenerator == 17) {
-				AttackAux += 5;
+				AttackAux += 10;
 				LetterGenerator = true;
 			}
 			if (app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN && randomLetterGenerator == 18) {
-				AttackAux += 5;
+				AttackAux += 10;
 				LetterGenerator = true;
 			}
 			if (app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN && randomLetterGenerator == 19) {
-				AttackAux += 5;
+				AttackAux += 10;
 				LetterGenerator = true;
 			}
 			if (app->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN && randomLetterGenerator == 20) {
-				AttackAux += 5;
+				AttackAux += 10;
 				LetterGenerator = true;
 			}
 			if (app->input->GetKey(SDL_SCANCODE_U) == KEY_DOWN && randomLetterGenerator == 21) {
-				AttackAux += 5;
+				AttackAux += 10;
 				LetterGenerator = true;
 			}
 			if (app->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN && randomLetterGenerator == 22) {
-				AttackAux += 5;
+				AttackAux += 10;
 				LetterGenerator = true;
 			}
 			if (app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN && randomLetterGenerator == 23) {
-				AttackAux += 5;
+				AttackAux += 10;
 				LetterGenerator = true;
 			}
 			if (app->input->GetKey(SDL_SCANCODE_X) == KEY_DOWN && randomLetterGenerator == 24) {
-				AttackAux += 5;
+				AttackAux += 10;
 				LetterGenerator = true;
 			}
 			if (app->input->GetKey(SDL_SCANCODE_Y) == KEY_DOWN && randomLetterGenerator == 25) {
-				AttackAux += 5;
+				AttackAux += 10;
 				LetterGenerator = true;
 			}
 			if (app->input->GetKey(SDL_SCANCODE_Z) == KEY_DOWN && randomLetterGenerator == 26) {
-				AttackAux += 5;
+				AttackAux += 10;
 				LetterGenerator = true;
 			}
 
-			if (AttackAux >= 50) {
-				AttackAux = 50;
+			if (AttackAux >= 100) {
+				AttackAux = 100;
 			}
 			if (timer1 > timer1_ + 10 && AttackAux != 0) {
 				randomLetterGenerator = 0;
@@ -534,7 +534,7 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 		}
 		if (control->id == 8) {
 			QTE2->state = GuiControlState::DISABLED;
-			AttackAux += 4;
+			AttackAux += 8;
 
 			
 		}

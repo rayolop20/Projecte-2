@@ -62,6 +62,10 @@ public:
 	Animation dead;
 
 	bool path = false;
+	float timer3 = 0;
+	float enemySpeed = 20;//Velocitat inversa, 0 es velocitat maxima i valor més gran, velocitat més lenta.
+	float pathfindingtimer = 0;
+	bool pathfindingaux = true;
 
 };
 
