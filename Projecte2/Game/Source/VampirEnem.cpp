@@ -44,7 +44,7 @@ bool VampirEnem::Start()
 		currentAnimation[i] = &idle;
 	}
 
-	Vpir[0] = CreateVampire(200, 200, TextureVampire);
+	Vpir[0] = CreateVampire(32, 32, TextureVampire);
 
 	return false;
 }
@@ -67,7 +67,7 @@ bool VampirEnem::Update(float dt)
 			Vpir[i].colliderV->pendingToDelete = true;
 		}
 	}
-	Vpir->colliderV->SetPos(Vpir->Pos.x, Vpir->Pos.x);
+	Vpir->colliderV->SetPos(Vpir->Pos.x, Vpir->Pos.y);
 	return true;
 }
 
@@ -98,26 +98,38 @@ void VampirEnem::OnCollision(Collider* c1, Collider* c2)
 		}
 	}
 }
+
 void VampirEnem::PathFindVamp()
 {
 	if (path == true)
 	{
-		app->pathfinding->CreatePath(app->map->WorldToMap(Vpir->Pos.x, Vpir->Pos.x), app->map->WorldToMap(app->player->P1.position.x, app->player->P1.position.y));
-
-		const DynArray<iPoint>* path = app->pathfinding->GetLastPath();
-
-		for (uint i = 0; i < path->Count(); ++i)
+		for (uint i = 0; i < NUM_VAMPIRE; ++i)
 		{
-			iPoint pos = app->map->MapToWorld(path->At(i)->x, path->At(i)->y);
-			if (Vpir->Pos.x <= pos.x)
+			app->pathfinding->CreatePath(app->map->WorldToMap(Vpir[i].Pos.x, Vpir[i].Pos.y), app->map->WorldToMap(app->player->P1.position.x, app->player->P1.position.y));
+
+			const DynArray<iPoint>* path = app->pathfinding->GetLastPath();
+
+			for (uint j = 0; j < path->Count(); ++j)
 			{
-				Vpir->Pos.x++;
+				iPoint pos = app->map->MapToWorld(path->At(j)->x, path->At(j)->y);
+				if (Vpir[i].Pos.x <= pos.x)
+				{
+					Vpir[i].Pos.x++;
+				}
+				if (Vpir[i].Pos.x >= pos.x)
+				{
+					Vpir[i].Pos.x--;
+				}
+				if (Vpir[i].Pos.y <= pos.y)
+				{
+					Vpir[i].Pos.y++;
+				}
+				if (Vpir[i].Pos.y >= pos.y)
+				{
+					Vpir[i].Pos.y--;
+				}
+
 			}
-			if (Vpir->Pos.x >= pos.x)
-			{
-				Vpir->Pos.x--;
-			}
-			
 		}
 	}
 	
@@ -126,7 +138,7 @@ Vampire VampirEnem::CreateVampire(int x, int y, SDL_Texture* t)
 {
 	Vampire Vampires;
 
-	Vampires.colliderV = app->collisions->AddCollider({ x, y, 80, 80 }, Collider::Type::VAMPIRE, (Module*)app->entityManager);
+	Vampires.colliderV = app->collisions->AddCollider({ x, y, 32, 32 }, Collider::Type::VAMPIRE, (Module*)app->entityManager);
 	Vampires.vampireT = t;
 	Vampires.Pos.x = x;
 	Vampires.Pos.y = y;
