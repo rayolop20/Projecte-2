@@ -47,10 +47,12 @@ public:
 	GuiButton* Inventory;
 	GuiButton* Run;
 	GuiButton* CloseInventory;
+	GuiButton* QTE2;
 
 	int AttackType = 0;
 	bool battle;
 	bool AttackPhaseActive;
+	bool AttackPhaseEnable = false;
 
 	void AttackPhase();
 	void AttackPhaseDisabled();
@@ -60,13 +62,29 @@ public:
 
 	float timer1 = 0;
 	float timer1_ = 0;
-	float AttackAux = 0;
+	float timer2 = 0;
+	float timer2_ = 0;
+	float AttackAux;
+	int randomAttack = 0;
 
-	int PlayerTurn = 1;
+	int PlayerTurn = 1; 
+	int randomx = 0, randomy = 0;
 	int EnemyTurn = 0;
+
+	bool rectDirection = true;
+	int randomtargetRect = 0;
+	int randomtargetRect_ = 0;
+	float finalpos = 0;
+
+	bool Delay = true;
 
 	bool SpecialAttackEnable = false;
 	bool InventoryEnable = false;
+
+	int randomLetterGenerator = 0;
+	bool LetterGenerator = true;
+
+	SDL_Texture* TypoSpecialAttack;
 private:
 
 
