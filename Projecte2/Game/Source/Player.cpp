@@ -60,7 +60,7 @@ bool Player::Update(float dt)
 	{
 		//left
 		{
-			if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && P1.moveXD == false)
+			if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && P1.moveXD == false && app->BTSystem->battle == false)
 			{
 				P1.position.x +=3;
 				P1.moveXA = true;
@@ -77,7 +77,7 @@ bool Player::Update(float dt)
 		}
 		//right
 		{
-			if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && P1.moveXA == false)
+			if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && P1.moveXA == false && app->BTSystem->battle == false)
 			{
 				P1.position.x-=3;
 				P1.moveXD = true;
@@ -94,7 +94,7 @@ bool Player::Update(float dt)
 		}
 		//up
 		{
-			if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT && P1.moveYW == false)
+			if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT && P1.moveYW == false && app->BTSystem->battle == false)
 			{
 				P1.position.y-=3;
 				P1.moveYS = true;
@@ -107,7 +107,7 @@ bool Player::Update(float dt)
 		}
 		//down
 		{
-			if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT && P1.moveYS == false)
+			if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT && P1.moveYS == false && app->BTSystem->battle == false)
 			{
 				P1.position.y+=3;
 				P1.moveYW = true;
@@ -227,9 +227,8 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 
 		//Enemies
 		{
-			if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::VAMPIRE)
+			if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::VAMPIRE && app->BTSystem->Delay == true)
 			{
-
 				app->BTSystem->battle = true;
 			}
 

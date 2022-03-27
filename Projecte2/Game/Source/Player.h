@@ -13,7 +13,13 @@ struct playr1
 	iPoint position;
 	Collider* Pcol = nullptr;
 	bool moveXD = false, moveXA = false, moveYW = false, moveYS = false;
+	float hp = 50.0;
+	float speed = 60.0;
+	float luck = 0.0;
+	float mana = 0.0;
+	float damage = 0.0;
 };
+
 
 class Player : public Module
 {
