@@ -21,6 +21,7 @@ struct playr1
 };
 
 
+
 class Player : public Module
 {
 public:
@@ -49,7 +50,6 @@ public:
 
 	//int Timer(int second);
 	playr1 P1;
-	playr1 P2;
 	bool block1 = true;
 	bool block2 = true;
 	bool block3 = true;
