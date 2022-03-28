@@ -77,7 +77,7 @@ bool VampirEnem::Update(float dt)
 	for (int i = 0; i < 1; i++)
 	{
 		Vpir[i].colliderV->SetPos(Vpir[i].Pos.x, Vpir[i].Pos.y);
-		Vpir[i].colliderS->SetPos(Vpir[i].Pos.x, Vpir[i].Pos.y);
+		Vpir[i].colliderS->SetPos(Vpir[i].Pos.x - 84, Vpir[i].Pos.y - 84);
 	}
 	return true;
 }
@@ -185,7 +185,7 @@ Vampire VampirEnem::CreateVampire(int x, int y, SDL_Texture* t)
 	Vampire Vampires;
 
 	Vampires.colliderV = app->collisions->AddCollider({ x, y, 32, 32 }, Collider::Type::VAMPIRE, (Module*)app->entityManager);
-	Vampires.colliderS = app->collisions->AddCollider({ x, y, 100, 100 }, Collider::Type::SENSOR, (Module*)app->entityManager);
+	Vampires.colliderS = app->collisions->AddCollider({ x, y, 200, 200 }, Collider::Type::SENSOR, (Module*)app->entityManager);
 	Vampires.vampireT = t;
 	Vampires.Pos.x = x;
 	Vampires.Pos.y = y;

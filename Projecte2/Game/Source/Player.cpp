@@ -46,6 +46,28 @@ bool Player::Start()
 	bool ret = true;
 
 	P1.Pcol = app->collisions->AddCollider({ P1.position.x,P1.position.y, 64, 64 }, Collider::Type::PLAYER, this);
+
+	P1.IsAlive = true;
+	P1.hp = 50.0;
+	P1.attack1 = 45.0;
+	P1.attack2 = 12.0;
+	P1.speed1 = 0.0;
+	P1.speed2 = 10.0;
+	P1.mana = 0.0;
+	P1.mana1 = 25.0;
+	P2.mana2 = 20.0;
+	
+	P2.IsAlive = true;
+	P2.hp = 50.0;
+	P2.attack1 = 20.0;
+	P2.attack2 = 35.0;
+	P2.speed1 = 20.0;
+	P2.speed2 = 15.0;
+	P2.mana = 0.0;
+	P2.mana1 = 35.0;
+	P2.mana2 = 45.0;
+
+	
 	return ret;
 }
 
