@@ -53,7 +53,7 @@ bool VampirEnem::Start()
 
 bool VampirEnem::Update(float dt)
 {
-	PathFindVamp(0);
+	
 	timer3 = SDL_GetTicks() / 10;
 
 	if (app->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
@@ -78,6 +78,7 @@ bool VampirEnem::Update(float dt)
 	for (int i = 0; i < 2; i++)
 	{
 		Vpir[i].colliderV->SetPos(Vpir[i].Pos.x, Vpir[i].Pos.y);
+		Vpir[i].colliderS->SetPos(Vpir[i].Pos.x, Vpir[i].Pos.y);
 	}
 	return true;
 }
@@ -105,6 +106,19 @@ void VampirEnem::OnCollision(Collider* c1, Collider* c2)
 			if (c2->type == Collider::Type::PLAYER)
 			{
 				Vpir[i].Destroyed = true;
+			}
+		}
+		else if (Vpir[i].colliderS == c1 && !Vpir[i].Destroyed)
+		{
+			if (c2->type == Collider::Type::PLAYER)
+			{
+				if (pathfindingaux == true) {
+					pathfindingtimer = timer3;
+					pathfindingaux = false;
+				}
+				path = true;
+				VampireNum = i;
+				PathFindVamp(VampireNum);
 			}
 		}
 	}
@@ -172,6 +186,7 @@ Vampire VampirEnem::CreateVampire(int x, int y, SDL_Texture* t)
 	Vampire Vampires;
 
 	Vampires.colliderV = app->collisions->AddCollider({ x, y, 32, 32 }, Collider::Type::VAMPIRE, (Module*)app->entityManager);
+	Vampires.colliderS = app->collisions->AddCollider({ x, y, 100, 100 }, Collider::Type::SENSOR, (Module*)app->entityManager);
 	Vampires.vampireT = t;
 	Vampires.Pos.x = x;
 	Vampires.Pos.y = y;

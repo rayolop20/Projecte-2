@@ -14,6 +14,7 @@ struct Vampire
 {
 	//bool moveXD = false, moveXA = false, moveYW = false, moveYS = false;
 	Collider* colliderV = nullptr;
+	Collider* colliderS = nullptr;
 	SDL_Texture* vampireT = nullptr;
 	iPoint Pos;
 	bool Destroyed = false;
@@ -66,6 +67,8 @@ public:
 	float enemySpeed = 20;//Velocitat inversa, 0 es velocitat maxima i valor més gran, velocitat més lenta.
 	float pathfindingtimer = 0;
 	bool pathfindingaux = true;
+
+	int VampireNum = NULL;
 
 };
 

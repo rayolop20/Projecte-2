@@ -180,4 +180,7 @@ void EntityManager::OnCollision(Collider* c1, Collider* c2)
 	if (c1->type == Collider::Type::VAMPIRE && c2->type == Collider::Type::PLAYER) {
 		entities[0]->OnCollision(c1, c2);
 	}
+	if (c1->type == Collider::Type::SENSOR && c2->type == Collider::Type::PLAYER) {
+		entities[0]->OnCollision(c1, c2);
+	}
 }
