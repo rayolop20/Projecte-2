@@ -4,6 +4,8 @@
 #include "Audio.h"
 #include "Scene.h"
 #include "Window.h"
+#include "Textures.h"
+#include "Animation.h"
 
 GuiButton::GuiButton(uint32 id, SDL_Rect bounds, const char* text) : GuiControl(GuiControlType::BUTTON, id)
 {
@@ -16,7 +18,7 @@ GuiButton::GuiButton(uint32 id, SDL_Rect bounds, const char* text) : GuiControl(
 
 GuiButton::~GuiButton()
 {
-
+	MainMenuUI = app->tex->Load("Assets/UI/MainMenuSprite.png");
 }
 
 bool GuiButton::Update(float dt)
@@ -61,11 +63,14 @@ bool GuiButton::Draw(Render* render)
 
 	case GuiControlState::DISABLED: 
 	{
+
 		render->DrawRectangle(bounds, 0, 0, 0, 0);
+
 	} break;
 
 	case GuiControlState::NORMAL:
 	{
+		//MainMenuUI.PushBack({});
 		render->DrawRectangle(bounds, 255, 0, 0, 255);
 
 	} break;
