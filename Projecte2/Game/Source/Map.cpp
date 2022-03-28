@@ -75,7 +75,7 @@ void Map::DebugColisions() {
 						SDL_Rect r = tileset->GetTileRect(gid);
 						iPoint pos = MapToWorld(x, y);
 
-						app->render->DrawRectangle({ pos.x,pos.y,48,48 }, 0, 255, 0, 80);
+						app->render->DrawRectangle({ pos.x,pos.y,32,32 }, 0, 255, 0, 80);
 
 					}
 

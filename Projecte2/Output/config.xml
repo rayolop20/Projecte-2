@@ -25,7 +25,7 @@
   
   <!-- L13: Create a structure in XML to store multiple entities -->
    <player>
-	<Position PositionX = "70" PositionY = "70"/>
+	<Position PositionX = "150" PositionY = "250"/>
   </player>
  <Vampire>
 	<Position PositionX = "200" PositionY = "200"/>
