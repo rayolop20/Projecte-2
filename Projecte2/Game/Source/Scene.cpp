@@ -38,7 +38,7 @@ bool Scene::Awake()
 // Called before the first frame
 bool Scene::Start()
 {
-	if (app->map->Load("Mapa_Prova.tmx") == true)
+	if (app->map->Load("dungeon.tmx") == true)
 	{
 		int w, h;
 		uchar* data = NULL;
