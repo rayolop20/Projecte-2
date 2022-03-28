@@ -48,7 +48,7 @@ public:
 
 	Vampire CreateVampire(int x, int y, SDL_Texture* v);
 
-	void PathFindVamp();
+	void PathFindVamp(int i);
 
 public:
 	iPoint position;

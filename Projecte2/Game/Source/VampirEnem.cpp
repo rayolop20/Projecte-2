@@ -53,7 +53,7 @@ bool VampirEnem::Start()
 
 bool VampirEnem::Update(float dt)
 {
-	PathFindVamp();
+	PathFindVamp(0);
 	timer3 = SDL_GetTicks() / 10;
 
 	if (app->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
@@ -110,7 +110,7 @@ void VampirEnem::OnCollision(Collider* c1, Collider* c2)
 	}
 }
 
-void VampirEnem::PathFindVamp()
+void VampirEnem::PathFindVamp(int i)
 {
 	if (path == true && app->BTSystem->battle == false)
 	{
@@ -119,8 +119,6 @@ void VampirEnem::PathFindVamp()
 		if (timer3 > pathfindingtimer + 1 && pathfindingaux == false) {
 			int klk = 0;
 		}
-		for (uint i = 0; i < 2; ++i)
-		{
 			app->pathfinding->CreatePath(app->map->WorldToMap(Vpir[i].Pos.x, Vpir[i].Pos.y), app->map->WorldToMap(app->player->P1.position.x, app->player->P1.position.y));
 
 			const DynArray<iPoint>* path = app->pathfinding->GetLastPath();
@@ -165,7 +163,7 @@ void VampirEnem::PathFindVamp()
                     Vpir[i].Pos.y--;
                 }*/
 			}
-		}
+		
 	}
 	
 }
