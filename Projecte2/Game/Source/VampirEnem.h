@@ -20,6 +20,7 @@ struct Vampire
 	bool Destroyed = false;
 	uint vCount = 0;
 	bool dead = false;
+	float hp = 222.0;
 };
 
 class VampirEnem : public Entity
@@ -37,6 +38,7 @@ public:
 	// Loads the necessary textures for the player
 	bool Start();
 
+	void Combat();
 	// Called at the middle of the application loop
 	// Processes new input and handles player movement
 	bool Update(float dt);

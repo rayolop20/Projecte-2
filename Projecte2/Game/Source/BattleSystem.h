@@ -48,6 +48,12 @@ public:
 	GuiButton* Run;
 	GuiButton* CloseInventory;
 	GuiButton* QTE2;
+	GuiButton* MiniPlayerButton1;
+	GuiButton* MiniPlayerButton2;
+	GuiButton* MiniPlayerButton3;
+	GuiButton* MiniPlayerButton4;
+
+	int AttackPlayer = 0;
 
 	int AttackType = 0;
 	bool battle;
@@ -60,12 +66,17 @@ public:
 	void InventoryPhase();
 	void SpecialAttackPhase();
 
+	void ChoosePlayer();
+	bool ChoosePlayerPhase = true;
+
 	float timer1 = 0;
 	float timer1_ = 0;
 	float timer2 = 0;
 	float timer2_ = 0;
 	float AttackAux;
 	int randomAttack = 0;
+
+	bool randomAux = true;
 
 	int PlayerTurn = 1; 
 	int randomx = 0, randomy = 0;

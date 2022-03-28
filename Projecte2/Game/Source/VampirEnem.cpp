@@ -12,6 +12,7 @@
 #include "Log.h"
 #include "DynArray.h"
 #include "BattleSystem.h"
+#include <time.h>
 
 VampirEnem::VampirEnem():Entity (EntityType::VAMPYRENEM)
 {
@@ -52,6 +53,7 @@ bool VampirEnem::Start()
 
 bool VampirEnem::Update(float dt)
 {
+	Combat();
 	
 	timer3 = SDL_GetTicks() / 10;
 
@@ -63,7 +65,9 @@ bool VampirEnem::Update(float dt)
 		}
 		path = true;
 	}
-
+	if (Vpir[0].hp < 0) {
+		app->BTSystem->battle = false;
+	}
 	for (int i = 0; i < NUM_VAMPIRE; i++)
 	{
 		currentAnimation[i]->Update();
@@ -82,6 +86,8 @@ bool VampirEnem::Update(float dt)
 	return true;
 }
 
+
+
 bool VampirEnem::PostUpdate()
 {
 	LOG("FUNCIONA?");
@@ -93,6 +99,139 @@ bool VampirEnem::PostUpdate()
 		}
 	}
 	return true;
+}
+
+void VampirEnem::Combat() {
+	if (app->BTSystem->AttackType == 1 && app->BTSystem->AttackPlayer == 1 && app->BTSystem->randomAux == true) {
+		Vpir[0].hp -= app->player->P1.damage1;
+		app->player->P1.mana += app->player->P1.mana1;
+		srand((unsigned)time(NULL));
+		int randomNumber;
+		randomNumber = (rand() % 100) + 1;
+		if (randomNumber > app->player->P1.speed + app->player->P1.speed1) {
+			app->BTSystem->randomAux = false;
+			app->BTSystem->AttackPlayer = 0;
+			app->BTSystem->AttackType = 0;
+			app->BTSystem->AttackPhaseActive = false;
+			app->BTSystem->AttackPhaseEnable = false;
+			app->BTSystem->ChoosePlayerPhase = true;
+		}
+		else {
+		}
+	}
+	if (app->BTSystem->AttackType == 2 && app->BTSystem->AttackPlayer == 1 && app->BTSystem->randomAux == true) {
+		Vpir[0].hp -= app->player->P1.damage2;
+		app->player->P1.mana += app->player->P1.mana2;
+		srand((unsigned)time(NULL));
+		int randomNumber;
+		randomNumber = (rand() % 100) + 1;
+		if (randomNumber > app->player->P1.speed + app->player->P1.speed2) {
+			app->BTSystem->randomAux = false;
+			app->BTSystem->AttackPlayer = 0;
+			app->BTSystem->AttackType = 0;
+			app->BTSystem->AttackPhaseActive = false;
+			app->BTSystem->AttackPhaseEnable = false;
+			app->BTSystem->ChoosePlayerPhase = true;
+		}
+	}
+	if (app->BTSystem->AttackType == 1 && app->BTSystem->AttackPlayer == 2 && app->BTSystem->randomAux == true) {
+		Vpir[0].hp -= app->player->P2.damage1;
+		app->player->P2.mana += app->player->P2.mana1;
+		srand((unsigned)time(NULL));
+		int randomNumber;
+		randomNumber = (rand() % 100) + 1;
+		if (randomNumber > app->player->P2.speed + app->player->P2.speed1) {
+			app->BTSystem->randomAux = false;
+			app->BTSystem->AttackPlayer = 0;
+			app->BTSystem->AttackType = 0;
+			app->BTSystem->AttackPhaseActive = false;
+			app->BTSystem->AttackPhaseEnable = false;
+			app->BTSystem->ChoosePlayerPhase = true;
+		}
+		else {
+		}
+	}
+	if (app->BTSystem->AttackType == 2 && app->BTSystem->AttackPlayer == 2 && app->BTSystem->randomAux == true) {
+		Vpir[0].hp -= app->player->P2.damage2;
+		app->player->P2.mana += app->player->P2.mana2;
+		srand((unsigned)time(NULL));
+		int randomNumber;
+		randomNumber = (rand() % 100) + 1;
+		if (randomNumber > app->player->P2.speed + app->player->P2.speed2) {
+			app->BTSystem->randomAux = false;
+			app->BTSystem->AttackPlayer = 0;
+			app->BTSystem->AttackType = 0;
+			app->BTSystem->AttackPhaseActive = false;
+			app->BTSystem->AttackPhaseEnable = false;
+			app->BTSystem->ChoosePlayerPhase = true;
+		}
+	}
+	if (app->BTSystem->AttackType == 1 && app->BTSystem->AttackPlayer == 3 && app->BTSystem->randomAux == true) {
+		Vpir[0].hp -= app->player->P3.damage1;
+		app->player->P3.mana += app->player->P3.mana1;
+		srand((unsigned)time(NULL));
+		int randomNumber;
+		randomNumber = (rand() % 100) + 1;
+		if (randomNumber > app->player->P3.speed + app->player->P3.speed1) {
+			app->BTSystem->randomAux = false;
+			app->BTSystem->AttackPlayer = 0;
+			app->BTSystem->AttackType = 0;
+			app->BTSystem->AttackPhaseActive = false;
+			app->BTSystem->AttackPhaseEnable = false;
+			app->BTSystem->ChoosePlayerPhase = true;
+		}
+		else {
+		}
+	}
+	if (app->BTSystem->AttackType == 2 && app->BTSystem->AttackPlayer == 3 && app->BTSystem->randomAux == true) {
+		Vpir[0].hp -= app->player->P3.damage2;
+		app->player->P3.mana += app->player->P3.mana2;
+		srand((unsigned)time(NULL));
+		int randomNumber;
+		randomNumber = (rand() % 100) + 1;
+		if (randomNumber > app->player->P3.speed + app->player->P3.speed2) {
+			app->BTSystem->randomAux = false;
+			app->BTSystem->AttackPlayer = 0;
+			app->BTSystem->AttackType = 0;
+			app->BTSystem->AttackPhaseActive = false;
+			app->BTSystem->AttackPhaseEnable = false;
+			app->BTSystem->ChoosePlayerPhase = true;
+		}
+	}
+	
+	if (app->BTSystem->AttackType == 1 && app->BTSystem->AttackPlayer == 4 && app->BTSystem->randomAux == true) {
+		Vpir[0].hp -= app->player->P4.damage1;
+		app->player->P4.mana += app->player->P4.mana1;
+		srand((unsigned)time(NULL));
+		int randomNumber;
+		randomNumber = (rand() % 100) + 1;
+		if (randomNumber > app->player->P4.speed + app->player->P4.speed1) {
+			app->BTSystem->randomAux = false;
+			app->BTSystem->AttackPlayer = 0;
+			app->BTSystem->AttackType = 0;
+			app->BTSystem->AttackPhaseActive = false;
+			app->BTSystem->AttackPhaseEnable = false;
+			app->BTSystem->ChoosePlayerPhase = true;
+		}
+		else {
+		}
+	}
+	if (app->BTSystem->AttackType == 2 && app->BTSystem->AttackPlayer == 4 && app->BTSystem->randomAux == true) {
+		Vpir[0].hp -= app->player->P4.damage2;
+		app->player->P4.mana += app->player->P4.mana2;
+		srand((unsigned)time(NULL));
+		int randomNumber;
+		randomNumber = (rand() % 100) + 1;
+		if (randomNumber > app->player->P4.speed + app->player->P4.speed2) {
+			app->BTSystem->randomAux = false;
+			app->BTSystem->AttackPlayer = 0;
+			app->BTSystem->AttackType = 0;
+			app->BTSystem->AttackPhaseActive = false;
+			app->BTSystem->AttackPhaseEnable = false;
+			app->BTSystem->ChoosePlayerPhase = true;
+		}
+	}
+
 }
 
 void VampirEnem::OnCollision(Collider* c1, Collider* c2)
