@@ -119,7 +119,7 @@ void VampirEnem::PathFindVamp()
 		if (timer3 > pathfindingtimer + 1 && pathfindingaux == false) {
 			int klk = 0;
 		}
-		for (uint i = 0; i < NUM_VAMPIRE; ++i)
+		for (uint i = 0; i < 2; ++i)
 		{
 			app->pathfinding->CreatePath(app->map->WorldToMap(Vpir[i].Pos.x, Vpir[i].Pos.y), app->map->WorldToMap(app->player->P1.position.x, app->player->P1.position.y));
 
