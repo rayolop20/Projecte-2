@@ -45,8 +45,7 @@ bool VampirEnem::Start()
 		currentAnimation[i] = &idle;
 	}
 
-	Vpir[0] = CreateVampire(32, 32, TextureVampire);
-	Vpir[1] = CreateVampire(320, 320, TextureVampire);
+	Vpir[0] = CreateVampire(320, 320, TextureVampire);
 
 	return false;
 }
@@ -75,7 +74,7 @@ bool VampirEnem::Update(float dt)
 			Vpir[i].colliderV->pendingToDelete = true;
 		}
 	}
-	for (int i = 0; i < 2; i++)
+	for (int i = 0; i < 1; i++)
 	{
 		Vpir[i].colliderV->SetPos(Vpir[i].Pos.x, Vpir[i].Pos.y);
 		Vpir[i].colliderS->SetPos(Vpir[i].Pos.x, Vpir[i].Pos.y);
