@@ -46,6 +46,7 @@ bool VampirEnem::Start()
 	}
 
 	Vpir[0] = CreateVampire(32, 32, TextureVampire);
+	Vpir[1] = CreateVampire(320, 320, TextureVampire);
 
 	return false;
 }
@@ -74,7 +75,10 @@ bool VampirEnem::Update(float dt)
 			Vpir[i].colliderV->pendingToDelete = true;
 		}
 	}
-	Vpir->colliderV->SetPos(Vpir->Pos.x, Vpir->Pos.y);
+	for (int i = 0; i < 2; i++)
+	{
+		Vpir[i].colliderV->SetPos(Vpir[i].Pos.x, Vpir[i].Pos.y);
+	}
 	return true;
 }
 
@@ -108,7 +112,7 @@ void VampirEnem::OnCollision(Collider* c1, Collider* c2)
 
 void VampirEnem::PathFindVamp()
 {
-	if (path == true)
+	if (path == true && app->BTSystem->battle == false)
 	{
 		
 
@@ -127,22 +131,22 @@ void VampirEnem::PathFindVamp()
 				if (Vpir[i].Pos.x <= pos.x - 32 && timer3 > pathfindingtimer + enemySpeed)
 				{
 					pathfindingtimer = timer3;
-					Vpir[i].Pos.x+=16;
+					Vpir[i].Pos.x+=32;
 				}
 				if (Vpir[i].Pos.x >= pos.x + 32 && timer3 > pathfindingtimer + enemySpeed)
 				{
 					pathfindingtimer = timer3;
-					Vpir[i].Pos.x-=16;
+					Vpir[i].Pos.x-=32;
 				}
 				if (Vpir[i].Pos.y <= pos.y - 32 &&  timer3 > pathfindingtimer + enemySpeed)
 				{
 					pathfindingtimer = timer3;
-					Vpir[i].Pos.y+=16;
+					Vpir[i].Pos.y+=32;
 				}
 				if (Vpir[i].Pos.y >= pos.y + 32 && timer3 > pathfindingtimer + enemySpeed)
 				{
 					pathfindingtimer = timer3;
-					Vpir[i].Pos.y-=16;
+					Vpir[i].Pos.y-=32;
 				}
 				/*if (Vpir[i].Pos.x <= pos.x)
                 {

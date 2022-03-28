@@ -43,7 +43,7 @@ bool battleSystem::Start()
 	//app->audio->PlayMusic("Assets/audio/music/music_spy.ogg");
 
 	//L13: TODO 2: Declare an Item and create it using the EntityManager
-	VampirEnem* Vampir = (VampirEnem*)app->entityManager->CreateEntity(EntityType::VAMPYRENEM, 0, { 20,20 });
+	VampirEnem* Vampir = (VampirEnem*)app->entityManager->CreateEntity(EntityType::VAMPYRENEM, 0, { 0,0 });
 
 	//L13: TODO 4: Create multiple Items
 	Attack = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Attack", { (app->win->GetWidth() / 2) - 600, app->win->GetHeight() / 10 + 190, 140, 40 }, this);
@@ -106,7 +106,6 @@ bool battleSystem::Update(float dt)
 
 	}
 	else {
-		app->entityManager->Vcol = app->collisions->AddCollider({ 200,200, 50, 50 }, Collider::Type::VAMPIRE, (Module*)app->entityManager);
 		Attack->state = GuiControlState::DISABLED;
 		Attack1->state = GuiControlState::DISABLED;
 		Attack2->state = GuiControlState::DISABLED;
