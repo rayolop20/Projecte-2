@@ -55,6 +55,7 @@ public:
 	GuiButton* MiniEnemyButton;
 
 	int VampireTarget = 0;
+	int playerTarget = 0;
 
 	int AttackPlayer = 0;
 
@@ -100,6 +101,7 @@ public:
 	bool SpecialAttackEnable = false;
 	bool InventoryEnable = false;
 	int* waitPlayer = new int(4 - alliesDead);
+
 	bool SpawnedEnemies = false;
 
 	int randomLetterGenerator = 0;

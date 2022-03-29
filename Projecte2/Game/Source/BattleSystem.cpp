@@ -113,12 +113,14 @@ bool battleSystem::Update(float dt)
 	if (battle == true) {
 		SDL_Rect battle_screen = { 20,20,530,340 };
 		app->render->DrawRectangle(battle_screen, 0, 250, 250);
-		Attack->state = GuiControlState::NORMAL;
-		SpecialAttack->state = GuiControlState::NORMAL;
-		Inventory->state = GuiControlState::NORMAL;
-		Run->state = GuiControlState::NORMAL;
-		if (ChoosePlayerPhase == true) {
-			ChoosePlayer();
+		if (PlayerTurn == true) {
+			Attack->state = GuiControlState::NORMAL;
+			SpecialAttack->state = GuiControlState::NORMAL;
+			Inventory->state = GuiControlState::NORMAL;
+			Run->state = GuiControlState::NORMAL;
+			if (ChoosePlayerPhase == true) {
+				ChoosePlayer();
+			}
 		}
 		
 	}
@@ -691,7 +693,6 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 }
 
 void battleSystem::CheckAllies() {
-	for (int i = 0; i < 4; i++) {
 		if (app->player->P1.IsAlive == false) {
 			alliesDead++;
 		}
@@ -708,7 +709,7 @@ void battleSystem::CheckAllies() {
 			battle = false;
 		}
 		alliesDead = 0;
-	}
+	
 }
 
 void battleSystem::Pause()

@@ -21,10 +21,10 @@ struct Vampire
 	bool Destroyed = false;
 	uint vCount = 0;
 	bool dead = false;
-	float hp = 85.0;
+	float hp = 90.0;
 	float damage = 17.0;
 	float speed = 17.0;
-	int numEnemies = 4;
+	int numEnemies = 2;
 };
 
 class VampirEnem : public Entity
@@ -46,6 +46,7 @@ public:
 	void SpawnEnemies();
 	void DrawEnemies();
 	void ChooseEnemy();
+	void EnemyPhase();
 	void CheckEnemy();
 	// Called at the middle of the application loop
 	// Processes new input and handles player movement
@@ -82,6 +83,7 @@ public:
 	bool pathfindingaux = true;
 
 	int VampireNum = NULL;
+	bool klk = true;
 
 };
 
