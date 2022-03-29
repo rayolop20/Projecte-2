@@ -55,6 +55,11 @@ bool VampirEnem::Update(float dt)
 	
 	timer3 = SDL_GetTicks() / 10;
 
+	if (app->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN)
+	{
+		PathFindVamp(VampireNum);
+	}
+
 	if (app->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
 	{
 		if (pathfindingaux == true) {
