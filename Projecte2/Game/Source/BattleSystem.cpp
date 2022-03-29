@@ -151,7 +151,7 @@ bool battleSystem::Update(float dt)
 			Delay = true;
 		}
 	}
-	if (SpecialAttackEnable && AttackPlayer != 0) {
+	if (SpecialAttackEnable && AttackPlayer != 0 && VampireTarget != 0 ) {
 		SpecialAttackPhase();
 		Attack->state = GuiControlState::DISABLED;
 		Attack1->state = GuiControlState::DISABLED;
@@ -230,6 +230,40 @@ void battleSystem::AttackPhase() {
 void battleSystem::AttackPhaseDisabled() {
 	Attack1->state = GuiControlState::DISABLED;
 	Attack2->state = GuiControlState::DISABLED;
+}
+void battleSystem::AttackPhaseDisabled2() {
+	Attack1->state = GuiControlState::DISABLED;
+	Attack2->state = GuiControlState::DISABLED;
+	VampireTarget = 0;
+	playerTarget = 0;
+	playerTarget_ = 0;
+
+	AttackPlayer = 0;
+	AttackType = 0;
+	AttackPhaseActive = false;
+	AttackPhaseEnable = false;
+
+	ChoosePlayerPhase = true;
+
+	AttackAux = 0;
+	randomAttack = 0;
+
+	randomAux = true;
+
+	//PlayerTurn = true;
+
+	//rectDirection = true;
+	//randomtargetRect = 0;
+	//randomtargetRect_ = 0;
+	//finalpos = 0;
+
+	//Delay = true;
+
+	//SpecialAttackEnable = false;
+	//InventoryEnable = false;
+
+	//SpawnedEnemies = false;
+
 }
 
 void battleSystem::InventoryPhase() {
@@ -595,7 +629,7 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 		
 		//Checks the GUI element ID
 		if (control->id == 1 && AttackPhaseActive == true && AttackPhaseEnable == true && VampireTarget != 0) {
-			AttackPhaseDisabled();
+			AttackPhaseDisabled2();
 		}
 		if (control->id == 1 && AttackPhaseActive == false && AttackPhaseEnable == false && AttackPlayer != 0 && VampireTarget != 0)
 		{

@@ -69,6 +69,7 @@ public:
 
 	void AttackPhase();
 	void AttackPhaseDisabled();
+	void AttackPhaseDisabled2();
 
 	void InventoryPhase();
 	void SpecialAttackPhase();
