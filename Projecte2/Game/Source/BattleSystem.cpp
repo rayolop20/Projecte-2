@@ -235,35 +235,11 @@ void battleSystem::AttackPhaseDisabled2() {
 	Attack1->state = GuiControlState::DISABLED;
 	Attack2->state = GuiControlState::DISABLED;
 	VampireTarget = 0;
-	playerTarget = 0;
-	playerTarget_ = 0;
-
 	AttackPlayer = 0;
-	AttackType = 0;
 	AttackPhaseActive = false;
 	AttackPhaseEnable = false;
-
 	ChoosePlayerPhase = true;
-
-	AttackAux = 0;
-	randomAttack = 0;
-
 	randomAux = true;
-
-	//PlayerTurn = true;
-
-	//rectDirection = true;
-	//randomtargetRect = 0;
-	//randomtargetRect_ = 0;
-	//finalpos = 0;
-
-	//Delay = true;
-
-	//SpecialAttackEnable = false;
-	//InventoryEnable = false;
-
-	//SpawnedEnemies = false;
-
 }
 
 void battleSystem::InventoryPhase() {
