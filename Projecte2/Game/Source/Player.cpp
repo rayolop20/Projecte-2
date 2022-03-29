@@ -26,6 +26,23 @@ Player::~Player()
 
 }
 
+bool Player::LoadState(pugi::xml_node& data)
+{
+
+	P1.position.x = data.child("Player").attribute("x").as_int();
+	P1.position.y = data.child("Player").attribute("y").as_int();
+	return false;
+}
+
+bool Player::SaveState(pugi::xml_node& data) const
+{
+	pugi::xml_node Pyr = data.append_child("Player");
+
+	Pyr.append_attribute("x") = app->player->P1.position.x;
+	Pyr.append_attribute("y") = app->player->P1.position.y;
+	return false;
+}
+
 bool Player::Awake(pugi::xml_node& config) {
 
 	LOG("Loading Player");

@@ -31,10 +31,14 @@ public:
 	// Destructor
 	~Player();
 
+	bool LoadState(pugi::xml_node&);
+
+	bool SaveState(pugi::xml_node&) const;
 
 	bool Awake(pugi::xml_node&);
 	// Called when the module is activated
 	// Loads the necessary textures for the player
+
 	bool Start();
 
 	// Called at the middle of the application loop
@@ -47,6 +51,7 @@ public:
 
 	// Collision callback, called when the player intersects with another collider
 	void OnCollision(Collider* c1, Collider* c2);
+
 
 	//int Timer(int second);
 	playr1 P1;

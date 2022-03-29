@@ -28,6 +28,6 @@
 	<Position PositionX = "150" PositionY = "250"/>
   </player>
  <Vampire>
-	<Position PositionX = "200" PositionY = "200"/>
+	<Position PositionX = "320" PositionY = "320"/>
   </Vampire>
 </config>
