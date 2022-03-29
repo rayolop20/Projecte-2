@@ -125,6 +125,10 @@ bool battleSystem::Update(float dt)
 		
 	}
 	else {
+		AttackPlayer = 0;
+		for (int i = 0; i < 4; i++) {
+			waitPlayer[i] = 0;
+		}
 		Attack->state = GuiControlState::DISABLED;
 		Attack1->state = GuiControlState::DISABLED;
 		Attack2->state = GuiControlState::DISABLED;
@@ -268,9 +272,6 @@ void battleSystem::SpecialAttackPhase() {
  			AttackPlayer = 0;
 			VampireTarget = 0;
 			for (int i = 0; i <= 4; i++) {
-				if (app->BTSystem->waitPlayer[i] == 0) {
-					int klk = 0;
-				}
 				if (app->BTSystem->waitPlayer[i] != 0) {
 					app->BTSystem->waitPlayer[i] += 1;
 				}
@@ -307,9 +308,6 @@ void battleSystem::SpecialAttackPhase() {
 			VampireTarget = 0;
 			AttackAux = 0;
 			for (int i = 0; i <= 4; i++) {
-				if (app->BTSystem->waitPlayer[i] == 0) {
-					int klk = 0;
-				}
 				if (app->BTSystem->waitPlayer[i] != 0) {
 					app->BTSystem->waitPlayer[i] += 1;
 				}
@@ -349,9 +347,6 @@ void battleSystem::SpecialAttackPhase() {
 				VampireTarget = 0;
 				AttackAux = 0;
 				for (int i = 0; i <= 4; i++) {
-					if (app->BTSystem->waitPlayer[i] == 0) {
-						int klk = 0;
-					}
 					if (app->BTSystem->waitPlayer[i] != 0) {
 						app->BTSystem->waitPlayer[i] += 1;
 					}
@@ -522,9 +517,6 @@ void battleSystem::SpecialAttackPhase() {
 				VampireTarget = 0;
 				AttackAux = 0;
 				for (int i = 0; i <= 4; i++) {
-					if (app->BTSystem->waitPlayer[i] == 0) {
-						int klk = 0;
-					}
 					if (app->BTSystem->waitPlayer[i] != 0) {
 						app->BTSystem->waitPlayer[i] += 1;
 					}
@@ -540,54 +532,56 @@ void battleSystem::SpecialAttackPhase() {
 
 void battleSystem::ChoosePlayer()
 {
+	SDL_Rect MiniPlayer2hp_ = { 125 + 60,110,app->player->P2.hp,10 };
+	SDL_Rect MiniPlayer3hp_ = { 64 + 60,160,app->player->P3.hp,10 };
+	SDL_Rect MiniPlayer1hp_ = { 64 + 60,64,app->player->P1.hp,10 };
 	if (app->player->P1.IsAlive) {
 		if (AttackPlayer == 1) {
 			SDL_Rect MiniPlayer1_ = { 59,59,60,60 };
 			app->render->DrawRectangle(MiniPlayer1_, 255, 255, 0);
+			
 		}
-		SDL_Rect MiniPlayer1 = { 64,64,50,50 };
-		app->render->DrawRectangle(MiniPlayer1, 255, 128, 0);
+		app->render->DrawRectangle(MiniPlayer1hp_, 255, 0, 0);
 		MiniPlayerButton1->state = GuiControlState::NORMAL;
 		randomAux = true;
 	}
 	else {
 		//DeathSprite
+		MiniPlayerButton1->state = GuiControlState::DISABLED;
 	}
 	if (app->player->P2.IsAlive) {
 		if (AttackPlayer == 2) {
 			SDL_Rect MiniPlayer1_ = { 115,105,60,60 };
 			app->render->DrawRectangle(MiniPlayer1_, 255, 255, 0);
 		}
-		SDL_Rect MiniPlayer2 = { 120,110,50,50 };
-		app->render->DrawRectangle(MiniPlayer2, 255, 128, 0);
+		app->render->DrawRectangle(MiniPlayer2hp_, 255, 0, 0);
 		MiniPlayerButton2->state = GuiControlState::NORMAL;
 	}
 	else {
 		//DeathSprite
+		MiniPlayerButton2->state = GuiControlState::DISABLED;
 	}
 	if (app->player->P3.IsAlive) {
 		if (AttackPlayer == 3) {
 			SDL_Rect MiniPlayer1_ = { 59,155,60,60 };
 			app->render->DrawRectangle(MiniPlayer1_, 255, 255, 0);
 		}
-		SDL_Rect MiniPlayer3 = { 64,160,50,50 };
-		app->render->DrawRectangle(MiniPlayer3, 255, 128, 0);
 		MiniPlayerButton3->state = GuiControlState::NORMAL;
 	}
 	else {
 		//DeathSprite
+		MiniPlayerButton3->state = GuiControlState::DISABLED;
 	}
 	if (app->player->P4.IsAlive) {
 		if (AttackPlayer == 4) {
 			SDL_Rect MiniPlayer1_ = { 115,205,60,60 };
 			app->render->DrawRectangle(MiniPlayer1_, 255, 255, 0);
 		}
-		SDL_Rect MiniPlayer4 = { 120,210,50,50 };
-		app->render->DrawRectangle(MiniPlayer4, 255, 128, 0);
 		MiniPlayerButton4->state = GuiControlState::NORMAL;
 	}
 	else {
 		//DeathSprite
+		MiniPlayerButton4->state = GuiControlState::DISABLED;
 	}
 }
 
@@ -598,6 +592,7 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 	{
 	case GuiControlType::BUTTON:
 	{
+		
 		//Checks the GUI element ID
 		if (control->id == 1 && AttackPhaseActive == true && AttackPhaseEnable == true && VampireTarget != 0) {
 			AttackPhaseDisabled();
@@ -656,8 +651,9 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 			AttackPlayer = 1;
 			SpecialAttackEnable = false;
 			app->player->P1.IsAlive = false;
+			app->player->P1.hp = 0;
 		}
-		if (control->id == 10 && ChoosePlayerPhase == true && waitPlayer[1] == 0) {
+		if (control->id == 10 && ChoosePlayerPhase == true &&waitPlayer[1] == 0) {
 			AttackPlayer = 2;
 			SpecialAttackEnable = false;
 		}
@@ -665,6 +661,8 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 			AttackPlayer = 2;
 			SpecialAttackEnable = false;
 			app->player->P2.IsAlive = false;
+			app->player->P2.hp = 0;
+
 		}
 		if (control->id == 11 && ChoosePlayerPhase == true && waitPlayer[2] == 0) {
 			SpecialAttackEnable = false;
@@ -674,6 +672,8 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 			AttackPlayer = 3;
 			SpecialAttackEnable = false;
 			app->player->P3.IsAlive = false;
+			app->player->P3.hp = 0;
+
 		}
 		if (control->id == 12 && ChoosePlayerPhase == true && waitPlayer[3] == 0) {
 			SpecialAttackEnable = false;
@@ -683,6 +683,8 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 			AttackPlayer = 4;
 			SpecialAttackEnable = false;
 			app->player->P4.IsAlive = false;
+			app->player->P4.hp = 0;
+
 		}
 	}
 
@@ -693,6 +695,34 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 }
 
 void battleSystem::CheckAllies() {
+		if (app->player->P1.hp <= 0 && app->player->P1.IsAlive) {
+			app->player->P1.IsAlive = false;
+			waitPlayer[0] = 0;
+			waitPlayer[1] = 0;
+			waitPlayer[2] = 0;
+			waitPlayer[3] = 0;
+		}
+		if (app->player->P2.hp <= 0 && app->player->P2.IsAlive) {
+			app->player->P2.IsAlive = false;
+			waitPlayer[0] = 0;
+			waitPlayer[1] = 0;
+			waitPlayer[2] = 0;
+			waitPlayer[3] = 0;
+		}
+		if (app->player->P3.hp <= 0 && app->player->P3.IsAlive) {
+			app->player->P3.IsAlive = false;
+			waitPlayer[0] = 0;
+			waitPlayer[1] = 0;
+			waitPlayer[2] = 0;
+			waitPlayer[3] = 0;
+		}
+		if (app->player->P4.hp <= 0 && app->player->P4.IsAlive) {
+			app->player->P4.IsAlive = false;
+			waitPlayer[0] = 0;
+			waitPlayer[1] = 0;
+			waitPlayer[2] = 0;
+			waitPlayer[3] = 0;
+		}
 		if (app->player->P1.IsAlive == false) {
 			alliesDead++;
 		}

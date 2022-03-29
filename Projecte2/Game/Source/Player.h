@@ -46,7 +46,7 @@ struct playr2
 
 struct playr3
 {
-	bool IsAlive = false;
+	bool IsAlive = true;
 	float hp = 75.0;
 	float speed1 = 15.0;
 	float speed2 = 5.0;
@@ -62,7 +62,7 @@ struct playr3
 
 struct playr4
 {
-	bool IsAlive = false;
+	bool IsAlive = true;
 	float hp = 50.0;
 	float speed1 = 15.0;
 	float speed2 = 10.0;
