@@ -8632,6 +8632,8 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="117"/>
+   <tile gid="130"/>
    <tile/>
    <tile/>
    <tile/>
@@ -8642,10 +8644,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="117"/>
+   <tile gid="117"/>
    <tile/>
    <tile/>
    <tile/>
@@ -9618,7 +9618,7 @@
    <tile gid="130"/>
   </data>
  </layer>
- <layer id="3" name="paredes_esp" width="60" height="80" visible="0">
+ <layer id="3" name="paredes_esp" width="60" height="80">
   <properties>
    <property name="Draw" value="1"/>
    <property name="Navegation" value="3"/>
