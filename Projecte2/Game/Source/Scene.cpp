@@ -48,7 +48,7 @@ bool Scene::Start()
 
 		RELEASE_ARRAY(data);
 	};
-
+	app->map->DColisions();
 	pathTex = app->tex->Load("Assets/maps/path2.png");
 	originTex = app->tex->Load("Assets/maps/x.png");
 	// Load music
@@ -101,8 +101,7 @@ bool Scene::Update(float dt)
 	// Draw map
 	app->map->Draw();
 
-	//Draw GUI
-	app->map->DColisions();
+
 	//Draw Entities
 	//L13
 	app->entityManager->Draw();
