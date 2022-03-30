@@ -26,6 +26,7 @@ Player::~Player()
 
 }
 
+
 bool Player::Awake(pugi::xml_node& config) {
 
 	LOG("Loading Player");

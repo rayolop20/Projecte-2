@@ -37,6 +37,10 @@ bool battleSystem::Awake()
 // Called before the first frame
 bool battleSystem::Start()
 {
+	//Initialize playerTurns
+	for (int i = 0; i <= 4 - alliesDead;i++) {
+		waitPlayer[i] = 0;
+	}
 	// L03: DONE: Load map
 	TypoSpecialAttack = app->tex->Load("Assets/textures/Typo_SpecialAttack_4.png");
 	// Load music
@@ -62,6 +66,14 @@ bool battleSystem::Start()
 	CloseInventory->state = GuiControlState::DISABLED;
 	QTE2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 8, "QTE2", { (app->win->GetWidth() / 2) + 0, app->win->GetHeight() / 10 + 0, 50, 50 }, this);
 	QTE2->state = GuiControlState::DISABLED;
+	MiniPlayerButton1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 9, "MiniPlayerButton1", { (app->win->GetWidth() / 2) - 576, app->win->GetHeight() / 10 - 8, 50, 50 }, this);
+	MiniPlayerButton1->state = GuiControlState::DISABLED;
+	MiniPlayerButton2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 10, "MiniPlayerButton2", { (app->win->GetWidth() / 2) - 520, app->win->GetHeight() / 10 + 38, 50, 50 }, this);
+	MiniPlayerButton2->state = GuiControlState::DISABLED;
+	MiniPlayerButton3 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 11, "MiniPlayerButton3", { (app->win->GetWidth() / 2) - 576, app->win->GetHeight() / 10 + 88, 50, 50 }, this);
+	MiniPlayerButton3->state = GuiControlState::DISABLED;
+	MiniPlayerButton4 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 12, "MiniPlayerButton4", { (app->win->GetWidth() / 2) - 520, app->win->GetHeight() / 10 + 138, 50, 50 }, this);
+	MiniPlayerButton4->state = GuiControlState::DISABLED;
 
 	AttackPhaseActive = false;
 	AttackAux = 0;
@@ -85,6 +97,8 @@ bool battleSystem::Update(float dt)
 	//app->map->DColisions();
 	// L02: DONE 3: Request Load / Save when pressing L/S
 
+	//PassTurn();
+
 	if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN) {
 		debug = !debug;
 
@@ -92,26 +106,39 @@ bool battleSystem::Update(float dt)
 	app->render->camera.x = (app->player->P1.position.x - 550) * -1;
 	app->render->camera.y = (app->player->P1.position.y - 300) * -1;
 
-	// Draw map
+	//Draw map
 	//app->map->Draw();
 
 	//Draw GUI
 	if (battle == true) {
 		SDL_Rect battle_screen = { 20,20,530,340 };
 		app->render->DrawRectangle(battle_screen, 0, 250, 250);
-		Attack->state = GuiControlState::NORMAL;
-		SpecialAttack->state = GuiControlState::NORMAL;
-		Inventory->state = GuiControlState::NORMAL;
-		Run->state = GuiControlState::NORMAL;
-
+		if (PlayerTurn == true) {
+			Attack->state = GuiControlState::NORMAL;
+			SpecialAttack->state = GuiControlState::NORMAL;
+			Inventory->state = GuiControlState::NORMAL;
+			Run->state = GuiControlState::NORMAL;
+			if (ChoosePlayerPhase == true) {
+				ChoosePlayer();
+			}
+		}
+		
 	}
 	else {
+		AttackPlayer = 0;
+		for (int i = 0; i < 4; i++) {
+			waitPlayer[i] = 0;
+		}
 		Attack->state = GuiControlState::DISABLED;
 		Attack1->state = GuiControlState::DISABLED;
 		Attack2->state = GuiControlState::DISABLED;
 		SpecialAttack->state = GuiControlState::DISABLED;
 		Inventory->state = GuiControlState::DISABLED;
 		Run->state = GuiControlState::DISABLED;
+		MiniPlayerButton1->state = GuiControlState::DISABLED;
+		MiniPlayerButton2->state = GuiControlState::DISABLED;
+		MiniPlayerButton3->state = GuiControlState::DISABLED;
+		MiniPlayerButton4->state = GuiControlState::DISABLED;
 	}
 	if (Delay == false) {//Delay after Run Button
 		timer1 = SDL_GetTicks() / 1000;
@@ -124,7 +151,7 @@ bool battleSystem::Update(float dt)
 			Delay = true;
 		}
 	}
-	if (SpecialAttackEnable) {
+	if (SpecialAttackEnable && AttackPlayer != 0 && VampireTarget != 0 ) {
 		SpecialAttackPhase();
 		Attack->state = GuiControlState::DISABLED;
 		Attack1->state = GuiControlState::DISABLED;
@@ -169,6 +196,7 @@ bool battleSystem::Update(float dt)
 		btnResume->Update(dt);
 		btnExit->Update(dt);
 	}*/
+	CheckAllies();
 
 	return true;
 }
@@ -197,43 +225,30 @@ void battleSystem::AttackPhase() {
 	Attack2->state = GuiControlState::NORMAL;
 	AttackPhaseActive = true;
 	AttackPhaseEnable = true;
-	if (AttackType == 1) {
-		app->player->P1.damage += 20.0;
-		app->player->P1.speed += 20.0;
-		app->player->P1.mana += 35.0;
-	/*
-		srand((unsigned) time(0));
-		int randomNumber;
-		randomNumber = (rand() % 100) + 1;
-		if(randomNumber <= player.speed + weapon1.speed){
-		AttackPhase();
-		}
-	*/
-	}
-	if (AttackType == 2) {
-		app->player->P1.damage += 35.0;
-		app->player->P1.speed += 15.0;
-		app->player->P1.mana += 45.0;
-	/*
-		srand((unsigned) time(0));
-		int randomNumber;
-		randomNumber = (rand() % 100) + 1;
-		if(randomNumber <= player.speed + weapon2.speed){
-		AttackPhase();
-		}
-	*/
-	}
 	
 }
 void battleSystem::AttackPhaseDisabled() {
 	Attack1->state = GuiControlState::DISABLED;
 	Attack2->state = GuiControlState::DISABLED;
+}
+void battleSystem::AttackPhaseDisabled2() {
+	Attack1->state = GuiControlState::DISABLED;
+	Attack2->state = GuiControlState::DISABLED;
+	VampireTarget = 0;
+	AttackPlayer = 0;
 	AttackPhaseActive = false;
+	AttackPhaseEnable = false;
+	ChoosePlayerPhase = true;
+	randomAux = true;
 }
 
 void battleSystem::InventoryPhase() {
 	SDL_Rect Inventory_ = { 20,20,530,340 };
 	app->render->DrawRectangle(Inventory_, 0,250,0);
+	MiniPlayerButton1->state = GuiControlState::DISABLED;
+	MiniPlayerButton2->state = GuiControlState::DISABLED;
+	MiniPlayerButton3->state = GuiControlState::DISABLED;
+	MiniPlayerButton4->state = GuiControlState::DISABLED;
 	Attack->state = GuiControlState::DISABLED;
 	Attack1->state = GuiControlState::DISABLED;
 	Attack2->state = GuiControlState::DISABLED;
@@ -263,6 +278,17 @@ void battleSystem::SpecialAttackPhase() {
 			randomAttack = 0;
 			//enemy.hp = enemy.hp - player.attack + AttackAux;
 			AttackAux = 0;
+			app->BTSystem->waitPlayer[AttackPlayer-1] += 1;
+ 			AttackPlayer = 0;
+			VampireTarget = 0;
+			for (int i = 0; i <= 4; i++) {
+				if (app->BTSystem->waitPlayer[i] != 0) {
+					app->BTSystem->waitPlayer[i] += 1;
+				}
+				if (app->BTSystem->waitPlayer[i] == 5) {
+					app->BTSystem->waitPlayer[i] = 0;
+				}
+			}
 			SpecialAttackEnable = false;
 		}
 	}
@@ -287,7 +313,18 @@ void battleSystem::SpecialAttackPhase() {
 			randomAttack = 0;
 			QTE2->state = GuiControlState::DISABLED;
 			//enemy.hp = enemy.hp - player.attack + AttackAux;
+			app->BTSystem->waitPlayer[AttackPlayer - 1] += 1;
+			AttackPlayer = 0;
+			VampireTarget = 0;
 			AttackAux = 0;
+			for (int i = 0; i <= 4; i++) {
+				if (app->BTSystem->waitPlayer[i] != 0) {
+					app->BTSystem->waitPlayer[i] += 1;
+				}
+				if (app->BTSystem->waitPlayer[i] == 5) {
+					app->BTSystem->waitPlayer[i] = 0;
+				}
+			}
 			SpecialAttackEnable = false;
 		}
 		//pp->render->DrawRectangle(block1, 250, 0, 0);
@@ -315,7 +352,18 @@ void battleSystem::SpecialAttackPhase() {
 				}
 				randomAttack = 0;
 				//enemy.hp = enemy.hp - player.attack + AttackAux;
+				app->BTSystem->waitPlayer[AttackPlayer - 1] += 1;
+				AttackPlayer = 0;
+				VampireTarget = 0;
 				AttackAux = 0;
+				for (int i = 0; i <= 4; i++) {
+					if (app->BTSystem->waitPlayer[i] != 0) {
+						app->BTSystem->waitPlayer[i] += 1;
+					}
+					if (app->BTSystem->waitPlayer[i] == 5) {
+						app->BTSystem->waitPlayer[i] = 0;
+					}
+				}
 				SpecialAttackEnable = false;
 
 			}
@@ -474,24 +522,92 @@ void battleSystem::SpecialAttackPhase() {
 				randomLetterGenerator = 0;
 				randomAttack = 0;
 				//enemy.hp = enemy.hp - player.attack + AttackAux;
+				app->BTSystem->waitPlayer[AttackPlayer - 1] += 1;
+				AttackPlayer = 0;
+				VampireTarget = 0;
 				AttackAux = 0;
+				for (int i = 0; i <= 4; i++) {
+					if (app->BTSystem->waitPlayer[i] != 0) {
+						app->BTSystem->waitPlayer[i] += 1;
+					}
+					if (app->BTSystem->waitPlayer[i] == 5) {
+						app->BTSystem->waitPlayer[i] = 0;
+					}
+				}
 				SpecialAttackEnable = false;
 			}
 		}
 	}
 }
 
+void battleSystem::ChoosePlayer()
+{
+	SDL_Rect MiniPlayer2hp_ = { 125 + 60,110,app->player->P2.hp,10 };
+	SDL_Rect MiniPlayer3hp_ = { 64 + 60,160,app->player->P3.hp,10 };
+	SDL_Rect MiniPlayer1hp_ = { 64 + 60,64,app->player->P1.hp,10 };
+	if (app->player->P1.IsAlive) {
+		if (AttackPlayer == 1) {
+			SDL_Rect MiniPlayer1_ = { 59,59,60,60 };
+			app->render->DrawRectangle(MiniPlayer1_, 255, 255, 0);
+			
+		}
+		app->render->DrawRectangle(MiniPlayer1hp_, 255, 0, 0);
+		MiniPlayerButton1->state = GuiControlState::NORMAL;
+		randomAux = true;
+	}
+	else {
+		//DeathSprite
+		MiniPlayerButton1->state = GuiControlState::DISABLED;
+	}
+	if (app->player->P2.IsAlive) {
+		if (AttackPlayer == 2) {
+			SDL_Rect MiniPlayer1_ = { 115,105,60,60 };
+			app->render->DrawRectangle(MiniPlayer1_, 255, 255, 0);
+		}
+		app->render->DrawRectangle(MiniPlayer2hp_, 255, 0, 0);
+		MiniPlayerButton2->state = GuiControlState::NORMAL;
+	}
+	else {
+		//DeathSprite
+		MiniPlayerButton2->state = GuiControlState::DISABLED;
+	}
+	if (app->player->P3.IsAlive) {
+		if (AttackPlayer == 3) {
+			SDL_Rect MiniPlayer1_ = { 59,155,60,60 };
+			app->render->DrawRectangle(MiniPlayer1_, 255, 255, 0);
+		}
+		MiniPlayerButton3->state = GuiControlState::NORMAL;
+	}
+	else {
+		//DeathSprite
+		MiniPlayerButton3->state = GuiControlState::DISABLED;
+	}
+	if (app->player->P4.IsAlive) {
+		if (AttackPlayer == 4) {
+			SDL_Rect MiniPlayer1_ = { 115,205,60,60 };
+			app->render->DrawRectangle(MiniPlayer1_, 255, 255, 0);
+		}
+		MiniPlayerButton4->state = GuiControlState::NORMAL;
+	}
+	else {
+		//DeathSprite
+		MiniPlayerButton4->state = GuiControlState::DISABLED;
+	}
+}
+
 bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 {
+	
 	switch (control->type)
 	{
 	case GuiControlType::BUTTON:
 	{
+		
 		//Checks the GUI element ID
-		if (control->id == 1 && AttackPhaseActive == true && AttackPhaseEnable == true) {
-			AttackPhaseDisabled();
+		if (control->id == 1 && AttackPhaseActive == true && AttackPhaseEnable == true && VampireTarget != 0) {
+			AttackPhaseDisabled2();
 		}
-		if (control->id == 1 && AttackPhaseActive == false && AttackPhaseEnable == false)
+		if (control->id == 1 && AttackPhaseActive == false && AttackPhaseEnable == false && AttackPlayer != 0 && VampireTarget != 0)
 		{
 			AttackPhase();
 			AttackPhaseEnable = true;
@@ -499,13 +615,13 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 		if (AttackPhaseActive == false && AttackPhaseEnable == true) {
 			AttackPhaseEnable = false;
 		}
-		if (control->id == 2)
+		if (control->id == 2 && VampireTarget != 0)
 		{
 			AttackType = 1;
 			AttackPhaseDisabled();
 			AttackPhaseEnable = false;
 		}
-		if (control->id == 3)
+		if (control->id == 3 && VampireTarget != 0)
 		{
 			AttackType = 2;
 			AttackPhaseDisabled();
@@ -518,6 +634,7 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 		if (control->id == 5)
 		{
 			InventoryEnable = true;
+			
 			CloseInventory->state = GuiControlState::NORMAL;
 		}
 		if (control->id == 6 && battle == true) {
@@ -534,8 +651,50 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 		if (control->id == 8) {
 			QTE2->state = GuiControlState::DISABLED;
 			AttackAux += 8;
-
+		}
+		if (control->id == 9 && ChoosePlayerPhase == true && waitPlayer[0] == 0) {
+			AttackPlayer = 1;
+			SpecialAttackEnable = false;
 			
+		}
+		if (control->id == 9 && ChoosePlayerPhase == true && app->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT) {//GodMode
+			AttackPlayer = 1;
+			SpecialAttackEnable = false;
+			app->player->P1.IsAlive = false;
+			app->player->P1.hp = 0;
+		}
+		if (control->id == 10 && ChoosePlayerPhase == true &&waitPlayer[1] == 0) {
+			AttackPlayer = 2;
+			SpecialAttackEnable = false;
+		}
+		if (control->id == 10 && ChoosePlayerPhase == true && app->input->GetKey(SDL_SCANCODE_LCTRL)==KEY_REPEAT) {//GodMode
+			AttackPlayer = 2;
+			SpecialAttackEnable = false;
+			app->player->P2.IsAlive = false;
+			app->player->P2.hp = 0;
+
+		}
+		if (control->id == 11 && ChoosePlayerPhase == true && waitPlayer[2] == 0) {
+			SpecialAttackEnable = false;
+			AttackPlayer = 3;
+		}
+		if (control->id == 11 && ChoosePlayerPhase == true && app->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT) {//GodMode
+			AttackPlayer = 3;
+			SpecialAttackEnable = false;
+			app->player->P3.IsAlive = false;
+			app->player->P3.hp = 0;
+
+		}
+		if (control->id == 12 && ChoosePlayerPhase == true && waitPlayer[3] == 0) {
+			SpecialAttackEnable = false;
+			AttackPlayer = 4;
+		}
+		if (control->id == 12 && ChoosePlayerPhase == true && app->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT) {//GodMode
+			AttackPlayer = 4;
+			SpecialAttackEnable = false;
+			app->player->P4.IsAlive = false;
+			app->player->P4.hp = 0;
+
 		}
 	}
 
@@ -543,6 +702,54 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 	}
 	
 	return false;
+}
+
+void battleSystem::CheckAllies() {
+		if (app->player->P1.hp <= 0 && app->player->P1.IsAlive) {
+			app->player->P1.IsAlive = false;
+			waitPlayer[0] = 0;
+			waitPlayer[1] = 0;
+			waitPlayer[2] = 0;
+			waitPlayer[3] = 0;
+		}
+		if (app->player->P2.hp <= 0 && app->player->P2.IsAlive) {
+			app->player->P2.IsAlive = false;
+			waitPlayer[0] = 0;
+			waitPlayer[1] = 0;
+			waitPlayer[2] = 0;
+			waitPlayer[3] = 0;
+		}
+		if (app->player->P3.hp <= 0 && app->player->P3.IsAlive) {
+			app->player->P3.IsAlive = false;
+			waitPlayer[0] = 0;
+			waitPlayer[1] = 0;
+			waitPlayer[2] = 0;
+			waitPlayer[3] = 0;
+		}
+		if (app->player->P4.hp <= 0 && app->player->P4.IsAlive) {
+			app->player->P4.IsAlive = false;
+			waitPlayer[0] = 0;
+			waitPlayer[1] = 0;
+			waitPlayer[2] = 0;
+			waitPlayer[3] = 0;
+		}
+		if (app->player->P1.IsAlive == false) {
+			alliesDead++;
+		}
+		if (app->player->P2.IsAlive == false) {
+			alliesDead++;
+		}
+		if (app->player->P3.IsAlive == false) {
+			alliesDead++;
+		}
+		if (app->player->P4.IsAlive == false) {
+			alliesDead++;
+		}
+		if (alliesDead == 4) {
+			battle = false;
+		}
+		alliesDead = 0;
+	
 }
 
 void battleSystem::Pause()
