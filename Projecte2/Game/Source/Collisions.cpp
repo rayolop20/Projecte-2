@@ -23,6 +23,7 @@ Collisions::Collisions() : Module()
 	matrix[Collider::Type::PLAYER][Collider::Type::VAMPIRE] = true;
 	matrix[Collider::Type::PLAYER][Collider::Type::PLAYER] = false;
 	matrix[Collider::Type::PLAYER][Collider::Type::SENSOR] = true;
+	matrix[Collider::Type::PLAYER][Collider::Type::SENSOR_PLAYER] = true;
 	
 	
 	matrix[Collider::Type::WALLV][Collider::Type::WALLV] = false;
@@ -40,6 +41,13 @@ Collisions::Collisions() : Module()
 	matrix[Collider::Type::SENSOR][Collider::Type::PLAYER] = true;
 	matrix[Collider::Type::SENSOR][Collider::Type::VAMPIRE] = false;
 	matrix[Collider::Type::SENSOR][Collider::Type::SENSOR] = false;
+	
+	matrix[Collider::Type::SENSOR_PLAYER][Collider::Type::WALLV] = false;
+	matrix[Collider::Type::SENSOR_PLAYER][Collider::Type::WALLH] = false;
+	matrix[Collider::Type::SENSOR_PLAYER][Collider::Type::PLAYER] = true;
+	matrix[Collider::Type::SENSOR_PLAYER][Collider::Type::VAMPIRE] = false;
+	matrix[Collider::Type::SENSOR_PLAYER][Collider::Type::SENSOR] = false;
+	matrix[Collider::Type::SENSOR_PLAYER][Collider::Type::SENSOR_PLAYER] = false;
 }
 
 // Destructor
@@ -139,6 +147,9 @@ void Collisions::DebugDraw()
 			app->render->DrawRectangle(colliders[i]->rect, 255, 0, 0, alpha);
 			break;
 		case Collider::Type::SENSOR: // Blue
+			app->render->DrawRectangle(colliders[i]->rect, 0, 0, 255, alpha);
+			break;
+		case Collider::Type::SENSOR_PLAYER: // Blue
 			app->render->DrawRectangle(colliders[i]->rect, 0, 0, 255, alpha);
 			break;
 		}

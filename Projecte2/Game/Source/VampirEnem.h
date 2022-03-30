@@ -37,12 +37,12 @@ public:
 	~VampirEnem();
 
 
-	bool Awake(pugi::xml_node&);
+	//bool Awake(pugi::xml_node&);
 	// Called when the module is activated
 	// Loads the necessary textures for the player
-	bool LoadState(pugi::xml_node&);
+	//bool LoadState(pugi::xml_node&);
 
-	bool SaveState(pugi::xml_node&) const;
+	//bool SaveState(pugi::xml_node&) const;
 
 
 	bool Start();

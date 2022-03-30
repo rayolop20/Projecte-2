@@ -14,9 +14,11 @@ struct Collider
 		NONE = -1,
 		PLAYER,
 		VAMPIRE,
-		SENSOR,
 		WALLV,
 		WALLH,
+		//Sensors
+		SENSOR,
+		SENSOR_PLAYER,
 		MAX
 	};
 public:

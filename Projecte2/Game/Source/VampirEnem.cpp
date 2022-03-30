@@ -32,6 +32,7 @@ VampirEnem::~VampirEnem()
 	name.Create("Vampire");
 }
 
+/*
 bool VampirEnem::Awake(pugi::xml_node& config)
 {
 	LOG("Loading VampirEnem");
@@ -61,7 +62,7 @@ bool VampirEnem::SaveState(pugi::xml_node& data) const
 	VPyr.append_attribute("y") = Vpir[0].Pos.y;
 	return false;
 }
-
+*/
 bool VampirEnem::Start()
 {
 	
@@ -74,7 +75,7 @@ bool VampirEnem::Start()
 		currentAnimation[i] = &idle;
 	}
 
-	Vpir[0] = CreateVampire(Vpir->Pos.x, Vpir->Pos.x, TextureVampire);
+	Vpir[0] = CreateVampire(/*Vpir->Pos.x, Vpir->Pos.x,*/360,360, TextureVampire);
 
 	return false;
 }
@@ -101,7 +102,7 @@ bool VampirEnem::Update(float dt)
 	}
 	timer3 = SDL_GetTicks() / 10;
 
-	if (app->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN)
+	/*if (app->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN)
 	{
 		PathFindVamp(VampireNum);
 	}
@@ -113,7 +114,7 @@ bool VampirEnem::Update(float dt)
 			pathfindingaux = false;
 		}
 		path = true;
-	}
+	}*/
 	for (int i = 0; i < NUM_VAMPIRE; i++)
 	{
 		currentAnimation[i]->Update();
