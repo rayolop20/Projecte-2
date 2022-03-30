@@ -60,7 +60,7 @@ bool VampirEnem::Update(float dt)
 	 Vpir[1].hp,Vpir[2].hp, Vpir[3].hp,Vpir[4].hp,app->player->P1.hp,app->player->P2.hp,app->player->P3.hp,app->player->P4.hp);
 
 	app->win->SetTitle(title);
-	if (app->BTSystem->battle == true) {
+	if (app->BTSystem->battle == true && app->player->P1.IsAlive == true) {
 		if (app->BTSystem->SpawnedEnemies == false) {
 			SpawnEnemies();
 		}
@@ -71,7 +71,10 @@ bool VampirEnem::Update(float dt)
 			EnemyPhase();
 		}
 		Combat();
-
+	}
+	else if (app->BTSystem->battleAux == true) {
+		app->BTSystem->battleAux = false;
+		Vpir[0].Destroyed = true;
 	}
 	timer3 = SDL_GetTicks() / 10;
 
@@ -137,6 +140,7 @@ void VampirEnem::Combat() {
 		}
 		if (app->BTSystem->alliesDead == 4) {
 			app->BTSystem->battle = false;
+			app->BTSystem->battleWin = false;
 		}
 	}
 	if (app->BTSystem->AttackType == 1 && app->BTSystem->AttackPlayer == 1 && app->BTSystem->randomAux == true) {
@@ -424,6 +428,8 @@ void VampirEnem::EnemyPhase() {
 		}
 		if (app->BTSystem->alliesDead == 4) {
 			app->BTSystem->battle = false;
+			app->BTSystem->battleWin = false;
+
 		}
 	}
 	for (int i = 1; i < Vpir[0].numEnemies + 1; i++) {
@@ -515,6 +521,8 @@ void VampirEnem::CheckEnemy() {
 		}
 		if (app->BTSystem->CombatDeaths == Vpir[0].numEnemies) {
 			app->BTSystem->battle = false;
+			app->BTSystem->battleWin = false;
+
 			Vpir[0].Destroyed = true;
 			klk = true;
 		}
