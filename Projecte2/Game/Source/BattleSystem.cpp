@@ -94,20 +94,7 @@ bool battleSystem::PreUpdate()
 // Called each loop iteration
 bool battleSystem::Update(float dt)
 {
-	//app->map->DColisions();
-	// L02: DONE 3: Request Load / Save when pressing L/S
 
-	//PassTurn();
-
-	if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN) {
-		debug = !debug;
-
-	}
-	app->render->camera.x = (app->player->P1.position.x - 550) * -1;
-	app->render->camera.y = (app->player->P1.position.y - 300) * -1;
-
-	//Draw map
-	//app->map->Draw();
 
 	//Draw GUI
 	if (battle == true && app->player->P1.IsAlive == true) {
