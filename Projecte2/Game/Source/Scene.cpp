@@ -48,7 +48,7 @@ bool Scene::Start()
 
 		RELEASE_ARRAY(data);
 	};
-
+	app->map->DColisions();
 	pathTex = app->tex->Load("Assets/maps/path2.png");
 	// Load music
 	//app->audio->PlayMusic("Assets/audio/music/music_spy.ogg");
@@ -81,7 +81,7 @@ bool Scene::PreUpdate()
 bool Scene::Update(float dt)
 {
 
-	app->map->DColisions();
+	
     // L02: DONE 3: Request Load / Save when pressing L/S
 	if(app->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN && app->BTSystem->battle == false)
 		app->LoadGameRequest();
@@ -93,14 +93,13 @@ bool Scene::Update(float dt)
 		debug = !debug;
 
 	}
-	app->render->camera.x = (app->player->P1.position.x - 550) * -1;
-	app->render->camera.y = (app->player->P1.position.y - 300) * -1;
+ 	app->render->camera.x = (app->player->P1.position.x - 608) * -1;
+	app->render->camera.y = (app->player->P1.position.y - 328) * -1;
 
 
 	// Draw map
 	app->map->Draw();
 
-	//Draw GUI
 
 	//Draw Entities
 	//L13

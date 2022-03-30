@@ -94,23 +94,10 @@ bool battleSystem::PreUpdate()
 // Called each loop iteration
 bool battleSystem::Update(float dt)
 {
-	//app->map->DColisions();
-	// L02: DONE 3: Request Load / Save when pressing L/S
 
-	//PassTurn();
-
-	if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN) {
-		debug = !debug;
-
-	}
-	app->render->camera.x = (app->player->P1.position.x - 550) * -1;
-	app->render->camera.y = (app->player->P1.position.y - 300) * -1;
-
-	//Draw map
-	//app->map->Draw();
 
 	//Draw GUI
-	if (battle == true) {
+	if (battle == true && app->player->P1.IsAlive == true) {
 		SDL_Rect battle_screen = { 20,20,530,340 };
 		app->render->DrawRectangle(battle_screen, 0, 250, 250);
 		if (PlayerTurn == true) {
@@ -124,7 +111,7 @@ bool battleSystem::Update(float dt)
 		}
 		
 	}
-	else {
+	else if(battleAux == true){
 		AttackPlayer = 0;
 		for (int i = 0; i < 4; i++) {
 			waitPlayer[i] = 0;
@@ -139,6 +126,7 @@ bool battleSystem::Update(float dt)
 		MiniPlayerButton2->state = GuiControlState::DISABLED;
 		MiniPlayerButton3->state = GuiControlState::DISABLED;
 		MiniPlayerButton4->state = GuiControlState::DISABLED;
+		
 	}
 	if (Delay == false) {//Delay after Run Button
 		timer1 = SDL_GetTicks() / 1000;
@@ -747,6 +735,7 @@ void battleSystem::CheckAllies() {
 		}
 		if (alliesDead == 4) {
 			battle = false;
+			battleWin = false;
 		}
 		alliesDead = 0;
 	
