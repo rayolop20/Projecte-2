@@ -66,9 +66,9 @@ bool battleSystem::Start()
 	CloseInventory->state = GuiControlState::DISABLED;
 	QTE2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 8, "QTE2", { (app->win->GetWidth() / 2) + 0, app->win->GetHeight() / 10 + 0, 50, 50 }, this);
 	QTE2->state = GuiControlState::DISABLED;
-	MiniPlayerButton1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 9, "MiniPlayerButton1", { (app->win->GetWidth() / 2) - 576, app->win->GetHeight() / 10 - 8, 50, 50 }, this);
+	MiniPlayerButton1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 9, "MiniPlayerButton1", { app->player->P1.position.x - 420, app->player->P1.position.y - 220, 100, 100 }, this);
 	MiniPlayerButton1->state = GuiControlState::DISABLED;
-	MiniPlayerButton2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 10, "MiniPlayerButton2", { (app->win->GetWidth() / 2) - 520, app->win->GetHeight() / 10 + 38, 50, 50 }, this);
+	MiniPlayerButton2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 10, "MiniPlayerButton2", { app->player->P1.position.x - 420 + 120, app->player->P1.position.y - 220 + 130, 100, 100 }, this);
 	MiniPlayerButton2->state = GuiControlState::DISABLED;
 	MiniPlayerButton3 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 11, "MiniPlayerButton3", { (app->win->GetWidth() / 2) - 576, app->win->GetHeight() / 10 + 88, 50, 50 }, this);
 	MiniPlayerButton3->state = GuiControlState::DISABLED;
@@ -98,7 +98,7 @@ bool battleSystem::Update(float dt)
 
 	//Draw GUI
 	if (battle == true && app->player->P1.IsAlive == true) {
-		SDL_Rect battle_screen = { 20,20,530,340 };
+		SDL_Rect battle_screen = { app->player->P1.position.x - 640,app->player->P1.position.y - 360,1280,720 };
 		app->render->DrawRectangle(battle_screen, 0, 250, 250);
 		if (PlayerTurn == true) {
 			Attack->state = GuiControlState::NORMAL;
