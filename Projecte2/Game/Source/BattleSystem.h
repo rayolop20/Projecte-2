@@ -48,17 +48,37 @@ public:
 	GuiButton* Run;
 	GuiButton* CloseInventory;
 	GuiButton* QTE2;
+	GuiButton* MiniPlayerButton1;
+	GuiButton* MiniPlayerButton2;
+	GuiButton* MiniPlayerButton3;
+	GuiButton* MiniPlayerButton4;
+	GuiButton* MiniEnemyButton;
+
+	int VampireTarget = 0;
+	int playerTarget = 0;
+	int playerTarget_ = 0;
+
+	int AttackPlayer = 0;
 
 	int AttackType = 0;
 	bool battle;
 	bool AttackPhaseActive;
 	bool AttackPhaseEnable = false;
 
+	int CombatDeaths = 0;
+
 	void AttackPhase();
 	void AttackPhaseDisabled();
+	void AttackPhaseDisabled2();
 
 	void InventoryPhase();
 	void SpecialAttackPhase();
+
+	void ChoosePlayer();
+	void CheckAllies();
+	bool ChoosePlayerPhase = true;
+
+	int alliesDead = 0;
 
 	float timer1 = 0;
 	float timer1_ = 0;
@@ -67,9 +87,11 @@ public:
 	float AttackAux;
 	int randomAttack = 0;
 
-	int PlayerTurn = 1; 
+	bool randomAux = true;
+
+	bool PlayerTurn = true; 
+
 	int randomx = 0, randomy = 0;
-	int EnemyTurn = 0;
 
 	bool rectDirection = true;
 	int randomtargetRect = 0;
@@ -80,6 +102,10 @@ public:
 
 	bool SpecialAttackEnable = false;
 	bool InventoryEnable = false;
+	int* waitPlayer = new int(4 - alliesDead);
+
+
+	bool SpawnedEnemies = false;
 
 	int randomLetterGenerator = 0;
 	bool LetterGenerator = true;

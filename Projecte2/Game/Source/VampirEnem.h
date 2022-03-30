@@ -3,6 +3,7 @@
 
 #include "Entity.h"
 #include "Animation.h"
+#include "GuiButton.h"
 #include "Point.h"
 
 struct SDL_Texture;
@@ -20,6 +21,10 @@ struct Vampire
 	bool Destroyed = false;
 	uint vCount = 0;
 	bool dead = false;
+	float hp = 65.0;
+	float damage = 17.0;
+	float speed = 17.0;
+	int numEnemies = 4;
 };
 
 class VampirEnem : public Entity
@@ -42,6 +47,12 @@ public:
 
 	bool Start();
 
+	void Combat();
+	void SpawnEnemies();
+	void DrawEnemies();
+	void ChooseEnemy();
+	void EnemyPhase();
+	void CheckEnemy();
 	// Called at the middle of the application loop
 	// Processes new input and handles player movement
 	bool Update(float dt);
@@ -67,6 +78,9 @@ public:
 	Animation idle;
 	Animation dead;
 
+	float randomEnemyhp = 0.0;
+	float randomEnemySpeed = 0.0;
+	float randomEnemyDamage = 0.0;
 	bool path = false;
 	float timer3 = 0;
 	float enemySpeed = 20;//Velocitat inversa, 0 es velocitat maxima i valor més gran, velocitat més lenta.
@@ -74,6 +88,7 @@ public:
 	bool pathfindingaux = true;
 
 	int VampireNum = NULL;
+	bool klk = true;
 
 };
 
