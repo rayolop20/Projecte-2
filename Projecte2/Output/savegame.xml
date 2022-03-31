@@ -13,6 +13,7 @@
 	<player>
 		<Player1 x="468" y="463" />
 		<Player2 x="468" y="463" />
+		<Player3 x="468" y="463" />
 	</player>
 	<Menu />
 	<:anonymous />

@@ -18,7 +18,8 @@ struct Collider
 		WALLH,
 		//Sensors
 		SENSOR,
-		SENSOR_PLAYER,
+		SENSOR_PLAYER2,
+		SENSOR_PLAYER3,
 		MAX
 	};
 public:

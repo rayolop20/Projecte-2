@@ -30,11 +30,15 @@ Player::~Player()
 
 bool Player::LoadState(pugi::xml_node& data)
 {
-
+	//player 1
 	P1.position.x = data.child("Player1").attribute("x").as_int();
 	P1.position.y = data.child("Player1").attribute("y").as_int();
+	//player 2
 	P2.position.x = data.child("Player2").attribute("x").as_int();
 	P2.position.y = data.child("Player2").attribute("y").as_int();
+	//player 3
+	P3.position.x = data.child("Player3").attribute("x").as_int();
+	P3.position.y = data.child("Player3").attribute("y").as_int();
 	return false;
 }
 
@@ -42,11 +46,16 @@ bool Player::SaveState(pugi::xml_node& data) const
 {
 	pugi::xml_node Pyr1 = data.append_child("Player1");
 	pugi::xml_node Pyr2 = data.append_child("Player2");
-
+	pugi::xml_node Pyr3 = data.append_child("Player3");
+	//p1
 	Pyr1.append_attribute("x") = app->player->P1.position.x;
 	Pyr1.append_attribute("y") = app->player->P1.position.y;
+	//p2
 	Pyr2.append_attribute("x") = app->player->P2.position.x;
 	Pyr2.append_attribute("y") = app->player->P2.position.y;
+	//p3
+	Pyr3.append_attribute("x") = app->player->P3.position.x;
+	Pyr3.append_attribute("y") = app->player->P3.position.y;
 	return false;
 }
 
@@ -54,12 +63,16 @@ bool Player::Awake(pugi::xml_node& config) {
 
 	LOG("Loading Player");
 	bool ret = true;
-
-
+	
+	//p1
 	P1.position.x = config.child("Plater1").attribute("PositionX").as_int();
 	P1.position.y = config.child("Plater1").attribute("PositionY").as_int();
+	//p2
 	P2.position.x = config.child("Plater2").attribute("PositionX").as_int();
 	P2.position.y = config.child("Plater2").attribute("PositionY").as_int();
+	//p3
+	P3.position.x = config.child("Plater3").attribute("PositionX").as_int();
+	P3.position.y = config.child("Plater3").attribute("PositionY").as_int();
 
 	resetPlayerPos.x = config.child("Plater1").attribute("PositionX").as_int();
 	resetPlayerPos.y = config.child("Plater1").attribute("PositionY").as_int();
@@ -77,7 +90,9 @@ bool Player::Start()
 
 	P1.Pcol = app->collisions->AddCollider({ P1.position.x,P1.position.y, 64, 64 }, Collider::Type::PLAYER, this);
 
-	activePlayers = app->collisions->AddCollider({ P2.position.x, P2.position.y, 90, 90 }, Collider::Type::SENSOR_PLAYER, this);
+	P2.Player2C = app->collisions->AddCollider({ P2.position.x, P2.position.y, 90, 90 }, Collider::Type::SENSOR_PLAYER2, this);
+
+	P3.Player3C = app->collisions->AddCollider({ P3.position.x, P3.position.y, 90, 90 }, Collider::Type::SENSOR_PLAYER3, this);
 	return ret;
 }
 
@@ -97,25 +112,43 @@ bool Player::Update(float dt)
 	
 		player2 = { P2.position.x, P2.position.y, 42, 42 };
 		app->render->DrawRectangle(player2, 100, 230, 200);
+		
+		player3 = { P3.position.x, P3.position.y, 42, 42 };
+		app->render->DrawRectangle(player3, 100, 230, 200);
 	}
 
 
 	// all textures
 	{
-		if (PEactive == true)
+		//player2
+		if (P2.P2Active == true)
 		{
 			app->render->DrawTexture(PE, P2.position.x - 20, P2.position.y - 100);
 			if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
 			{
+				OrdenPlayers++;
 				P2.Move = true;
-				PEactive = false;
+				P2.P2Active = false;
+			}
+		}
+		
+		//player2
+		if (P3.P3Active == true)
+		{
+			app->render->DrawTexture(PE, P3.position.x - 20, P3.position.y - 100);
+			if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
+			{
+				OrdenPlayers++;
+				P3.Move = true;
+				P3.P3Active = false;
 			}
 		}
 
 	}
 
 	//Path Players
-	movementPlayer();
+	OrdenPlayer(OrdenPlayers);
+	movementPlayer(OrdenPlayer(OrdenPlayers));
 
 	//movement
 	{
@@ -187,7 +220,9 @@ bool Player::Update(float dt)
 
 	P1.Pcol->SetPos(P1.position.x, P1.position.y);
 
-	activePlayers->SetPos(P2.position.x - 21, P2.position.y - 21);
+	P2.Player2C->SetPos(P2.position.x - 21, P2.position.y - 21);
+
+	P3.Player3C->SetPos(P3.position.x - 21, P3.position.y - 21);
 
 	return true;
 }
@@ -300,9 +335,14 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 
 		//Sensors
 		{
-			if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::SENSOR_PLAYER && P2.Move == false)
+			if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::SENSOR_PLAYER2 && P2.Move == false)
 			{
-				PEactive = true;
+				P2.P2Active = true;
+			}
+			
+			if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::SENSOR_PLAYER3 && P3.Move == false)
+			{
+				P3.P3Active = true;
 			}
 
 		}
@@ -312,8 +352,19 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 
 }
 
-void Player::movementPlayer()
+int Player::OrdenPlayer(int Orden)
 {
+	int position;
+	position = Orden;
+	return position;
+}
+
+
+
+void Player::movementPlayer(int Orden)
+{
+	
+	//Player 2
 	if (P2.Move == true)
 	{
 		app->pathfinding->CreatePath(app->map->WorldToMap(P2.position.x,P2.position.y), app->map->WorldToMap(app->player->P1.position.x + 32, app->player->P1.position.y + 32));
@@ -339,6 +390,37 @@ void Player::movementPlayer()
 			if (P2.position.y >= pos.y)
 			{
 				P2.position.y--;
+			}
+		}
+
+	}
+
+	//Player 3
+	if (P3.Move == true)
+	{
+		app->pathfinding->CreatePath(app->map->WorldToMap(P3.position.x, P3.position.y), app->map->WorldToMap(app->player->P1.position.x + 32, app->player->P1.position.y + 32));
+
+		const DynArray<iPoint>* path = app->pathfinding->GetLastPath();
+
+		for (uint j = 0; j < path->Count(); ++j)
+		{
+			iPoint pos = app->map->MapToWorld(path->At(j)->x, path->At(j)->y);
+
+			if (P3.position.x <= pos.x)
+			{
+				P3.position.x++;
+			}
+			if (P3.position.x >= pos.x)
+			{
+				P3.position.x--;
+			}
+			if (P3.position.y <= pos.y)
+			{
+				P3.position.y++;
+			}
+			if (P3.position.y >= pos.y)
+			{
+				P3.position.y--;
 			}
 		}
 

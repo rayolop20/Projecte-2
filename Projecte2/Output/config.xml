@@ -27,6 +27,7 @@
    <players>
 	<Plater1 PositionX = "150" PositionY = "250"/>
 	<Plater2 PositionX = "250" PositionY = "550"/>
+	<Plater3 PositionX = "450" PositionY = "550"/>
   </players>
  <Vampire>
 	<Position PositionX = "320" PositionY = "320"/>
