@@ -396,8 +396,6 @@ void VampirEnem::SpawnEnemies() {
 			klk = false;
 		}
 
-		SDL_Rect Enem1 = { 450, -10 + 60 * i+1,50,50 };
-		app->render->DrawRectangle(Enem1, 255, 250, 250);
 	}
 	app->BTSystem->SpawnedEnemies = true;
 }
@@ -406,12 +404,11 @@ void VampirEnem::DrawEnemies() {
 	for (int i = 1; i < Vpir[0].numEnemies + 1; i++) {
 		if (Vpir[i].dead == false) {
 			if (app->BTSystem->VampireTarget == i) {
-				SDL_Rect Enem1 = { 445, -15 + 60 * i,60,60 };
+				SDL_Rect Enem1 = { app->player->P1.position.x + 395, app->player->P1.position.y - 335 + 120*i, 110, 110 };
 				app->render->DrawRectangle(Enem1, 255, 255, 0);
 			}
-			SDL_Rect Enem1 = { 450, -10 + 60 * i,50,50 };
-			app->render->DrawRectangle(Enem1, 255, 250, 250);
-			
+			SDL_Rect Enem1 = { app->player->P1.position.x + 400, app->player->P1.position.y - 330 + 120*i, 100, 100 };
+			app->render->DrawRectangle(Enem1, 255, 255, 255);	
 		}
 		
 	}
@@ -426,12 +423,18 @@ void VampirEnem::ChooseEnemy() {
 	buttons = SDL_GetMouseState(&x, &y);
 
 	for (int i = 1; i < Vpir[0].numEnemies + 1; i++) {
-		if (Vpir[i].dead == false && x >= 772 && x <= 772 + 50 && y >= 18 + 60*i && y <= 18 + 60 * i + 50 && app->input->GetMouseButtonDown(1) == KEY_DOWN && app->BTSystem->AttackPlayer != 0 && app->BTSystem->PlayerTurn == true) {
+		/*if (Vpir[i].dead == false && x >= 772 && x <= 772 + 50 && y >= 18 + 60*i && y <= 18 + 60 * i + 50 && app->input->GetMouseButtonDown(1) == KEY_DOWN && app->BTSystem->AttackPlayer != 0 && app->BTSystem->PlayerTurn == true) {
 			app->BTSystem->VampireTarget = i;
+			//SDL_Rect Enem1 = { app->player->P1.position.x + 400, app->player->P1.position.y - 330 + 120 * i, 100, 100 };
+			
+		}*/
+		if (Vpir[i].dead == false && x > 1005 && x < 1110 && y > -5 + 120 * i && y < 115 + 120 * i + 100 && app->input->GetMouseButtonDown(1) == KEY_DOWN && app->BTSystem->AttackPlayer != 0 && app->BTSystem->PlayerTurn == true) {
+			app->BTSystem->VampireTarget = i;
+			//SDL_Rect Enem1 = { app->player->P1.position.x + 500, app->player->P1.position.y - 330 + 120 * i, 100, 100 };
 		}
 	}
-	for (int i = 1; i < Vpir[0].numEnemies + 1; i++) {//GodMode
-		if (Vpir[i].dead == false && x >= 772 && x <= 772 + 50 && y >= 18 + 60*i && y <= 18 + 60 * i + 50 && app->input->GetMouseButtonDown(1) == KEY_DOWN && app->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT) {
+	for (int i = 1; i < Vpir[0].numEnemies + 1; i++) {//
+		if (Vpir[i].dead == false && x > 1005 && x < 1110 && y > -5 + 120 * i && y < 115 + 120 * i + 100 && app->input->GetMouseButtonDown(1) == KEY_DOWN && app->BTSystem->PlayerTurn == true && app->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT) {
 			//app->BTSystem->VampireTarget = i;
 			Vpir[i].hp = 0;
 		}
