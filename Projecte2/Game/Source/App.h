@@ -27,6 +27,7 @@ class Player;
 class EntityManager; 
 class battleSystem; 
 class PathFinding;
+class ModuleFonts;
 
 class App
 {
@@ -102,6 +103,7 @@ public:
 	Player* player;
 	EntityManager* entityManager; 
 	Collisions* collisions;
+	ModuleFonts* fonts;
 	Menu_Screen* menu;
 	battleSystem* BTSystem;
 	PathFinding* pathfinding;
