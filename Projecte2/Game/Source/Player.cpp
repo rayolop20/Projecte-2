@@ -8,6 +8,8 @@
 #include "Window.h"
 #include "Audio.h"
 #include "Collisions.h"
+#include "PathFinding.h"
+#include "Map.h"
 #include "EntityManager.h"
 #include "Scene.h"
 #include "BattleSystem.h"
@@ -17,7 +19,7 @@
 
 Player::Player() : Module()
 {
-	name.Create("player");
+	name.Create("players");
 
 }
 
@@ -26,19 +28,55 @@ Player::~Player()
 
 }
 
+bool Player::LoadState(pugi::xml_node& data)
+{
+	//player 1
+	P1.position.x = data.child("Player1").attribute("x").as_int();
+	P1.position.y = data.child("Player1").attribute("y").as_int();
+	//player 2
+	P2.position.x = data.child("Player2").attribute("x").as_int();
+	P2.position.y = data.child("Player2").attribute("y").as_int();
+	//player 3
+	P3.position.x = data.child("Player3").attribute("x").as_int();
+	P3.position.y = data.child("Player3").attribute("y").as_int();
+	return false;
+}
+
+bool Player::SaveState(pugi::xml_node& data) const
+{
+	pugi::xml_node Pyr1 = data.append_child("Player1");
+	pugi::xml_node Pyr2 = data.append_child("Player2");
+	pugi::xml_node Pyr3 = data.append_child("Player3");
+	//p1
+	Pyr1.append_attribute("x") = app->player->P1.position.x;
+	Pyr1.append_attribute("y") = app->player->P1.position.y;
+	//p2
+	Pyr2.append_attribute("x") = app->player->P2.position.x;
+	Pyr2.append_attribute("y") = app->player->P2.position.y;
+	//p3
+	Pyr3.append_attribute("x") = app->player->P3.position.x;
+	Pyr3.append_attribute("y") = app->player->P3.position.y;
+	return false;
+}
 
 bool Player::Awake(pugi::xml_node& config) {
 
 	LOG("Loading Player");
 	bool ret = true;
-
 	
-	P1.position.x = config.child("Position").attribute("PositionX").as_int();
-	P1.position.y = config.child("Position").attribute("PositionY").as_int();
+	//p1
+	P1.position.x = config.child("Plater1").attribute("PositionX").as_int();
+	P1.position.y = config.child("Plater1").attribute("PositionY").as_int();
+	//p2
+	P2.position.x = config.child("Plater2").attribute("PositionX").as_int();
+	P2.position.y = config.child("Plater2").attribute("PositionY").as_int();
+	//p3
+	P3.position.x = config.child("Plater3").attribute("PositionX").as_int();
+	P3.position.y = config.child("Plater3").attribute("PositionY").as_int();
 
-	resetPlayerPos.x = config.child("Position").attribute("PositionX").as_int();
-	resetPlayerPos.y = config.child("Position").attribute("PositionY").as_int();
-	
+	resetPlayerPos.x = config.child("Plater1").attribute("PositionX").as_int();
+	resetPlayerPos.y = config.child("Plater1").attribute("PositionY").as_int();
+
 	return ret;
 }
 
@@ -46,86 +84,145 @@ bool Player::Start()
 {
 	bool ret = true;
 
+	//Pres E
+	PE = app->tex->Load("Assets/UI/UiIcons.png");
+
+
 	P1.Pcol = app->collisions->AddCollider({ P1.position.x,P1.position.y, 64, 64 }, Collider::Type::PLAYER, this);
 
+	P2.Player2C = app->collisions->AddCollider({ P2.position.x, P2.position.y, 90, 90 }, Collider::Type::SENSOR_PLAYER2, this);
+
+	P3.Player3C = app->collisions->AddCollider({ P3.position.x, P3.position.y, 90, 90 }, Collider::Type::SENSOR_PLAYER3, this);
 	return ret;
 }
 
 bool Player::Update(float dt)
 {
+	//imputs
+	{
+		if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
+		{
+			app->collisions->DebugDraw();
+		}
+	}
+	//Players
+	{
+		player1 = { P1.position.x,P1.position.y, 64, 64 };
+		app->render->DrawRectangle(player1, 200, 200, 200);
+	
+		player2 = { P2.position.x, P2.position.y, 42, 42 };
+		app->render->DrawRectangle(player2, 100, 230, 200);
+		
+		player3 = { P3.position.x, P3.position.y, 42, 42 };
+		app->render->DrawRectangle(player3, 100, 230, 200);
+	}
 
-	player = { P1.position.x,P1.position.y, 64, 64 };
-	app->render->DrawRectangle(player, 200, 200, 200);
+
+	// all textures
+	{
+		//player2
+		if (P2.P2Active == true)
+		{
+			app->render->DrawTexture(PE, P2.position.x - 20, P2.position.y - 100);
+			if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
+			{
+				OrdenPlayers++;
+				P2.Move = true;
+				P2.P2Active = false;
+			}
+		}
+		
+		//player2
+		if (P3.P3Active == true)
+		{
+			app->render->DrawTexture(PE, P3.position.x - 20, P3.position.y - 100);
+			if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
+			{
+				OrdenPlayers++;
+				P3.Move = true;
+				P3.P3Active = false;
+			}
+		}
+
+	}
+
+	//Path Players
+	OrdenPlayer(OrdenPlayers);
+	movementPlayer(OrdenPlayer(OrdenPlayers));
 
 	//movement
-	if(!app->scene->paused)
 	{
-		//left
+		if (!app->scene->paused)
 		{
-			if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && P1.moveXD == false && app->BTSystem->battle == false)
+			//left
 			{
-				P1.position.x +=3;
-				P1.moveXA = true;
-				block1 = false;
-				block2 = true;
-				block1_ = false;
-				block2_ = true;
-			}
+				if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && P1.moveXD == false && app->BTSystem->battle == false)
+				{
+					P1.position.x += 3;
+					P1.moveXA = true;
+					block1 = false;
+					block2 = true;
+					block1_ = false;
+					block2_ = true;
+				}
 
-			if (app->input->GetKey(SDL_SCANCODE_D) == KEY_UP)
-			{
-				P1.moveXA = false;
+				if (app->input->GetKey(SDL_SCANCODE_D) == KEY_UP)
+				{
+					P1.moveXA = false;
+				}
 			}
-		}
-		//right
-		{
-			if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && P1.moveXA == false && app->BTSystem->battle == false)
+			//right
 			{
-				P1.position.x-=3;
-				P1.moveXD = true;
-				block1 = true;
-				block2 = false;
-				block1_ = true;
-				block2_ = false;
-			}
+				if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && P1.moveXA == false && app->BTSystem->battle == false)
+				{
+					P1.position.x -= 3;
+					P1.moveXD = true;
+					block1 = true;
+					block2 = false;
+					block1_ = true;
+					block2_ = false;
+				}
 
-			if (app->input->GetKey(SDL_SCANCODE_A) == KEY_UP)
-			{
-				P1.moveXD = false;
+				if (app->input->GetKey(SDL_SCANCODE_A) == KEY_UP)
+				{
+					P1.moveXD = false;
+				}
 			}
-		}
-		//up
-		{
-			if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT && P1.moveYW == false && app->BTSystem->battle == false)
+			//up
 			{
-				P1.position.y-=3;
-				P1.moveYS = true;
-			}
+				if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT && P1.moveYW == false && app->BTSystem->battle == false)
+				{
+					P1.position.y -= 3;
+					P1.moveYS = true;
+				}
 
-			if (app->input->GetKey(SDL_SCANCODE_W) == KEY_UP)
-			{
-				P1.moveYS = false;
+				if (app->input->GetKey(SDL_SCANCODE_W) == KEY_UP)
+				{
+					P1.moveYS = false;
+				}
 			}
-		}
-		//down
-		{
-			if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT && P1.moveYS == false && app->BTSystem->battle == false)
+			//down
 			{
-				P1.position.y+=3;
-				P1.moveYW = true;
-			}
+				if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT && P1.moveYS == false && app->BTSystem->battle == false)
+				{
+					P1.position.y += 3;
+					P1.moveYW = true;
+				}
 
-			if (app->input->GetKey(SDL_SCANCODE_S) == KEY_UP)
-			{
-				P1.moveYW = false;
+				if (app->input->GetKey(SDL_SCANCODE_S) == KEY_UP)
+				{
+					P1.moveYW = false;
+				}
 			}
 		}
 	}
-	if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
-	{
-		app->collisions->DebugDraw();
-	}
+
+
 	P1.Pcol->SetPos(P1.position.x, P1.position.y);
+
+	P2.Player2C->SetPos(P2.position.x - 21, P2.position.y - 21);
+
+	P3.Player3C->SetPos(P3.position.x - 21, P3.position.y - 21);
 
 	return true;
 }
@@ -235,6 +332,98 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 			}
 
 		}
+
+		//Sensors
+		{
+			if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::SENSOR_PLAYER2 && P2.Move == false)
+			{
+				P2.P2Active = true;
+			}
+			
+			if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::SENSOR_PLAYER3 && P3.Move == false)
+			{
+				P3.P3Active = true;
+			}
+
+		}
 	}
 
+	
+
 }
+
+int Player::OrdenPlayer(int Orden)
+{
+	int position;
+	position = Orden;
+	return position;
+}
+
+
+
+void Player::movementPlayer(int Orden)
+{
+	
+	//Player 2
+	if (P2.Move == true)
+	{
+		app->pathfinding->CreatePath(app->map->WorldToMap(P2.position.x,P2.position.y), app->map->WorldToMap(app->player->P1.position.x + 32, app->player->P1.position.y + 32));
+
+		const DynArray<iPoint>* path = app->pathfinding->GetLastPath();
+
+		for (uint j = 0; j < path->Count(); ++j)
+		{
+			iPoint pos = app->map->MapToWorld(path->At(j)->x, path->At(j)->y);
+			
+			if (P2.position.x <= pos.x)
+			{
+				P2.position.x++;
+			}
+			if (P2.position.x >= pos.x)
+			{
+				P2.position.x--;
+			}
+			if (P2.position.y <= pos.y)
+			{
+				P2.position.y++;
+			}
+			if (P2.position.y >= pos.y)
+			{
+				P2.position.y--;
+			}
+		}
+
+	}
+
+	//Player 3
+	if (P3.Move == true)
+	{
+		app->pathfinding->CreatePath(app->map->WorldToMap(P3.position.x, P3.position.y), app->map->WorldToMap(app->player->P1.position.x + 32, app->player->P1.position.y + 32));
+
+		const DynArray<iPoint>* path = app->pathfinding->GetLastPath();
+
+		for (uint j = 0; j < path->Count(); ++j)
+		{
+			iPoint pos = app->map->MapToWorld(path->At(j)->x, path->At(j)->y);
+
+			if (P3.position.x <= pos.x)
+			{
+				P3.position.x++;
+			}
+			if (P3.position.x >= pos.x)
+			{
+				P3.position.x--;
+			}
+			if (P3.position.y <= pos.y)
+			{
+				P3.position.y++;
+			}
+			if (P3.position.y >= pos.y)
+			{
+				P3.position.y--;
+			}
+		}
+
+	}
+}
+

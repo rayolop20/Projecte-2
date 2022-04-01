@@ -4,16 +4,20 @@
 	<input />
 	<textures />
 	<audio />
+	<pathfinding />
 	<scene />
 	<scene />
 	<map />
 	<guiManager />
 	<entitymanager />
-	<player />
+	<player>
+		<Player1 x="468" y="463" />
+		<Player2 x="468" y="463" />
+		<Player3 x="468" y="463" />
+	</player>
 	<Menu />
 	<:anonymous />
 	<renderer>
-		<camera x="420" y="146" />
-		<Player x="130" y="154" />
+		<camera x="82" y="-163" />
 	</renderer>
 </save_state>

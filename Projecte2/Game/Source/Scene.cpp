@@ -50,7 +50,6 @@ bool Scene::Start()
 	};
 	app->map->DColisions();
 	pathTex = app->tex->Load("Assets/maps/path2.png");
-	originTex = app->tex->Load("Assets/maps/x.png");
 	// Load music
 	//app->audio->PlayMusic("Assets/audio/music/music_spy.ogg");
 
