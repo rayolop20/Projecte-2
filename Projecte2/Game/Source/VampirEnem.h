@@ -25,6 +25,9 @@ struct Vampire
 	float damage = 17.0;
 	float speed = 17.0;
 	int numEnemies = 4;
+	bool poisoned = false;
+	bool onFire = false;
+
 };
 
 class VampirEnem : public Entity

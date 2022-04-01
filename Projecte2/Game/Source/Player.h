@@ -32,8 +32,13 @@ struct playr1
 
 struct playr2
 {
+<<<<<<< Updated upstream
 	//French
 	bool IsAlive = false;
+=======
+	//American
+	bool IsAlive = true;
+>>>>>>> Stashed changes
 	float hp = 40.0;
 	float speed1 = 5.0;
 	float speed2 = 15.0;
@@ -84,8 +89,14 @@ struct playr4
 
 struct playr5
 {
+<<<<<<< Updated upstream
 	//American
 	bool IsAlive = true;
+=======
+	
+	//French
+	bool IsAlive = false;
+>>>>>>> Stashed changes
 	float hp = 50.0;
 	float speed1 = 20.0;
 	float speed2 = 15.0;

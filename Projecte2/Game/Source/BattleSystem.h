@@ -88,6 +88,8 @@ public:
 	float timer2_ = 0;
 	float AttackAux;
 	int randomAttack = 0;
+	bool randomAttackEnd = false;
+
 
 	bool randomAux = true;
 
@@ -105,6 +107,7 @@ public:
 	bool SpecialAttackEnable = false;
 	bool InventoryEnable = false;
 	int* waitPlayer = new int(4 - alliesDead);
+	int* poisonCount = new int(4 - CombatDeaths);
 
 
 	bool SpawnedEnemies = false;
