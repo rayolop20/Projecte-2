@@ -357,11 +357,11 @@ void battleSystem::SpecialAttackPhase() {
 			AttackAux = 1;
 		}
 		randomx = (rand() % 500);
-		randomy = (rand() % 300);
+		randomy = (rand() % 500);
 		if (QTE2->state == GuiControlState::DISABLED && AttackAux != 0) {
 			randomx = (rand() % 500);
-			randomy = (rand() % 300);
-			QTE2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 8, "QTE2", { (app->win->GetWidth() / 2) + randomx - 600, app->win->GetHeight() / 10 + randomy-10, 50, 50 }, this);
+			randomy = (rand() % 500);
+			QTE2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 8, "QTE2", {  app->player->P1.position.x + randomx - 200, app->player->P1.position.y + randomy - 250, 50, 50 }, this);
 			QTE2->state = GuiControlState::NORMAL;
 		}
 		if (AttackAux > 100) {
@@ -392,13 +392,13 @@ void battleSystem::SpecialAttackPhase() {
 		if (AttackAux == 0 && app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
 			timer1_ = timer1;
 			AttackAux = 1;
-			randomtargetRect = (rand() % 185) + 165;
+			randomtargetRect = (rand() % 185) + app->player->P1.position.x - 125;
 			randomtargetRect_ = randomtargetRect;
 		}
 		if (AttackAux != 0) {
 
 			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && timer1_ > timer1 + 0.5) {
-				finalpos = timer1_ + 125;
+				finalpos = timer1_ + app->player->P1.position. x - 125;
 				if (finalpos > randomtargetRect_ && finalpos + 20 < randomtargetRect_ + 30) {
 					AttackAux = 100;
 				}
@@ -438,13 +438,13 @@ void battleSystem::SpecialAttackPhase() {
 				rectDirection = false;
 			}
 			
-			SDL_Rect largeRect = { 125,300,300,40 };
+			SDL_Rect largeRect = { app->player->P1.position.x - 125, app->player->P1.position.y + 300,300,40 };
 			app->render->DrawRectangle(largeRect, 0, 250, 0);
-			SDL_Rect targetRect2 = { randomtargetRect_ - 30,300,90,40 };
+			SDL_Rect targetRect2 = { randomtargetRect_ - 30,app->player->P1.position.y + 300,90,40 };
 			app->render->DrawRectangle(targetRect2, 255, 128, 0);
-			SDL_Rect targetRect = { randomtargetRect_,300,30,40 };
+			SDL_Rect targetRect = { randomtargetRect_,app->player->P1.position.y + 300,30,40 };
 			app->render->DrawRectangle(targetRect, 250, 250, 0);
-			SDL_Rect PointRect = { 125 + timer1_,310,20,20 };
+			SDL_Rect PointRect = { timer1_ + app->player->P1.position.x - 125,app->player->P1.position.y + 310,20,20 };
 			app->render->DrawRectangle(PointRect, 250, 0, 0);
 		}
 		
@@ -463,11 +463,11 @@ void battleSystem::SpecialAttackPhase() {
 				LetterGenerator = false;
 			}
 			SDL_Rect *TypoLetter = new SDL_Rect();
-			TypoLetter->x = (randomLetterGenerator-1)*22;
+			TypoLetter->x = (randomLetterGenerator-1)*22 ;
 			TypoLetter->y = 0;
 			TypoLetter->w = 22;
 			TypoLetter->h = 54;
-			app->render->DrawTexture(TypoSpecialAttack, 250, 140,TypoLetter);
+			app->render->DrawTexture(TypoSpecialAttack, app->player->P1.position.x + 25, app->player->P1.position.y - 100,TypoLetter);
 			if (app->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN && randomLetterGenerator == 1) {
 				AttackAux += 10;
 				LetterGenerator = true;
@@ -705,7 +705,7 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 			QTE2->state = GuiControlState::DISABLED;
 			AttackAux += 8;
 		}
-		if (control->id == 9 && ChoosePlayerPhase == true && waitPlayer[0] == 0) {
+		if (control->id == 9 && ChoosePlayerPhase == true && waitPlayer[0] == 0 && randomAttack == 0) {
 			AttackPlayer = 1;
 			SpecialAttackEnable = false;
 			
@@ -716,7 +716,7 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 			app->player->P1.IsAlive = false;
 			app->player->P1.hp = 0;
 		}
-		if (control->id == 10 && ChoosePlayerPhase == true &&waitPlayer[1] == 0) {
+		if (control->id == 10 && ChoosePlayerPhase == true &&waitPlayer[1] == 0 && randomAttack == 0) {
 			AttackPlayer = 2;
 			SpecialAttackEnable = false;
 		}
@@ -727,7 +727,7 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 			app->player->P2.hp = 0;
 
 		}
-		if (control->id == 11 && ChoosePlayerPhase == true && waitPlayer[2] == 0) {
+		if (control->id == 11 && ChoosePlayerPhase == true && waitPlayer[2] == 0 && randomAttack == 0) {
 			SpecialAttackEnable = false;
 			AttackPlayer = 3;
 		}
@@ -738,7 +738,7 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 			app->player->P3.hp = 0;
 
 		}
-		if (control->id == 12 && ChoosePlayerPhase == true && waitPlayer[3] == 0) {
+		if (control->id == 12 && ChoosePlayerPhase == true && waitPlayer[3] == 0 && randomAttack == 0) {
 			SpecialAttackEnable = false;
 			AttackPlayer = 4;
 		}
