@@ -171,8 +171,20 @@ void VampirEnem::Combat() {
 	}
 	if (app->BTSystem->AttackType == 2 && app->BTSystem->AttackPlayer == 1 && app->BTSystem->randomAux == true) {
 		int randomNumber = 0;
+		int randomNumber2 = app->BTSystem->VampireTarget;
+		int randomNumber2_ = app->BTSystem->VampireTarget;
 		do {
+			do {
+				randomNumber2 = (rand() % 4 - app->BTSystem->CombatDeaths) + 1;
+			} while (randomNumber2 == app->BTSystem->VampireTarget);
+			do {
+				randomNumber2_ = (rand() % 4 - app->BTSystem->CombatDeaths) + 1;
+			} while (randomNumber2_ == app->BTSystem->VampireTarget || randomNumber2_ == randomNumber2);
 			Vpir[app->BTSystem->VampireTarget].hp -= app->player->P1.damage2;
+
+			Vpir[randomNumber2].hp -= app->player->P1.damage2;
+			Vpir[randomNumber2_].hp -= app->player->P1.damage2;
+
 			app->player->P1.mana += app->player->P1.mana2;
 			randomNumber = (rand() % 100) + 1;
 
@@ -356,9 +368,9 @@ void VampirEnem::Combat() {
 }
 
 void VampirEnem::SpawnEnemies() {
+	srand(time(NULL));
 	for (int i = 1; i < Vpir[0].numEnemies + 1; i++) {
 		Vpir[i].dead = false;
-		srand(time(NULL));
 		randomEnemyhp = (rand() % 10) + 1;
 		randomEnemySpeed = (rand() % 6) + 1;
 		randomEnemyDamage = (rand() % 6) + 1;
@@ -366,11 +378,12 @@ void VampirEnem::SpawnEnemies() {
 			Vpir[i].hp += randomEnemyhp;
 			Vpir[i].speed += randomEnemySpeed;
 			Vpir[i].damage += randomEnemyDamage;
-			klk = false;
 		}
 
 	}
 	app->BTSystem->SpawnedEnemies = true;
+	klk = false;
+
 }
 
 void VampirEnem::DrawEnemies() {
