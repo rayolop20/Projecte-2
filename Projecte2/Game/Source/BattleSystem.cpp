@@ -65,6 +65,9 @@ bool battleSystem::Start()
 	for (int i = 0; i <= 4 - alliesDead;i++) {
 		waitPlayer[i] = 0;
 	}
+	for (int i = 0; i <= 5;i++) {
+		poisonCount[i] = 0;
+	}
 	// L03: DONE: Load map
 	TypoSpecialAttack = app->tex->Load("Assets/textures/Typo_SpecialAttack_4.png");
 	// Load music
@@ -162,6 +165,7 @@ bool battleSystem::Update(float dt)
 		AttackPlayer = 0;
 		for (int i = 0; i < 4; i++) {
 			waitPlayer[i] = 0;
+			poisonCount[i] = 0;
 		}
 		Attack->state = GuiControlState::DISABLED;
 		Attack1->state = GuiControlState::DISABLED;
@@ -209,7 +213,7 @@ bool battleSystem::Update(float dt)
 			Delay = true;
 		}
 	}
-	if (SpecialAttackEnable && AttackPlayer != 0 && VampireTarget != 0 ) {
+	if (SpecialAttackEnable && AttackPlayer != 0 ) {
 		SpecialAttackPhase();
 		Attack->state = GuiControlState::DISABLED;
 		Attack1->state = GuiControlState::DISABLED;
@@ -318,7 +322,7 @@ void battleSystem::InventoryPhase() {
 void battleSystem::SpecialAttackPhase() {
 	srand(time(NULL));
 	if (randomAttack == 0) {//QTE Random activator
-		randomAttack = (rand() % 4) + 1;
+		randomAttack = (rand() % 1) + 1;
 	}
 	if (randomAttack == 1) {//QTE 1
 		timer1 = SDL_GetTicks() / 1000;
@@ -335,11 +339,7 @@ void battleSystem::SpecialAttackPhase() {
 		if (timer1 > timer1_ + 5 && AttackAux != 0) {
 			randomAttack = 0;
 			//enemy.hp = enemy.hp - player.attack + AttackAux;
-			AttackAux = 0;
-			app->BTSystem->waitPlayer[AttackPlayer-1] += 1;
- 			AttackPlayer = 0;
-			VampireTarget = 0;
-			for (int i = 0; i <= 4; i++) {
+			for (int i = 1; i <= 4; i++) {
 				if (app->BTSystem->waitPlayer[i] != 0) {
 					app->BTSystem->waitPlayer[i] += 1;
 				}
@@ -348,6 +348,8 @@ void battleSystem::SpecialAttackPhase() {
 				}
 			}
 			SpecialAttackEnable = false;
+			app->BTSystem->SpeacialAttackEnd = true;
+
 		}
 	}
 	if (randomAttack == 2) {//QTE 2
@@ -371,7 +373,6 @@ void battleSystem::SpecialAttackPhase() {
 			randomAttack = 0;
 			QTE2->state = GuiControlState::DISABLED;
 			//enemy.hp = enemy.hp - player.attack + AttackAux;
-			app->BTSystem->waitPlayer[AttackPlayer - 1] += 1;
 			AttackPlayer = 0;
 			VampireTarget = 0;
 			AttackAux = 0;
@@ -410,7 +411,6 @@ void battleSystem::SpecialAttackPhase() {
 				}
 				randomAttack = 0;
 				//enemy.hp = enemy.hp - player.attack + AttackAux;
-				app->BTSystem->waitPlayer[AttackPlayer - 1] += 1;
 				AttackPlayer = 0;
 				VampireTarget = 0;
 				AttackAux = 0;
@@ -592,6 +592,7 @@ void battleSystem::SpecialAttackPhase() {
 						app->BTSystem->waitPlayer[i] = 0;
 					}
 				}
+
 				SpecialAttackEnable = false;
 			}
 		}
@@ -680,9 +681,25 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 			AttackPhaseDisabled();
 			AttackPhaseEnable = false;
 		}
-		if (control->id == 4)
+		if (control->id == 4 && AttackPlayer == 1 && VampireTarget != 0 && SpecialAttackEnable == false && app->player->P1.mana >= 60)
 		{
-			SpecialAttackEnable = true;
+			app->player->P1.mana -= 60;
+ 			SpecialAttackEnable = true;
+		}
+		if (control->id == 4 && AttackPlayer == 2 && VampireTarget != 0 && SpecialAttackEnable == false && app->player->P2.mana >= 80)
+		{
+			app->player->P2.mana -= 80;
+ 			SpecialAttackEnable = true;
+		}
+		if (control->id == 4 && AttackPlayer == 3 && SpecialAttackEnable == false && app->player->P3.mana >= 25)
+		{
+			app->player->P3.mana -= 25;
+ 			SpecialAttackEnable = true;
+		}
+		if (control->id == 4 && AttackPlayer == 4 && VampireTarget != 0 && SpecialAttackEnable == false && app->player->P3.mana >= 40 && app->player->P4.revolverActive == true)
+		{
+			app->player->P4.mana -= 40;
+ 			SpecialAttackEnable = true;
 		}
 		if (control->id == 5)
 		{
@@ -708,7 +725,6 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 		if (control->id == 9 && ChoosePlayerPhase == true && waitPlayer[0] == 0 && randomAttack == 0) {
 			AttackPlayer = 1;
 			SpecialAttackEnable = false;
-			
 		}
 		if (control->id == 9 && ChoosePlayerPhase == true && app->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT) {//GodMode
 			AttackPlayer = 1;
@@ -716,7 +732,7 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 			app->player->P1.IsAlive = false;
 			app->player->P1.hp = 0;
 		}
-		if (control->id == 10 && ChoosePlayerPhase == true &&waitPlayer[1] == 0 && randomAttack == 0) {
+		if (control->id == 10 && ChoosePlayerPhase == true && waitPlayer[1] == 0 && randomAttack == 0) {
 			AttackPlayer = 2;
 			SpecialAttackEnable = false;
 		}
@@ -727,9 +743,9 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 			app->player->P2.hp = 0;
 
 		}
-		if (control->id == 11 && ChoosePlayerPhase == true && waitPlayer[2] == 0 && randomAttack == 0) {
-			SpecialAttackEnable = false;
+  		if (control->id == 11 && ChoosePlayerPhase == true && waitPlayer[2] == 0 && randomAttack == 0) {
 			AttackPlayer = 3;
+			SpecialAttackEnable = false;
 		}
 		if (control->id == 11 && ChoosePlayerPhase == true && app->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT) {//GodMode
 			AttackPlayer = 3;
