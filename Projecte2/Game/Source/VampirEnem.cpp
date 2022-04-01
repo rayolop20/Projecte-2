@@ -209,8 +209,19 @@ void VampirEnem::Combat() {
 	}
 	if (app->BTSystem->AttackType == 1 && app->BTSystem->AttackPlayer == 2 && app->BTSystem->randomAux == true) {
 		int randomNumber = 0;
+		int randomNumber2 = app->BTSystem->VampireTarget;
+		int randomNumber2_ = app->BTSystem->VampireTarget;
 		do {
-			Vpir[app->BTSystem->VampireTarget].hp -= app->player->P2.damage1;
+			do {
+				randomNumber2 = (rand() % 4 - app->BTSystem->CombatDeaths) + 1;
+			} while (randomNumber2 == app->BTSystem->VampireTarget);
+			do {
+				randomNumber2_ = (rand() % 4 - app->BTSystem->CombatDeaths) + 1;
+			} while (randomNumber2_ == app->BTSystem->VampireTarget || randomNumber2_ == randomNumber2);
+			Vpir[app->BTSystem->VampireTarget].hp -= app->player->P2.damage2;
+
+			Vpir[randomNumber2].hp -= app->player->P2.damage2;
+			Vpir[randomNumber2_].hp -= app->player->P2.damage2;
 			app->player->P2.mana += app->player->P2.mana1;
 			randomNumber = (rand() % 100) + 1;
 
@@ -313,8 +324,14 @@ void VampirEnem::Combat() {
 	}
 	if (app->BTSystem->AttackType == 1 && app->BTSystem->AttackPlayer == 4 && app->BTSystem->randomAux == true) {
 		int randomNumber = 0;
+		int randomNumber2 = app->BTSystem->VampireTarget;
 		do {
+			do {
+				randomNumber2 = (rand() % 4 - app->BTSystem->CombatDeaths) + 1;
+			} while (randomNumber2 == app->BTSystem->VampireTarget);
+
 			Vpir[app->BTSystem->VampireTarget].hp -= app->player->P4.damage1;
+			Vpir[randomNumber2].hp -= app->player->P4.damage1;
 			app->player->P4.mana += app->player->P4.mana1;
 			randomNumber = (rand() % 100) + 1;
 
@@ -488,6 +505,9 @@ void VampirEnem::EnemyPhase() {
 				
 			} while (app->BTSystem->playerTarget == 0 && app->BTSystem->playerTarget_ != 0);
 			app->BTSystem->playerTarget = app->BTSystem->playerTarget_;
+			if (app->BTSystem->battle1 == true && app->player->P4.IsAlive == true) {
+				app->BTSystem->playerTarget = 4;
+			}
 			if (app->BTSystem->playerTarget == 1 && app->player->P1.IsAlive == true) {
 				int randomNumber = 0;
 				do {
@@ -537,6 +557,7 @@ void VampirEnem::CheckEnemy() {
 		}
 		if (app->BTSystem->CombatDeaths == Vpir[0].numEnemies) {
 			app->BTSystem->battle = false;
+			app->BTSystem->battle1 = false;
 			app->BTSystem->battleWin = false;
 
 			Vpir[0].Destroyed = true;

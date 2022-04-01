@@ -32,20 +32,20 @@ struct playr1
 
 struct playr2
 {
-	//French
-	bool IsAlive = false;
-	float hp = 40.0;
-	float speed1 = 5.0;
+	//American
+	bool IsAlive = true;
+	float hp = 50.0;
+	float speed1 = 20.0;
 	float speed2 = 15.0;
 	float luck = 0.0;
 	float mana1 = 35.0;
-	float mana2 = 35.0;
-	float damage1 = 15.0;
-	float damage2 = 20.0;
+	float mana2 = 45.0;
+	float damage1 = 20.0;
+	float damage2 = 35.0;
 	float speed = 0.0;
 	float mana = 0.0;
 	float damage = 0.0;
-	
+
 };
 
 struct playr3
@@ -69,7 +69,7 @@ struct playr4
 {
 	//Italian
 	bool IsAlive = true;
-	float hp = 50.0;
+	float hp = 10.0;
 	float speed1 = 15.0;
 	float speed2 = 10.0;
 	float luck = 0.0;
@@ -84,16 +84,17 @@ struct playr4
 
 struct playr5
 {
-	//American
-	bool IsAlive = true;
-	float hp = 50.0;
-	float speed1 = 20.0;
+	
+	//French
+	bool IsAlive = false;
+	float hp = 40.0;
+	float speed1 = 5.0;
 	float speed2 = 15.0;
 	float luck = 0.0;
 	float mana1 = 35.0;
-	float mana2 = 45.0;
-	float damage1 = 20.0;
-	float damage2 = 35.0;
+	float mana2 = 35.0;
+	float damage1 = 15.0;
+	float damage2 = 20.0;
 	float speed = 0.0;
 	float mana = 0.0;
 	float damage = 0.0;

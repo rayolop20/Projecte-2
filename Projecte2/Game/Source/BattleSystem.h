@@ -112,6 +112,8 @@ public:
 	int randomLetterGenerator = 0;
 	bool LetterGenerator = true;
 
+	bool battle1 = true;
+
 	SDL_Texture* TypoSpecialAttack;
 private:
 
