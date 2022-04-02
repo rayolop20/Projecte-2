@@ -105,7 +105,10 @@ public:
 	bool SpecialAttackEnable = false;
 	bool InventoryEnable = false;
 	int* waitPlayer = new int(4 - alliesDead);
+	int* poisonCount = new int(4 - CombatDeaths);
+	int onFireCount;
 
+	bool SpeacialAttackEnd = false;
 
 	bool SpawnedEnemies = false;
 

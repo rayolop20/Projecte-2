@@ -338,6 +338,7 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 			if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::SENSOR_PLAYER2 && P2.Move == false)
 			{
 				P2.P2Active = true;
+				P4.IsAlive = true;
 			}
 			
 			if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::SENSOR_PLAYER3 && P3.Move == false)

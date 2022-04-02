@@ -10,50 +10,11 @@ struct Collider;
 
 struct playr1
 {
+	//British
 	iPoint position;
 	Collider* Pcol = nullptr;
 	bool moveXD = false, moveXA = false, moveYW = false, moveYS = false;
-	bool IsAlive = true;
-	float hp = 50.0;
-	float speed1 = 0.0;
-	float speed2 = 10.0;
-	float luck = 0.0;
-	float mana1 = 25.0;
-	float mana2 = 20.0;
-	float damage1 = 45.0;
-	float damage2 = 12.0;
-	float speed = 0.0;
-	float mana = 0.0;
-	float damage = 0.0;
 
-};
-
-struct playr2
-{
-	iPoint position;
-	Collider* Player2C = nullptr;
-	bool P2Active = false;
-	bool IsAlive = true;
-	bool Move = false;
-	float hp = 50.0;
-	float speed1 = 20.0;
-	float speed2 = 15.0;
-	float luck = 0.0;
-	float mana1 = 35.0;
-	float mana2 = 45.0;
-	float damage1 = 20.0;
-	float damage2 = 35.0;
-	float speed = 0.0;
-	float mana = 0.0;
-	float damage = 0.0;
-};
-
-struct playr3
-{
-	iPoint position;
-	Collider* Player3C = nullptr;
-	bool P3Active = false;
-	bool Move = false;
 	bool IsAlive = true;
 	float hp = 75.0;
 	float speed1 = 15.0;
@@ -66,10 +27,52 @@ struct playr3
 	float speed = 0.0;
 	float mana = 0.0;
 	float damage = 0.0;
+
 };
 
+struct playr2
+{
+	//American
+	iPoint position;
+	Collider* Player2C = nullptr;
+	bool IsAlive = true;
+	bool Move = false;
+	float hp = 40.0;
+	float speed1 = 5.0;
+	float speed2 = 15.0;
+	float luck = 0.0;
+	float mana1 = 35.0;
+	float mana2 = 35.0;
+	float damage1 = 15.0;
+	float damage2 = 20.0;
+	float speed = 0.0;
+	float mana = 0.0;
+	float damage = 0.0;
+	bool P2Active = false;
+};
+struct playr3
+{
+	//Russian
+	iPoint position;
+	Collider* Player3C = nullptr;
+	bool P3Active = false;
+	bool Move = false;
+	bool IsAlive = true;
+	float hp = 45.0;
+	float speed1 = 0.0;
+	float speed2 = 10.0;
+	float luck = 0.0;
+	float mana1 = 25.0;
+	float mana2 = 20.0;
+	float damage1 = 40.0;
+	float damage2 = 12.0;
+	float speed = 0.0;
+	float mana = 0.0;
+	float damage = 0.0;
+};
 struct playr4
 {
+	//Italian
 	bool IsAlive = true;
 	float hp = 50.0;
 	float speed1 = 15.0;
@@ -82,21 +85,25 @@ struct playr4
 	float speed = 0.0;
 	float mana = 0.0;
 	float damage = 0.0;
+	bool revolverActive = true;
+
 };
 
 struct playr5
 {
-	bool IsAlive = false;
-	float hp = 40.0;
-	float speed1 = 5.0;
+	//French
+	bool IsAlive = true;
+	bool Move = false;
+	float hp = 50.0;
+	float speed1 = 20.0;
 	float speed2 = 15.0;
 	float luck = 0.0;
 	float mana1 = 35.0;
-	float mana2 = 35.0;
-	float damage1 = 15.0;
-	float damage2 = 20.0;
+	float mana2 = 45.0;
+	float damage1 = 20.0;
+	float damage2 = 35.0;
 	float speed = 0.0;
-	float mana = 0.0;
+	float mana = 110.0;
 	float damage = 0.0;
 };
 
