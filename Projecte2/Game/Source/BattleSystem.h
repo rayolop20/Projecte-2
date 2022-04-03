@@ -62,6 +62,7 @@ public:
 
 	int AttackType = 0;
 	bool battle;
+	bool battle1 = true;
 	bool battleAux = false;
 	bool AttackPhaseActive;
 	bool AttackPhaseEnable = false;
