@@ -39,6 +39,9 @@ bool Player::LoadState(pugi::xml_node& data)
 	//player 3
 	P3.position.x = data.child("Player3").attribute("x").as_int();
 	P3.position.y = data.child("Player3").attribute("y").as_int();
+	//player4
+	P4.position.x = data.child("Player4").attribute("x").as_int();
+	P4.position.y = data.child("Player4").attribute("y").as_int();
 	return false;
 }
 
@@ -47,6 +50,7 @@ bool Player::SaveState(pugi::xml_node& data) const
 	pugi::xml_node Pyr1 = data.append_child("Player1");
 	pugi::xml_node Pyr2 = data.append_child("Player2");
 	pugi::xml_node Pyr3 = data.append_child("Player3");
+	pugi::xml_node Pyr4 = data.append_child("Player4");
 	//p1
 	Pyr1.append_attribute("x") = app->player->P1.position.x;
 	Pyr1.append_attribute("y") = app->player->P1.position.y;
@@ -56,6 +60,9 @@ bool Player::SaveState(pugi::xml_node& data) const
 	//p3
 	Pyr3.append_attribute("x") = app->player->P3.position.x;
 	Pyr3.append_attribute("y") = app->player->P3.position.y;
+	//p4
+	Pyr4.append_attribute("x") = app->player->P4.position.x;
+	Pyr4.append_attribute("y") = app->player->P4.position.y;
 	return false;
 }
 
@@ -65,17 +72,20 @@ bool Player::Awake(pugi::xml_node& config) {
 	bool ret = true;
 	
 	//p1
-	P1.position.x = config.child("Plater1").attribute("PositionX").as_int();
-	P1.position.y = config.child("Plater1").attribute("PositionY").as_int();
+	P1.position.x = config.child("Player1").attribute("PositionX").as_int();
+	P1.position.y = config.child("Player1").attribute("PositionY").as_int();
 	//p2
-	P2.position.x = config.child("Plater2").attribute("PositionX").as_int();
-	P2.position.y = config.child("Plater2").attribute("PositionY").as_int();
+	P2.position.x = config.child("Player2").attribute("PositionX").as_int();
+	P2.position.y = config.child("Player2").attribute("PositionY").as_int();
 	//p3
-	P3.position.x = config.child("Plater3").attribute("PositionX").as_int();
-	P3.position.y = config.child("Plater3").attribute("PositionY").as_int();
+	P3.position.x = config.child("Player3").attribute("PositionX").as_int();
+	P3.position.y = config.child("Player3").attribute("PositionY").as_int();
+	//P4
+	P4.position.x = config.child("Player4").attribute("PositionX").as_int();
+	P4.position.y = config.child("Player4").attribute("PositionY").as_int();
 
-	resetPlayerPos.x = config.child("Plater1").attribute("PositionX").as_int();
-	resetPlayerPos.y = config.child("Plater1").attribute("PositionY").as_int();
+	resetPlayerPos.x = config.child("Player1").attribute("PositionX").as_int();
+	resetPlayerPos.y = config.child("Player1").attribute("PositionY").as_int();
 
 	return ret;
 }
@@ -97,6 +107,8 @@ bool Player::Start()
 	P2.Player2C = app->collisions->AddCollider({ P2.position.x, P2.position.y, 90, 90 }, Collider::Type::SENSOR_PLAYER2, this);
 
 	P3.Player3C = app->collisions->AddCollider({ P3.position.x, P3.position.y, 90, 90 }, Collider::Type::SENSOR_PLAYER3, this);
+
+	P4.Player4C = app->collisions->AddCollider({ P3.position.x, P3.position.y, 90, 90 }, Collider::Type::SENSOR_PLAYER4, this);
 	return ret;
 }
 
@@ -119,6 +131,9 @@ bool Player::Update(float dt)
 		
 		player3 = { P3.position.x, P3.position.y, 42, 42 };
 		app->render->DrawRectangle(player3, 100, 230, 200);
+
+		player4 = { P4.position.x, P4.position.y, 42, 42 };
+		app->render->DrawRectangle(player4, 100, 230, 200);
 	}
 
 
@@ -128,31 +143,22 @@ bool Player::Update(float dt)
 		if (P2.P2Active == true)
 		{
 			app->render->DrawTexture(PE, P2.position.x - 20, P2.position.y - 100);
-			if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
-			{
-				OrdenPlayers++;
-				P2.Move = true;
-				P2.P2Active = false;
-			}
 		}
 		
-		//player2
+		//player3
 		if (P3.P3Active == true)
 		{
 			app->render->DrawTexture(PE, P3.position.x - 20, P3.position.y - 100);
-			if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
-			{
-				OrdenPlayers++;
-				P3.Move = true;
-				P3.P3Active = false;
-			}
 		}
-
+		//player4
+		if (P4.P4Active == true)
+		{
+			app->render->DrawTexture(PE, P4.position.x - 20, P4.position.y - 100);
+		}
 	}
 
 	//Path Players
-	OrdenPlayer(OrdenPlayers);
-	movementPlayer(OrdenPlayer(OrdenPlayers));
+	movementPlayer();
 
 	//movement
 	{
@@ -227,6 +233,8 @@ bool Player::Update(float dt)
 	P2.Player2C->SetPos(P2.position.x - 21, P2.position.y - 21);
 
 	P3.Player3C->SetPos(P3.position.x - 21, P3.position.y - 21);
+
+	P4.Player4C->SetPos(P4.position.x - 21, P4.position.y - 21);
 
 	return true;
 }
@@ -340,13 +348,45 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 		{
 			if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::SENSOR_PLAYER2 && P2.Move == false)
 			{
-				P2.P2Active = true;
-				P4.IsAlive = true;
+				if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
+				{
+					P2.Move = true;
+					P2.P2Active = false;
+					P2.IsAlive = true;
+				}
+				if (P2.Move == false)
+				{
+					P2.P2Active = true;
+				}
 			}
 			
 			if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::SENSOR_PLAYER3 && P3.Move == false)
 			{
-				P3.P3Active = true;
+				if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
+				{
+					P3.Move = true;
+					P3.P3Active = false;
+					P3.IsAlive = true;
+				}
+				if (P3.Move == false)
+				{
+					P3.P3Active = true;
+				}
+			}
+			
+			if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::SENSOR_PLAYER4 && P4.Move == false)
+			{
+				if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
+				{
+					P4.Move = true;
+					P4.P4Active = false;
+					P4.IsAlive = true;
+				}
+				if (P4.Move == false)
+				{
+					P4.P4Active = true;
+				}
+
 			}
 
 		}
@@ -356,78 +396,121 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 
 }
 
-int Player::OrdenPlayer(int Orden)
+
+
+void Player::movementPlayer()
 {
-	int position;
-	position = Orden;
-	return position;
-}
-
-
-
-void Player::movementPlayer(int Orden)
-{
-	
 	//Player 2
 	if (P2.Move == true)
 	{
-		app->pathfinding->CreatePath(app->map->WorldToMap(P2.position.x,P2.position.y), app->map->WorldToMap(app->player->P1.position.x + 32, app->player->P1.position.y + 32));
-
-		const DynArray<iPoint>* path = app->pathfinding->GetLastPath();
-
-		for (uint j = 0; j < path->Count(); ++j)
+		if (P2.IsAlive == true)
 		{
-			iPoint pos = app->map->MapToWorld(path->At(j)->x, path->At(j)->y);
-			
-			if (P2.position.x <= pos.x)
+			app->pathfinding->CreatePath(app->map->WorldToMap(P2.position.x, P2.position.y), app->map->WorldToMap(app->player->P1.position.x + 32, app->player->P1.position.y + 32));
+
+			const DynArray<iPoint>* path = app->pathfinding->GetLastPath();
+
+			for (uint j = 0; j < path->Count(); ++j)
 			{
-				P2.position.x++;
+				iPoint pos = app->map->MapToWorld(path->At(j)->x, path->At(j)->y);
+
+				if (P2.position.x <= pos.x)
+				{
+					P2.position.x++;
+				}
+				if (P2.position.x >= pos.x)
+				{
+					P2.position.x--;
+				}
+				if (P2.position.y <= pos.y)
+				{
+					P2.position.y++;
+				}
+				if (P2.position.y >= pos.y)
+				{
+					P2.position.y--;
+				}
 			}
-			if (P2.position.x >= pos.x)
-			{
-				P2.position.x--;
-			}
-			if (P2.position.y <= pos.y)
-			{
-				P2.position.y++;
-			}
-			if (P2.position.y >= pos.y)
-			{
-				P2.position.y--;
-			}
+		
 		}
 
 	}
-
 	//Player 3
 	if (P3.Move == true)
 	{
-		app->pathfinding->CreatePath(app->map->WorldToMap(P3.position.x, P3.position.y), app->map->WorldToMap(app->player->P1.position.x + 32, app->player->P1.position.y + 32));
-
-		const DynArray<iPoint>* path = app->pathfinding->GetLastPath();
-
-		for (uint j = 0; j < path->Count(); ++j)
+		if (P2.IsAlive == true)
 		{
-			iPoint pos = app->map->MapToWorld(path->At(j)->x, path->At(j)->y);
-
-			if (P3.position.x <= pos.x)
-			{
-				P3.position.x++;
-			}
-			if (P3.position.x >= pos.x)
-			{
-				P3.position.x--;
-			}
-			if (P3.position.y <= pos.y)
-			{
-				P3.position.y++;
-			}
-			if (P3.position.y >= pos.y)
-			{
-				P3.position.y--;
-			}
+			app->pathfinding->CreatePath(app->map->WorldToMap(P3.position.x, P3.position.y), app->map->WorldToMap(app->player->P2.position.x + 32, app->player->P2.position.y + 32));
 		}
+		else if (P2.IsAlive == false)
+		{
+			app->pathfinding->CreatePath(app->map->WorldToMap(P3.position.x, P3.position.y), app->map->WorldToMap(app->player->P1.position.x + 32, app->player->P1.position.y + 32));
+		}
+			const DynArray<iPoint>* path = app->pathfinding->GetLastPath();
 
+			for (uint j = 0; j < path->Count(); ++j)
+			{
+				iPoint pos = app->map->MapToWorld(path->At(j)->x, path->At(j)->y);
+
+				if (P3.position.x <= pos.x)
+				{
+					P3.position.x++;
+				}
+				if (P3.position.x >= pos.x)
+				{
+					P3.position.x--;
+				}
+				if (P3.position.y <= pos.y)
+				{
+					P3.position.y++;
+				}
+				if (P3.position.y >= pos.y)
+				{
+					P3.position.y--;
+				}
+			}
+	}
+	//Player 4
+	if (P4.Move == true)
+	{
+		if (P2.IsAlive == true && P3.IsAlive == false)
+		{
+			app->pathfinding->CreatePath(app->map->WorldToMap(P4.position.x, P4.position.y), app->map->WorldToMap(app->player->P2.position.x + 32, app->player->P2.position.y + 32));
+		}
+		else if (P2.IsAlive == false && P3.IsAlive == true)
+		{
+			app->pathfinding->CreatePath(app->map->WorldToMap(P4.position.x, P4.position.y), app->map->WorldToMap(app->player->P3.position.x + 32, app->player->P3.position.y + 32));
+		}
+		else if (P2.IsAlive == true && P3.IsAlive == true)
+		{
+			app->pathfinding->CreatePath(app->map->WorldToMap(P4.position.x, P4.position.y), app->map->WorldToMap(app->player->P3.position.x + 32, app->player->P3.position.y + 32));
+		}
+		else if (P2.IsAlive == false && P3.IsAlive == false)
+		{
+			app->pathfinding->CreatePath(app->map->WorldToMap(P4.position.x, P4.position.y), app->map->WorldToMap(app->player->P1.position.x + 32, app->player->P1.position.y + 32));
+		}
+			const DynArray<iPoint>* path = app->pathfinding->GetLastPath();
+
+			for (uint j = 0; j < path->Count(); ++j)
+			{
+				iPoint pos = app->map->MapToWorld(path->At(j)->x, path->At(j)->y);
+
+				if (P4.position.x <= pos.x)
+				{
+					P4.position.x++;
+				}
+				if (P4.position.x >= pos.x)
+				{
+					P4.position.x--;
+				}
+				if (P4.position.y <= pos.y)
+				{
+					P4.position.y++;
+				}
+				if (P4.position.y >= pos.y)
+				{
+					P4.position.y--;
+				}
+			}
 	}
 }
 
