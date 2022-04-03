@@ -1,4 +1,4 @@
-Hp/Mana Bars Position(Y= +115 / X= 592):
+#Hp/Mana Bars Position(Y= +115 / X= 592):
 
 1: 39, 33, 230, 25 
 
@@ -9,11 +9,33 @@ Hp/Mana Bars Position(Y= +115 / X= 592):
 10: 592, 33, 230, 25
 
 
-Combat UI Position:
+#Combat UI Position: (Lighter)
 
 Attack: 8, 33, 156, 61 (Y= +53)
 
 Inventory: 8, 86, 156, 61
 
+Special: 224, 33, 156, 61 (X= + 216)
+
+Run: 224, 86, 156, 61
 
 
+#Combat UI Position 2: (Darker)
+
+Attack: 8, 194, 156, 61 
+
+Inventory: 8, 278, 156, 61
+
+Special: 224, 194, 156, 61 
+
+Run: 224, 86, 278, 61
+
+#Special Attacks:
+
+Mosin-Nagant: 8, 388, 156, 61 
+
+Revolver Nagant: 8, 459, 156, 61
+
+Clous Français: 224, 388, 156, 61 
+
+Revolver: 224, 459, 156, 61
