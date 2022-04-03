@@ -20,6 +20,7 @@ struct Collider
 		SENSOR,
 		SENSOR_PLAYER2,
 		SENSOR_PLAYER3,
+		SENSOR_PLAYER4,
 		MAX
 	};
 public:
