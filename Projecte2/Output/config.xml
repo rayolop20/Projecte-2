@@ -25,12 +25,12 @@
   
   <!-- L13: Create a structure in XML to store multiple entities -->
    <players>
-	<Player1 PositionX = "150" PositionY = "250"/>
-	<Player2 PositionX = "250" PositionY = "550"/>
-	<Player3 PositionX = "450" PositionY = "550"/>
-	<Player4 PositionX = "250" PositionY = "750"/>
+	<Player1 PositionX = "1616" PositionY = "2255"/>
+	<Player2 PositionX = "1780" PositionY = "2410"/>
+	<Player3 PositionX = "1777" PositionY = "2252"/>
+	<Player4 PositionX = "1613" PositionY = "2410"/>
   </players>
  <Vampire>
-	<Position PositionX = "320" PositionY = "320"/>
+	<Position PositionX = "1111" PositionY = "2048"/>
   </Vampire>
 </config>
