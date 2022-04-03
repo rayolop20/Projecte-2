@@ -619,22 +619,6 @@ void VampirEnem::PathFindVamp(int i)
 					pathfindingtimer = timer3;
 					Vpir[i].Pos.y-=32;
 				}
-				/*if (Vpir[i].Pos.x <= pos.x)
-                {
-                    Vpir[i].Pos.x++;
-                }
-                if (Vpir[i].Pos.x >= pos.x)
-                {
-                    Vpir[i].Pos.x--;
-                }
-                if (Vpir[i].Pos.y <= pos.y)
-                {
-                    Vpir[i].Pos.y++;
-                }
-                if (Vpir[i].Pos.y >= pos.y)
-                {
-                    Vpir[i].Pos.y--;
-                }*/
 			}
 		
 	}

@@ -33,7 +33,7 @@ struct playr2
 	iPoint position;
 	Collider* Player2C = nullptr;
 	bool P2Active = false;
-	bool IsAlive = true;
+	bool IsAlive = false;
 	bool Move = false;
 	float hp = 50.0;
 	float speed1 = 20.0;
@@ -54,7 +54,7 @@ struct playr3
 	Collider* Player3C = nullptr;
 	bool P3Active = false;
 	bool Move = false;
-	bool IsAlive = true;
+	bool IsAlive = false;
 	float hp = 75.0;
 	float speed1 = 15.0;
 	float speed2 = 5.0;
@@ -70,7 +70,11 @@ struct playr3
 
 struct playr4
 {
-	bool IsAlive = true;
+	iPoint position;
+	Collider* Player4C = nullptr;
+	bool P4Active = false;
+	bool Move = false;
+	bool IsAlive = false;
 	float hp = 50.0;
 	float speed1 = 15.0;
 	float speed2 = 10.0;
@@ -132,9 +136,7 @@ public:
 	// Collision callback, called when the player intersects with another collider
 	void OnCollision(Collider* c1, Collider* c2);
 
-	int OrdenPlayer(int Orden);
-
-	void movementPlayer(int Orden);
+	void movementPlayer();
 	//int Timer(int second);
 	playr1 P1;
 	playr2 P2;
@@ -156,6 +158,8 @@ public:
 	SDL_Rect player1;
 	SDL_Rect player2;
 	SDL_Rect player3;
+	SDL_Rect player4;
+	SDL_Rect player5;
 	SDL_Texture* PE;
 
 	int OrdenPlayers = 0;

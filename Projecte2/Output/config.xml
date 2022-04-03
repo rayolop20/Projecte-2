@@ -25,9 +25,10 @@
   
   <!-- L13: Create a structure in XML to store multiple entities -->
    <players>
-	<Plater1 PositionX = "150" PositionY = "250"/>
-	<Plater2 PositionX = "250" PositionY = "550"/>
-	<Plater3 PositionX = "450" PositionY = "550"/>
+	<Player1 PositionX = "150" PositionY = "250"/>
+	<Player2 PositionX = "250" PositionY = "550"/>
+	<Player3 PositionX = "450" PositionY = "550"/>
+	<Player4 PositionX = "250" PositionY = "750"/>
   </players>
  <Vampire>
 	<Position PositionX = "320" PositionY = "320"/>
