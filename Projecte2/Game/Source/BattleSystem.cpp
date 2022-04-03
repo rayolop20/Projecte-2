@@ -259,6 +259,7 @@ bool battleSystem::Update(float dt)
 		btnExit->Update(dt);
 	}*/
 	CheckAllies();
+	MaxHp();
 
 	return true;
 }
@@ -819,7 +820,21 @@ void battleSystem::CheckAllies() {
 			battleWin = false;
 		}
 		alliesDead = 0;
-	
+}
+
+void battleSystem::MaxHp() {
+	if (app->player->P1.hp > 75) {
+		app->player->P1.hp = 75;
+	}
+	if (app->player->P2.hp > 40) {
+		app->player->P2.hp = 40;
+	}
+	if (app->player->P3.hp > 45) {
+		app->player->P3.hp = 45;
+	}
+	if (app->player->P4.hp > 50) {
+		app->player->P4.hp = 50;
+	}
 }
 
 void battleSystem::Pause()
