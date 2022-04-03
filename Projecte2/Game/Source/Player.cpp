@@ -85,6 +85,10 @@ bool Player::Start()
 	bool ret = true;
 
 	//Pres E
+	player1Hp = app->tex->Load("Assets/UI/hpbarplayertest.png");
+	player2Hp = app->tex->Load("Assets/UI/hpbarplayertest2.png");
+	player3Hp = app->tex->Load("Assets/UI/hpbarplayertest3.png");
+	player4Hp = app->tex->Load("Assets/UI/hpbarplayertest4.png");
 	PE = app->tex->Load("Assets/UI/UiIcons.png");
 
 
@@ -330,7 +334,6 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 			{
 				app->BTSystem->battle = true;
 			}
-
 		}
 
 		//Sensors

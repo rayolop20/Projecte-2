@@ -448,8 +448,6 @@ void battleSystem::SpecialAttackPhase() {
 			SDL_Rect PointRect = { timer1_ + app->player->P1.position.x - 125,app->player->P1.position.y + 310,20,20 };
 			app->render->DrawRectangle(PointRect, 250, 0, 0);
 		}
-		
-
 	}
 	if (randomAttack == 4) {//QTE 4
 		timer1 = SDL_GetTicks() / 1000;

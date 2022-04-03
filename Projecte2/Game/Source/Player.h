@@ -165,6 +165,12 @@ public:
 	SDL_Rect player3;
 	SDL_Texture* PE;
 
+	SDL_Texture* player1Hp = nullptr;
+	SDL_Texture* player2Hp = nullptr;
+	SDL_Texture* player3Hp = nullptr;
+	SDL_Texture* player4Hp = nullptr;
+
+
 	int OrdenPlayers = 0;
 
 	iPoint resetPlayerPos;

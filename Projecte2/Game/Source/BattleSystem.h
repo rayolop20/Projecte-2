@@ -79,6 +79,7 @@ public:
 	void ChoosePlayer();
 	void CheckAllies();
 	void MaxHp();
+
 	bool ChoosePlayerPhase = true;
 
 	int alliesDead = 0;
