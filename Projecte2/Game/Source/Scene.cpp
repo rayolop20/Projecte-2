@@ -139,30 +139,32 @@ bool Scene::Update(float dt)
 		btnExit->state = GuiControlState::NORMAL;
 		//rendered on last layer(collision.cpp)
 	}
-	if (paused && !xCont)
-	{
-		btnResume->Update(dt);
-		btnExit->Update(dt);
-	}
+	//if (paused)
+	//{
+	//	btnResume->Update(dt);
+	//	btnExit->Update(dt);
+	//}
 
-	if (app->input->GetKey(SDL_SCANCODE_X) == KEY_DOWN && !cMenu)
+	if (app->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN && !cMenu && xCont == 0)
 	{
-		xCont = 1;
 		cMenu = true;
 		paused = true;
 		if (app->characterMenu->active == false)
 		{
 			app->characterMenu->Enable();
 			
-		}
+		} 
 	}
-	if (app->input->GetKey(SDL_SCANCODE_X) == KEY_DOWN && cMenu && xCont == 0)
+	if (app->characterMenu->exitInventory && cMenu && xCont == 1)
 	{
 		cMenu = false;
+		paused = false;
 		if (app->characterMenu->active == true)
 		{
 			app->characterMenu->Disable();
 		}
+		app->characterMenu->exitInventory = false;
+		xCont = 0;
 	}
 
 	return true;

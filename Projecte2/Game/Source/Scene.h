@@ -45,6 +45,8 @@ public:
 	bool debug = false;
 	bool paused = false;
 	bool cMenu = false;
+
+	int xCont = 0;
 private:
 
 	SDL_Texture* img;
@@ -65,8 +67,6 @@ private:
  
 	iPoint origin;
 	bool originSelected = false;
-
-	int xCont = 0;
 };
 
 #endif // __SCENE_H__
