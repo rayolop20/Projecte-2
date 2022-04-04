@@ -35,7 +35,7 @@ struct playr2
 	iPoint position;
 	Collider* Player2C = nullptr;
 	bool P2Active = false;
-	bool IsAlive = false;
+	bool IsAlive = true;
 	bool Move = false;
 	float hp = 45.0;
 	float speed1 = 0.0;
@@ -57,7 +57,7 @@ struct playr3
 	Collider* Player3C = nullptr;
 	bool P3Active = false;
 	bool Move = false;
-	bool IsAlive = false;
+	bool IsAlive = true;
 	float hp = 40.0;
 	float speed1 = 5.0;
 	float speed2 = 15.0;
@@ -78,7 +78,7 @@ struct playr4
 	Collider* Player4C = nullptr;
 	bool P4Active = false;
 	bool Move = false;
-	bool IsAlive = false;
+	bool IsAlive = true;
 	float hp = 50.0;
 	float speed1 = 15.0;
 	float speed2 = 10.0;

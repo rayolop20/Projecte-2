@@ -154,23 +154,23 @@ bool VampirEnem::PostUpdate()
 
 void VampirEnem::DrawHpBars() {
 	if (app->player->P1.IsAlive == true) {
-		app->render->DrawTexture(app->player->player1Hp, app->player->P1.position.x - 310, app->player->P1.position.y - 225);
-		SDL_Rect bar1 = { app->player->P1.position.x - 300, app->player->P1.position.y - 220, (200 * app->player->P1.hp) / 100,15 };
+		app->render->DrawTexture(app->player->player1Hp, app->player->P1.position.x - 190, app->player->P1.position.y - 225);
+		SDL_Rect bar1 = { app->player->P1.position.x - 180, app->player->P1.position.y - 220, (200 * app->player->P1.hp) / 100,15 };
 		app->render->DrawRectangle(bar1, 255, 0, 0);
 	}
 	if (app->player->P2.IsAlive == true) {
-		app->render->DrawTexture(app->player->player2Hp, app->player->P1.position.x - 310 + 120, app->player->P1.position.y - 225 + 130);
-		SDL_Rect bar2 = { app->player->P1.position.x - 300 + 120, app->player->P1.position.y - 220 + 130, (200 * app->player->P2.hp) / 100,15 };
+		app->render->DrawTexture(app->player->player2Hp, app->player->P1.position.x - 310, app->player->P1.position.y - 225 + 130);
+		SDL_Rect bar2 = { app->player->P1.position.x - 300, app->player->P1.position.y - 220 + 130, (200 * app->player->P2.hp) / 100,15 };
 		app->render->DrawRectangle(bar2, 255, 0, 0);
 	}
 	if (app->player->P3.IsAlive == true) {
-		app->render->DrawTexture(app->player->player3Hp, app->player->P1.position.x - 310, app->player->P1.position.y - 225 + 260);
-		SDL_Rect bar3 = { app->player->P1.position.x - 300, app->player->P1.position.y - 220 + 260, (200 * app->player->P3.hp) / 100,15 };
+		app->render->DrawTexture(app->player->player3Hp, app->player->P1.position.x - 190, app->player->P1.position.y - 225 + 260);
+		SDL_Rect bar3 = { app->player->P1.position.x - 180, app->player->P1.position.y - 220 + 260, (200 * app->player->P3.hp) / 100,15 };
 		app->render->DrawRectangle(bar3, 255, 0, 0);
 	}
 	if (app->player->P4.IsAlive == true) {
-		app->render->DrawTexture(app->player->player4Hp, app->player->P1.position.x - 310 + 120, app->player->P1.position.y - 225 + 390);
-		SDL_Rect bar4 = { app->player->P1.position.x - 300 + 120, app->player->P1.position.y - 220 + 390, (200 * app->player->P4.hp) / 100,15 };
+		app->render->DrawTexture(app->player->player4Hp, app->player->P1.position.x - 310, app->player->P1.position.y - 225 + 390);
+		SDL_Rect bar4 = { app->player->P1.position.x - 300, app->player->P1.position.y - 220 + 390, (200 * app->player->P4.hp) / 100,15 };
 		app->render->DrawRectangle(bar4, 255, 0, 0);
 	}
 }
@@ -481,13 +481,13 @@ void VampirEnem::ChooseEnemy() {
 			//SDL_Rect Enem1 = { app->player->P1.position.x + 400, app->player->P1.position.y - 330 + 120 * i, 100, 100 };
 			
 		}*/
-		if (Vpir[i].dead == false && x > 1005 && x < 1110 && y > -5 + 120 * i && y < 115 + 120 * i + 100 && app->input->GetMouseButtonDown(1) == KEY_DOWN && app->BTSystem->AttackPlayer != 0 && app->BTSystem->PlayerTurn == true) {
+		if (Vpir[i].dead == false && x > 1005 && x < 1110 && y > -5 + 120 * i && y < 115 + 120 * i + 100 && app->input->GetMouseButtonDown(1) == KEY_DOWN && app->BTSystem->AttackPlayer != 0 && app->BTSystem->PlayerTurn == true && app->BTSystem->SpecialAttackEnable == false) {
 			app->BTSystem->VampireTarget = i;
 			//SDL_Rect Enem1 = { app->player->P1.position.x + 500, app->player->P1.position.y - 330 + 120 * i, 100, 100 };
 		}
 	}
 	for (int i = 1; i < Vpir[0].numEnemies + 1; i++) {//
-		if (Vpir[i].dead == false && x > 1005 && x < 1110 && y > -5 + 120 * i && y < 115 + 120 * i + 100 && app->input->GetMouseButtonDown(1) == KEY_DOWN && app->BTSystem->PlayerTurn == true && app->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT) {
+		if (Vpir[i].dead == false && x > 1005 && x < 1110 && y > -5 + 120 * i && y < 115 + 120 * i + 100 && app->input->GetMouseButtonDown(1) == KEY_DOWN && app->BTSystem->PlayerTurn == true && app->BTSystem->SpecialAttackEnable == false && app->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT) {
 			//app->BTSystem->VampireTarget = i;
 			Vpir[i].hp = 0;
 		}
