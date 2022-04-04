@@ -12,6 +12,7 @@
 #include "VampirEnem.h"
 #include "Collisions.h"
 #include "Menu.h"
+#include "OpcionMenu.h"
 #include "PathFinding.h"
 #include "BattleSystem.h"
 #include "Defs.h"
@@ -105,6 +106,7 @@ bool Scene::Update(float dt)
 		//InGameMenu
 		if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		{
+
 			paused = true;
 
 			Pause();

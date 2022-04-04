@@ -6,6 +6,7 @@
 #include "Audio.h"
 #include "Scene.h"
 #include "Map.h"
+#include "OpcionMenu.h"
 #include "GuiManager.h"
 #include "Player.h"
 #include "EntityManager.h"
@@ -44,6 +45,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	BTSystem = new battleSystem();
 	pathfinding = new PathFinding();
 	fonts = new ModuleFonts();
+	Opcions = new Opcion_Menu();
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
 	AddModule(win);

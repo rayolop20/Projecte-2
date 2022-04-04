@@ -1,5 +1,5 @@
-#ifndef __MENU_SCENE_H__
-#define __MENU_SCENE_H__
+#ifndef __MENU_OPCION_H__
+#define __MENU_OPCION_H__
 
 #include "Module.h"
 #include "Point.h"
@@ -66,4 +66,4 @@ private:
 
 };
 
-#endif // __MENU_SCENE_H__
+#endif // __MENU_OPCION_H__
