@@ -144,7 +144,7 @@ void Map::Draw()
 						iPoint pos = MapToWorld(x, y);
 
 
-						if (app->player->P1.position.x <= pos.x + 645 && app->player->P1.position.y <= pos.y + 385 && app->player->P1.position.x >= pos.x - 670 && app->player->P1.position.y >= pos.y - 385 )
+						if (app->player->P1.position.x <= pos.x + 645 && app->player->P1.position.y <= pos.y + 365 && app->player->P1.position.x >= pos.x - 670 && app->player->P1.position.y >= pos.y - 400 )
 						{
 							app->render->DrawTexture(tileset->texture,
 								pos.x,

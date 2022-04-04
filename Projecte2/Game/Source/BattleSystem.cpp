@@ -95,53 +95,54 @@ bool battleSystem::PreUpdate()
 // Called each loop iteration
 bool battleSystem::Update(float dt)
 {
+	app->guiManager->Draw();
 
 	//Draw GUI
 	if (battle == true && app->player->P1.IsAlive == true) {
-		MiniPlayerButton1->bounds.x = app->player->P1.position.x - 420;
+		MiniPlayerButton1->bounds.x = app->player->P1.position.x - 420 + 120;
 		MiniPlayerButton1->bounds.y = app->player->P1.position.y - 220;
 		MiniPlayerButton1->bounds.w = 100;
 		MiniPlayerButton1->bounds.h = 100;
-		MiniPlayerButton2->bounds.x = app->player->P1.position.x - 420 + 120;
+		MiniPlayerButton2->bounds.x = app->player->P1.position.x - 420;
 		MiniPlayerButton2->bounds.y = app->player->P1.position.y - 220 + 130;
 		MiniPlayerButton2->bounds.w = 100;
 		MiniPlayerButton2->bounds.h = 100;
-		MiniPlayerButton3->bounds.x = app->player->P1.position.x - 420;
+		MiniPlayerButton3->bounds.x = app->player->P1.position.x - 420 + 120;
 		MiniPlayerButton3->bounds.y = app->player->P1.position.y - 220 + 260;
 		MiniPlayerButton3->bounds.w = 100;
 		MiniPlayerButton3->bounds.h = 100;
-		MiniPlayerButton4->bounds.x = app->player->P1.position.x - 420 + 120;
+		MiniPlayerButton4->bounds.x = app->player->P1.position.x - 420;
 		MiniPlayerButton4->bounds.y = app->player->P1.position.y - 220 + 390;
 		MiniPlayerButton4->bounds.w = 100;
 		MiniPlayerButton4->bounds.h = 100;
-		Attack->bounds.x = app->player->P1.position.x - 155;
-		Attack->bounds.y = app->player->P1.position.y + 250;
+		Attack->bounds.x = app->player->P1.position.x - 165;
+		Attack->bounds.y = app->player->P1.position.y + 210;
 		Attack->bounds.w = 150;
-		Attack->bounds.h = 40;
-		Attack1->bounds.x = app->player->P1.position.x - 140;
-		Attack1->bounds.y = app->player->P1.position.y + 215;
+		Attack->bounds.h = 61;
+		Attack1->bounds.x = app->player->P1.position.x - 150;
+		Attack1->bounds.y = app->player->P1.position.y + 175;
 		Attack1->bounds.w = 120;
-		Attack1->bounds.h = 35;
-		Attack2->bounds.x = app->player->P1.position.x - 140;
-		Attack2->bounds.y = app->player->P1.position.y + 180;
+		Attack1->bounds.h = 45;
+		Attack2->bounds.x = app->player->P1.position.x - 150;
+		Attack2->bounds.y = app->player->P1.position.y + 120;
 		Attack2->bounds.w = 120;
-		Attack2->bounds.h = 35;
-		SpecialAttack->bounds.x = app->player->P1.position.x + 5;
-		SpecialAttack->bounds.y = app->player->P1.position.y + 250;
+		Attack2->bounds.h = 45;
+		SpecialAttack->bounds.x = app->player->P1.position.x + 15;
+		SpecialAttack->bounds.y = app->player->P1.position.y + 210;
 		SpecialAttack->bounds.w = 150;
-		SpecialAttack->bounds.h = 40;
-		Inventory->bounds.x = app->player->P1.position.x - 155;
-		Inventory->bounds.y = app->player->P1.position.y + 300;
+		SpecialAttack->bounds.h = 61;
+		Inventory->bounds.x = app->player->P1.position.x - 165;
+		Inventory->bounds.y = app->player->P1.position.y + 285;
 		Inventory->bounds.w = 150;
-		Inventory->bounds.h = 40;
+		Inventory->bounds.h = 61;
 		CloseInventory->bounds.x = app->player->P1.position.x + 550;
 		CloseInventory->bounds.y = app->player->P1.position.y - 290;
 		CloseInventory->bounds.w = 50;
 		CloseInventory->bounds.h = 50;
-		Run->bounds.x = app->player->P1.position.x + 5;
-		Run->bounds.y = app->player->P1.position.y + 300;
+		Run->bounds.x = app->player->P1.position.x + 15;
+		Run->bounds.y = app->player->P1.position.y + 285;
 		Run->bounds.w = 150;
-		Run->bounds.h = 40;
+		Run->bounds.h = 61;
 		SDL_Rect battle_screen = { app->player->P1.position.x - 640 + 32,app->player->P1.position.y - 360 + 32,1280,720 };		
 		MiniPlayerButton1->state = GuiControlState::NORMAL;
 		MiniPlayerButton2->state = GuiControlState::NORMAL;
@@ -236,7 +237,6 @@ bool battleSystem::Update(float dt)
 		//Debug Collisions
 		app->collisions->DebugDraw();
 	}
-	app->guiManager->Draw();
 	//InGameMenu
 	/*if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 	{
@@ -256,6 +256,7 @@ bool battleSystem::Update(float dt)
 	}*/
 	CheckAllies();
 	MaxHp();
+
 
 	return true;
 }
@@ -360,9 +361,9 @@ void battleSystem::SpecialAttackPhase() {
 		randomx = (rand() % 500);
 		randomy = (rand() % 300);
 		if (QTE2->state == GuiControlState::DISABLED && AttackAux != 0) {
-			randomx = (rand() % 500);
-			randomy = (rand() % 300);
-			QTE2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 8, "QTE2", { (app->win->GetWidth() / 2) + randomx - 600, app->win->GetHeight() / 10 + randomy-10, 50, 50 }, this);
+			randomx = (rand() % 800);
+			randomy = (rand() % 400);
+			QTE2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 8, "QTE2", { randomx + app->player->P1.position.x - 300, randomy + app->player->P1.position.y - 200, 50, 50 }, this);
 			QTE2->state = GuiControlState::NORMAL;
 		}
 		if (AttackAux > 100) {
@@ -399,11 +400,11 @@ void battleSystem::SpecialAttackPhase() {
 		if (AttackAux != 0) {
 
 			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && timer1_ > timer1 + 0.5) {
-				finalpos = timer1_ + 125;
-				if (finalpos > randomtargetRect_ && finalpos + 20 < randomtargetRect_ + 30) {
+				finalpos = timer1_ + app->player->P1.position.x - 125;
+				if (finalpos > randomtargetRect_ + app->player->P1.position.x - 125  - 115 && finalpos < randomtargetRect_ + app->player->P1.position.x - 125 - 115 + 30) {
 					AttackAux = 100;
 				}
-				else if (finalpos > randomtargetRect_ - 30 && finalpos + 20 < randomtargetRect_ + 60) {
+				else if (finalpos > randomtargetRect_ + app->player->P1.position.x - 155 - 115 - 30 && finalpos + 20 < randomtargetRect_ + app->player->P1.position.x - 155 - 115 + 60) {
 					AttackAux = 50;
 				}
 				else {
@@ -439,13 +440,13 @@ void battleSystem::SpecialAttackPhase() {
 				rectDirection = false;
 			}
 			
-			SDL_Rect largeRect = { 125,300,300,40 };
+			SDL_Rect largeRect = { app->player->P1.position.x - 125,app->player->P1.position.y + 200,300,40 };
 			app->render->DrawRectangle(largeRect, 0, 250, 0);
-			SDL_Rect targetRect2 = { randomtargetRect_ - 30,300,90,40 };
+			SDL_Rect targetRect2 = { randomtargetRect_  + app->player->P1.position.x - 155 - 115,app->player->P1.position.y + 200,90,40 };
 			app->render->DrawRectangle(targetRect2, 255, 128, 0);
-			SDL_Rect targetRect = { randomtargetRect_,300,30,40 };
+			SDL_Rect targetRect = { randomtargetRect_ + app->player->P1.position.x - 125 - 115,app->player->P1.position.y + 200,30,40 };
 			app->render->DrawRectangle(targetRect, 250, 250, 0);
-			SDL_Rect PointRect = { 125 + timer1_,310,20,20 };
+			SDL_Rect PointRect = {timer1_ + app->player->P1.position.x - 125,app->player->P1.position.y + 210,20,20 };
 			app->render->DrawRectangle(PointRect, 250, 0, 0);
 		}
 	}
@@ -466,7 +467,8 @@ void battleSystem::SpecialAttackPhase() {
 			TypoLetter->y = 0;
 			TypoLetter->w = 22;
 			TypoLetter->h = 54;
-			app->render->DrawTexture(TypoSpecialAttack, 250, 140,TypoLetter);
+			
+			app->render->DrawTexture(TypoSpecialAttack, app->player->P1.position.x + 32, app->player->P1.position.y - 64,TypoLetter);
 			if (app->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN && randomLetterGenerator == 1) {
 				AttackAux += 10;
 				LetterGenerator = true;
@@ -601,7 +603,7 @@ void battleSystem::ChoosePlayer()
 {
 	if (app->player->P1.IsAlive) {
 		if (AttackPlayer == 1) {
-			SDL_Rect MiniPlayer1_ = { app->player->P1.position.x - 430, app->player->P1.position.y - 230, 120, 120 };
+			SDL_Rect MiniPlayer1_ = { app->player->P1.position.x - 430 + 120, app->player->P1.position.y - 230, 120, 120 };
 			app->render->DrawRectangle(MiniPlayer1_, 255, 255, 0);
 			
 		}
@@ -614,7 +616,7 @@ void battleSystem::ChoosePlayer()
 	}
 	if (app->player->P2.IsAlive) {
 		if (AttackPlayer == 2) {
-			SDL_Rect MiniPlayer1_ = { app->player->P1.position.x - 430 + 120, app->player->P1.position.y - 230 + 130, 120, 120 };
+			SDL_Rect MiniPlayer1_ = { app->player->P1.position.x - 430, app->player->P1.position.y - 230 + 130, 120, 120 };
 			app->render->DrawRectangle(MiniPlayer1_, 255, 255, 0);
 		}
 		MiniPlayerButton2->state = GuiControlState::NORMAL;
@@ -625,7 +627,7 @@ void battleSystem::ChoosePlayer()
 	}
 	if (app->player->P3.IsAlive) {
 		if (AttackPlayer == 3) {
-			SDL_Rect MiniPlayer1_ = { app->player->P1.position.x - 430, app->player->P1.position.y - 230 + 260, 120, 120 };
+			SDL_Rect MiniPlayer1_ = { app->player->P1.position.x - 430 + 120, app->player->P1.position.y - 230 + 260, 120, 120 };
 			app->render->DrawRectangle(MiniPlayer1_, 255, 255, 0);
 		}
 		MiniPlayerButton3->state = GuiControlState::NORMAL;
@@ -636,7 +638,7 @@ void battleSystem::ChoosePlayer()
 	}
 	if (app->player->P4.IsAlive) {
 		if (AttackPlayer == 4) {
-			SDL_Rect MiniPlayer1_ = { app->player->P1.position.x - 430 + 120, app->player->P1.position.y - 230 + 390, 120, 120 };
+			SDL_Rect MiniPlayer1_ = { app->player->P1.position.x - 430, app->player->P1.position.y - 230 + 390, 120, 120 };
 			app->render->DrawRectangle(MiniPlayer1_, 255, 255, 0);
 		}
 		MiniPlayerButton4->state = GuiControlState::NORMAL;
@@ -704,44 +706,44 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 			QTE2->state = GuiControlState::DISABLED;
 			AttackAux += 8;
 		}
-		if (control->id == 9 && ChoosePlayerPhase == true && waitPlayer[0] == 0) {
+		if (control->id == 9 && ChoosePlayerPhase == true && SpecialAttackEnable == false && waitPlayer[0] == 0) {
 			AttackPlayer = 1;
 			SpecialAttackEnable = false;
 			
 		}
-		if (control->id == 9 && ChoosePlayerPhase == true && app->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT) {//GodMode
+		if (control->id == 9 && ChoosePlayerPhase == true && SpecialAttackEnable == false && app->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT) {//GodMode
 			AttackPlayer = 1;
 			SpecialAttackEnable = false;
 			app->player->P1.IsAlive = false;
 			app->player->P1.hp = 0;
 		}
-		if (control->id == 10 && ChoosePlayerPhase == true &&waitPlayer[1] == 0) {
+		if (control->id == 10 && ChoosePlayerPhase == true && SpecialAttackEnable == false && waitPlayer[1] == 0) {
 			AttackPlayer = 2;
 			SpecialAttackEnable = false;
 		}
-		if (control->id == 10 && ChoosePlayerPhase == true && app->input->GetKey(SDL_SCANCODE_LCTRL)==KEY_REPEAT) {//GodMode
+		if (control->id == 10 && ChoosePlayerPhase == true && SpecialAttackEnable == false && app->input->GetKey(SDL_SCANCODE_LCTRL)==KEY_REPEAT) {//GodMode
 			AttackPlayer = 2;
 			SpecialAttackEnable = false;
 			app->player->P2.IsAlive = false;
 			app->player->P2.hp = 0;
 
 		}
-		if (control->id == 11 && ChoosePlayerPhase == true && waitPlayer[2] == 0) {
+		if (control->id == 11 && ChoosePlayerPhase == true && SpecialAttackEnable == false && waitPlayer[2] == 0) {
 			SpecialAttackEnable = false;
 			AttackPlayer = 3;
 		}
-		if (control->id == 11 && ChoosePlayerPhase == true && app->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT) {//GodMode
+		if (control->id == 11 && ChoosePlayerPhase == true && SpecialAttackEnable == false && app->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT) {//GodMode
 			AttackPlayer = 3;
 			SpecialAttackEnable = false;
 			app->player->P3.IsAlive = false;
 			app->player->P3.hp = 0;
 
 		}
-		if (control->id == 12 && ChoosePlayerPhase == true && waitPlayer[3] == 0) {
+		if (control->id == 12 && ChoosePlayerPhase == true && waitPlayer[3] == 0 && SpecialAttackEnable == false) {
 			SpecialAttackEnable = false;
 			AttackPlayer = 4;
 		}
-		if (control->id == 12 && ChoosePlayerPhase == true && app->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT) {//GodMode
+		if (control->id == 12 && ChoosePlayerPhase == true && SpecialAttackEnable == false && app->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT) {//GodMode
 			AttackPlayer = 4;
 			SpecialAttackEnable = false;
 			app->player->P4.IsAlive = false;
