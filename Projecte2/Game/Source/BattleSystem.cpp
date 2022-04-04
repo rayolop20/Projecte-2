@@ -95,6 +95,7 @@ bool battleSystem::PreUpdate()
 // Called each loop iteration
 bool battleSystem::Update(float dt)
 {
+	app->guiManager->Draw();
 
 	//Draw GUI
 	if (battle == true && app->player->P1.IsAlive == true) {
@@ -236,7 +237,6 @@ bool battleSystem::Update(float dt)
 		//Debug Collisions
 		app->collisions->DebugDraw();
 	}
-	app->guiManager->Draw();
 	//InGameMenu
 	/*if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 	{
@@ -256,6 +256,7 @@ bool battleSystem::Update(float dt)
 	}*/
 	CheckAllies();
 	MaxHp();
+
 
 	return true;
 }
@@ -466,6 +467,7 @@ void battleSystem::SpecialAttackPhase() {
 			TypoLetter->y = 0;
 			TypoLetter->w = 22;
 			TypoLetter->h = 54;
+			
 			app->render->DrawTexture(TypoSpecialAttack, app->player->P1.position.x + 32, app->player->P1.position.y - 64,TypoLetter);
 			if (app->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN && randomLetterGenerator == 1) {
 				AttackAux += 10;
