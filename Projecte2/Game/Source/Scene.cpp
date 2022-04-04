@@ -81,54 +81,56 @@ bool Scene::PreUpdate()
 bool Scene::Update(float dt)
 {
 
-	
-    // L02: DONE 3: Request Load / Save when pressing L/S
-	if(app->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN && app->BTSystem->battle == false)
-		app->LoadGameRequest();
-
-	if(app->input->GetKey(SDL_SCANCODE_O) == KEY_DOWN && app->BTSystem->battle == false)
-		app->SaveGameRequest();
-
-	if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN) {
-		debug = !debug;
-
-	}
- 	app->render->camera.x = (app->player->P1.position.x - 608) * -1;
-	app->render->camera.y = (app->player->P1.position.y - 328) * -1;
-
-
-	// Draw map
-	app->map->Draw();
-
-
-	//Draw Entities
-	//L13
-	app->entityManager->Draw();
-
-	if (debug == true) {
-		//Debug Collisions
-		app->collisions->DebugDraw();
-		app->scene->DebugPath();
-	}
-
-	//InGameMenu
-	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 	{
-		paused = true;
+		// L02: DONE 3: Request Load / Save when pressing L/S
+		if (app->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN && app->BTSystem->battle == false)
+			app->LoadGameRequest();
 
-		Pause();
+		if (app->input->GetKey(SDL_SCANCODE_O) == KEY_DOWN && app->BTSystem->battle == false)
+			app->SaveGameRequest();
 
-		btnResume->state = GuiControlState::NORMAL;
-		btnMenu->state = GuiControlState::NORMAL;
-		btnExit->state = GuiControlState::NORMAL;
-		//rendered on last layer(collision.cpp)
+		if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN) {
+			debug = !debug;
+
+		}
+		app->render->camera.x = (app->player->P1.position.x - 608) * -1;
+		app->render->camera.y = (app->player->P1.position.y - 328) * -1;
+
+
+		// Draw map
+		app->map->Draw();
+
+
+		//Draw Entities
+		//L13
+		app->entityManager->Draw();
+		
+		if (debug == true) {
+			//Debug Collisions
+			app->collisions->DebugDraw();
+			app->scene->DebugPath();
+		}
+		
+		
+		//InGameMenu
+		if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+		{
+			paused = true;
+
+			Pause();
+
+			btnResume->state = GuiControlState::NORMAL;
+			btnMenu->state = GuiControlState::NORMAL;
+			btnExit->state = GuiControlState::NORMAL;
+			//rendered on last layer(collision.cpp)
+		}
+		if (paused)
+		{
+			btnResume->Update(dt);
+			btnExit->Update(dt);
+		}
+
 	}
-	if (paused)
-	{
-		btnResume->Update(dt);
-		btnExit->Update(dt);
-	}
-
 
 	return true;
 }

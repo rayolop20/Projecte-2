@@ -143,16 +143,22 @@ void Map::Draw()
 						SDL_Rect r = tileset->GetTileRect(gid);
 						iPoint pos = MapToWorld(x, y);
 
-						app->render->DrawTexture(tileset->texture,
-							pos.x,
-							pos.y,
-							&r);
+
+						if (app->player->P1.position.x <= pos.x + 645 && app->player->P1.position.y <= pos.y + 385 && app->player->P1.position.x >= pos.x - 670 && app->player->P1.position.y >= pos.y - 385 )
+						{
+							app->render->DrawTexture(tileset->texture,
+								pos.x,
+								pos.y,
+								&r);
+						}
+				
 					}
 
 				}
 			}
 		}
 		
+		/*
 		if (mapLayerItem->data->properties.GetProperty("Draw") == 2) {
 
 			for (int x = 0; x < mapLayerItem->data->width; x++)
@@ -173,6 +179,7 @@ void Map::Draw()
 						iPoint pos = MapToWorld(x, y);
 
 						//Opcio 1
+						
 						if (app->player->P1.position.y >= pos.y + 150)
 						{
 							app->render->DrawTexture(tileset->texture,
@@ -211,7 +218,7 @@ void Map::Draw()
 								pos.x,
 								pos.y,
 								&r);
-						}*/
+						}
 
 						
 						
@@ -219,7 +226,7 @@ void Map::Draw()
 
 				}
 			}
-		}
+		}*/
 		
 		mapLayerItem = mapLayerItem->next;
 	}

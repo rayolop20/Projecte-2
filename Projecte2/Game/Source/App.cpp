@@ -50,7 +50,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(input);
 	AddModule(tex);
 	AddModule(audio);
-	AddModule(pathfinding);
+    AddModule(pathfinding);
 	AddModule(fonts);
 	AddModule(scene);
 	AddModule(BTSystem);
