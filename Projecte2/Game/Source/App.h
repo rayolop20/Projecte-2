@@ -107,6 +107,8 @@ public:
 	Menu_Screen* menu;
 	battleSystem* BTSystem;
 	PathFinding* pathfinding;
+
+	float dt = 16.0f;
 private:
 
 	int argc;
@@ -138,7 +140,7 @@ private:
 	uint32 lastSecFrameCount = 0;
 
 	float averageFps = 0.0f;
-	float dt = 0.0f;
+
 };
 
 extern App* app;

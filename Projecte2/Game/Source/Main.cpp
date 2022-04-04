@@ -38,7 +38,6 @@ int main(int argc, char* args[])
 {
 
 	LOG("Engine starting ...");
-	float dt = 16.0f;
 	MainState state = CREATE;
 	int result = EXIT_FAILURE;
 
@@ -118,10 +117,10 @@ int main(int argc, char* args[])
 		auto end = chrono::steady_clock::now();
 		auto CelapsetTime = chrono::duration_cast<chrono::milliseconds>(end - start).count();
 
-		if (dt - CelapsetTime > 0.0f) {
-			SDL_Delay(dt - CelapsetTime);
+		if (app->dt - CelapsetTime > 0.0f) {
+			SDL_Delay(app->dt - CelapsetTime);
 		}
-		LOG("delta time is: %f ms", dt - CelapsetTime);
+		LOG("delta time is: %f ms", app->dt - CelapsetTime);
 	}
 
 
