@@ -90,6 +90,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Source\BattleSystem.cpp" />
+    <ClCompile Include="Source\CharacterMenu.cpp" />
     <ClCompile Include="Source\Collider.cpp" />
     <ClCompile Include="Source\Collisions.cpp" />
     <ClCompile Include="Source\EntityManager.cpp" />
@@ -114,6 +115,7 @@
     <ClCompile Include="Source\Window.cpp" />
     <ClInclude Include="Source\Animation.h" />
     <ClInclude Include="Source\BattleSystem.h" />
+    <ClInclude Include="Source\CharacterMenu.h" />
     <ClInclude Include="Source\Collider.h" />
     <ClInclude Include="Source\Collisions.h" />
     <ClInclude Include="Source\Entity.h" />

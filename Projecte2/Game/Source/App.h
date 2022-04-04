@@ -27,6 +27,7 @@ class Player;
 class EntityManager; 
 class battleSystem; 
 class PathFinding;
+class CharacterMenu_Screen;
 
 class App
 {
@@ -105,6 +106,7 @@ public:
 	Menu_Screen* menu;
 	battleSystem* BTSystem;
 	PathFinding* pathfinding;
+	CharacterMenu_Screen* characterMenu;
 private:
 
 	int argc;
