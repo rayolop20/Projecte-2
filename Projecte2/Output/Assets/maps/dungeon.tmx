@@ -24037,7 +24037,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="8" name="Oscuridad" width="60" height="80" visible="0">
+ <layer id="8" name="Oscuridad" width="60" height="80">
   <data>
    <tile gid="216"/>
    <tile gid="216"/>
