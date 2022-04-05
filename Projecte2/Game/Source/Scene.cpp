@@ -12,6 +12,7 @@
 #include "VampirEnem.h"
 #include "Collisions.h"
 #include "Menu.h"
+#include "CharacterMenu.h"
 #include "PathFinding.h"
 #include "BattleSystem.h"
 #include "Defs.h"
@@ -118,6 +119,10 @@ bool Scene::Update(float dt)
 			paused = true;
 
 			Pause();
+	//InGameMenu
+	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN && !cMenu)
+	{
+		paused = true;
 
 			btnResume->state = GuiControlState::NORMAL;
 			btnMenu->state = GuiControlState::NORMAL;
@@ -130,6 +135,33 @@ bool Scene::Update(float dt)
 			btnExit->Update(dt);
 		}
 
+	}
+	//if (paused)
+	//{
+	//	btnResume->Update(dt);
+	//	btnExit->Update(dt);
+	//}
+
+	if (app->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN && !cMenu && xCont == 0)
+	{
+		cMenu = true;
+		paused = true;
+		if (app->characterMenu->active == false)
+		{
+			app->characterMenu->Enable();
+			
+		} 
+	}
+	if (app->characterMenu->exitInventory && cMenu && xCont == 1)
+	{
+		cMenu = false;
+		paused = false;
+		if (app->characterMenu->active == true)
+		{
+			app->characterMenu->Disable();
+		}
+		app->characterMenu->exitInventory = false;
+		xCont = 0;
 	}
 
 	return true;

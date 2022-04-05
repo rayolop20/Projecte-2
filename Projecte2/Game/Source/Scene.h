@@ -44,6 +44,9 @@ public:
 
 	bool debug = false;
 	bool paused = false;
+	bool cMenu = false;
+
+	int xCont = 0;
 private:
 
 	SDL_Texture* img;
