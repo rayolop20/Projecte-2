@@ -166,6 +166,7 @@ public:
 	SDL_Rect player4;
 	SDL_Rect player5;
 	SDL_Texture* PE;
+	SDL_Texture* darkness;
 
 	SDL_Texture* player1Hp = nullptr;
 	SDL_Texture* player2Hp = nullptr;

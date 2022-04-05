@@ -100,7 +100,7 @@ bool Player::Start()
 	player3Hp = app->tex->Load("Assets/UI/hpbarplayertest3.png");
 	player4Hp = app->tex->Load("Assets/UI/hpbarplayertest4.png");
 	PE = app->tex->Load("Assets/UI/UiIcons.png");
-
+	darkness = app->tex->Load("Assets/textures/darkness.png");
 
 	P1.Pcol = app->collisions->AddCollider({ P1.position.x,P1.position.y, 64, 64 }, Collider::Type::PLAYER, this);
 
@@ -114,6 +114,7 @@ bool Player::Start()
 
 bool Player::Update(float dt)
 {
+	app->render->DrawTexture(darkness, P1.position.x - 608, P1.position.y - 360 + 32);
 	//imputs
 	{
 		if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)

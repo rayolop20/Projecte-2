@@ -116,6 +116,7 @@ public:
 	bool LetterGenerator = true;
 
 	SDL_Texture* TypoSpecialAttack;
+	SDL_Texture* AttackTexture;
 private:
 
 

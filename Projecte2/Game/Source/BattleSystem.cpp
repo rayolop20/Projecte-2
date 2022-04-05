@@ -67,6 +67,7 @@ bool battleSystem::Start()
 	}
 	// L03: DONE: Load map
 	TypoSpecialAttack = app->tex->Load("Assets/textures/Typo_SpecialAttack_4.png");
+	AttackTexture = app->tex->Load("Assets/UI/CombatUI.png");
 	// Load music
 	//app->audio->PlayMusic("Assets/audio/music/music_spy.ogg");
 
