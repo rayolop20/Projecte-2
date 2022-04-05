@@ -29,6 +29,7 @@ class battleSystem;
 class PathFinding;
 class ModuleFonts;
 class CharacterMenu_Screen;
+class GameMenu_Screen;
 
 class App
 {
@@ -109,6 +110,7 @@ public:
 	battleSystem* BTSystem;
 	PathFinding* pathfinding;	
 	CharacterMenu_Screen* characterMenu;
+	GameMenu_Screen* gameMenu;
 
 	float dt = 16.0f;
 private:

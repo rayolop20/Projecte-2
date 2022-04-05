@@ -13,6 +13,7 @@
 #include "Collisions.h"
 #include "Menu.h"
 #include "CharacterMenu.h"
+#include "GameMenu.h"
 #include "PathFinding.h"
 #include "BattleSystem.h"
 #include "Defs.h"
@@ -124,16 +125,9 @@ bool Scene::Update(float dt)
 			{
 				paused = true;
 
-				btnResume->state = GuiControlState::NORMAL;
-				btnMenu->state = GuiControlState::NORMAL;
-				btnExit->state = GuiControlState::NORMAL;
-				//rendered on last layer(collision.cpp)
+				Pause();
 			}
-			if (paused)
-			{
-				btnResume->Update(dt);
-				btnExit->Update(dt);
-			}
+			
 
 		}
 		//if (paused)
@@ -189,61 +183,7 @@ bool Scene::CleanUp()
 
 void Scene::Pause()
 {
-
-	btnResume = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 4, "Resume", { -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -app->render->camera.y + 250, 160, 40 }, this);
-	btnMenu = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 5, "Menu", { -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -app->render->camera.y + 320, 160, 40 }, this);
-	btnExit = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 6, "Exit", { -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -app->render->camera.y + 390, 160, 40 }, this);
-
-	btnResume->state = GuiControlState::DISABLED;
-	btnMenu->state = GuiControlState::DISABLED;
-	btnExit->state = GuiControlState::DISABLED;
-}
-
-bool Scene::OnGuiMouseClickEvent(GuiControl* control)
-{
-
-	switch (control->type)
-	{
-	case GuiControlType::BUTTON:
-	{
-		//Checks the GUI element ID
-
-		if (control->id == 4)
-		{
-			paused = false;
-			btnResume->state = GuiControlState::DISABLED;
-			btnMenu->state = GuiControlState::DISABLED;
-			btnExit->state = GuiControlState::DISABLED;
-		}
-
-		if (control->id == 5)
-		{
-			paused = false;
-			Disable();
-			app->menu->Enable();
-			app->player->Disable();
-			app->render->camera.x = 0;
-			app->render->camera.y = 0;
-			app->menu->starting = true;
-			btnResume->state = GuiControlState::DISABLED;
-			btnMenu->state = GuiControlState::DISABLED;
-			btnExit->state = GuiControlState::DISABLED;
-
-
-		}
-
-		if (control->id == 6)
-		{
-			app->menu->exit = true;
-		}
-
-	}
-	//Other cases here
-
-	default: break;
-	}
-
-	return true;
+	app->gameMenu->Enable();
 }
 
 void Scene::DebugPath()

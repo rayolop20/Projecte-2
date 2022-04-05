@@ -15,7 +15,7 @@
 
 CharacterMenu_Screen::CharacterMenu_Screen() : Module()
 {
-	name.Create("Menu");
+	name.Create("CharacterMenu");
 }
 
 // Destructor

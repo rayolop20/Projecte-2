@@ -16,6 +16,7 @@
 #include "Pathfinding.h"
 #include "Menu.h"
 #include "CharacterMenu.h"
+#include "GameMenu.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -47,6 +48,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	pathfinding = new PathFinding();
 	fonts = new ModuleFonts();
 	characterMenu = new CharacterMenu_Screen();
+	gameMenu = new GameMenu_Screen();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -65,6 +67,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(menu);
 	AddModule(collisions);
 	AddModule(characterMenu);
+	AddModule(gameMenu);
 
 	// Render last to swap buffer
 	AddModule(render);

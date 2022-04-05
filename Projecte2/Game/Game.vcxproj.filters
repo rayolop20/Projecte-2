@@ -32,6 +32,7 @@
     <ClCompile Include="Source\Pathfinding.cpp" />
     <ClCompile Include="Source\Fonts.cpp" />
     <ClCompile Include="Source\CharacterMenu.cpp" />
+    <ClCompile Include="Source\GameMenu.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -86,6 +87,7 @@
     <ClInclude Include="Source\Pathfinding.h" />
     <ClInclude Include="Source\Fonts.h" />
     <ClInclude Include="Source\CharacterMenu.h" />
+    <ClInclude Include="Source\GameMenu.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">
