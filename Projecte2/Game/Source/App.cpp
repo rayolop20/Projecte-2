@@ -6,7 +6,6 @@
 #include "Audio.h"
 #include "Scene.h"
 #include "Map.h"
-#include "OpcionMenu.h"
 #include "GuiManager.h"
 #include "Player.h"
 #include "EntityManager.h"
@@ -16,6 +15,8 @@
 #include "Fonts.h"
 #include "Pathfinding.h"
 #include "Menu.h"
+#include "CharacterMenu.h"
+#include "GameMenu.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -39,13 +40,16 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	map = new Map();
 	guiManager = new GuiManager();
 	menu = new Menu_Screen();
+	pathfinding = new PathFinding();
 	player = new Player();
 	entityManager = new EntityManager();
 	collisions = new Collisions();
 	BTSystem = new battleSystem();
 	pathfinding = new PathFinding();
 	fonts = new ModuleFonts();
-	Opcions = new Opcion_Menu();
+	characterMenu = new CharacterMenu_Screen();
+	gameMenu = new GameMenu_Screen();
+
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
 	AddModule(win);
@@ -62,6 +66,8 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(player);
 	AddModule(menu);
 	AddModule(collisions);
+	AddModule(characterMenu);
+	AddModule(gameMenu);
 
 	// Render last to swap buffer
 	AddModule(render);

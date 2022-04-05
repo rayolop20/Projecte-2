@@ -12,7 +12,8 @@
 #include "VampirEnem.h"
 #include "Collisions.h"
 #include "Menu.h"
-#include "OpcionMenu.h"
+#include "CharacterMenu.h"
+#include "GameMenu.h"
 #include "PathFinding.h"
 #include "BattleSystem.h"
 #include "Defs.h"
@@ -53,6 +54,16 @@ bool Scene::Start()
 	pathTex = app->tex->Load("Assets/maps/path2.png");
 	// Load music
 	//app->audio->PlayMusic("Assets/audio/music/music_spy.ogg");
+
+	//L13: TODO 2: Declare an Item and create it using the EntityManager
+	//VampirEnem* Vampir = (VampirEnem*)app->entityManager->CreateEntity(EntityType::VAMPYRENEM, 0, {10, 10});
+
+
+	//L13: TODO 4: Create multiple Items
+
+	// L14: TODO 2: Declare a GUI Button and create it using the GuiManager
+	//btn1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Test1", { (app->win->GetWidth() / 2) - 300, app->win->GetWidth() / 10, 160, 40 }, this);
+	//btn2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Test2", { (app->win->GetWidth() / 2) + 300, app->win->GetWidth() / 10, 160, 40 }, this);
 
 	return true;
 }
@@ -95,36 +106,60 @@ bool Scene::Update(float dt)
 		//Draw Entities
 		//L13
 		app->entityManager->Draw();
-		
+
 		if (debug == true) {
 			//Debug Collisions
 			app->collisions->DebugDraw();
 			app->scene->DebugPath();
 		}
-		
-		
+
+
 		//InGameMenu
 		if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		{
-
 			paused = true;
 
 			Pause();
+			//InGameMenu
+			if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN && !cMenu)
+			{
+				paused = true;
 
-			btnResume->state = GuiControlState::NORMAL;
-			btnMenu->state = GuiControlState::NORMAL;
-			btnExit->state = GuiControlState::NORMAL;
-			//rendered on last layer(collision.cpp)
+				Pause();
+			}
+			
+
 		}
-		if (paused)
+		//if (paused)
+		//{
+		//	btnResume->Update(dt);
+		//	btnExit->Update(dt);
+		//}
+
+		if (app->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN && !cMenu && xCont == 0)
 		{
-			btnResume->Update(dt);
-			btnExit->Update(dt);
+			cMenu = true;
+			paused = true;
+			if (app->characterMenu->active == false)
+			{
+				app->characterMenu->Enable();
+
+			}
+		}
+		if (app->characterMenu->exitInventory && cMenu && xCont == 1)
+		{
+			cMenu = false;
+			paused = false;
+			if (app->characterMenu->active == true)
+			{
+				app->characterMenu->Disable();
+			}
+			app->characterMenu->exitInventory = false;
+			xCont = 0;
 		}
 
+		return true;
 	}
-
-	return true;
 }
 
 // Called each loop iteration
@@ -148,61 +183,7 @@ bool Scene::CleanUp()
 
 void Scene::Pause()
 {
-
-	btnResume = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 4, "Resume", { -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -app->render->camera.y + 250, 160, 40 }, this);
-	btnMenu = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 5, "Menu", { -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -app->render->camera.y + 320, 160, 40 }, this);
-	btnExit = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 6, "Exit", { -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -app->render->camera.y + 390, 160, 40 }, this);
-
-	btnResume->state = GuiControlState::DISABLED;
-	btnMenu->state = GuiControlState::DISABLED;
-	btnExit->state = GuiControlState::DISABLED;
-}
-
-bool Scene::OnGuiMouseClickEvent(GuiControl* control)
-{
-
-	switch (control->type)
-	{
-	case GuiControlType::BUTTON:
-	{
-		//Checks the GUI element ID
-
-		if (control->id == 4)
-		{
-			paused = false;
-			btnResume->state = GuiControlState::DISABLED;
-			btnMenu->state = GuiControlState::DISABLED;
-			btnExit->state = GuiControlState::DISABLED;
-		}
-
-		if (control->id == 5)
-		{
-			paused = false;
-			Disable();
-			app->menu->Enable();
-			app->player->Disable();
-			app->render->camera.x = 0;
-			app->render->camera.y = 0;
-			app->menu->starting = true;
-			btnResume->state = GuiControlState::DISABLED;
-			btnMenu->state = GuiControlState::DISABLED;
-			btnExit->state = GuiControlState::DISABLED;
-
-
-		}
-
-		if (control->id == 6)
-		{
-			app->menu->exit = true;
-		}
-
-	}
-	//Other cases here
-
-	default: break;
-	}
-
-	return true;
+	app->gameMenu->Enable();
 }
 
 void Scene::DebugPath()

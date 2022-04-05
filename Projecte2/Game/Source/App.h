@@ -28,7 +28,8 @@ class EntityManager;
 class battleSystem; 
 class PathFinding;
 class ModuleFonts;
-class Opcion_Menu;
+class CharacterMenu_Screen;
+class GameMenu_Screen;
 
 class App
 {
@@ -107,8 +108,9 @@ public:
 	ModuleFonts* fonts;
 	Menu_Screen* menu;
 	battleSystem* BTSystem;
-	PathFinding* pathfinding;
-	Opcion_Menu* Opcions;
+	PathFinding* pathfinding;	
+	CharacterMenu_Screen* characterMenu;
+	GameMenu_Screen* gameMenu;
 
 	float dt = 16.0f;
 private:
