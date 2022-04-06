@@ -55,6 +55,7 @@ public:
 	GuiButton* MiniEnemyButton;
 
 	int VampireTarget = 0;
+	int ZombieTarget = 0;
 	int playerTarget = 0;
 	int playerTarget_ = 0;
 

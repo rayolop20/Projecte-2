@@ -118,6 +118,7 @@
     <ClCompile Include="Source\Timer.cpp" />
     <ClCompile Include="Source\VampirEnem.cpp" />
     <ClCompile Include="Source\Window.cpp" />
+    <ClCompile Include="Source\ZombieEnem.cpp" />
     <ClInclude Include="Source\Animation.h" />
     <ClInclude Include="Source\BattleSystem.h" />
     <ClInclude Include="Source\CharacterMenu.h" />
@@ -160,6 +161,7 @@
     <ClInclude Include="Source\External\PugiXml\src\pugiconfig.hpp" />
     <ClInclude Include="Source\External\PugiXml\src\pugixml.hpp" />
     <ClCompile Include="Source\External\PugiXml\src\pugixml.cpp" />
+    <ClInclude Include="Source\ZombieEnem.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
