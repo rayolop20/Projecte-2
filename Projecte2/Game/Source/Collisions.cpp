@@ -38,6 +38,12 @@ Collisions::Collisions() : Module()
 	matrix[Collider::Type::VAMPIRE][Collider::Type::PLAYER] = true;
 	matrix[Collider::Type::VAMPIRE][Collider::Type::VAMPIRE] = false;
 
+	matrix[Collider::Type::NPC][Collider::Type::WALLV] = true;
+	matrix[Collider::Type::NPC][Collider::Type::WALLH] = true;
+	matrix[Collider::Type::NPC][Collider::Type::PLAYER] = true;
+	matrix[Collider::Type::NPC][Collider::Type::VAMPIRE] = true;
+	matrix[Collider::Type::NPC][Collider::Type::NPC] = false;
+
 	matrix[Collider::Type::SENSOR][Collider::Type::WALLV] = false;
 	matrix[Collider::Type::SENSOR][Collider::Type::WALLH] = false;
 	matrix[Collider::Type::SENSOR][Collider::Type::PLAYER] = true;
@@ -157,6 +163,9 @@ void Collisions::DebugDraw()
 			break;
 		case Collider::Type::VAMPIRE: // RED
 			app->render->DrawRectangle(colliders[i]->rect, 255, 0, 0, alpha);
+			break;
+		case Collider::Type::NPC: // Green
+			app->render->DrawRectangle(colliders[i]->rect, 0, 255, 0, alpha);
 			break;
 		case Collider::Type::SENSOR: // Blue
 			app->render->DrawRectangle(colliders[i]->rect, 0, 0, 255, alpha);
