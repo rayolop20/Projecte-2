@@ -50,15 +50,14 @@ private:
 
 	int clickFx = 1;
 
-	
-
 	SDL_Texture* enter = nullptr;
-	SDL_Texture* AdventureText = nullptr;
+
 
 	// L12b: Debug pathfing
 	iPoint origin;
 	GuiButton* btnMenuPlay;
 	GuiButton* btnMenuConfig;
+	GuiButton* btnCredits;
 	GuiButton* btnMenuExit;
 
 	GuiButton* btnConfigEx1;

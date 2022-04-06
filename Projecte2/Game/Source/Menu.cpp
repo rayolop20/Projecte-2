@@ -37,7 +37,6 @@ bool Menu_Screen::Awake()
 bool Menu_Screen::Start()
 {
 
-	AdventureText = app->tex->Load("Assets/textures/UI/MainMenuSprite.png");
 
 	if (app->scene->active == true)
 	{
@@ -65,14 +64,8 @@ bool Menu_Screen::PreUpdate()
 // Called each loop iteration
 bool Menu_Screen::Update(float dt)
 {
-	SDL_Rect* Adventure = new SDL_Rect();
-	Adventure->x = 22;
-	Adventure->y = 51;
-	Adventure->w = 193;
-	Adventure->h = 51;
-
-	app->render->DrawTexture(AdventureText, 150, 150, Adventure);
-
+	int mouseX, mouseY;
+	app->input->GetMousePosition(mouseX, mouseY);
 
 	if (!app->scene->paused && starting)
 	{
@@ -94,15 +87,9 @@ bool Menu_Screen::Update(float dt)
 		btnConfigEx1->state = GuiControlState::NORMAL;
 		btnConfigBack->state = GuiControlState::NORMAL;
 	}
-	//btnMenuPlay->state = GuiControlState::NORMAL;
-	//btnMenuConfig->state = GuiControlState::NORMAL;
-	//btnMenuExit->state = GuiControlState::NORMAL;
 
-	//SDL_Rect Play{ 150, 150, 150, 90 };
-	//app->render->DrawRectangle(Play, 200, 200, 200);
 	
-	int mouseX, mouseY;
-	app->input->GetMousePosition(mouseX, mouseY);
+
 
 	app->guiManager->Draw();
 
@@ -122,12 +109,14 @@ bool Menu_Screen::PostUpdate()
 
 void Menu_Screen::Menu()
 {
-	btnMenuPlay = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Play", { 150, 150, 150, 60 }, this);
-	btnMenuConfig = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Config", { 150, 240, 150, 30 }, this);
-	btnMenuExit = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 3, "Exit", { 150, 285, 150, 30 }, this);
+	btnMenuPlay = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Play", { 150, 150, 194, 52 }, this);
+	btnMenuConfig = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Config", { 150, 240, 144, 57 }, this);
+	//btnCredits = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 4, "Credits", { 150, 330, 144, 57 }, this);
+	btnMenuExit = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 3, "Exit", { 150, 420, 78, 51 }, this);
 
 	btnMenuPlay->state = GuiControlState::DISABLED;
 	btnMenuConfig->state = GuiControlState::DISABLED;
+	//btnCredits->state = GuiControlState::DISABLED;
 	btnMenuExit->state = GuiControlState::DISABLED;
 }
 

@@ -76,8 +76,12 @@ public:
 	}
 
 public:
+	SDL_Texture* UIText = nullptr;
+	SDL_Rect* uitext = new SDL_Rect();
+
 
 	uint32 id;
+
 	GuiControlType type;
 	GuiControlState state;
 
