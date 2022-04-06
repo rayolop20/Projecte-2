@@ -1,7 +1,7 @@
 #include "Entity.h"
 #include "App.h"
 #include "Textures.h"
-#include "VampirEnem.h"
+#include "ZombieEnem.h"
 #include "EntityManager.h"
 #include "GuiManager.h"
 #include "Scene.h"
@@ -16,7 +16,7 @@
 #include "BattleSystem.h"
 #include <time.h>
 
-VampirEnem::VampirEnem():Entity (EntityType::VAMPYR)
+ZombieEnem::ZombieEnem() :Entity(EntityType::ZOMBIE)
 {
 	name.Create("VampirEnem");
 	idle.PushBack({ 5, 6, 16, 17 });
@@ -27,7 +27,7 @@ VampirEnem::VampirEnem():Entity (EntityType::VAMPYR)
 	idle.speed = 0.001f;
 }
 
-VampirEnem::~VampirEnem()
+ZombieEnem::~ZombieEnem()
 {
 	name.Create("Vampire");
 }
@@ -63,28 +63,28 @@ bool VampirEnem::SaveState(pugi::xml_node& data) const
 	return false;
 }
 */
-bool VampirEnem::Start()
+bool ZombieEnem::Start()
 {
-	
-	TextureVampire = app->tex->Load("Assets/textures/coins.png");
+
+	TextureZombie = app->tex->Load("Assets/textures/coins.png");
 	//coinFx = app->audio->LoadFx("Assets/audio/fx/coin.wav");
 
 
-	for (int i = 0; i < NUM_VAMPIRE; i++)
+	for (int i = 0; i < NUM_ZOMBIE; i++)
 	{
 		currentAnimation[i] = &idle;
 	}
 
-	Vpir[0] = CreateVampire(/*Vpir->Pos.x, Vpir->Pos.x,*/800,800, TextureVampire);
+	Zbie[0] = CreateZombie(/*Vpir->Pos.x, Vpir->Pos.x,*/360, 360, TextureZombie);
 
 	return false;
 }
 
-bool VampirEnem::Update(float dt)
+bool ZombieEnem::Update(float dt)
 {
 	static char title[256];
-	//sprintf_s(title, 256, "FPS: %.1f ENEMH1: %.1f ENEMHP2: %.1f ENEMH3: %.1f ENEMHP4: %.1f Playerhp1: %.1f Playerhp2: %.1f Playerhp3: %.1f Playerhp4: %.1f",
-	 //Vpir[1].hp,Vpir[2].hp, Vpir[3].hp,Vpir[4].hp,app->player->P1.hp,app->player->P2.hp,app->player->P3.hp,app->player->P4.hp);
+	sprintf_s(title, 256, "FPS: %.1f ENEMH1: %.1f ENEMHP2: %.1f ENEMH3: %.1f ENEMHP4: %.1f Playerhp1: %.1f Playerhp2: %.1f Playerhp3: %.1f Playerhp4: %.1f",
+		Zbie[1].hp, Zbie[2].hp, Zbie[3].hp, Zbie[4].hp, app->player->P1.hp, app->player->P2.hp, app->player->P3.hp, app->player->P4.hp);
 
 	app->win->SetTitle(title);
 	if (app->BTSystem->battle == true && app->player->P1.IsAlive == true) {
@@ -93,7 +93,7 @@ bool VampirEnem::Update(float dt)
 		}
 		DrawEnemies();
 		ChooseEnemy();
-		if (app->BTSystem->PlayerTurn == false)  {
+		if (app->BTSystem->PlayerTurn == false) {
 			CheckEnemy();
 			EnemyPhase();
 		}
@@ -102,7 +102,7 @@ bool VampirEnem::Update(float dt)
 	}
 	else if (app->BTSystem->battleAux == true) {
 		app->BTSystem->battleAux = false;
-		Vpir[0].Destroyed = true;
+		Zbie[0].Destroyed = true;
 	}
 	timer3 = SDL_GetTicks() / 10;
 
@@ -119,40 +119,40 @@ bool VampirEnem::Update(float dt)
 		}
 		path = true;
 	}*/
-	for (int i = 0; i < NUM_VAMPIRE; i++)
+	for (int i = 0; i < NUM_ZOMBIE; i++)
 	{
 		currentAnimation[i]->Update();
 
-		if (Vpir[i].Destroyed == true)
+		if (Zbie[i].Destroyed == true)
 		{
-			Vpir[i].dead = true;
-			Vpir[i].colliderV->pendingToDelete = true;
+			Zbie[i].dead = true;
+			Zbie[i].colliderZ->pendingToDelete = true;
 		}
 	}
 	for (int i = 0; i < 1; i++)
 	{
-		Vpir[i].colliderV->SetPos(Vpir[i].Pos.x, Vpir[i].Pos.y);
-		Vpir[i].colliderS->SetPos(Vpir[i].Pos.x - 84, Vpir[i].Pos.y - 84);
+		Zbie[i].colliderZ->SetPos(Zbie[i].Pos.x, Zbie[i].Pos.y);
+		Zbie[i].colliderS->SetPos(Zbie[i].Pos.x - 84, Zbie[i].Pos.y - 84);
 	}
 	return true;
 }
 
 
 
-bool VampirEnem::PostUpdate()
+bool ZombieEnem::PostUpdate()
 {
 	LOG("FUNCIONA?");
-	for (int i = 0; i < NUM_VAMPIRE; i++)
+	for (int i = 0; i < NUM_ZOMBIE; i++)
 	{
-		if (Vpir[i].dead == false) 
+		if (Zbie[i].dead == false)
 		{
-		app->render->DrawTexture(Vpir[i].vampireT, Vpir[i].Pos.x, Vpir[i].Pos.y, &(currentAnimation[i]->GetCurrentFrame()));
+			app->render->DrawTexture(Zbie[i].zombieT, Zbie[i].Pos.x, Zbie[i].Pos.y, &(currentAnimation[i]->GetCurrentFrame()));
 		}
 	}
 	return true;
 }
 
-void VampirEnem::DrawHpBars() {
+void ZombieEnem::DrawHpBars() {
 	if (app->player->P1.IsAlive == true) {
 		app->render->DrawTexture(app->player->player1Hp, app->player->P1.position.x - 190, app->player->P1.position.y - 225);
 		SDL_Rect bar1 = { app->player->P1.position.x - 180, app->player->P1.position.y - 220, (200 * app->player->P1.hp) / 100,15 };
@@ -175,7 +175,7 @@ void VampirEnem::DrawHpBars() {
 	}
 }
 
-void VampirEnem::Combat() {
+void ZombieEnem::Combat() {
 	if (app->BTSystem->alliesDead == 0) {
 		if (app->player->P1.IsAlive == false) {
 			app->BTSystem->alliesDead++;
@@ -197,7 +197,7 @@ void VampirEnem::Combat() {
 	if (app->BTSystem->AttackType == 1 && app->BTSystem->AttackPlayer == 1 && app->BTSystem->randomAux == true) {
 		int randomNumber = 0;
 		do {
-			Vpir[app->BTSystem->VampireTarget].hp -= app->player->P1.damage1;
+			Zbie[app->BTSystem->VampireTarget].hp -= app->player->P1.damage1;
 			app->player->P1.mana += app->player->P1.mana1;
 			randomNumber = (rand() % 100) + 1;
 
@@ -232,9 +232,9 @@ void VampirEnem::Combat() {
 				randomNumber2_ = (rand() % 4 - app->BTSystem->CombatDeaths) + 1;
 			} while (randomNumber2_ == app->BTSystem->VampireTarget || randomNumber2_ == randomNumber2);
 
-			Vpir[randomNumber2].hp -= app->player->P1.damage2;
-			Vpir[randomNumber2_].hp -= app->player->P1.damage2;
-			Vpir[app->BTSystem->VampireTarget].hp -= app->player->P1.damage2;
+			Zbie[randomNumber2].hp -= app->player->P1.damage2;
+			Zbie[randomNumber2_].hp -= app->player->P1.damage2;
+			Zbie[app->BTSystem->VampireTarget].hp -= app->player->P1.damage2;
 			app->player->P1.mana += app->player->P1.mana2;
 			randomNumber = (rand() % 100) + 1;
 
@@ -260,7 +260,7 @@ void VampirEnem::Combat() {
 	if (app->BTSystem->AttackType == 1 && app->BTSystem->AttackPlayer == 2 && app->BTSystem->randomAux == true) {
 		int randomNumber = 0;
 		do {
-			Vpir[app->BTSystem->VampireTarget].hp -= app->player->P2.damage1;
+			Zbie[app->BTSystem->VampireTarget].hp -= app->player->P2.damage1;
 			app->player->P2.mana += app->player->P2.mana1;
 			randomNumber = (rand() % 100) + 1;
 
@@ -286,7 +286,7 @@ void VampirEnem::Combat() {
 	if (app->BTSystem->AttackType == 2 && app->BTSystem->AttackPlayer == 2 && app->BTSystem->randomAux == true) {
 		int randomNumber = 0;
 		do {
-			Vpir[app->BTSystem->VampireTarget].hp -= app->player->P2.damage2;
+			Zbie[app->BTSystem->VampireTarget].hp -= app->player->P2.damage2;
 			app->player->P2.mana += app->player->P2.mana2;
 			randomNumber = (rand() % 100) + 1;
 
@@ -320,9 +320,9 @@ void VampirEnem::Combat() {
 			do {
 				randomNumber2_ = (rand() % 4 - app->BTSystem->CombatDeaths) + 1;
 			} while (randomNumber2_ == app->BTSystem->VampireTarget || randomNumber2_ == randomNumber2);
-			Vpir[randomNumber2].hp -= app->player->P3.damage2;
-			Vpir[randomNumber2_].hp -= app->player->P3.damage2;
-			Vpir[app->BTSystem->VampireTarget].hp -= app->player->P3.damage1;
+			Zbie[randomNumber2].hp -= app->player->P3.damage2;
+			Zbie[randomNumber2_].hp -= app->player->P3.damage2;
+			Zbie[app->BTSystem->VampireTarget].hp -= app->player->P3.damage1;
 			app->player->P3.mana += app->player->P3.mana1;
 			randomNumber = (rand() % 100) + 1;
 
@@ -348,7 +348,7 @@ void VampirEnem::Combat() {
 	if (app->BTSystem->AttackType == 2 && app->BTSystem->AttackPlayer == 3 && app->BTSystem->randomAux == true) {
 		int randomNumber = 0;
 		do {
-			Vpir[app->BTSystem->VampireTarget].hp -= app->player->P3.damage2;
+			Zbie[app->BTSystem->VampireTarget].hp -= app->player->P3.damage2;
 			app->player->P3.mana += app->player->P3.mana2;
 			randomNumber = (rand() % 100) + 1;
 
@@ -375,14 +375,14 @@ void VampirEnem::Combat() {
 		int randomNumber = 0;
 		int randomNumber2 = 0;
 		do {
-			if(app->BTSystem->battle1 == true) {
+			if (app->BTSystem->battle1 == true) {
 				do {
 					randomNumber2 = (rand() % 4 - app->BTSystem->CombatDeaths) + 1;
 				} while (randomNumber2 == app->BTSystem->VampireTarget);
-				Vpir[randomNumber2].hp -= app->player->P4.damage2;
+				Zbie[randomNumber2].hp -= app->player->P4.damage2;
 			}
-			
-			Vpir[app->BTSystem->VampireTarget].hp -= app->player->P4.damage1;
+
+			Zbie[app->BTSystem->VampireTarget].hp -= app->player->P4.damage1;
 			app->player->P4.mana += app->player->P4.mana1;
 			randomNumber = (rand() % 100) + 1;
 
@@ -407,8 +407,8 @@ void VampirEnem::Combat() {
 	}
 	if (app->BTSystem->AttackType == 2 && app->BTSystem->AttackPlayer == 4 && app->BTSystem->randomAux == true) {
 		int randomNumber = 0;
-		do  {
-			Vpir[app->BTSystem->VampireTarget].hp -= app->player->P4.damage2;
+		do {
+			Zbie[app->BTSystem->VampireTarget].hp -= app->player->P4.damage2;
 			app->player->P4.mana += app->player->P4.mana2;
 			randomNumber = (rand() % 100) + 1;
 
@@ -435,17 +435,17 @@ void VampirEnem::Combat() {
 	app->BTSystem->alliesDead = 0;
 }
 
-void VampirEnem::SpawnEnemies() {
-	for (int i = 1; i < Vpir[0].numEnemies + 1; i++) {
-		Vpir[i].dead = false;
+void ZombieEnem::SpawnEnemies() {
+	for (int i = 1; i < Zbie[0].numEnemies + 1; i++) {
+		Zbie[i].dead = false;
 		srand(time(NULL));
 		randomEnemyhp = (rand() % 10) + 1;
 		randomEnemySpeed = (rand() % 6) + 1;
 		randomEnemyDamage = (rand() % 6) + 1;
 		if (klk == true) {
-			Vpir[i].hp += randomEnemyhp;
-			Vpir[i].speed += randomEnemySpeed;
-			Vpir[i].damage += randomEnemyDamage;
+			Zbie[i].hp += randomEnemyhp;
+			Zbie[i].speed += randomEnemySpeed;
+			Zbie[i].damage += randomEnemyDamage;
 			klk = false;
 		}
 
@@ -453,49 +453,49 @@ void VampirEnem::SpawnEnemies() {
 	app->BTSystem->SpawnedEnemies = true;
 }
 
-void VampirEnem::DrawEnemies() {
-	for (int i = 1; i < Vpir[0].numEnemies + 1; i++) {
-		if (Vpir[i].dead == false) {
+void ZombieEnem::DrawEnemies() {
+	for (int i = 1; i < Zbie[0].numEnemies + 1; i++) {
+		if (Zbie[i].dead == false) {
 			if (app->BTSystem->VampireTarget == i) {
-				SDL_Rect Enem1 = { app->player->P1.position.x + 395, app->player->P1.position.y - 335 + 120*i, 110, 110 };
+				SDL_Rect Enem1 = { app->player->P1.position.x + 395, app->player->P1.position.y - 335 + 120 * i, 110, 110 };
 				app->render->DrawRectangle(Enem1, 255, 255, 0);
 			}
-			SDL_Rect Enem1 = { app->player->P1.position.x + 400, app->player->P1.position.y - 330 + 120*i, 100, 100 };
-			app->render->DrawRectangle(Enem1, 255, 255, 255);	
+			SDL_Rect Enem1 = { app->player->P1.position.x + 400, app->player->P1.position.y - 330 + 120 * i, 100, 100 };
+			app->render->DrawRectangle(Enem1, 255, 255, 255);
 		}
-		
+
 	}
 	app->guiManager->Draw();
 }
 
-void VampirEnem::ChooseEnemy() {
+void ZombieEnem::ChooseEnemy() {
 	int x, y;
 	Uint32 buttons;
 	SDL_PumpEvents();  // make sure we have the latest mouse state.
 
 	buttons = SDL_GetMouseState(&x, &y);
 
-	for (int i = 1; i < Vpir[0].numEnemies + 1; i++) {
+	for (int i = 1; i < Zbie[0].numEnemies + 1; i++) {
 		/*if (Vpir[i].dead == false && x >= 772 && x <= 772 + 50 && y >= 18 + 60*i && y <= 18 + 60 * i + 50 && app->input->GetMouseButtonDown(1) == KEY_DOWN && app->BTSystem->AttackPlayer != 0 && app->BTSystem->PlayerTurn == true) {
 			app->BTSystem->VampireTarget = i;
 			//SDL_Rect Enem1 = { app->player->P1.position.x + 400, app->player->P1.position.y - 330 + 120 * i, 100, 100 };
-			
+
 		}*/
-		if (Vpir[i].dead == false && x > 1005 && x < 1110 && y > -5 + 120 * i && y < 115 + 120 * i + 100 && app->input->GetMouseButtonDown(1) == KEY_DOWN && app->BTSystem->AttackPlayer != 0 && app->BTSystem->PlayerTurn == true && app->BTSystem->SpecialAttackEnable == false) {
+		if (Zbie[i].dead == false && x > 1005 && x < 1110 && y > -5 + 120 * i && y < 115 + 120 * i + 100 && app->input->GetMouseButtonDown(1) == KEY_DOWN && app->BTSystem->AttackPlayer != 0 && app->BTSystem->PlayerTurn == true && app->BTSystem->SpecialAttackEnable == false) {
 			app->BTSystem->VampireTarget = i;
 			//SDL_Rect Enem1 = { app->player->P1.position.x + 500, app->player->P1.position.y - 330 + 120 * i, 100, 100 };
 		}
 	}
-	for (int i = 1; i < Vpir[0].numEnemies + 1; i++) {//
-		if (Vpir[i].dead == false && x > 1005 && x < 1110 && y > -5 + 120 * i && y < 115 + 120 * i + 100 && app->input->GetMouseButtonDown(1) == KEY_DOWN && app->BTSystem->PlayerTurn == true && app->BTSystem->SpecialAttackEnable == false && app->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT) {
+	for (int i = 1; i < Zbie[0].numEnemies + 1; i++) {//
+		if (Zbie[i].dead == false && x > 1005 && x < 1110 && y > -5 + 120 * i && y < 115 + 120 * i + 100 && app->input->GetMouseButtonDown(1) == KEY_DOWN && app->BTSystem->PlayerTurn == true && app->BTSystem->SpecialAttackEnable == false && app->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT) {
 			//app->BTSystem->VampireTarget = i;
-			Vpir[i].hp = 0;
+			Zbie[i].hp = 0;
 		}
 
 	}
 }
 
-void VampirEnem::EnemyPhase() {
+void ZombieEnem::EnemyPhase() {
 	if (app->BTSystem->alliesDead == 0) {
 		if (app->player->P1.IsAlive == false) {
 			app->BTSystem->alliesDead++;
@@ -515,8 +515,8 @@ void VampirEnem::EnemyPhase() {
 
 		}
 	}
-	for (int i = 1; i < Vpir[0].numEnemies + 1; i++) {
-		if (Vpir[i].dead == false && app->BTSystem->PlayerTurn == false) {
+	for (int i = 1; i < Zbie[0].numEnemies + 1; i++) {
+		if (Zbie[i].dead == false && app->BTSystem->PlayerTurn == false) {
 			do {
 				srand(time(NULL));
 				app->BTSystem->playerTarget_ = (rand() % (4)) + 1;
@@ -552,9 +552,9 @@ void VampirEnem::EnemyPhase() {
 				else {
 					app->BTSystem->playerTarget = app->BTSystem->playerTarget_;
 				}
-				
+
 			} while (app->BTSystem->playerTarget == 0 && app->BTSystem->playerTarget_ != 0);
-			
+
 			app->BTSystem->playerTarget = app->BTSystem->playerTarget_;
 
 			if (app->BTSystem->battle1 == true && app->player->P4.IsAlive == true) {
@@ -564,16 +564,16 @@ void VampirEnem::EnemyPhase() {
 				int randomNumber = 0;
 				do {
 					randomNumber = (rand() % 100) + 1;
-					app->player->P1.hp -= Vpir[app->BTSystem->playerTarget].damage;
-				} while (randomNumber <= Vpir[app->BTSystem->playerTarget].speed);
+					app->player->P1.hp -= Zbie[app->BTSystem->playerTarget].damage;
+				} while (randomNumber <= Zbie[app->BTSystem->playerTarget].speed);
 				app->BTSystem->PlayerTurn = true;
 			}
 			if (app->BTSystem->playerTarget == 2 && app->player->P2.IsAlive == true) {
 				int randomNumber = 0;
 				do {
 					randomNumber = (rand() % 100) + 1;
-					app->player->P2.hp -= Vpir[app->BTSystem->playerTarget].damage;
-				} while (randomNumber <= Vpir[app->BTSystem->playerTarget].speed);
+					app->player->P2.hp -= Zbie[app->BTSystem->playerTarget].damage;
+				} while (randomNumber <= Zbie[app->BTSystem->playerTarget].speed);
 				app->BTSystem->PlayerTurn = true;
 
 			}
@@ -581,8 +581,8 @@ void VampirEnem::EnemyPhase() {
 				int randomNumber = 0;
 				do {
 					randomNumber = (rand() % 100) + 1;
-					app->player->P3.hp -= Vpir[app->BTSystem->playerTarget].damage;
-				} while (randomNumber <= Vpir[app->BTSystem->playerTarget].speed);
+					app->player->P3.hp -= Zbie[app->BTSystem->playerTarget].damage;
+				} while (randomNumber <= Zbie[app->BTSystem->playerTarget].speed);
 				app->BTSystem->PlayerTurn = true;
 
 			}
@@ -590,48 +590,48 @@ void VampirEnem::EnemyPhase() {
 				int randomNumber = 0;
 				do {
 					randomNumber = (rand() % 100) + 1;
-					app->player->P4.hp -= Vpir[app->BTSystem->playerTarget].damage;
-				} while (randomNumber <= Vpir[app->BTSystem->playerTarget].speed);
+					app->player->P4.hp -= Zbie[app->BTSystem->playerTarget].damage;
+				} while (randomNumber <= Zbie[app->BTSystem->playerTarget].speed);
 				app->BTSystem->PlayerTurn = true;
 
 			}
-			
+
 		}
 	}
 	app->BTSystem->alliesDead = 0;
 }
 
-void VampirEnem::CheckEnemy() {
-	for (int i = 1; i < Vpir[0].numEnemies + 1; i++) {
-		if (Vpir[i].hp <= 0) {
-			Vpir[i].dead = true;
+void ZombieEnem::CheckEnemy() {
+	for (int i = 1; i < Zbie[0].numEnemies + 1; i++) {
+		if (Zbie[i].hp <= 0) {
+			Zbie[i].dead = true;
 			app->BTSystem->CombatDeaths += 1;
 		}
-		if (app->BTSystem->CombatDeaths == Vpir[0].numEnemies) {
+		if (app->BTSystem->CombatDeaths == Zbie[0].numEnemies) {
 			app->BTSystem->battle = false;
 			app->BTSystem->battleWin = false;
 			app->BTSystem->battle1 = false;
 
-			Vpir[0].Destroyed = true;
+			Zbie[0].Destroyed = true;
 			klk = true;
 		}
 	}
 	app->BTSystem->CombatDeaths = 0;
 }
 
-void VampirEnem::OnCollision(Collider* c1, Collider* c2)
+void ZombieEnem::OnCollision(Collider* c1, Collider* c2)
 {
-	
-	for (uint i = 0; i < NUM_VAMPIRE; ++i)
+
+	for (uint i = 0; i < NUM_ZOMBIE; ++i)
 	{
-		if (Vpir[i].colliderV == c1 && !Vpir[i].Destroyed)
+		if (Zbie[i].colliderZ == c1 && !Zbie[i].Destroyed)
 		{
 			if (c2->type == Collider::Type::PLAYER)
 			{
 				//Vpir[0].Destroyed = true;
 			}
 		}
-		else if (Vpir[i].colliderS == c1 && !Vpir[i].Destroyed)
+		else if (Zbie[i].colliderS == c1 && !Zbie[i].Destroyed)
 		{
 			if (c2->type == Collider::Type::PLAYER)
 			{
@@ -640,59 +640,59 @@ void VampirEnem::OnCollision(Collider* c1, Collider* c2)
 					pathfindingaux = false;
 				}
 				path = true;
-				VampireNum = i;
-				PathFindVamp(VampireNum);
+				ZombieNum = i;
+				PathFindVamp(ZombieNum);
 			}
 		}
 	}
 }
 
-void VampirEnem::PathFindVamp(int i)
+void ZombieEnem::PathFindVamp(int i)
 {
 	if (path == true && app->BTSystem->battle == false && app->BTSystem->Delay == true)
 	{
-			app->pathfinding->CreatePath(app->map->WorldToMap(Vpir[i].Pos.x, Vpir[i].Pos.y), app->map->WorldToMap(app->player->P1.position.x, app->player->P1.position.y));
+		app->pathfinding->CreatePath(app->map->WorldToMap(Zbie[i].Pos.x, Zbie[i].Pos.y), app->map->WorldToMap(app->player->P1.position.x, app->player->P1.position.y));
 
-			const DynArray<iPoint>* path = app->pathfinding->GetLastPath();
+		const DynArray<iPoint>* path = app->pathfinding->GetLastPath();
 
-			for (uint j = 0; j < path->Count(); ++j)
+		for (uint j = 0; j < path->Count(); ++j)
+		{
+			iPoint pos = app->map->MapToWorld(path->At(j)->x, path->At(j)->y);
+			if (Zbie[i].Pos.x <= pos.x - 32 && timer3 > pathfindingtimer + enemySpeed)
 			{
-				iPoint pos = app->map->MapToWorld(path->At(j)->x, path->At(j)->y);
-				if (Vpir[i].Pos.x <= pos.x - 32 && timer3 > pathfindingtimer + enemySpeed)
-				{
-					pathfindingtimer = timer3;
-					Vpir[i].Pos.x+=32;
-				}
-				if (Vpir[i].Pos.x >= pos.x + 32 && timer3 > pathfindingtimer + enemySpeed)
-				{
-					pathfindingtimer = timer3;
-					Vpir[i].Pos.x-=32;
-				}
-				if (Vpir[i].Pos.y <= pos.y - 32 &&  timer3 > pathfindingtimer + enemySpeed)
-				{
-					pathfindingtimer = timer3;
-					Vpir[i].Pos.y+=32;
-				}
-				if (Vpir[i].Pos.y >= pos.y + 32 && timer3 > pathfindingtimer + enemySpeed)
-				{
-					pathfindingtimer = timer3;
-					Vpir[i].Pos.y-=32;
-				}
+				pathfindingtimer = timer3;
+				Zbie[i].Pos.x += 32;
 			}
-		
+			if (Zbie[i].Pos.x >= pos.x + 32 && timer3 > pathfindingtimer + enemySpeed)
+			{
+				pathfindingtimer = timer3;
+				Zbie[i].Pos.x -= 32;
+			}
+			if (Zbie[i].Pos.y <= pos.y - 32 && timer3 > pathfindingtimer + enemySpeed)
+			{
+				pathfindingtimer = timer3;
+				Zbie[i].Pos.y += 32;
+			}
+			if (Zbie[i].Pos.y >= pos.y + 32 && timer3 > pathfindingtimer + enemySpeed)
+			{
+				pathfindingtimer = timer3;
+				Zbie[i].Pos.y -= 32;
+			}
+		}
+
 	}
-	
+
 }
-Vampire VampirEnem::CreateVampire(int x, int y, SDL_Texture* t)
+Zombie ZombieEnem::CreateZombie(int x, int y, SDL_Texture* t)
 {
-	Vampire Vampires;
+	Zombie Zombies;
 
-	Vampires.colliderV = app->collisions->AddCollider({ x, y, 32, 32 }, Collider::Type::VAMPIRE, (Module*)app->entityManager);
-	Vampires.colliderS = app->collisions->AddCollider({ x, y, 200, 200 }, Collider::Type::SENSOR, (Module*)app->entityManager);
-	Vampires.vampireT = t;
-	Vampires.Pos.x = x;
-	Vampires.Pos.y = y;
+	Zombies.colliderZ = app->collisions->AddCollider({ x, y, 32, 32 }, Collider::Type::VAMPIRE, (Module*)app->entityManager);
+	Zombies.colliderS = app->collisions->AddCollider({ x, y, 200, 200 }, Collider::Type::SENSOR, (Module*)app->entityManager);
+	Zombies.zombieT = t;
+	Zombies.Pos.x = x;
+	Zombies.Pos.y = y;
 
-	return Vampires;
+	return Zombies;
 }
 
