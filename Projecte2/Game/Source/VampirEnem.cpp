@@ -450,7 +450,7 @@ void VampirEnem::SpawnEnemies() {
 		}
 
 	}
-	app->BTSystem->SpawnedEnemies = true;
+	//app->BTSystem->SpawnedEnemies = true;
 }
 
 void VampirEnem::DrawEnemies() {

@@ -215,7 +215,7 @@ bool battleSystem::Update(float dt)
 			Delay = true;
 		}
 	}
-	if (SpecialAttackEnable && AttackPlayer != 0 && VampireTarget != 0 ) {
+	if (SpecialAttackEnable && AttackPlayer != 0 && VampireTarget != 0 && ZombieTarget != 0) {
 		SpecialAttackPhase();
 		Attack->state = GuiControlState::DISABLED;
 		Attack1->state = GuiControlState::DISABLED;
@@ -300,6 +300,7 @@ void battleSystem::AttackPhaseDisabled2() {
 	Attack1->state = GuiControlState::DISABLED;
 	Attack2->state = GuiControlState::DISABLED;
 	VampireTarget = 0;
+	ZombieTarget = 0;
 	AttackPlayer = 0;
 	AttackPhaseActive = false;
 	AttackPhaseEnable = false;
@@ -346,6 +347,7 @@ void battleSystem::SpecialAttackPhase() {
 			app->BTSystem->waitPlayer[AttackPlayer-1] += 1;
  			AttackPlayer = 0;
 			VampireTarget = 0;
+			ZombieTarget = 0;
 			for (int i = 0; i <= 4; i++) {
 				if (app->BTSystem->waitPlayer[i] != 0) {
 					app->BTSystem->waitPlayer[i] += 1;
@@ -381,6 +383,7 @@ void battleSystem::SpecialAttackPhase() {
 			app->BTSystem->waitPlayer[AttackPlayer - 1] += 1;
 			AttackPlayer = 0;
 			VampireTarget = 0;
+			ZombieTarget = 0;
 			AttackAux = 0;
 			for (int i = 0; i <= 4; i++) {
 				if (app->BTSystem->waitPlayer[i] != 0) {
@@ -420,6 +423,7 @@ void battleSystem::SpecialAttackPhase() {
 				app->BTSystem->waitPlayer[AttackPlayer - 1] += 1;
 				AttackPlayer = 0;
 				VampireTarget = 0;
+				ZombieTarget = 0;
 				AttackAux = 0;
 				for (int i = 0; i <= 4; i++) {
 					if (app->BTSystem->waitPlayer[i] != 0) {
@@ -589,6 +593,7 @@ void battleSystem::SpecialAttackPhase() {
 				app->BTSystem->waitPlayer[AttackPlayer - 1] += 1;
 				AttackPlayer = 0;
 				VampireTarget = 0;
+				ZombieTarget = 0;
 				AttackAux = 0;
 				for (int i = 0; i <= 4; i++) {
 					if (app->BTSystem->waitPlayer[i] != 0) {
@@ -663,10 +668,10 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 	{
 		
 		//Checks the GUI element ID
-		if (control->id == 1 && AttackPhaseActive == true && AttackPhaseEnable == true && VampireTarget != 0) {
+		if (control->id == 1 && AttackPhaseActive == true && AttackPhaseEnable == true && VampireTarget != 0 && ZombieTarget != 0) {
 			AttackPhaseDisabled2();
 		}
-		if (control->id == 1 && AttackPhaseActive == false && AttackPhaseEnable == false && AttackPlayer != 0 && VampireTarget != 0)
+		if (control->id == 1 && AttackPhaseActive == false && AttackPhaseEnable == false && AttackPlayer != 0 && VampireTarget != 0 && ZombieTarget != 0)
 		{
 			AttackPhase();
 			AttackPhaseEnable = true;
@@ -674,13 +679,13 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 		if (AttackPhaseActive == false && AttackPhaseEnable == true) {
 			AttackPhaseEnable = false;
 		}
-		if (control->id == 2 && VampireTarget != 0)
+		if (control->id == 2 && VampireTarget != 0 && ZombieTarget != 0)
 		{
 			AttackType = 1;
 			AttackPhaseDisabled();
 			AttackPhaseEnable = false;
 		}
-		if (control->id == 3 && VampireTarget != 0)
+		if (control->id == 3 && VampireTarget != 0 && ZombieTarget != 0)
 		{
 			AttackType = 2;
 			AttackPhaseDisabled();

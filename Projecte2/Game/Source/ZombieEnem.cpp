@@ -83,7 +83,7 @@ bool ZombieEnem::Start()
 bool ZombieEnem::Update(float dt)
 {
 	static char title[256];
-	sprintf_s(title, 256, "FPS: %.1f ENEMH1: %.1f ENEMHP2: %.1f ENEMH3: %.1f ENEMHP4: %.1f Playerhp1: %.1f Playerhp2: %.1f Playerhp3: %.1f Playerhp4: %.1f",
+	sprintf_s(title, 256, "ENEMH1: %.1f ENEMHP2: %.1f ENEMH3: %.1f ENEMHP4: %.1f Playerhp1: %.1f Playerhp2: %.1f Playerhp3: %.1f Playerhp4: %.1f",
 		Zbie[1].hp, Zbie[2].hp, Zbie[3].hp, Zbie[4].hp, app->player->P1.hp, app->player->P2.hp, app->player->P3.hp, app->player->P4.hp);
 
 	app->win->SetTitle(title);
@@ -197,12 +197,12 @@ void ZombieEnem::Combat() {
 	if (app->BTSystem->AttackType == 1 && app->BTSystem->AttackPlayer == 1 && app->BTSystem->randomAux == true) {
 		int randomNumber = 0;
 		do {
-			Zbie[app->BTSystem->VampireTarget].hp -= app->player->P1.damage1;
+			Zbie[app->BTSystem->ZombieTarget].hp -= app->player->P1.damage1;
 			app->player->P1.mana += app->player->P1.mana1;
 			randomNumber = (rand() % 100) + 1;
 
 		} while (randomNumber <= app->player->P1.speed + app->player->P1.speed1);
-		app->BTSystem->VampireTarget = 0;
+		app->BTSystem->ZombieTarget = 0;
 		app->BTSystem->randomAux = false;
 		app->BTSystem->AttackPlayer = 0;
 		app->BTSystem->AttackType = 0;
@@ -227,19 +227,19 @@ void ZombieEnem::Combat() {
 		do {
 			do {
 				randomNumber2 = (rand() % 4 - app->BTSystem->CombatDeaths) + 1;
-			} while (randomNumber2 == app->BTSystem->VampireTarget);
+			} while (randomNumber2 == app->BTSystem->ZombieTarget);
 			do {
 				randomNumber2_ = (rand() % 4 - app->BTSystem->CombatDeaths) + 1;
-			} while (randomNumber2_ == app->BTSystem->VampireTarget || randomNumber2_ == randomNumber2);
+			} while (randomNumber2_ == app->BTSystem->ZombieTarget || randomNumber2_ == randomNumber2);
 
 			Zbie[randomNumber2].hp -= app->player->P1.damage2;
 			Zbie[randomNumber2_].hp -= app->player->P1.damage2;
-			Zbie[app->BTSystem->VampireTarget].hp -= app->player->P1.damage2;
+			Zbie[app->BTSystem->ZombieTarget].hp -= app->player->P1.damage2;
 			app->player->P1.mana += app->player->P1.mana2;
 			randomNumber = (rand() % 100) + 1;
 
 		} while (randomNumber <= app->player->P1.speed + app->player->P1.speed2);
-		app->BTSystem->VampireTarget = 0;
+		app->BTSystem->ZombieTarget = 0;
 		app->BTSystem->randomAux = false;
 		app->BTSystem->AttackPlayer = 0;
 		app->BTSystem->AttackType = 0;
@@ -260,12 +260,12 @@ void ZombieEnem::Combat() {
 	if (app->BTSystem->AttackType == 1 && app->BTSystem->AttackPlayer == 2 && app->BTSystem->randomAux == true) {
 		int randomNumber = 0;
 		do {
-			Zbie[app->BTSystem->VampireTarget].hp -= app->player->P2.damage1;
+			Zbie[app->BTSystem->ZombieTarget].hp -= app->player->P2.damage1;
 			app->player->P2.mana += app->player->P2.mana1;
 			randomNumber = (rand() % 100) + 1;
 
 		} while (randomNumber <= app->player->P2.speed + app->player->P2.speed1);
-		app->BTSystem->VampireTarget = 0;
+		app->BTSystem->ZombieTarget = 0;
 		app->BTSystem->randomAux = false;
 		app->BTSystem->AttackPlayer = 0;
 		app->BTSystem->AttackType = 0;
@@ -286,12 +286,12 @@ void ZombieEnem::Combat() {
 	if (app->BTSystem->AttackType == 2 && app->BTSystem->AttackPlayer == 2 && app->BTSystem->randomAux == true) {
 		int randomNumber = 0;
 		do {
-			Zbie[app->BTSystem->VampireTarget].hp -= app->player->P2.damage2;
+			Zbie[app->BTSystem->ZombieTarget].hp -= app->player->P2.damage2;
 			app->player->P2.mana += app->player->P2.mana2;
 			randomNumber = (rand() % 100) + 1;
 
 		} while (randomNumber <= app->player->P2.speed + app->player->P2.speed2);
-		app->BTSystem->VampireTarget = 0;
+		app->BTSystem->ZombieTarget = 0;
 		app->BTSystem->randomAux = false;
 		app->BTSystem->AttackPlayer = 0;
 		app->BTSystem->AttackType = 0;
@@ -316,18 +316,18 @@ void ZombieEnem::Combat() {
 		do {
 			do {
 				randomNumber2 = (rand() % 4 - app->BTSystem->CombatDeaths) + 1;
-			} while (randomNumber2 == app->BTSystem->VampireTarget);
+			} while (randomNumber2 == app->BTSystem->ZombieTarget);
 			do {
 				randomNumber2_ = (rand() % 4 - app->BTSystem->CombatDeaths) + 1;
-			} while (randomNumber2_ == app->BTSystem->VampireTarget || randomNumber2_ == randomNumber2);
+			} while (randomNumber2_ == app->BTSystem->ZombieTarget || randomNumber2_ == randomNumber2);
 			Zbie[randomNumber2].hp -= app->player->P3.damage2;
 			Zbie[randomNumber2_].hp -= app->player->P3.damage2;
-			Zbie[app->BTSystem->VampireTarget].hp -= app->player->P3.damage1;
+			Zbie[app->BTSystem->ZombieTarget].hp -= app->player->P3.damage1;
 			app->player->P3.mana += app->player->P3.mana1;
 			randomNumber = (rand() % 100) + 1;
 
 		} while (randomNumber <= app->player->P3.speed + app->player->P3.speed1);
-		app->BTSystem->VampireTarget = 0;
+		app->BTSystem->ZombieTarget = 0;
 		app->BTSystem->randomAux = false;
 		app->BTSystem->AttackPlayer = 0;
 		app->BTSystem->AttackType = 0;
@@ -348,12 +348,12 @@ void ZombieEnem::Combat() {
 	if (app->BTSystem->AttackType == 2 && app->BTSystem->AttackPlayer == 3 && app->BTSystem->randomAux == true) {
 		int randomNumber = 0;
 		do {
-			Zbie[app->BTSystem->VampireTarget].hp -= app->player->P3.damage2;
+			Zbie[app->BTSystem->ZombieTarget].hp -= app->player->P3.damage2;
 			app->player->P3.mana += app->player->P3.mana2;
 			randomNumber = (rand() % 100) + 1;
 
 		} while (randomNumber <= app->player->P3.speed + app->player->P3.speed2);
-		app->BTSystem->VampireTarget = 0;
+		app->BTSystem->ZombieTarget = 0;
 		app->BTSystem->randomAux = false;
 		app->BTSystem->AttackPlayer = 0;
 		app->BTSystem->AttackType = 0;
@@ -378,16 +378,16 @@ void ZombieEnem::Combat() {
 			if (app->BTSystem->battle1 == true) {
 				do {
 					randomNumber2 = (rand() % 4 - app->BTSystem->CombatDeaths) + 1;
-				} while (randomNumber2 == app->BTSystem->VampireTarget);
+				} while (randomNumber2 == app->BTSystem->ZombieTarget);
 				Zbie[randomNumber2].hp -= app->player->P4.damage2;
 			}
 
-			Zbie[app->BTSystem->VampireTarget].hp -= app->player->P4.damage1;
+			Zbie[app->BTSystem->ZombieTarget].hp -= app->player->P4.damage1;
 			app->player->P4.mana += app->player->P4.mana1;
 			randomNumber = (rand() % 100) + 1;
 
 		} while (randomNumber <= app->player->P4.speed + app->player->P4.speed1);
-		app->BTSystem->VampireTarget = 0;
+		app->BTSystem->ZombieTarget = 0;
 		app->BTSystem->randomAux = false;
 		app->BTSystem->AttackPlayer = 0;
 		app->BTSystem->AttackType = 0;
@@ -408,12 +408,12 @@ void ZombieEnem::Combat() {
 	if (app->BTSystem->AttackType == 2 && app->BTSystem->AttackPlayer == 4 && app->BTSystem->randomAux == true) {
 		int randomNumber = 0;
 		do {
-			Zbie[app->BTSystem->VampireTarget].hp -= app->player->P4.damage2;
+			Zbie[app->BTSystem->ZombieTarget].hp -= app->player->P4.damage2;
 			app->player->P4.mana += app->player->P4.mana2;
 			randomNumber = (rand() % 100) + 1;
 
 		} while (randomNumber <= app->player->P4.speed + app->player->P4.speed2);
-		app->BTSystem->VampireTarget = 0;
+		app->BTSystem->ZombieTarget = 0;
 		app->BTSystem->randomAux = false;
 		app->BTSystem->AttackPlayer = 0;
 		app->BTSystem->AttackType = 0;
@@ -456,7 +456,7 @@ void ZombieEnem::SpawnEnemies() {
 void ZombieEnem::DrawEnemies() {
 	for (int i = 1; i < Zbie[0].numEnemies + 1; i++) {
 		if (Zbie[i].dead == false) {
-			if (app->BTSystem->VampireTarget == i) {
+			if (app->BTSystem->ZombieTarget == i) {
 				SDL_Rect Enem1 = { app->player->P1.position.x + 395, app->player->P1.position.y - 335 + 120 * i, 110, 110 };
 				app->render->DrawRectangle(Enem1, 255, 255, 0);
 			}
@@ -477,18 +477,18 @@ void ZombieEnem::ChooseEnemy() {
 
 	for (int i = 1; i < Zbie[0].numEnemies + 1; i++) {
 		/*if (Vpir[i].dead == false && x >= 772 && x <= 772 + 50 && y >= 18 + 60*i && y <= 18 + 60 * i + 50 && app->input->GetMouseButtonDown(1) == KEY_DOWN && app->BTSystem->AttackPlayer != 0 && app->BTSystem->PlayerTurn == true) {
-			app->BTSystem->VampireTarget = i;
+			app->BTSystem->ZombieTarget = i;
 			//SDL_Rect Enem1 = { app->player->P1.position.x + 400, app->player->P1.position.y - 330 + 120 * i, 100, 100 };
 
 		}*/
 		if (Zbie[i].dead == false && x > 1005 && x < 1110 && y > -5 + 120 * i && y < 115 + 120 * i + 100 && app->input->GetMouseButtonDown(1) == KEY_DOWN && app->BTSystem->AttackPlayer != 0 && app->BTSystem->PlayerTurn == true && app->BTSystem->SpecialAttackEnable == false) {
-			app->BTSystem->VampireTarget = i;
+			app->BTSystem->ZombieTarget = i;
 			//SDL_Rect Enem1 = { app->player->P1.position.x + 500, app->player->P1.position.y - 330 + 120 * i, 100, 100 };
 		}
 	}
 	for (int i = 1; i < Zbie[0].numEnemies + 1; i++) {//
 		if (Zbie[i].dead == false && x > 1005 && x < 1110 && y > -5 + 120 * i && y < 115 + 120 * i + 100 && app->input->GetMouseButtonDown(1) == KEY_DOWN && app->BTSystem->PlayerTurn == true && app->BTSystem->SpecialAttackEnable == false && app->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT) {
-			//app->BTSystem->VampireTarget = i;
+			//app->BTSystem->ZombieTarget = i;
 			Zbie[i].hp = 0;
 		}
 
