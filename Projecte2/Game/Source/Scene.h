@@ -37,13 +37,13 @@ public:
 	//debug path
 	void DebugPath();
 
-	// Define multiple Gui Event methods
-	bool OnGuiMouseClickEvent(GuiControl* control);
-
 	void Pause();
 
 	bool debug = false;
 	bool paused = false;
+	bool cMenu = false;
+
+	int xCont = 0;
 private:
 
 	SDL_Texture* img;
@@ -55,10 +55,6 @@ private:
 	// L14: TODO 2: Declare a GUI Button and create it using the GuiManager
 	GuiButton* btn1;
 	GuiButton* btn2;
-
-	GuiButton* btnResume;
-	GuiButton* btnMenu;
-	GuiButton* btnExit;
 
 	SDL_Rect block;
  

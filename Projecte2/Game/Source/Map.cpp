@@ -6,6 +6,7 @@
 #include "Collisions.h"
 #include "Defs.h"
 #include "Log.h"
+#include "Player.h"
 
 #include <math.h>
 
@@ -142,16 +143,91 @@ void Map::Draw()
 						SDL_Rect r = tileset->GetTileRect(gid);
 						iPoint pos = MapToWorld(x, y);
 
-						app->render->DrawTexture(tileset->texture,
-							pos.x,
-							pos.y,
-							&r);
+
+						if (app->player->P1.position.x <= pos.x + 645 && app->player->P1.position.y <= pos.y + 365 && app->player->P1.position.x >= pos.x - 670 && app->player->P1.position.y >= pos.y - 400 )
+						{
+							app->render->DrawTexture(tileset->texture,
+								pos.x,
+								pos.y,
+								&r);
+						}
+				
 					}
 
 				}
 			}
 		}
+		
+		/*
+		if (mapLayerItem->data->properties.GetProperty("Draw") == 2) {
 
+			for (int x = 0; x < mapLayerItem->data->width; x++)
+			{
+				for (int y = 0; y < mapLayerItem->data->height; y++)
+				{
+					// L04: DONE 9: Complete the draw function
+					int gid = mapLayerItem->data->Get(x, y);
+
+					if (gid > 0) {
+
+						//L06: DONE 4: Obtain the tile set using GetTilesetFromTileId
+						//now we always use the firt tileset in the list
+						//TileSet* tileset = mapData.tilesets.start->data;
+						TileSet* tileset = GetTilesetFromTileId(gid);
+
+						SDL_Rect r = tileset->GetTileRect(gid);
+						iPoint pos = MapToWorld(x, y);
+
+						//Opcio 1
+						
+						if (app->player->P1.position.y >= pos.y + 150)
+						{
+							app->render->DrawTexture(tileset->texture,
+								pos.x,
+								pos.y,
+								&r);
+						}
+
+						if (app->player->P1.position.x >= pos.x + 150)
+						{
+							app->render->DrawTexture(tileset->texture,
+								pos.x,
+								pos.y,
+								&r);
+						}
+						if (app->player->P1.position.y <= pos.y - 150)
+						{
+							app->render->DrawTexture(tileset->texture,
+								pos.x,
+								pos.y,
+								&r);
+						}
+						if (app->player->P1.position.x <= pos.x - 150)
+						{
+							app->render->DrawTexture(tileset->texture,
+								pos.x,
+								pos.y,
+								&r);
+						}
+						
+						//opcio 2 (hauria de ser al reves)
+						
+						/*if (app->player->P1.position.x != pos.x + 150 && app->player->P1.position.y != pos.y + 150 && app->player->P1.position.x != pos.x - 150 && app->player->P1.position.y != pos.y - 150)
+						{
+							app->render->DrawTexture(tileset->texture,
+								pos.x,
+								pos.y,
+								&r);
+						}
+
+						
+						
+					}
+
+				}
+			}
+		}*/
+		
 		mapLayerItem = mapLayerItem->next;
 	}
 }
@@ -525,6 +601,7 @@ void Map::DColisions()
 				}
 			}
 		}
+	
 	mapLayerItem = mapLayerItem->next;
 	}
 }

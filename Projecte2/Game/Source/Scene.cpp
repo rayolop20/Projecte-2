@@ -12,6 +12,8 @@
 #include "VampirEnem.h"
 #include "Collisions.h"
 #include "Menu.h"
+#include "CharacterMenu.h"
+#include "GameMenu.h"
 #include "PathFinding.h"
 #include "BattleSystem.h"
 #include "Defs.h"
@@ -48,9 +50,8 @@ bool Scene::Start()
 
 		RELEASE_ARRAY(data);
 	};
-
+	app->map->DColisions();
 	pathTex = app->tex->Load("Assets/maps/path2.png");
-	originTex = app->tex->Load("Assets/maps/x.png");
 	// Load music
 	//app->audio->PlayMusic("Assets/audio/music/music_spy.ogg");
 
@@ -82,57 +83,83 @@ bool Scene::PreUpdate()
 bool Scene::Update(float dt)
 {
 
-	app->map->DColisions();
-    // L02: DONE 3: Request Load / Save when pressing L/S
-	if(app->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN && app->BTSystem->battle == false)
-		app->LoadGameRequest();
-
-	if(app->input->GetKey(SDL_SCANCODE_O) == KEY_DOWN && app->BTSystem->battle == false)
-		app->SaveGameRequest();
-
-	if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN) {
-		debug = !debug;
-
-	}
-	app->render->camera.x = (app->player->P1.position.x - 550) * -1;
-	app->render->camera.y = (app->player->P1.position.y - 300) * -1;
-
-
-	// Draw map
-	app->map->Draw();
-
-	//Draw GUI
-
-	//Draw Entities
-	//L13
-	app->entityManager->Draw();
-
-	if (debug == true) {
-		//Debug Collisions
-		app->collisions->DebugDraw();
-		app->scene->DebugPath();
-	}
-
-	//InGameMenu
-	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 	{
-		paused = true;
+		// L02: DONE 3: Request Load / Save when pressing L/S
+		if (app->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN && app->BTSystem->battle == false)
+			app->LoadGameRequest();
 
-		Pause();
+		if (app->input->GetKey(SDL_SCANCODE_O) == KEY_DOWN && app->BTSystem->battle == false)
+			app->SaveGameRequest();
 
-		btnResume->state = GuiControlState::NORMAL;
-		btnMenu->state = GuiControlState::NORMAL;
-		btnExit->state = GuiControlState::NORMAL;
-		//rendered on last layer(collision.cpp)
+		if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN) {
+			debug = !debug;
+
+		}
+		app->render->camera.x = (app->player->P1.position.x - 608) * -1;
+		app->render->camera.y = (app->player->P1.position.y - 328) * -1;
+
+
+		// Draw map
+		app->map->Draw();
+
+
+		//Draw Entities
+		//L13
+		app->entityManager->Draw();
+
+		if (debug == true) {
+			//Debug Collisions
+			app->collisions->DebugDraw();
+			app->scene->DebugPath();
+		}
+
+
+		//InGameMenu
+		if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+		{
+			paused = true;
+
+			Pause();
+			//InGameMenu
+			if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN && !cMenu)
+			{
+				paused = true;
+
+				Pause();
+			}
+			
+
+		}
+		//if (paused)
+		//{
+		//	btnResume->Update(dt);
+		//	btnExit->Update(dt);
+		//}
+
+		if (app->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN && !cMenu && xCont == 0)
+		{
+			cMenu = true;
+			paused = true;
+			if (app->characterMenu->active == false)
+			{
+				app->characterMenu->Enable();
+
+			}
+		}
+		if (app->characterMenu->exitInventory && cMenu && xCont == 1)
+		{
+			cMenu = false;
+			paused = false;
+			if (app->characterMenu->active == true)
+			{
+				app->characterMenu->Disable();
+			}
+			app->characterMenu->exitInventory = false;
+			xCont = 0;
+		}
+
+		return true;
 	}
-	if (paused)
-	{
-		btnResume->Update(dt);
-		btnExit->Update(dt);
-	}
-
-
-	return true;
 }
 
 // Called each loop iteration
@@ -156,61 +183,7 @@ bool Scene::CleanUp()
 
 void Scene::Pause()
 {
-
-	btnResume = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 4, "Resume", { -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -app->render->camera.y + 250, 160, 40 }, this);
-	btnMenu = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 5, "Menu", { -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -app->render->camera.y + 320, 160, 40 }, this);
-	btnExit = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 6, "Exit", { -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -app->render->camera.y + 390, 160, 40 }, this);
-
-	btnResume->state = GuiControlState::DISABLED;
-	btnMenu->state = GuiControlState::DISABLED;
-	btnExit->state = GuiControlState::DISABLED;
-}
-
-bool Scene::OnGuiMouseClickEvent(GuiControl* control)
-{
-
-	switch (control->type)
-	{
-	case GuiControlType::BUTTON:
-	{
-		//Checks the GUI element ID
-
-		if (control->id == 4)
-		{
-			paused = false;
-			btnResume->state = GuiControlState::DISABLED;
-			btnMenu->state = GuiControlState::DISABLED;
-			btnExit->state = GuiControlState::DISABLED;
-		}
-
-		if (control->id == 5)
-		{
-			paused = false;
-			Disable();
-			app->menu->Enable();
-			app->player->Disable();
-			app->render->camera.x = 0;
-			app->render->camera.y = 0;
-			app->menu->starting = true;
-			btnResume->state = GuiControlState::DISABLED;
-			btnMenu->state = GuiControlState::DISABLED;
-			btnExit->state = GuiControlState::DISABLED;
-
-
-		}
-
-		if (control->id == 6)
-		{
-			app->menu->exit = true;
-		}
-
-	}
-	//Other cases here
-
-	default: break;
-	}
-
-	return true;
+	app->gameMenu->Enable();
 }
 
 void Scene::DebugPath()
