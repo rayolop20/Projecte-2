@@ -83,11 +83,11 @@ bool ZombieEnem::Start()
 bool ZombieEnem::Update(float dt)
 {
 	static char title[256];
-	if (ZombieBattle == true) {
-		sprintf_s(title, 256, "ENEMH1: %.1f ENEMHP2: %.1f ENEMH3: %.1f ENEMHP4: %.1f Playerhp1: %.1f Playerhp2: %.1f Playerhp3: %.1f Playerhp4: %.1f",
-			Zbie[1].hp, Zbie[2].hp, Zbie[3].hp, Zbie[4].hp, app->player->P1.hp, app->player->P2.hp, app->player->P3.hp, app->player->P4.hp);
-	}
+	sprintf_s(title, 256, "ENEMH1: %.1f ENEMHP2: %.1f ENEMH3: %.1f ENEMHP4: %.1f Playerhp1: %.1f Playerhp2: %.1f Playerhp3: %.1f Playerhp4: %.1f",
+	Zbie[1].hp, Zbie[2].hp, Zbie[3].hp, Zbie[4].hp, app->player->P1.hp, app->player->P2.hp, app->player->P3.hp, app->player->P4.hp);
+
 	app->win->SetTitle(title);
+	
 	if (app->BTSystem->battle == true && app->player->P1.IsAlive == true) {
 		if (app->BTSystem->SpawnedEnemies == false) {
 			SpawnEnemies();
@@ -99,7 +99,6 @@ bool ZombieEnem::Update(float dt)
 			EnemyPhase();
 		}
 		Combat();
-		DrawHpBars();
 	}
 	else if (app->BTSystem->battleAux == true) {
 		app->BTSystem->battleAux = false;
@@ -107,6 +106,7 @@ bool ZombieEnem::Update(float dt)
 	}
 	timer3 = SDL_GetTicks() / 10;
 
+	
 	/*if (app->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN)
 	{
 		PathFindVamp(VampireNum);
@@ -153,31 +153,8 @@ bool ZombieEnem::PostUpdate()
 	return true;
 }
 
-void ZombieEnem::DrawHpBars() {
-	if (app->player->P1.IsAlive == true) {
-		app->render->DrawTexture(app->player->player1Hp, app->player->P1.position.x - 190, app->player->P1.position.y - 225);
-		SDL_Rect bar1 = { app->player->P1.position.x - 180, app->player->P1.position.y - 220, (200 * app->player->P1.hp) / 100,15 };
-		app->render->DrawRectangle(bar1, 255, 0, 0);
-	}
-	if (app->player->P2.IsAlive == true) {
-		app->render->DrawTexture(app->player->player2Hp, app->player->P1.position.x - 310, app->player->P1.position.y - 225 + 130);
-		SDL_Rect bar2 = { app->player->P1.position.x - 300, app->player->P1.position.y - 220 + 130, (200 * app->player->P2.hp) / 100,15 };
-		app->render->DrawRectangle(bar2, 255, 0, 0);
-	}
-	if (app->player->P3.IsAlive == true) {
-		app->render->DrawTexture(app->player->player3Hp, app->player->P1.position.x - 190, app->player->P1.position.y - 225 + 260);
-		SDL_Rect bar3 = { app->player->P1.position.x - 180, app->player->P1.position.y - 220 + 260, (200 * app->player->P3.hp) / 100,15 };
-		app->render->DrawRectangle(bar3, 255, 0, 0);
-	}
-	if (app->player->P4.IsAlive == true) {
-		app->render->DrawTexture(app->player->player4Hp, app->player->P1.position.x - 310, app->player->P1.position.y - 225 + 390);
-		SDL_Rect bar4 = { app->player->P1.position.x - 300, app->player->P1.position.y - 220 + 390, (200 * app->player->P4.hp) / 100,15 };
-		app->render->DrawRectangle(bar4, 255, 0, 0);
-	}
-}
-
 void ZombieEnem::Combat() {
-	if (ZombieBattle == true) {
+	if (app->BTSystem->Zombiebattle == true) {
 
 		if (app->BTSystem->alliesDead == 0) {
 			if (app->player->P1.IsAlive == false) {
@@ -440,7 +417,7 @@ void ZombieEnem::Combat() {
 }
 
 void ZombieEnem::SpawnEnemies() {
-	if (ZombieBattle == true) {
+	if (app->BTSystem->Zombiebattle == true) {
 
 		for (int i = 1; i < Zbie[0].numEnemies + 1; i++) {
 			Zbie[i].dead = false;
@@ -452,16 +429,17 @@ void ZombieEnem::SpawnEnemies() {
 				Zbie[i].hp += randomEnemyhp;
 				Zbie[i].speed += randomEnemySpeed;
 				Zbie[i].damage += randomEnemyDamage;
-				klk = false;
-			}
 
+			}
 		}
 		app->BTSystem->SpawnedEnemies = true;
+		klk = false;
+
 	}
 }
 
 void ZombieEnem::DrawEnemies() {
-	if (ZombieBattle == true) {
+	if (app->BTSystem->Zombiebattle == true) {
 
 		for (int i = 1; i < Zbie[0].numEnemies + 1; i++) {
 			if (Zbie[i].dead == false) {
@@ -479,7 +457,7 @@ void ZombieEnem::DrawEnemies() {
 }
 
 void ZombieEnem::ChooseEnemy() {
-	if (ZombieBattle == true) {
+	if (app->BTSystem->Zombiebattle == true) {
 	int x, y;
 	Uint32 buttons;
 	SDL_PumpEvents();  // make sure we have the latest mouse state.
@@ -508,7 +486,7 @@ void ZombieEnem::ChooseEnemy() {
 }
 
 void ZombieEnem::EnemyPhase() {
-	if (ZombieBattle == true) {
+	if (app->BTSystem->Zombiebattle == true) {
 
 		if (app->BTSystem->alliesDead == 0) {
 			if (app->player->P1.IsAlive == false) {
@@ -617,7 +595,7 @@ void ZombieEnem::EnemyPhase() {
 }
 
 void ZombieEnem::CheckEnemy() {
-	if (ZombieBattle == true) {
+	if (app->BTSystem->Zombiebattle == true) {
 
 		for (int i = 1; i < Zbie[0].numEnemies + 1; i++) {
 			if (Zbie[i].hp <= 0) {
@@ -626,7 +604,7 @@ void ZombieEnem::CheckEnemy() {
 			}
 			if (app->BTSystem->CombatDeaths == Zbie[0].numEnemies) {
 				app->BTSystem->battle = false;
-				ZombieBattle = false;
+				app->BTSystem->Zombiebattle = false;
 				app->BTSystem->battleWin = false;
 				app->BTSystem->battle1 = false;
 
@@ -647,7 +625,7 @@ void ZombieEnem::OnCollision(Collider* c1, Collider* c2)
 		{
 			if (c2->type == Collider::Type::PLAYER)
 			{
-				ZombieBattle = true;
+				app->BTSystem->Zombiebattle = true;
 				//Vpir[0].Destroyed = true;
 			}
 		}

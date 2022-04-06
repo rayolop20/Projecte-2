@@ -152,7 +152,9 @@ bool battleSystem::Update(float dt)
 		MiniPlayerButton1->state = GuiControlState::NORMAL;
 		MiniPlayerButton2->state = GuiControlState::NORMAL;
 		MiniPlayerButton4->state = GuiControlState::NORMAL;
-		MiniPlayerButton3->state = GuiControlState::NORMAL; app->render->DrawRectangle(battle_screen, 0, 250, 250);
+		MiniPlayerButton3->state = GuiControlState::NORMAL; 
+		app->render->DrawRectangle(battle_screen, 0, 250, 250);
+		DrawHpBars();
 		if (PlayerTurn == true) {
 			Attack->state = GuiControlState::NORMAL;
 			SpecialAttack->state = GuiControlState::NORMAL;
@@ -658,6 +660,29 @@ void battleSystem::ChoosePlayer()
 	}
 }
 
+void battleSystem::DrawHpBars() {
+	if (app->player->P1.IsAlive == true) {
+		app->render->DrawTexture(app->player->player1Hp, app->player->P1.position.x - 190, app->player->P1.position.y - 225);
+		SDL_Rect bar1 = { app->player->P1.position.x - 180, app->player->P1.position.y - 220, (200 * app->player->P1.hp) / 100,15 };
+		app->render->DrawRectangle(bar1, 255, 0, 0);
+	}
+	if (app->player->P2.IsAlive == true) {
+		app->render->DrawTexture(app->player->player2Hp, app->player->P1.position.x - 310, app->player->P1.position.y - 225 + 130);
+		SDL_Rect bar2 = { app->player->P1.position.x - 300, app->player->P1.position.y - 220 + 130, (200 * app->player->P2.hp) / 100,15 };
+		app->render->DrawRectangle(bar2, 255, 0, 0);
+	}
+	if (app->player->P3.IsAlive == true) {
+		app->render->DrawTexture(app->player->player3Hp, app->player->P1.position.x - 190, app->player->P1.position.y - 225 + 260);
+		SDL_Rect bar3 = { app->player->P1.position.x - 180, app->player->P1.position.y - 220 + 260, (200 * app->player->P3.hp) / 100,15 };
+		app->render->DrawRectangle(bar3, 255, 0, 0);
+	}
+	if (app->player->P4.IsAlive == true) {
+		app->render->DrawTexture(app->player->player4Hp, app->player->P1.position.x - 310, app->player->P1.position.y - 225 + 390);
+		SDL_Rect bar4 = { app->player->P1.position.x - 300, app->player->P1.position.y - 220 + 390, (200 * app->player->P4.hp) / 100,15 };
+		app->render->DrawRectangle(bar4, 255, 0, 0);
+	}
+}
+
 bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 {
 	
@@ -703,9 +728,10 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 		if (control->id == 6 && battle == true) {
 			battle = false;
 			Delay = false;
+			Zombiebattle = false;
+			Vampirebattle = false;
 			timer1 = SDL_GetTicks() / 1000;
 			timer1_ = timer1;
-
 		}
 		if (control->id == 7) {
 			InventoryEnable = false;

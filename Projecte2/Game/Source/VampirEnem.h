@@ -53,13 +53,13 @@ public:
 	void ChooseEnemy();
 	void EnemyPhase();
 	void CheckEnemy();
+
 	// Called at the middle of the application loop
 	// Processes new input and handles player movement
+
 	bool Update(float dt);
 
 	bool PostUpdate();
-
-	void DrawHpBars();
 
 	// Called at the end of the application loop
 	// Performs the render call of the player sprite
@@ -88,11 +88,9 @@ public:
 	float enemySpeed = 20;//Velocitat inversa, 0 es velocitat maxima i valor més gran, velocitat més lenta.
 	float pathfindingtimer = 0;
 	bool pathfindingaux = true;
-
+	int WhichVampire = 0;
 	int VampireNum = NULL;
 	bool klk = true;
-
-	bool VampireBattle = false;
 
 };
 

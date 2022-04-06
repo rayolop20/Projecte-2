@@ -84,12 +84,12 @@ bool VampirEnem::Update(float dt)
 {
 	
 	static char title[256];
-	if (VampireBattle == true) {
-		sprintf_s(title, 256, "NEMH1: %.1f ENEMHP2: %.1f ENEMH3: %.1f ENEMHP4: %.1f Playerhp1: %.1f Playerhp2: %.1f Playerhp3: %.1f Playerhp4: %.1f",
-		Vpir[1].hp, Vpir[2].hp, Vpir[3].hp, Vpir[4].hp, app->player->P1.hp, app->player->P2.hp, app->player->P3.hp, app->player->P4.hp);
+	if (app->BTSystem->Vampirebattle == true) {
+	//	sprintf_s(title, 256, "ENEMH1: %.1f ENEMHP2: %.1f ENEMH3: %.1f ENEMHP4: %.1f Playerhp1: %.1f Playerhp2: %.1f Playerhp3: %.1f Playerhp4: %.1f",
+		///Vpir[1].hp, Vpir[2].hp, Vpir[3].hp, Vpir[4].hp, app->player->P1.hp, app->player->P2.hp, app->player->P3.hp, app->player->P4.hp);
 	}
 
-	app->win->SetTitle(title);
+	//app->win->SetTitle(title);
 	if (app->BTSystem->battle == true && app->player->P1.IsAlive == true) {
 		if (app->BTSystem->SpawnedEnemies == false) {
 			SpawnEnemies();
@@ -101,7 +101,6 @@ bool VampirEnem::Update(float dt)
 			EnemyPhase();
 		}
 		Combat();
-		DrawHpBars();
 	}
 	else if (app->BTSystem->battleAux == true) {
 		app->BTSystem->battleAux = false;
@@ -155,31 +154,10 @@ bool VampirEnem::PostUpdate()
 	return true;
 }
 
-void VampirEnem::DrawHpBars() {
-	if (app->player->P1.IsAlive == true) {
-		app->render->DrawTexture(app->player->player1Hp, app->player->P1.position.x - 190, app->player->P1.position.y - 225);
-		SDL_Rect bar1 = { app->player->P1.position.x - 180, app->player->P1.position.y - 220, (200 * app->player->P1.hp) / 100,15 };
-		app->render->DrawRectangle(bar1, 255, 0, 0);
-	}
-	if (app->player->P2.IsAlive == true) {
-		app->render->DrawTexture(app->player->player2Hp, app->player->P1.position.x - 310, app->player->P1.position.y - 225 + 130);
-		SDL_Rect bar2 = { app->player->P1.position.x - 300, app->player->P1.position.y - 220 + 130, (200 * app->player->P2.hp) / 100,15 };
-		app->render->DrawRectangle(bar2, 255, 0, 0);
-	}
-	if (app->player->P3.IsAlive == true) {
-		app->render->DrawTexture(app->player->player3Hp, app->player->P1.position.x - 190, app->player->P1.position.y - 225 + 260);
-		SDL_Rect bar3 = { app->player->P1.position.x - 180, app->player->P1.position.y - 220 + 260, (200 * app->player->P3.hp) / 100,15 };
-		app->render->DrawRectangle(bar3, 255, 0, 0);
-	}
-	if (app->player->P4.IsAlive == true) {
-		app->render->DrawTexture(app->player->player4Hp, app->player->P1.position.x - 310, app->player->P1.position.y - 225 + 390);
-		SDL_Rect bar4 = { app->player->P1.position.x - 300, app->player->P1.position.y - 220 + 390, (200 * app->player->P4.hp) / 100,15 };
-		app->render->DrawRectangle(bar4, 255, 0, 0);
-	}
-}
+
 
 void VampirEnem::Combat() {
-	if (VampireBattle == true) {
+	if (app->BTSystem->Vampirebattle == true) {
 
 		if (app->BTSystem->alliesDead == 0) {
 			if (app->player->P1.IsAlive == false) {
@@ -442,7 +420,7 @@ void VampirEnem::Combat() {
 }
 
 void VampirEnem::SpawnEnemies() {
-	if (VampireBattle == true) {
+	if (app->BTSystem->Vampirebattle == true) {
 		for (int i = 1; i < Vpir[0].numEnemies + 1; i++) {
 			Vpir[i].dead = false;
 			srand(time(NULL));
@@ -455,14 +433,17 @@ void VampirEnem::SpawnEnemies() {
 				Vpir[i].damage += randomEnemyDamage;
 				klk = false;
 			}
+			randomEnemyhp = (rand() % 10) + 1;
+			randomEnemySpeed = (rand() % 6) + 1;
+			randomEnemyDamage = (rand() % 6) + 1;
 
 		}
 	}
-	//app->BTSystem->SpawnedEnemies = true;
+	app->BTSystem->SpawnedEnemies = true;
 }
 
 void VampirEnem::DrawEnemies() {
-	if (VampireBattle == true) {
+	if (app->BTSystem->Vampirebattle == true) {
 		for (int i = 1; i < Vpir[0].numEnemies + 1; i++) {
 			if (Vpir[i].dead == false) {
 				if (app->BTSystem->VampireTarget == i) {
@@ -479,7 +460,7 @@ void VampirEnem::DrawEnemies() {
 }
 
 void VampirEnem::ChooseEnemy() {
-	if (VampireBattle == true) {
+	if (app->BTSystem->Vampirebattle == true) {
 		int x, y;
 		Uint32 buttons;
 		SDL_PumpEvents();  // make sure we have the latest mouse state.
@@ -508,7 +489,7 @@ void VampirEnem::ChooseEnemy() {
 }
 
 void VampirEnem::EnemyPhase() {
-	if (VampireBattle == true) {
+	if (app->BTSystem->Vampirebattle == true) {
 		if (app->BTSystem->alliesDead == 0) {
 			if (app->player->P1.IsAlive == false) {
 				app->BTSystem->alliesDead++;
@@ -616,7 +597,7 @@ void VampirEnem::EnemyPhase() {
 }
 
 void VampirEnem::CheckEnemy() {
-	if (VampireBattle == true) {
+	if (app->BTSystem->Vampirebattle == true) {
 		for (int i = 1; i < Vpir[0].numEnemies + 1; i++) {
 			if (Vpir[i].hp <= 0) {
 				Vpir[i].dead = true;
@@ -624,7 +605,7 @@ void VampirEnem::CheckEnemy() {
 			}
 			if (app->BTSystem->CombatDeaths == Vpir[0].numEnemies) {
 				app->BTSystem->battle = false;
-				VampireBattle = false;
+				app->BTSystem->Vampirebattle = false;
 				app->BTSystem->battleWin = false;
 				app->BTSystem->battle1 = false;
 
@@ -645,8 +626,7 @@ void VampirEnem::OnCollision(Collider* c1, Collider* c2)
 		{
 			if (c2->type == Collider::Type::PLAYER)
 			{
-				VampireBattle = true;
-				//Vpir[0].Destroyed = true;
+				app->BTSystem->Vampirebattle = true;
 			}
 		}
 		else if (Vpir[i].colliderS == c1 && !Vpir[i].Destroyed)

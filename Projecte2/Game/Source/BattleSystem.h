@@ -80,6 +80,7 @@ public:
 
 	void ChoosePlayer();
 	void CheckAllies();
+	void DrawHpBars();
 	void MaxHp();
 
 	bool ChoosePlayerPhase = true;
@@ -115,6 +116,9 @@ public:
 
 	int randomLetterGenerator = 0;
 	bool LetterGenerator = true;
+
+	bool Zombiebattle = false;
+	bool Vampirebattle = false;
 
 	SDL_Texture* TypoSpecialAttack;
 	SDL_Texture* AttackTexture;
