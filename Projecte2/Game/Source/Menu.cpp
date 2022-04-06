@@ -48,10 +48,11 @@ bool Menu_Screen::Start()
 		app->player->Disable();
 	}
 
-	if (app->entityManager->active == true)
+	/*if (app->entityManager->active == true)
 	{
 		app->entityManager->Disable();
-	}
+	}*/
+
 	return true;
 }
 
