@@ -8,6 +8,7 @@
 #include "Scene.h"
 #include "Menu.h"
 #include "GuiManager.h"
+#include "EntityManager.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -36,6 +37,8 @@ bool Menu_Screen::Awake()
 bool Menu_Screen::Start()
 {
 
+	AdventureText = app->tex->Load("Assets/textures/UI/MainMenuSprite.png");
+
 	if (app->scene->active == true)
 	{
 		app->scene->Disable();
@@ -44,6 +47,11 @@ bool Menu_Screen::Start()
 	if (app->player->active == true)
 	{
 		app->player->Disable();
+	}
+
+	if (app->entityManager->active == true)
+	{
+		app->entityManager->Disable();
 	}
 	return true;
 }
@@ -57,6 +65,15 @@ bool Menu_Screen::PreUpdate()
 // Called each loop iteration
 bool Menu_Screen::Update(float dt)
 {
+	SDL_Rect* Adventure = new SDL_Rect();
+	Adventure->x = 22;
+	Adventure->y = 51;
+	Adventure->w = 193;
+	Adventure->h = 51;
+
+	app->render->DrawTexture(AdventureText, 150, 150, Adventure);
+
+
 	if (!app->scene->paused && starting)
 	{
 		Menu();
