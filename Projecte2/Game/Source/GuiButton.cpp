@@ -75,11 +75,6 @@ bool GuiButton::Draw(Render* render)
 		//new game
 		if (id == 1)
 		{
-			uitext->x = 650;
-			uitext->y = 45;
-			uitext->w = 70;
-			uitext->h = 70;
-			app->render->DrawTexture(UIText, 80, 150, uitext);
 			uitext->x = 41;
 			uitext->y = 854;
 			uitext->w = 194;
@@ -149,6 +144,12 @@ bool GuiButton::Draw(Render* render)
 			uitext->w = 194;
 			uitext->h = 52;
 			app->render->DrawTexture(UIText, 150, 150, uitext);
+
+			uitext->x = 650; //Blood drop
+			uitext->y = 45;
+			uitext->w = 70;
+			uitext->h = 70;
+			app->render->DrawTexture(UIText, 80, 150, uitext);
 		}
 		//options
 		if (id == 2)
