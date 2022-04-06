@@ -21,10 +21,12 @@ struct Vampire
 	bool Destroyed = false;
 	uint vCount = 0;
 	bool dead = false;
-	float hp = 65.0;
-	float damage = 17.0;
+	float hp = 105.0;
+	float damage = 1.0;
 	float speed = 17.0;
 	int numEnemies = 4;
+	bool poisoned = false;
+	bool onFire = false;
 };
 
 class VampirEnem : public Entity
@@ -53,13 +55,13 @@ public:
 	void ChooseEnemy();
 	void EnemyPhase();
 	void CheckEnemy();
+
 	// Called at the middle of the application loop
 	// Processes new input and handles player movement
+
 	bool Update(float dt);
 
 	bool PostUpdate();
-
-	void DrawHpBars();
 
 	// Called at the end of the application loop
 	// Performs the render call of the player sprite
@@ -88,7 +90,7 @@ public:
 	float enemySpeed = 20;//Velocitat inversa, 0 es velocitat maxima i valor més gran, velocitat més lenta.
 	float pathfindingtimer = 0;
 	bool pathfindingaux = true;
-
+	int WhichVampire = 0;
 	int VampireNum = NULL;
 	bool klk = true;
 

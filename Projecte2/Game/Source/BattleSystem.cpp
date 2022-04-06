@@ -67,6 +67,9 @@ bool battleSystem::Start()
 	for (int i = 0; i <= 4 - alliesDead;i++) {
 		waitPlayer[i] = 0;
 	}
+	for (int i = 0; i <= 5; i++) {
+		poisonCount[i] = 0;
+	}
 	// L03: DONE: Load map
 	TypoSpecialAttack = app->tex->Load("Assets/textures/Typo_SpecialAttack_4.png");
 	AttackTexture = app->tex->Load("Assets/UI/CombatUI.png");
@@ -152,7 +155,9 @@ bool battleSystem::Update(float dt)
 		MiniPlayerButton1->state = GuiControlState::NORMAL;
 		MiniPlayerButton2->state = GuiControlState::NORMAL;
 		MiniPlayerButton4->state = GuiControlState::NORMAL;
-		MiniPlayerButton3->state = GuiControlState::NORMAL; app->render->DrawRectangle(battle_screen, 0, 250, 250);
+		MiniPlayerButton3->state = GuiControlState::NORMAL; 
+		app->render->DrawRectangle(battle_screen, 0, 250, 250);
+		DrawHpBars();
 		if (PlayerTurn == true) {
 			Attack->state = GuiControlState::NORMAL;
 			SpecialAttack->state = GuiControlState::NORMAL;
@@ -215,7 +220,7 @@ bool battleSystem::Update(float dt)
 			Delay = true;
 		}
 	}
-	if (SpecialAttackEnable && AttackPlayer != 0 && VampireTarget != 0 ) {
+	if (SpecialAttackEnable && AttackPlayer != 0) {
 		SpecialAttackPhase();
 		Attack->state = GuiControlState::DISABLED;
 		Attack1->state = GuiControlState::DISABLED;
@@ -262,7 +267,6 @@ bool battleSystem::Update(float dt)
 	CheckAllies();
 	MaxHp();
 
-
 	return true;
 }
 
@@ -300,6 +304,7 @@ void battleSystem::AttackPhaseDisabled2() {
 	Attack1->state = GuiControlState::DISABLED;
 	Attack2->state = GuiControlState::DISABLED;
 	VampireTarget = 0;
+	ZombieTarget = 0;
 	AttackPlayer = 0;
 	AttackPhaseActive = false;
 	AttackPhaseEnable = false;
@@ -325,7 +330,7 @@ void battleSystem::InventoryPhase() {
 void battleSystem::SpecialAttackPhase() {
 	srand(time(NULL));
 	if (randomAttack == 0) {//QTE Random activator
-		randomAttack = (rand() % 4) + 1;
+		randomAttack = (rand() % 1) + 1;
 	}
 	if (randomAttack == 1) {//QTE 1
 		timer1 = SDL_GetTicks() / 1000;
@@ -340,12 +345,8 @@ void battleSystem::SpecialAttackPhase() {
     		AttackAux = 100;
 		}
 		if (timer1 > timer1_ + 5 && AttackAux != 0) {
-			randomAttack = 0;
+   			randomAttack = 0;
 			//enemy.hp = enemy.hp - player.attack + AttackAux;
-			AttackAux = 0;
-			app->BTSystem->waitPlayer[AttackPlayer-1] += 1;
- 			AttackPlayer = 0;
-			VampireTarget = 0;
 			for (int i = 0; i <= 4; i++) {
 				if (app->BTSystem->waitPlayer[i] != 0) {
 					app->BTSystem->waitPlayer[i] += 1;
@@ -355,6 +356,7 @@ void battleSystem::SpecialAttackPhase() {
 				}
 			}
 			SpecialAttackEnable = false;
+			SpeacialAttackEnd = true;
 		}
 	}
 	if (randomAttack == 2) {//QTE 2
@@ -378,10 +380,10 @@ void battleSystem::SpecialAttackPhase() {
 			randomAttack = 0;
 			QTE2->state = GuiControlState::DISABLED;
 			//enemy.hp = enemy.hp - player.attack + AttackAux;
+			AttackAux = 0;
 			app->BTSystem->waitPlayer[AttackPlayer - 1] += 1;
 			AttackPlayer = 0;
 			VampireTarget = 0;
-			AttackAux = 0;
 			for (int i = 0; i <= 4; i++) {
 				if (app->BTSystem->waitPlayer[i] != 0) {
 					app->BTSystem->waitPlayer[i] += 1;
@@ -391,6 +393,8 @@ void battleSystem::SpecialAttackPhase() {
 				}
 			}
 			SpecialAttackEnable = false;
+			SpeacialAttackEnd = true;
+
 		}
 		//pp->render->DrawRectangle(block1, 250, 0, 0);
 	}
@@ -417,10 +421,9 @@ void battleSystem::SpecialAttackPhase() {
 				}
 				randomAttack = 0;
 				//enemy.hp = enemy.hp - player.attack + AttackAux;
-				app->BTSystem->waitPlayer[AttackPlayer - 1] += 1;
+				AttackAux = 0;
 				AttackPlayer = 0;
 				VampireTarget = 0;
-				AttackAux = 0;
 				for (int i = 0; i <= 4; i++) {
 					if (app->BTSystem->waitPlayer[i] != 0) {
 						app->BTSystem->waitPlayer[i] += 1;
@@ -430,6 +433,8 @@ void battleSystem::SpecialAttackPhase() {
 					}
 				}
 				SpecialAttackEnable = false;
+				SpeacialAttackEnd = true;
+
 
 			}
 			if (timer1_ < 280 && rectDirection == false) {//PointRect right movement
@@ -586,10 +591,9 @@ void battleSystem::SpecialAttackPhase() {
 				randomLetterGenerator = 0;
 				randomAttack = 0;
 				//enemy.hp = enemy.hp - player.attack + AttackAux;
-				app->BTSystem->waitPlayer[AttackPlayer - 1] += 1;
+				AttackAux = 0;
 				AttackPlayer = 0;
 				VampireTarget = 0;
-				AttackAux = 0;
 				for (int i = 0; i <= 4; i++) {
 					if (app->BTSystem->waitPlayer[i] != 0) {
 						app->BTSystem->waitPlayer[i] += 1;
@@ -599,6 +603,8 @@ void battleSystem::SpecialAttackPhase() {
 					}
 				}
 				SpecialAttackEnable = false;
+				SpeacialAttackEnd = true;
+
 			}
 		}
 	}
@@ -654,6 +660,29 @@ void battleSystem::ChoosePlayer()
 	}
 }
 
+void battleSystem::DrawHpBars() {
+	if (app->player->P1.IsAlive == true) {
+		app->render->DrawTexture(app->player->player1Hp, app->player->P1.position.x - 190, app->player->P1.position.y - 225);
+		SDL_Rect bar1 = { app->player->P1.position.x - 180, app->player->P1.position.y - 220, (200 * app->player->P1.hp) / 100,15 };
+		app->render->DrawRectangle(bar1, 255, 0, 0);
+	}
+	if (app->player->P2.IsAlive == true) {
+		app->render->DrawTexture(app->player->player2Hp, app->player->P1.position.x - 310, app->player->P1.position.y - 225 + 130);
+		SDL_Rect bar2 = { app->player->P1.position.x - 300, app->player->P1.position.y - 220 + 130, (200 * app->player->P2.hp) / 100,15 };
+		app->render->DrawRectangle(bar2, 255, 0, 0);
+	}
+	if (app->player->P3.IsAlive == true) {
+		app->render->DrawTexture(app->player->player3Hp, app->player->P1.position.x - 190, app->player->P1.position.y - 225 + 260);
+		SDL_Rect bar3 = { app->player->P1.position.x - 180, app->player->P1.position.y - 220 + 260, (200 * app->player->P3.hp) / 100,15 };
+		app->render->DrawRectangle(bar3, 255, 0, 0);
+	}
+	if (app->player->P4.IsAlive == true) {
+		app->render->DrawTexture(app->player->player4Hp, app->player->P1.position.x - 310, app->player->P1.position.y - 225 + 390);
+		SDL_Rect bar4 = { app->player->P1.position.x - 300, app->player->P1.position.y - 220 + 390, (200 * app->player->P4.hp) / 100,15 };
+		app->render->DrawRectangle(bar4, 255, 0, 0);
+	}
+}
+
 bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 {
 	
@@ -663,10 +692,10 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 	{
 		
 		//Checks the GUI element ID
-		if (control->id == 1 && AttackPhaseActive == true && AttackPhaseEnable == true && VampireTarget != 0) {
+		if (control->id == 1 && AttackPhaseActive == true && AttackPhaseEnable == true && VampireTarget != 0 && ZombieTarget != 0) {
 			AttackPhaseDisabled2();
 		}
-		if (control->id == 1 && AttackPhaseActive == false && AttackPhaseEnable == false && AttackPlayer != 0 && VampireTarget != 0)
+		if (control->id == 1 && AttackPhaseActive == false && AttackPhaseEnable == false && AttackPlayer != 0 && (VampireTarget != 0 || ZombieTarget != 0))
 		{
 			AttackPhase();
 			AttackPhaseEnable = true;
@@ -674,20 +703,36 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 		if (AttackPhaseActive == false && AttackPhaseEnable == true) {
 			AttackPhaseEnable = false;
 		}
-		if (control->id == 2 && VampireTarget != 0)
+		if (control->id == 2 && (VampireTarget != 0 || ZombieTarget != 0))
 		{
 			AttackType = 1;
 			AttackPhaseDisabled();
 			AttackPhaseEnable = false;
 		}
-		if (control->id == 3 && VampireTarget != 0)
+		if (control->id == 3 && (VampireTarget != 0 || ZombieTarget != 0))
 		{
 			AttackType = 2;
 			AttackPhaseDisabled();
 			AttackPhaseEnable = false;
 		}
-		if (control->id == 4)
+		if (control->id == 4 && AttackPlayer == 1 && (VampireTarget != 0 || ZombieTarget != 0) && SpecialAttackEnable == false && app->player->P1.mana >= 60)
 		{
+			app->player->P1.mana -= 60;
+			SpecialAttackEnable = true;
+		}
+		if (control->id == 4 && AttackPlayer == 2 && (VampireTarget != 0 || ZombieTarget != 0) && SpecialAttackEnable == false && app->player->P2.mana >= 80)
+		{
+			app->player->P2.mana -= 80;
+			SpecialAttackEnable = true;
+		}
+		if (control->id == 4 && AttackPlayer == 3 && SpecialAttackEnable == false && app->player->P3.mana >= 25)
+		{
+			app->player->P3.mana -= 25;
+			SpecialAttackEnable = true;
+		}
+		if (control->id == 4 && AttackPlayer == 4 && (VampireTarget != 0 || ZombieTarget != 0) && SpecialAttackEnable == false && app->player->P3.mana >= 40 && app->player->P4.revolverActive == true)
+		{
+			app->player->P4.mana -= 40;
 			SpecialAttackEnable = true;
 		}
 		if (control->id == 5)
@@ -699,9 +744,10 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 		if (control->id == 6 && battle == true) {
 			battle = false;
 			Delay = false;
+			Zombiebattle = false;
+			Vampirebattle = false;
 			timer1 = SDL_GetTicks() / 1000;
 			timer1_ = timer1;
-
 		}
 		if (control->id == 7) {
 			InventoryEnable = false;

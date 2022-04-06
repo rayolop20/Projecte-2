@@ -55,6 +55,7 @@ public:
 	GuiButton* MiniEnemyButton;
 
 	int VampireTarget = 0;
+	int ZombieTarget = 0;
 	int playerTarget = 0;
 	int playerTarget_ = 0;
 
@@ -79,6 +80,7 @@ public:
 
 	void ChoosePlayer();
 	void CheckAllies();
+	void DrawHpBars();
 	void MaxHp();
 
 	bool ChoosePlayerPhase = true;
@@ -108,12 +110,18 @@ public:
 	bool SpecialAttackEnable = false;
 	bool InventoryEnable = false;
 	int* waitPlayer = new int(4 - alliesDead);
+	int* poisonCount = new int(4 - CombatDeaths);
+	int onFireCount;
 
+	bool SpeacialAttackEnd = false;
 
 	bool SpawnedEnemies = false;
 
 	int randomLetterGenerator = 0;
 	bool LetterGenerator = true;
+
+	bool Zombiebattle = false;
+	bool Vampirebattle = false;
 
 	SDL_Texture* TypoSpecialAttack;
 	SDL_Texture* AttackTexture;

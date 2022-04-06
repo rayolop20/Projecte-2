@@ -59,7 +59,6 @@ public:
 
 	bool PostUpdate();
 
-	void DrawHpBars();
 
 	// Called at the end of the application loop
 	// Performs the render call of the player sprite

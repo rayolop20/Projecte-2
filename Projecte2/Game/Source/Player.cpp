@@ -399,6 +399,12 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 				app->BTSystem->battle = true;
 			}
 		}
+		{
+			if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::ZOMBIE && app->BTSystem->Delay == true)
+			{
+				app->BTSystem->battle = true;
+			}
+		}
 
 		//Sensors
 		{
