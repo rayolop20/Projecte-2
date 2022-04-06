@@ -15,7 +15,7 @@ GuiButton::GuiButton(uint32 id, SDL_Rect bounds, const char* text) : GuiControl(
 	canClick = true;
 	drawBasic = false;
 
-	UIText = app->tex->Load("Assets/textures/UI/MainMenuSprite.png");
+	UIText = app->tex->Load("Assets/textures/UI/MainMenu.png");
 
 }
 
@@ -75,8 +75,8 @@ bool GuiButton::Draw(Render* render)
 		//new game
 		if (id == 1)
 		{
-			uitext->x = 41;
-			uitext->y = 854;
+			uitext->x = 160;
+			uitext->y = 930;
 			uitext->w = 194;
 			uitext->h = 52;
 			app->render->DrawTexture(UIText, 150, 150, uitext);
@@ -84,8 +84,8 @@ bool GuiButton::Draw(Render* render)
 		//Options
 		if (id == 2)
 		{
-			uitext->x = 68;
-			uitext->y = 222;
+			uitext->x = 188;
+			uitext->y = 295;
 			uitext->w = 144;
 			uitext->h = 57;
 			app->render->DrawTexture(UIText, 150, 240, uitext);
@@ -93,8 +93,8 @@ bool GuiButton::Draw(Render* render)
 		//Exit
 		if (id == 3)
 		{
-			uitext->x = 137;
-			uitext->y = 553;
+			uitext->x = 256;
+			uitext->y = 627;
 			uitext->w = 78;
 			uitext->h = 51;
 			app->render->DrawTexture(UIText, 150, 420, uitext);
@@ -102,8 +102,8 @@ bool GuiButton::Draw(Render* render)
 		//resume
 		if (id == 5)
 		{
-			uitext->x = 22;
-			uitext->y = 51;
+			uitext->x = 198;
+			uitext->y = 125;
 			uitext->w = 193;
 			uitext->h = 51;
 			app->render->DrawTexture(UIText, -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -app->render->camera.y + 250, uitext);
@@ -111,8 +111,8 @@ bool GuiButton::Draw(Render* render)
 		//return menu
 		if (id == 6)
 		{
-			uitext->x = 68;
-			uitext->y = 222;
+			uitext->x = 228;
+			uitext->y = 1075;
 			uitext->w = 144;
 			uitext->h = 57;
 			app->render->DrawTexture(UIText, -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -app->render->camera.y + 320, uitext);
@@ -120,8 +120,8 @@ bool GuiButton::Draw(Render* render)
 		//Exit
 		if (id == 9)
 		{
-			uitext->x = 137;
-			uitext->y = 553;
+			uitext->x = 256;
+			uitext->y = 627;
 			uitext->w = 78;
 			uitext->h = 51;
 			app->render->DrawTexture(UIText, -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -app->render->camera.y + 390, uitext);
@@ -139,23 +139,23 @@ bool GuiButton::Draw(Render* render)
 		//new game
 		if (id == 1)
 		{
-			uitext->x = 339;
-			uitext->y = 854;
+			uitext->x = 790;
+			uitext->y = 930;
 			uitext->w = 194;
 			uitext->h = 52;
 			app->render->DrawTexture(UIText, 150, 150, uitext);
 
-			uitext->x = 650; //Blood drop
-			uitext->y = 45;
+			/*uitext->x = 1211; //Blood drop
+			uitext->y = 150;
 			uitext->w = 70;
 			uitext->h = 70;
-			app->render->DrawTexture(UIText, 80, 150, uitext);
+			app->render->DrawTexture(UIText, 80, 150, uitext);*/
 		}
 		//options
 		if (id == 2)
 		{
-			uitext->x = 373;
-			uitext->y = 222;
+			uitext->x = 825;
+			uitext->y = 295;
 			uitext->w = 144;
 			uitext->h = 57;
 			app->render->DrawTexture(UIText, 150, 240, uitext);
@@ -163,8 +163,8 @@ bool GuiButton::Draw(Render* render)
 		//Exit
 		if (id == 3)
 		{
-			uitext->x = 442;
-			uitext->y = 553;
+			uitext->x = 893;
+			uitext->y = 627;
 			uitext->w = 78;
 			uitext->h = 51;
 			app->render->DrawTexture(UIText, 150, 420, uitext);
@@ -172,8 +172,8 @@ bool GuiButton::Draw(Render* render)
 		//resume
 		if (id == 5)
 		{
-			uitext->x = 327;
-			uitext->y = 51;
+			uitext->x = 832;
+			uitext->y = 125;
 			uitext->w = 193;
 			uitext->h = 51;
 			app->render->DrawTexture(UIText, -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -app->render->camera.y + 250, uitext);
@@ -182,8 +182,8 @@ bool GuiButton::Draw(Render* render)
 		//return menu
 		if (id == 6)
 		{
-			uitext->x = 373;
-			uitext->y = 222;
+			uitext->x = 858;
+			uitext->y = 1075;
 			uitext->w = 144;
 			uitext->h = 57;
 			app->render->DrawTexture(UIText, -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -app->render->camera.y + 320, uitext);
@@ -191,8 +191,8 @@ bool GuiButton::Draw(Render* render)
 		//Exit
 		if (id == 9)
 		{
-			uitext->x = 442;
-			uitext->y = 553;
+			uitext->x = 893;
+			uitext->y = 627;
 			uitext->w = 78;
 			uitext->h = 51;
 			app->render->DrawTexture(UIText, -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -app->render->camera.y + 390, uitext);
