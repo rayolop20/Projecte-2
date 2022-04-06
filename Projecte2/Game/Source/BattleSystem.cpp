@@ -8,6 +8,7 @@
 #include "EntityManager.h"
 #include "Player.h"
 #include "VampirEnem.h"
+#include "EntityNPC.h"
 #include "Collisions.h"
 #include "BattleSystem.h"
 #include "Scene.h"
@@ -73,6 +74,7 @@ bool battleSystem::Start()
 
 	//L13: TODO 2: Declare an Item and create it using the EntityManager
 	VampirEnem* Vampir = (VampirEnem*)app->entityManager->CreateEntity(EntityType::VAMPYRENEM, 0, { 0,0 });
+	EntityNPC* Npc = (EntityNPC*)app->entityManager->CreateEntity(EntityType::NPC, 0, { 0,0 });
 
 	//L13: TODO 4: Create multiple Items
 	

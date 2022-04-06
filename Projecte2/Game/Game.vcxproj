@@ -94,6 +94,7 @@
     <ClCompile Include="Source\Collider.cpp" />
     <ClCompile Include="Source\Collisions.cpp" />
     <ClCompile Include="Source\EntityManager.cpp" />
+    <ClCompile Include="Source\EntityNPC.cpp" />
     <ClCompile Include="Source\Fonts.cpp" />
     <ClCompile Include="Source\GameMenu.cpp" />
     <ClCompile Include="Source\GuiButton.cpp" />
@@ -123,6 +124,7 @@
     <ClInclude Include="Source\Collisions.h" />
     <ClInclude Include="Source\Entity.h" />
     <ClInclude Include="Source\EntityManager.h" />
+    <ClInclude Include="Source\EntityNPC.h" />
     <ClInclude Include="Source\Fonts.h" />
     <ClInclude Include="Source\GameMenu.h" />
     <ClInclude Include="Source\GuiButton.h" />
