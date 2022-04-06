@@ -30,6 +30,7 @@ class PathFinding;
 class ModuleFonts;
 class CharacterMenu_Screen;
 class GameMenu_Screen;
+class DialogueSystem;
 
 class App
 {
@@ -111,6 +112,7 @@ public:
 	PathFinding* pathfinding;	
 	CharacterMenu_Screen* characterMenu;
 	GameMenu_Screen* gameMenu;
+	DialogueSystem* dialogues;
 
 	float dt = 16.0f;
 private:
