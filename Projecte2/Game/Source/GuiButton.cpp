@@ -75,6 +75,11 @@ bool GuiButton::Draw(Render* render)
 		//new game
 		if (id == 1)
 		{
+			uitext->x = 650;
+			uitext->y = 45;
+			uitext->w = 70;
+			uitext->h = 70;
+			app->render->DrawTexture(UIText, 80, 150, uitext);
 			uitext->x = 41;
 			uitext->y = 854;
 			uitext->w = 194;
