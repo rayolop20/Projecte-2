@@ -24,7 +24,7 @@ struct playr1
 	float damage1 = 20.0;
 	float damage2 = 12.0;
 	float speed = 0.0;
-	float mana = 100.0;
+	float mana = 0.0;
 	float damage = 0.0;
 
 };
@@ -46,7 +46,7 @@ struct playr2
 	float damage1 = 40.0;
 	float damage2 = 12.0;
 	float speed = 0.0;
-	float mana = 110.0;
+	float mana = 0.0;
 	float damage = 0.0;
 };
 
@@ -67,7 +67,7 @@ struct playr3
 	float damage1 = 15.0;
 	float damage2 = 20.0;
 	float speed = 0.0;
-	float mana = 110.0;
+	float mana = 0.0;
 	float damage = 0.0;
 };
 
@@ -78,7 +78,7 @@ struct playr4
 	Collider* Player4C = nullptr;
 	bool P4Active = false;
 	bool Move = false;
-	bool IsAlive = false;
+	bool IsAlive = true;
 	float hp = 50.0;
 	float speed1 = 15.0;
 	float speed2 = 10.0;

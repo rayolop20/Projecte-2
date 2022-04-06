@@ -32,7 +32,7 @@ bool DialogueSystem::Start()
 {
 
 	char lookupTable[] = { "! @,_./0123456789$;< ?abcdefghijklmnopqrstuvwxyz" };
-	scoreFont = app->fonts->Load("Assets/Textures/Fonts/fonts.png", lookupTable, 2);
+	scoreFont = app->fonts->Load("Assets/Textures/Fonts/fonts.png", lookupTable, 5);
 	return true;
 }
 
