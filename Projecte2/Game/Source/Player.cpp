@@ -20,7 +20,46 @@
 Player::Player() : Module()
 {
 	name.Create("players");
+	idleAnim1.PushBack({ 39, 7, 49, 115 });
+	idleAnim1.loop = true;
+	idleAnim1.speed = 0.001f;
 
+	downAnim1.PushBack({ 39, 7, 49, 115 });
+	downAnim1.PushBack({ 167, 7, 49, 117 });
+	downAnim1.PushBack({ 295, 7, 49, 115 });
+	downAnim1.PushBack({ 423, 7, 49, 117 });
+	downAnim1.loop = true;
+	downAnim1.speed = 0.1f;
+
+	leftAnim1.PushBack({ 555, 7, 44, 114 });
+	leftAnim1.PushBack({ 683, 7, 44, 114 });
+	leftAnim1.PushBack({ 811, 7, 44, 114 });
+	leftAnim1.PushBack({ 939, 7, 44, 114 });
+	leftAnim1.loop = true;
+	leftAnim1.speed = 0.1f;
+	
+	rightAnim1.PushBack({ 1065, 7, 44, 114 });
+	rightAnim1.PushBack({ 1193, 7, 44, 114 });
+	rightAnim1.PushBack({ 1321, 7, 44, 114 });
+	rightAnim1.PushBack({ 1449, 7, 44, 114 });
+	rightAnim1.loop = true;
+	rightAnim1.speed = 0.1f;
+
+	upAnim1.PushBack({ 1575, 7, 49, 115 });
+	upAnim1.PushBack({ 1703, 7, 49, 117 });
+	upAnim1.PushBack({ 1831, 7, 49, 115 });
+	upAnim1.PushBack({ 1959, 7, 49, 117 });
+	upAnim1.loop = true;
+	upAnim1.speed = 0.1f;
+
+	/*	idleAnim1.PushBack({ 0, 0, 28, 64});
+	idleAnim1.loop = true;
+	idleAnim1.speed = 0.001f;
+
+	downAnim1.PushBack({ 0, 0, 28, 64 });
+	downAnim1.PushBack({ 71, 0, 29, 64});
+	downAnim1.PushBack({ 143, 7, 29, 64 });
+	downAnim1.PushBack({ 215, 7, 29, 64 });*/
 }
 
 Player::~Player()
@@ -94,15 +133,18 @@ bool Player::Start()
 {
 	bool ret = true;
 
+	currentAnim1 = &idleAnim1;
+
 	//Pres E
 	player1Hp = app->tex->Load("Assets/UI/hpbarplayertest.png");
 	player2Hp = app->tex->Load("Assets/UI/hpbarplayertest2.png");
 	player3Hp = app->tex->Load("Assets/UI/hpbarplayertest3.png");
 	player4Hp = app->tex->Load("Assets/UI/hpbarplayertest4.png");
 	PE = app->tex->Load("Assets/UI/UiIcons.png");
+	player1S = app->tex->Load("Assets/textures/soldier.png");
 	darkness = app->tex->Load("Assets/textures/darkness.png");
 
-	P1.Pcol = app->collisions->AddCollider({ P1.position.x,P1.position.y, 64, 64 }, Collider::Type::PLAYER, this);
+	P1.Pcol = app->collisions->AddCollider({ P1.position.x,P1.position.y, 64, 90 }, Collider::Type::PLAYER, this);
 
 	P2.Player2C = app->collisions->AddCollider({ P2.position.x, P2.position.y, 90, 90 }, Collider::Type::SENSOR_PLAYER2, this);
 
@@ -124,8 +166,8 @@ bool Player::Update(float dt)
 	}
 	//Players
 	{
-		player1 = { P1.position.x,P1.position.y, 64, 64 };
-		app->render->DrawRectangle(player1, 200, 200, 200);
+		//player1 = { P1.position.x,P1.position.y, 64, 64 };
+		//app->render->DrawRectangle(player1, 200, 200, 200);
 	
 		player2 = { P2.position.x, P2.position.y, 42, 42 };
 		app->render->DrawRectangle(player2, 100, 230, 200);
@@ -175,11 +217,13 @@ bool Player::Update(float dt)
 					block2 = true;
 					block1_ = false;
 					block2_ = true;
+					currentAnim1 = &rightAnim1;
 				}
 
 				if (app->input->GetKey(SDL_SCANCODE_D) == KEY_UP)
 				{
 					P1.moveXA = false;
+					currentAnim1 = &idleAnim1;
 				}
 			}
 			//right
@@ -192,11 +236,13 @@ bool Player::Update(float dt)
 					block2 = false;
 					block1_ = true;
 					block2_ = false;
+					currentAnim1 = &leftAnim1;
 				}
 
 				if (app->input->GetKey(SDL_SCANCODE_A) == KEY_UP)
 				{
 					P1.moveXD = false;
+					currentAnim1 = &idleAnim1;
 				}
 			}
 			//up
@@ -205,11 +251,13 @@ bool Player::Update(float dt)
 				{
 					P1.position.y -= 3;
 					P1.moveYS = true;
+					currentAnim1 = &upAnim1;
 				}
 
 				if (app->input->GetKey(SDL_SCANCODE_W) == KEY_UP)
 				{
 					P1.moveYS = false;
+					currentAnim1 = &idleAnim1;
 				}
 			}
 			//down
@@ -218,11 +266,13 @@ bool Player::Update(float dt)
 				{
 					P1.position.y += 3;
 					P1.moveYW = true;
+					currentAnim1 = &downAnim1;
 				}
 
 				if (app->input->GetKey(SDL_SCANCODE_S) == KEY_UP)
 				{
 					P1.moveYW = false;
+					currentAnim1 = &idleAnim1;
 				}
 			}
 		}
@@ -243,6 +293,11 @@ bool Player::Update(float dt)
 bool Player::PostUpdate()
 {
 	//draw player
+	player1 = currentAnim1->GetCurrentFrame();
+
+	app->render->DrawTexture(player1S, P1.position.x + 7, P1.position.y - 20, &player1);
+
+	currentAnim1->Update();
 
 	return true;
 }
