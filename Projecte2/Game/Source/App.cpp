@@ -11,6 +11,8 @@
 #include "EntityManager.h"
 #include "Collisions.h"
 #include "GuiManager.h"
+#include "BattleSystem.h"
+#include "Pathfinding.h"
 #include "Menu.h"
 
 #include "Defs.h"
@@ -38,6 +40,8 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	player = new Player();
 	entityManager = new EntityManager();
 	collisions = new Collisions();
+	BTSystem = new battleSystem();
+	pathfinding = new PathFinding();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -45,7 +49,9 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(input);
 	AddModule(tex);
 	AddModule(audio);
+	AddModule(pathfinding);
 	AddModule(scene);
+	AddModule(BTSystem);
 	AddModule(map);
 	AddModule(guiManager);
 	AddModule(entityManager);
@@ -210,15 +216,12 @@ void App::FinishUpdate()
 		averageFps = (averageFps + framesPerSecond) / 2;
 	}
 
-	static char title[256];
-	sprintf_s(title, 256, "Av.FPS: %.2f Last sec frames: %i Last dt: %.3f Time since startup: %.3f Frame Count: %I64u ",
-		averageFps, framesPerSecond, dt, secondsSinceStartup, frameCount);
+	
 
 	// L08: TODO 2: Use SDL_Delay to make sure you get your capped framerate
 
 	// L08: TODO 3: Measure accurately the amount of time SDL_Delay() actually waits compared to what was expected
 
-	app->win->SetTitle(title);
 }
 
 // Call modules before each loop iteration

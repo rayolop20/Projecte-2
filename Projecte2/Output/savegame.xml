@@ -5,13 +5,15 @@
 	<textures />
 	<audio />
 	<scene />
+	<scene />
 	<map />
 	<guiManager />
 	<entitymanager />
 	<player />
+	<Menu />
 	<:anonymous />
 	<renderer>
-		<camera x="338" y="124" />
-		<Player x="212" y="176" />
+		<camera x="420" y="146" />
+		<Player x="130" y="154" />
 	</renderer>
 </save_state>

@@ -10,8 +10,7 @@ struct Collider;
 
 enum class EntityType
 {
-	PLAYER,
-	FLYINGENEMY,
+	VAMPYRENEM,
 	GROUNDENEMY,
 	ITEM,
 	LIFE,
@@ -33,7 +32,10 @@ public:
 	{
 		return true;
 	}
-
+	virtual bool PostUpdate() 
+	{
+		return true;
+	}
 	virtual bool Draw(Render* render)
 	{
 		return true;

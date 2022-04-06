@@ -25,6 +25,8 @@ class Menu_Screen;
 class Collisions;
 class Player;
 class EntityManager; 
+class battleSystem; 
+class PathFinding;
 
 class App
 {
@@ -101,6 +103,8 @@ public:
 	EntityManager* entityManager; 
 	Collisions* collisions;
 	Menu_Screen* menu;
+	battleSystem* BTSystem;
+	PathFinding* pathfinding;
 private:
 
 	int argc;

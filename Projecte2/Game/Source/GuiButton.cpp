@@ -2,6 +2,10 @@
 #include "Render.h"
 #include "App.h"
 #include "Audio.h"
+#include "Scene.h"
+#include "Window.h"
+#include "Textures.h"
+#include "Animation.h"
 
 GuiButton::GuiButton(uint32 id, SDL_Rect bounds, const char* text) : GuiControl(GuiControlType::BUTTON, id)
 {
@@ -14,7 +18,7 @@ GuiButton::GuiButton(uint32 id, SDL_Rect bounds, const char* text) : GuiControl(
 
 GuiButton::~GuiButton()
 {
-
+	MainMenuUI = app->tex->Load("Assets/UI/MainMenuSprite.png");
 }
 
 bool GuiButton::Update(float dt)
@@ -24,6 +28,9 @@ bool GuiButton::Update(float dt)
 		// L14: TODO 3: Update the state of the GUiButton according to the mouse position
 		int mouseX, mouseY;
 		app->input->GetMousePosition(mouseX, mouseY);
+
+		mouseX += -app->render->camera.x / app->win->GetScale();
+		mouseY += -app->render->camera.y / app->win->GetScale();
 
 		if ((mouseX > bounds.x ) && (mouseX < (bounds.x + bounds.w )) &&
 			(mouseY > bounds.y ) && (mouseY < (bounds.y + bounds.h )))
@@ -56,11 +63,14 @@ bool GuiButton::Draw(Render* render)
 
 	case GuiControlState::DISABLED: 
 	{
+
 		render->DrawRectangle(bounds, 0, 0, 0, 0);
+
 	} break;
 
 	case GuiControlState::NORMAL:
 	{
+		//MainMenuUI.PushBack({});
 		render->DrawRectangle(bounds, 255, 0, 0, 255);
 
 	} break;
@@ -83,6 +93,7 @@ bool GuiButton::Draw(Render* render)
 	default:
 		break;
 	}
+
 
 	return false;
 }

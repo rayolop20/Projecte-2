@@ -22,6 +22,9 @@ public:
 	bool debug = false;
 	bool canClick = true;
 	bool drawBasic = false;
+
+	SDL_Texture* MainMenuUI = nullptr;
+
 };
 
 #endif // __GUIBUTTON_H__

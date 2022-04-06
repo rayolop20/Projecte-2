@@ -2,6 +2,8 @@
 #include "Window.h"
 #include "Render.h"
 #include "Player.h"
+#include "EntityManager.h"
+#include "Entity.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -97,6 +99,10 @@ bool Render::LoadState(pugi::xml_node& data)
 	camera.y = data.child("camera").attribute("y").as_int();
 	app->player->P1.position.x = data.child("Player").attribute("x").as_int();
 	app->player->P1.position.y = data.child("Player").attribute("y").as_int();
+	
+	/*app->entityManager
+		->P1.position.y = data.child("Player").attribute("y").as_int();
+	app->player->P1.position.y = data.child("Player").attribute("y").as_int();*/
 	return true;
 }
 
@@ -128,6 +134,17 @@ void Render::SetViewPort(const SDL_Rect& rect)
 void Render::ResetViewPort()
 {
 	SDL_RenderSetViewport(renderer, &viewport);
+}
+
+iPoint Render::ScreenToWorld(int x, int y) const
+{
+	iPoint ret;
+	int scale = app->win->GetScale();
+
+	ret.x = (x - camera.x / scale);
+	ret.y = (y - camera.y / scale);
+
+	return ret;
 }
 
 // Blit to screen

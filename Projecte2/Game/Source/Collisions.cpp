@@ -5,6 +5,7 @@
 #include "Input.h"
 #include "Scene.h"
 #include "SString.h"
+#include "GuiManager.h"
 
 
 Collisions::Collisions() : Module()
@@ -13,16 +14,32 @@ Collisions::Collisions() : Module()
 		colliders[i] = nullptr;
 
 	matrix[Collider::Type::WALLH][Collider::Type::WALLH] = false;
+	matrix[Collider::Type::WALLH][Collider::Type::WALLV] = false;
 	matrix[Collider::Type::WALLH][Collider::Type::PLAYER] = true;
+	matrix[Collider::Type::WALLH][Collider::Type::VAMPIRE] = true;
 
 	matrix[Collider::Type::PLAYER][Collider::Type::WALLH] = true;
+	matrix[Collider::Type::PLAYER][Collider::Type::WALLV] = true;
+	matrix[Collider::Type::PLAYER][Collider::Type::VAMPIRE] = true;
 	matrix[Collider::Type::PLAYER][Collider::Type::PLAYER] = false;
+	matrix[Collider::Type::PLAYER][Collider::Type::SENSOR] = true;
+	
 	
 	matrix[Collider::Type::WALLV][Collider::Type::WALLV] = false;
+	matrix[Collider::Type::WALLV][Collider::Type::WALLH] = false;
 	matrix[Collider::Type::WALLV][Collider::Type::PLAYER] = true;
+	matrix[Collider::Type::WALLV][Collider::Type::VAMPIRE] = true;
+	
+	matrix[Collider::Type::VAMPIRE][Collider::Type::WALLV] = true;
+	matrix[Collider::Type::VAMPIRE][Collider::Type::WALLH] = true;
+	matrix[Collider::Type::VAMPIRE][Collider::Type::PLAYER] = true;
+	matrix[Collider::Type::VAMPIRE][Collider::Type::VAMPIRE] = false;
 
-	matrix[Collider::Type::PLAYER][Collider::Type::WALLV] = true;
-	matrix[Collider::Type::PLAYER][Collider::Type::PLAYER] = false;
+	matrix[Collider::Type::SENSOR][Collider::Type::WALLV] = false;
+	matrix[Collider::Type::SENSOR][Collider::Type::WALLH] = false;
+	matrix[Collider::Type::SENSOR][Collider::Type::PLAYER] = true;
+	matrix[Collider::Type::SENSOR][Collider::Type::VAMPIRE] = false;
+	matrix[Collider::Type::SENSOR][Collider::Type::SENSOR] = false;
 }
 
 // Destructor
@@ -90,6 +107,9 @@ bool Collisions::PostUpdate()
 	if (debug)
 		DebugDraw();
 
+	if (app->scene->paused)
+		app->guiManager->Draw();
+
 	return true;
 }
 
@@ -114,6 +134,12 @@ void Collisions::DebugDraw()
 			break;
 		case Collider::Type::PLAYER: // green
 			app->render->DrawRectangle(colliders[i]->rect, 0, 255, 0, alpha);
+			break;
+		case Collider::Type::VAMPIRE: // RED
+			app->render->DrawRectangle(colliders[i]->rect, 255, 0, 0, alpha);
+			break;
+		case Collider::Type::SENSOR: // Blue
+			app->render->DrawRectangle(colliders[i]->rect, 0, 0, 255, alpha);
 			break;
 		}
 	}

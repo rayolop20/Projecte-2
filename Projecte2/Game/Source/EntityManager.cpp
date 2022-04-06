@@ -1,7 +1,7 @@
 #include "EntityManager.h"
-#include "Item.h"
+//#include "Item.h"
 #include "App.h"
-
+#include "VampirEnem.h"
 #include "Defs.h"
 #include "Log.h"
 
@@ -47,8 +47,26 @@ Entity* EntityManager::CreateEntity(EntityType type, int id, SDL_Rect bounds)
 {
 	Entity* entity = nullptr; 
 
-	//L13: TODO 1: Create an Entity and add it to the list of Entities
+	//L13:L13: TODO 1: Create an Entity and add it to the list of Entities
+	switch (type)
+	{
+	case EntityType::VAMPYRENEM:entity = new VampirEnem();
+		break;
+	case EntityType::GROUNDENEMY:
+		break;
+	case EntityType::ITEM:
+		break;
+	case EntityType::LIFE:
+		break;
+	case EntityType::UNKNOWN:
+		break;
+	default:
+		break;
+	}
+	
+	entity->Start();
 
+	if (entity != nullptr) entities.add(entity);
 
 	return entity;
 }
@@ -70,6 +88,7 @@ void EntityManager::AddEntity(Entity* entity)
 
 bool EntityManager::Update(float dt)
 {
+
 	accumulatedTime += dt;
 	if (accumulatedTime >= updateMsCycle) doLogic = true;
 
@@ -80,9 +99,10 @@ bool EntityManager::Update(float dt)
 		accumulatedTime = 0.0f;
 		doLogic = false;
 	}
-
+	entities[0]->PostUpdate();
 	return true;
 }
+
 
 bool EntityManager::UpdateAll(float dt, bool doLogic)
 {
@@ -153,4 +173,14 @@ bool EntityManager::Draw() {
 
 	return ret;
 
+}
+
+void EntityManager::OnCollision(Collider* c1, Collider* c2)
+{
+	if (c1->type == Collider::Type::VAMPIRE && c2->type == Collider::Type::PLAYER) {
+		entities[0]->OnCollision(c1, c2);
+	}
+	if (c1->type == Collider::Type::SENSOR && c2->type == Collider::Type::PLAYER) {
+		entities[0]->OnCollision(c1, c2);
+	}
 }

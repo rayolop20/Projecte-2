@@ -4,6 +4,7 @@
 #include "Module.h"
 #include "List.h"
 #include "Point.h"
+#include "Collisions.h"
 
 #include "PugiXml\src\pugixml.hpp"
 
@@ -34,7 +35,6 @@ enum MapTypes
 {
 	MAPTYPE_UNKNOWN = 0,
 	MAPTYPE_ORTHOGONAL,
-	MAPTYPE_ISOMETRIC,
 	MAPTYPE_STAGGERED
 };
 
@@ -139,6 +139,8 @@ public:
 	// L05: DONE 2: Add orthographic world to map coordinates
 	iPoint WorldToMap(int x, int y) const;
 
+	bool CreateWalkabilityMap(int& width, int& height, uchar** buffer) const;
+
 private:
 
 	// L03: Methods to load all required map data
@@ -161,7 +163,7 @@ public:
 
     // L03: DONE 1: Add your struct for map info
 	MapData mapData;
-	Collider* MapC[500];
+	Collider* MapC[MAX_COLLIDERS];
 private:
 
     SString folder;

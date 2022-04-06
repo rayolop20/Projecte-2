@@ -34,22 +34,34 @@ public:
 
 	bool OnGuiMouseClickEvent(GuiControl* control);
 
+	void Menu();
+
+	void MenuConfig();
+
 	// Called before quitting
 	bool CleanUp();
 	bool EScreen = true;
-	bool MenuScreen = true;
+	bool menuScreen = true;
+	bool exit = false;
+	bool starting = true;
+	bool config = false;
 
 private:
 
-	int ClickFx = 1;
+	int clickFx = 1;
 
 	
 
-	SDL_Texture* Enter = nullptr;
+	SDL_Texture* enter = nullptr;
 
 	// L12b: Debug pathfing
 	iPoint origin;
-	GuiButton* btnPlay;
+	GuiButton* btnMenuPlay;
+	GuiButton* btnMenuConfig;
+	GuiButton* btnMenuExit;
+
+	GuiButton* btnConfigEx1;
+	GuiButton* btnConfigBack;
 
 
 };
