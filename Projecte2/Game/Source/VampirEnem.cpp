@@ -84,13 +84,11 @@ bool VampirEnem::Update(float dt)
 {
 	
 	static char title[256];
-	if (app->BTSystem->Vampirebattle == true) {
-	//	sprintf_s(title, 256, "ENEMH1: %.1f ENEMHP2: %.1f ENEMH3: %.1f ENEMHP4: %.1f Playerhp1: %.1f Playerhp2: %.1f Playerhp3: %.1f Playerhp4: %.1f",
-		///Vpir[1].hp, Vpir[2].hp, Vpir[3].hp, Vpir[4].hp, app->player->P1.hp, app->player->P2.hp, app->player->P3.hp, app->player->P4.hp);
-	}
+	sprintf_s(title, 256, "ENEMH1: %.1f ENEMHP2: %.1f ENEMH3: %.1f ENEMHP4: %.1f Playerhp1: %.1f Playerhp2: %.1f Playerhp3: %.1f Playerhp4: %.1f",
+	Vpir[1].hp, Vpir[2].hp, Vpir[3].hp, Vpir[4].hp, app->player->P1.hp, app->player->P2.hp, app->player->P3.hp, app->player->P4.hp);
+	app->win->SetTitle(title);
 
-	//app->win->SetTitle(title);
-	if (app->BTSystem->battle == true && app->player->P1.IsAlive == true) {
+	if (app->BTSystem->battle == true && app->player->P1.IsAlive == true && app->BTSystem->Vampirebattle) {
 		if (app->BTSystem->SpawnedEnemies == false) {
 			SpawnEnemies();
 		}
@@ -421,9 +419,10 @@ void VampirEnem::Combat() {
 
 void VampirEnem::SpawnEnemies() {
 	if (app->BTSystem->Vampirebattle == true) {
+		srand(time(NULL));
+
 		for (int i = 1; i < Vpir[0].numEnemies + 1; i++) {
 			Vpir[i].dead = false;
-			srand(time(NULL));
 			randomEnemyhp = (rand() % 10) + 1;
 			randomEnemySpeed = (rand() % 6) + 1;
 			randomEnemyDamage = (rand() % 6) + 1;
@@ -431,14 +430,11 @@ void VampirEnem::SpawnEnemies() {
 				Vpir[i].hp += randomEnemyhp;
 				Vpir[i].speed += randomEnemySpeed;
 				Vpir[i].damage += randomEnemyDamage;
-				klk = false;
 			}
-			randomEnemyhp = (rand() % 10) + 1;
-			randomEnemySpeed = (rand() % 6) + 1;
-			randomEnemyDamage = (rand() % 6) + 1;
 
 		}
 	}
+	klk = false;
 	app->BTSystem->SpawnedEnemies = true;
 }
 

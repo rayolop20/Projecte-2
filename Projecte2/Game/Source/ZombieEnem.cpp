@@ -84,11 +84,11 @@ bool ZombieEnem::Update(float dt)
 {
 	static char title[256];
 	sprintf_s(title, 256, "ENEMH1: %.1f ENEMHP2: %.1f ENEMH3: %.1f ENEMHP4: %.1f Playerhp1: %.1f Playerhp2: %.1f Playerhp3: %.1f Playerhp4: %.1f",
-	Zbie[1].hp, Zbie[2].hp, Zbie[3].hp, Zbie[4].hp, app->player->P1.hp, app->player->P2.hp, app->player->P3.hp, app->player->P4.hp);
+Zbie[1].hp, Zbie[2].hp, Zbie[3].hp, Zbie[4].hp, app->player->P1.hp, app->player->P2.hp, app->player->P3.hp, app->player->P4.hp);
 
 	app->win->SetTitle(title);
 	
-	if (app->BTSystem->battle == true && app->player->P1.IsAlive == true) {
+	if (app->BTSystem->battle == true && app->player->P1.IsAlive == true && app->BTSystem->Zombiebattle) {
 		if (app->BTSystem->SpawnedEnemies == false) {
 			SpawnEnemies();
 		}
@@ -418,10 +418,9 @@ void ZombieEnem::Combat() {
 
 void ZombieEnem::SpawnEnemies() {
 	if (app->BTSystem->Zombiebattle == true) {
-
+		srand(time(NULL));
 		for (int i = 1; i < Zbie[0].numEnemies + 1; i++) {
 			Zbie[i].dead = false;
-			srand(time(NULL));
 			randomEnemyhp = (rand() % 10) + 1;
 			randomEnemySpeed = (rand() % 6) + 1;
 			randomEnemyDamage = (rand() % 6) + 1;
@@ -429,12 +428,10 @@ void ZombieEnem::SpawnEnemies() {
 				Zbie[i].hp += randomEnemyhp;
 				Zbie[i].speed += randomEnemySpeed;
 				Zbie[i].damage += randomEnemyDamage;
-
 			}
 		}
-		app->BTSystem->SpawnedEnemies = true;
 		klk = false;
-
+		app->BTSystem->SpawnedEnemies = true;
 	}
 }
 
