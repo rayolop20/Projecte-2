@@ -76,6 +76,7 @@ private:
 
 	int AttackType = 0;
 	bool battle;
+	bool battle1 = true;
 	bool battleAux = false;
 	bool AttackPhaseActive;
 	bool AttackPhaseEnable = false;
@@ -92,6 +93,8 @@ private:
 
 	void ChoosePlayer();
 	void CheckAllies();
+	void MaxHp();
+
 	bool ChoosePlayerPhase = true;
 
 	int alliesDead = 0;
@@ -130,6 +133,7 @@ private:
 	bool LetterGenerator = true;
 
 	SDL_Texture* TypoSpecialAttack;
+	SDL_Texture* AttackTexture;
 private:
 
 

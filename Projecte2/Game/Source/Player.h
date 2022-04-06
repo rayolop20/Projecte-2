@@ -26,37 +26,24 @@ struct playr1
 	float speed = 0.0;
 	float mana = 0.0;
 	float damage = 0.0;
-	
 
 };
 
 struct playr2
 {
-<<<<<<< Updated upstream
 	//French
 	bool IsAlive = false;
-=======
 	//American
 	bool IsAlive = true;
->>>>>>> Stashed changes
 	float hp = 40.0;
 	float speed1 = 5.0;
 	float speed2 = 15.0;
-	float luck = 0.0;
-	float mana1 = 35.0;
-	float mana2 = 35.0;
-	float damage1 = 15.0;
-	float damage2 = 20.0;
-	float speed = 0.0;
-	float mana = 0.0;
-	float damage = 0.0;
-	
-};
-
-struct playr3
-{
 	//Russian
-	bool IsAlive = true;
+	iPoint position;
+	Collider* Player2C = nullptr;
+	bool P2Active = false;
+	bool IsAlive = false;
+	bool Move = false;
 	float hp = 45.0;
 	float speed1 = 0.0;
 	float speed2 = 10.0;
@@ -70,10 +57,35 @@ struct playr3
 	float damage = 0.0;
 };
 
+struct playr3
+{
+	//American
+	iPoint position;
+	Collider* Player3C = nullptr;
+	bool P3Active = false;
+	bool Move = false;
+	bool IsAlive = false;
+	float hp = 40.0;
+	float speed1 = 5.0;
+	float speed2 = 15.0;
+	float luck = 0.0;
+	float mana1 = 35.0;
+	float mana2 = 35.0;
+	float damage1 = 15.0;
+	float damage2 = 20.0;
+	float speed = 0.0;
+	float mana = 0.0;
+	float damage = 0.0;
+};
+
 struct playr4
 {
 	//Italian
-	bool IsAlive = true;
+	iPoint position;
+	Collider* Player4C = nullptr;
+	bool P4Active = false;
+	bool Move = false;
+	bool IsAlive = false;
 	float hp = 50.0;
 	float speed1 = 15.0;
 	float speed2 = 10.0;
@@ -89,14 +101,13 @@ struct playr4
 
 struct playr5
 {
-<<<<<<< Updated upstream
 	//American
 	bool IsAlive = true;
-=======
 	
 	//French
 	bool IsAlive = false;
->>>>>>> Stashed changes
+	//French
+	bool IsAlive = false;
 	float hp = 50.0;
 	float speed1 = 20.0;
 	float speed2 = 15.0;
@@ -121,9 +132,14 @@ public:
 	// Destructor
 	~Player();
 
+	bool LoadState(pugi::xml_node&);
+
+	bool SaveState(pugi::xml_node&) const;
+
 	bool Awake(pugi::xml_node&);
 	// Called when the module is activated
 	// Loads the necessary textures for the player
+
 	bool Start();
 
 	// Called at the middle of the application loop
@@ -137,8 +153,7 @@ public:
 	// Collision callback, called when the player intersects with another collider
 	void OnCollision(Collider* c1, Collider* c2);
 
-
-
+	void movementPlayer();
 	//int Timer(int second);
 	playr1 P1;
 	playr2 P2;
@@ -155,9 +170,30 @@ public:
 	bool block3_ = true;
 	bool block4_ = true;
 
+
 public:
-	SDL_Rect player;
-	Collider* wall = nullptr;
+	SDL_Rect player1;
+	SDL_Rect player2;
+	SDL_Rect player3;
+	SDL_Rect player4;
+	SDL_Rect player5;
+	SDL_Texture* PE;
+	SDL_Texture* darkness;
+
+	SDL_Texture* player1Hp = nullptr;
+	SDL_Texture* player2Hp = nullptr;
+	SDL_Texture* player3Hp = nullptr;
+	SDL_Texture* player4Hp = nullptr;
+
+	SDL_Texture* player1S = nullptr;
+
+	Animation* currentAnim1;
+	Animation idleAnim1;
+	Animation downAnim1;
+	Animation upAnim1;
+	Animation rightAnim1;
+	Animation leftAnim1;
+	int OrdenPlayers = 0;
 
 	iPoint resetPlayerPos;
 };

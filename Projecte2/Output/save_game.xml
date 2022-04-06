@@ -8,7 +8,10 @@
 	<scene />
 	<renderer>
 		<camera x="0" y="0" />
-		<Player x="0" y="0" />
+		<Player1 x="0" y="0" />
+		<Player2 x="0" y="0" />
+		<Player3 x="0" y="0" />
+		<Player4 x="0" y="0" />
 		<Vampire x="0" y="0" />
 	</renderer>
 </game_state>

@@ -27,6 +27,9 @@ class Player;
 class EntityManager; 
 class battleSystem; 
 class PathFinding;
+class ModuleFonts;
+class CharacterMenu_Screen;
+class GameMenu_Screen;
 
 class App
 {
@@ -102,9 +105,14 @@ public:
 	Player* player;
 	EntityManager* entityManager; 
 	Collisions* collisions;
+	ModuleFonts* fonts;
 	Menu_Screen* menu;
 	battleSystem* BTSystem;
-	PathFinding* pathfinding;
+	PathFinding* pathfinding;	
+	CharacterMenu_Screen* characterMenu;
+	GameMenu_Screen* gameMenu;
+
+	float dt = 16.0f;
 private:
 
 	int argc;
@@ -136,7 +144,7 @@ private:
 	uint32 lastSecFrameCount = 0;
 
 	float averageFps = 0.0f;
-	float dt = 0.0f;
+
 };
 
 extern App* app;
