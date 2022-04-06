@@ -94,11 +94,12 @@ bool VampirEnem::Update(float dt)
 		}
 		DrawEnemies();
 		ChooseEnemy();
+		Combat();
 		if (app->BTSystem->PlayerTurn == false)  {
 			CheckEnemy();
+
 			EnemyPhase();
 		}
-		Combat();
 	}
 	else if (app->BTSystem->battleAux == true) {
 		app->BTSystem->battleAux = false;
@@ -413,6 +414,99 @@ void VampirEnem::Combat() {
 			}
 
 		}
+		if (app->BTSystem->AttackPlayer == 1 && app->BTSystem->SpecialAttackEnable == false && app->BTSystem->SpeacialAttackEnd == true) {
+			Vpir[app->BTSystem->VampireTarget].poisoned = true;
+			Vpir[app->BTSystem->VampireTarget].hp -= (20 * app->BTSystem->AttackAux) / 100;
+			app->BTSystem->AttackAux = 0;
+			app->BTSystem->VampireTarget = 0;
+			app->BTSystem->randomAux = false;
+			app->BTSystem->AttackPlayer = 0;
+			app->BTSystem->AttackType = 0;
+			app->BTSystem->AttackPhaseActive = false;
+			app->BTSystem->AttackPhaseEnable = false;
+			app->BTSystem->ChoosePlayerPhase = true;
+			app->BTSystem->waitPlayer[0]++;
+			app->BTSystem->PlayerTurn = false;
+			for (int i = 0; i <= 4; i++) {
+				if (app->BTSystem->waitPlayer[i] != 0) {
+					app->BTSystem->waitPlayer[i] += 1;
+				}
+				if (app->BTSystem->waitPlayer[i] >= 5 - app->BTSystem->alliesDead) {
+					app->BTSystem->waitPlayer[i] = 0;
+				}
+			}
+		}
+		if (app->BTSystem->AttackPlayer == 2 && app->BTSystem->SpecialAttackEnable == false && app->BTSystem->SpeacialAttackEnd == true) {
+			Vpir[0].onFire = true;
+			Vpir[1].onFire = true;
+			Vpir[2].onFire = true;
+			Vpir[3].onFire = true;
+			Vpir[4].onFire = true;
+			Vpir[app->BTSystem->VampireTarget].hp -= (15 * app->BTSystem->AttackAux) / 100;
+			app->BTSystem->AttackAux = 0;
+			app->BTSystem->VampireTarget = 0;
+			app->BTSystem->randomAux = false;
+			app->BTSystem->AttackPlayer = 0;
+			app->BTSystem->AttackType = 0;
+			app->BTSystem->AttackPhaseActive = false;
+			app->BTSystem->AttackPhaseEnable = false;
+			app->BTSystem->ChoosePlayerPhase = true;
+			app->BTSystem->waitPlayer[1]++;
+			app->BTSystem->PlayerTurn = false;
+			for (int i = 0; i <= 4; i++) {
+				if (app->BTSystem->waitPlayer[i] != 0) {
+					app->BTSystem->waitPlayer[i] += 1;
+				}
+				if (app->BTSystem->waitPlayer[i] >= 5 - app->BTSystem->alliesDead) {
+					app->BTSystem->waitPlayer[i] = 0;
+				}
+			}
+		}
+		if (app->BTSystem->AttackPlayer == 3 && app->BTSystem->SpecialAttackEnable == false && app->BTSystem->SpeacialAttackEnd == true) {
+			app->player->P3.hp += (18 * app->BTSystem->AttackAux) / 100;
+			app->BTSystem->AttackAux = 0;
+			app->BTSystem->VampireTarget = 0;
+			app->BTSystem->randomAux = false;
+			app->BTSystem->AttackPlayer = 0;
+			app->BTSystem->AttackType = 0;
+			app->BTSystem->AttackPhaseActive = false;
+			app->BTSystem->AttackPhaseEnable = false;
+			app->BTSystem->ChoosePlayerPhase = true;
+			app->BTSystem->waitPlayer[2]++;
+			app->BTSystem->PlayerTurn = false;
+			for (int i = 0; i <= 4; i++) {
+				if (app->BTSystem->waitPlayer[i] != 0) {
+					app->BTSystem->waitPlayer[i] += 1;
+				}
+				if (app->BTSystem->waitPlayer[i] >= 5 - app->BTSystem->alliesDead) {
+					app->BTSystem->waitPlayer[i] = 0;
+				}
+			}
+		}
+		if (app->BTSystem->AttackPlayer == 4 && app->BTSystem->SpecialAttackEnable == false && app->BTSystem->SpeacialAttackEnd == true) {
+			Vpir[app->BTSystem->VampireTarget].hp -= (75 * app->BTSystem->AttackAux) / 100;
+			app->BTSystem->AttackAux = 0;
+			app->BTSystem->VampireTarget = 0;
+			app->BTSystem->randomAux = false;
+			app->BTSystem->AttackPlayer = 0;
+			app->BTSystem->AttackType = 0;
+			app->BTSystem->AttackPhaseActive = false;
+			app->BTSystem->AttackPhaseEnable = false;
+			app->BTSystem->ChoosePlayerPhase = true;
+			app->BTSystem->waitPlayer[1]++;
+			app->BTSystem->PlayerTurn = false;
+			app->player->P4.revolverActive = false;
+			for (int i = 0; i <= 4; i++) {
+				if (app->BTSystem->waitPlayer[i] != 0) {
+					app->BTSystem->waitPlayer[i] += 1;
+				}
+				if (app->BTSystem->waitPlayer[i] >= 5 - app->BTSystem->alliesDead) {
+					app->BTSystem->waitPlayer[i] = 0;
+				}
+			}
+		}
+
+		app->BTSystem->SpeacialAttackEnd = false;
 		app->BTSystem->alliesDead = 0;
 	}
 }
@@ -556,7 +650,7 @@ void VampirEnem::EnemyPhase() {
 						randomNumber = (rand() % 100) + 1;
 						app->player->P1.hp -= Vpir[app->BTSystem->playerTarget].damage;
 					} while (randomNumber <= Vpir[app->BTSystem->playerTarget].speed);
-					app->BTSystem->PlayerTurn = true;
+   					app->BTSystem->PlayerTurn = true;
 				}
 				if (app->BTSystem->playerTarget == 2 && app->player->P2.IsAlive == true) {
 					int randomNumber = 0;
@@ -588,12 +682,38 @@ void VampirEnem::EnemyPhase() {
 
 			}
 		}
+		app->BTSystem->SpecialAttackEnable = false;
 		app->BTSystem->alliesDead = 0;
 	}
 }
 
 void VampirEnem::CheckEnemy() {
 	if (app->BTSystem->Vampirebattle == true) {
+		for (int i = 0; i < 5; i++) {
+   			if (Vpir[i].poisoned == true && app->BTSystem->SpecialAttackEnable == false) {
+   				Vpir[i].hp -= 2;
+				app->BTSystem->poisonCount[i]++;
+				app->BTSystem->SpecialAttackEnable = true;
+			}
+			if (app->BTSystem->poisonCount[i] >= 10) {
+				app->BTSystem->poisonCount[i] = 0;
+				Vpir[i].poisoned = false;
+			}
+			if (Vpir[i].onFire == true && app->BTSystem->SpecialAttackEnable == false) {
+				Vpir[i].hp -= 10;
+			}
+			if (app->BTSystem->onFireCount != 0 && Vpir[0].onFire == true) {
+				app->BTSystem->onFireCount++;
+			}
+			if (app->BTSystem->onFireCount >= 3) {
+				app->BTSystem->onFireCount = 0;
+				Vpir[0].onFire = false;
+				Vpir[1].onFire = false;
+				Vpir[2].onFire = false;
+				Vpir[3].onFire = false;
+				Vpir[4].onFire = false;
+			}
+		}
 		for (int i = 1; i < Vpir[0].numEnemies + 1; i++) {
 			if (Vpir[i].hp <= 0) {
 				Vpir[i].dead = true;
@@ -604,11 +724,12 @@ void VampirEnem::CheckEnemy() {
 				app->BTSystem->Vampirebattle = false;
 				app->BTSystem->battleWin = false;
 				app->BTSystem->battle1 = false;
-
+				app->player->P4.revolverActive = true;
 				Vpir[0].Destroyed = true;
 				klk = true;
 			}
 		}
+		app->BTSystem->PlayerTurn = true;
 		app->BTSystem->CombatDeaths = 0;
 	}
 }

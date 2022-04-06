@@ -83,10 +83,10 @@ bool ZombieEnem::Start()
 bool ZombieEnem::Update(float dt)
 {
 	static char title[256];
-	sprintf_s(title, 256, "ENEMH1: %.1f ENEMHP2: %.1f ENEMH3: %.1f ENEMHP4: %.1f Playerhp1: %.1f Playerhp2: %.1f Playerhp3: %.1f Playerhp4: %.1f",
-Zbie[1].hp, Zbie[2].hp, Zbie[3].hp, Zbie[4].hp, app->player->P1.hp, app->player->P2.hp, app->player->P3.hp, app->player->P4.hp);
+	//sprintf_s(title, 256, "ENEMH1: %.1f ENEMHP2: %.1f ENEMH3: %.1f ENEMHP4: %.1f Playerhp1: %.1f Playerhp2: %.1f Playerhp3: %.1f Playerhp4: %.1f",
+//Zbie[1].hp, Zbie[2].hp, Zbie[3].hp, Zbie[4].hp, app->player->P1.hp, app->player->P2.hp, app->player->P3.hp, app->player->P4.hp);
 
-	app->win->SetTitle(title);
+	//app->win->SetTitle(title);
 	
 	if (app->BTSystem->battle == true && app->player->P1.IsAlive == true && app->BTSystem->Zombiebattle) {
 		if (app->BTSystem->SpawnedEnemies == false) {

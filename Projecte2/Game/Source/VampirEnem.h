@@ -21,10 +21,12 @@ struct Vampire
 	bool Destroyed = false;
 	uint vCount = 0;
 	bool dead = false;
-	float hp = 65.0;
-	float damage = 17.0;
+	float hp = 105.0;
+	float damage = 1.0;
 	float speed = 17.0;
 	int numEnemies = 4;
+	bool poisoned = false;
+	bool onFire = false;
 };
 
 class VampirEnem : public Entity
