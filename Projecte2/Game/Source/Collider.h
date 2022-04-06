@@ -3,7 +3,7 @@
 
 #include "SDL/include/SDL_Rect.h"
 
-#define MAX_LISTENERS 15
+#define MAX_LISTENERS 18
 
 class Module;
 
@@ -14,6 +14,7 @@ struct Collider
 		NONE = -1,
 		PLAYER,
 		VAMPIRE,
+		ZOMBIE,
 		NPC,
 		WALLV,
 		WALLH,

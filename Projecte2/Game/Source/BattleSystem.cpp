@@ -8,6 +8,7 @@
 #include "EntityManager.h"
 #include "Player.h"
 #include "VampirEnem.h"
+#include "ZombieEnem.h"
 #include "EntityNPC.h"
 #include "Collisions.h"
 #include "BattleSystem.h"
@@ -73,7 +74,8 @@ bool battleSystem::Start()
 	//app->audio->PlayMusic("Assets/audio/music/music_spy.ogg");
 
 	//L13: TODO 2: Declare an Item and create it using the EntityManager
-	VampirEnem* Vampir = (VampirEnem*)app->entityManager->CreateEntity(EntityType::VAMPYRENEM, 0, { 0,0 });
+	VampirEnem* Vampir = (VampirEnem*)app->entityManager->CreateEntity(EntityType::VAMPYR, 0, { 0,0 });
+	ZombieEnem* Zombies = (ZombieEnem*)app->entityManager->CreateEntity(EntityType::ZOMBIE, 0, { 0,0 });
 	EntityNPC* Npc = (EntityNPC*)app->entityManager->CreateEntity(EntityType::NPC, 0, { 0,0 });
 
 	//L13: TODO 4: Create multiple Items

@@ -2,6 +2,7 @@
 //#include "Item.h"
 #include "App.h"
 #include "VampirEnem.h"
+#include "ZombieEnem.h"
 #include "EntityNPC.h"
 #include "Defs.h"
 #include "Log.h"
@@ -51,7 +52,9 @@ Entity* EntityManager::CreateEntity(EntityType type, int id, SDL_Rect bounds)
 	//L13:L13: TODO 1: Create an Entity and add it to the list of Entities
 	switch (type)
 	{
-	case EntityType::VAMPYRENEM:entity = new VampirEnem();
+	case EntityType::VAMPYR:entity = new VampirEnem();
+		break;
+	case EntityType::ZOMBIE:entity = new ZombieEnem();
 		break;
 	case EntityType::NPC:entity = new EntityNPC();
 		break;
@@ -104,6 +107,7 @@ bool EntityManager::Update(float dt)
 	}
 	entities[0]->PostUpdate();
 	entities[1]->PostUpdate();
+	entities[2]->PostUpdate();
 	return true;
 }
 
@@ -184,11 +188,15 @@ void EntityManager::OnCollision(Collider* c1, Collider* c2)
 	if (c1->type == Collider::Type::VAMPIRE && c2->type == Collider::Type::PLAYER) {
 		entities[0]->OnCollision(c1, c2);
 	}
-	if (c1->type == Collider::Type::NPC && c2->type == Collider::Type::PLAYER) {
+	if (c1->type == Collider::Type::ZOMBIE && c2->type == Collider::Type::PLAYER) {
 		entities[1]->OnCollision(c1, c2);
+	}
+	if (c1->type == Collider::Type::NPC && c2->type == Collider::Type::PLAYER) {
+		entities[2]->OnCollision(c1, c2);
 	}
 	if (c1->type == Collider::Type::SENSOR && c2->type == Collider::Type::PLAYER) {
 		entities[0]->OnCollision(c1, c2);
 		entities[1]->OnCollision(c1, c2);
+		entities[2]->OnCollision(c1, c2);
 	}
 }

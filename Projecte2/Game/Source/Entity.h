@@ -10,7 +10,8 @@ struct Collider;
 
 enum class EntityType
 {
-	VAMPYRENEM,
+	VAMPYR,
+	ZOMBIE,
 	NPC,
 	GROUNDENEMY,
 	ITEM,
