@@ -1,5 +1,5 @@
-#ifndef __MENU_SCENE_H__
-#define __MENU_SCENE_H__
+#ifndef __MENU_OPCION_H__
+#define __MENU_OPCION_H__
 
 #include "Module.h"
 #include "Point.h"
@@ -8,14 +8,14 @@
 #include "GuiSlider.h"
 struct SDL_Texture;
 
-class Menu_Screen : public Module
+class Opcion_Menu : public Module
 {
 public:
 
-	Menu_Screen();
+	Opcion_Menu();
 
 	// Destructor
-	virtual ~Menu_Screen();
+	virtual ~Opcion_Menu();
 
 	// Called before render is available
 	bool Awake();
@@ -50,10 +50,9 @@ private:
 
 	int clickFx = 1;
 
-	
+
 
 	SDL_Texture* enter = nullptr;
-	SDL_Texture* AdventureText = nullptr;
 
 	// L12b: Debug pathfing
 	iPoint origin;
@@ -67,4 +66,4 @@ private:
 
 };
 
-#endif // __MENU_SCENE_H__
+#endif // __MENU_OPCION_H__

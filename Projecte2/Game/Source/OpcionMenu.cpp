@@ -6,26 +6,25 @@
 #include "Window.h"
 #include "Player.h"
 #include "Scene.h"
-#include "Menu.h"
+#include "OpcionMenu.h"
 #include "GuiManager.h"
-#include "EntityManager.h"
 
 #include "Defs.h"
 #include "Log.h"
 
-Menu_Screen::Menu_Screen() : Module()
+Opcion_Menu::Opcion_Menu() : Module()
 {
 	name.Create("Menu");
 }
 
 // Destructor
-Menu_Screen::~Menu_Screen()
+Opcion_Menu::~Opcion_Menu()
 {
 
 }
 
 // Called before render is available
-bool Menu_Screen::Awake()
+bool Opcion_Menu::Awake()
 {
 	LOG("Loading Menu");
 	bool ret = true;
@@ -34,46 +33,30 @@ bool Menu_Screen::Awake()
 }
 
 // Called before the first frame
-bool Menu_Screen::Start()
+bool Opcion_Menu::Start()
 {
-
-	AdventureText = app->tex->Load("Assets/textures/UI/MainMenuSprite.png");
 
 	if (app->scene->active == true)
 	{
 		app->scene->Disable();
 	}
-	
+
 	if (app->player->active == true)
 	{
 		app->player->Disable();
 	}
-
-	if (app->entityManager->active == true)
-	{
-		app->entityManager->Disable();
-	}
 	return true;
 }
 
 // Called each loop iteration
-bool Menu_Screen::PreUpdate()
+bool Opcion_Menu::PreUpdate()
 {
 	return true;
 }
 
 // Called each loop iteration
-bool Menu_Screen::Update(float dt)
+bool Opcion_Menu::Update(float dt)
 {
-	SDL_Rect* Adventure = new SDL_Rect();
-	Adventure->x = 22;
-	Adventure->y = 51;
-	Adventure->w = 193;
-	Adventure->h = 51;
-
-	app->render->DrawTexture(AdventureText, 150, 150, Adventure);
-
-
 	if (!app->scene->paused && starting)
 	{
 		Menu();
@@ -100,7 +83,7 @@ bool Menu_Screen::Update(float dt)
 
 	//SDL_Rect Play{ 150, 150, 150, 90 };
 	//app->render->DrawRectangle(Play, 200, 200, 200);
-	
+
 	int mouseX, mouseY;
 	app->input->GetMousePosition(mouseX, mouseY);
 
@@ -110,7 +93,7 @@ bool Menu_Screen::Update(float dt)
 }
 
 // Called each loop iteration
-bool Menu_Screen::PostUpdate()
+bool Opcion_Menu::PostUpdate()
 {
 	bool ret = true;
 	if (exit == true) ret = false;
@@ -120,7 +103,7 @@ bool Menu_Screen::PostUpdate()
 	return ret;
 }
 
-void Menu_Screen::Menu()
+void Opcion_Menu::Menu()
 {
 	btnMenuPlay = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Play", { 150, 150, 150, 60 }, this);
 	btnMenuConfig = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Config", { 150, 240, 150, 30 }, this);
@@ -131,7 +114,7 @@ void Menu_Screen::Menu()
 	btnMenuExit->state = GuiControlState::DISABLED;
 }
 
-void Menu_Screen::MenuConfig()
+void Opcion_Menu::MenuConfig()
 {
 	btnConfigEx1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 7, "Ex1", { 150, 240, 150, 30 }, this);
 	btnConfigBack = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 8, "Back to menu", { 150, 285, 150, 30 }, this);
@@ -140,70 +123,68 @@ void Menu_Screen::MenuConfig()
 	btnConfigBack->state = GuiControlState::DISABLED;
 }
 
-bool Menu_Screen::OnGuiMouseClickEvent(GuiControl* control)
+bool Opcion_Menu::OnGuiMouseClickEvent(GuiControl* control)
 {
 	if (app->guiManager->CheackA1 == true)
 	{
-			switch (control->type)
+		switch (control->type)
+		{
+		case GuiControlType::BUTTON:
+		{
+			//Checks the GUI element ID
+			if (control->id == 1)
 			{
-			case GuiControlType::BUTTON:
-			{
-				//Checks the GUI element ID
-				if (control->id == 1)
-				{
-					Disable();
-					app->scene->Enable();
-					app->player->Enable();
-					app->render->camera.x = (app->player->P1.position.x - 550) * -1;
-					app->render->camera.y = (app->player->P1.position.y - 300) * -1;
-					app->player->P1.position.x = app->player->resetPlayerPos.x;
-					app->player->P1.position.y = app->player->resetPlayerPos.y;
-					LOG("Click on button 1");
-					btnMenuPlay->state = GuiControlState::DISABLED;
-					btnMenuConfig->state = GuiControlState::DISABLED;
-					btnMenuExit->state = GuiControlState::DISABLED;
+				Disable();
+				app->scene->Enable();
+				app->player->Enable();
+				app->render->camera.x = (app->player->P1.position.x - 550) * -1;
+				app->render->camera.y = (app->player->P1.position.y - 300) * -1;
+				app->player->P1.position.x = app->player->resetPlayerPos.x;
+				app->player->P1.position.y = app->player->resetPlayerPos.y;
+				LOG("Click on button 1");
+				btnMenuPlay->state = GuiControlState::DISABLED;
+				btnMenuConfig->state = GuiControlState::DISABLED;
+				btnMenuExit->state = GuiControlState::DISABLED;
 
-				}
-
-				if (control->id == 2)
-				{
-					LOG("Config ON");
-					config = true;
-					btnMenuPlay->state = GuiControlState::DISABLED;
-					btnMenuConfig->state = GuiControlState::DISABLED;
-					btnMenuExit->state = GuiControlState::DISABLED;
-				}
-
-				if (control->id == 3)
-				{
-					exit = true;
-				}
-
-				if (control->id == 7)
-				{
-					LOG("Press Ex1");
-				}
-
-				if (control->id == 8)
-				{
-					starting = true;
-
-					btnConfigEx1->state = GuiControlState::DISABLED;
-					btnConfigBack->state = GuiControlState::DISABLED;
-				}
-				default: break;
 			}
+
+			if (control->id == 2)
+			{
+				LOG("Config ON");
+				config = true;
+				btnMenuPlay->state = GuiControlState::DISABLED;
+				btnMenuConfig->state = GuiControlState::DISABLED;
+				btnMenuExit->state = GuiControlState::DISABLED;
+			}
+
+			if (control->id == 3)
+			{
+				exit = true;
+			}
+
+			if (control->id == 7)
+			{
+				LOG("Press Ex1");
+			}
+
+			if (control->id == 8)
+			{
+				starting = true;
+
+				btnConfigEx1->state = GuiControlState::DISABLED;
+				btnConfigBack->state = GuiControlState::DISABLED;
+			}
+		default: break;
+		}
 		}
 		return true;
 	}
 }
 
-bool Menu_Screen::CleanUp()
+bool Opcion_Menu::CleanUp()
 {
-		LOG("Freeing scene");
+	LOG("Freeing scene");
 
-		return true;
+	return true;
 }
-
-
 
