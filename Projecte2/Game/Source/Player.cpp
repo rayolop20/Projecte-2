@@ -136,13 +136,13 @@ bool Player::Start()
 	currentAnim1 = &idleAnim1;
 
 	//Pres E
-	player1Hp = app->tex->Load("Assets/UI/hpbarplayertest.png");
-	player2Hp = app->tex->Load("Assets/UI/hpbarplayertest2.png");
-	player3Hp = app->tex->Load("Assets/UI/hpbarplayertest3.png");
-	player4Hp = app->tex->Load("Assets/UI/hpbarplayertest4.png");
+	player1Hp = app->tex->Load("Assets/textures/UI/hpbarplayertest.png");
+	player2Hp = app->tex->Load("Assets/textures/UI/hpbarplayertest2.png");
+	player3Hp = app->tex->Load("Assets/textures/UI/hpbarplayertest3.png");
+	player4Hp = app->tex->Load("Assets/textures/UI/hpbarplayertest4.png");
 	PE = app->tex->Load("Assets/UI/UiIcons.png");
-	player1S = app->tex->Load("Assets/textures/soldier.png");
-	darkness = app->tex->Load("Assets/textures/darkness.png");
+	player1S = app->tex->Load("Assets/textures/Soldiers/soldier.png");
+	darkness = app->tex->Load("Assets/textures/Fog/darkness.png");
 
 	P1.Pcol = app->collisions->AddCollider({ P1.position.x,P1.position.y, 64, 90 }, Collider::Type::PLAYER, this);
 

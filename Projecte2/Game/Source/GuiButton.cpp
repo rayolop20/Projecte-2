@@ -14,11 +14,13 @@ GuiButton::GuiButton(uint32 id, SDL_Rect bounds, const char* text) : GuiControl(
 
 	canClick = true;
 	drawBasic = false;
+
+	UIText = app->tex->Load("Assets/textures/UI/MainMenuSprite.png");
+
 }
 
 GuiButton::~GuiButton()
 {
-	MainMenuUI = app->tex->Load("Assets/UI/MainMenuSprite.png");
 }
 
 bool GuiButton::Update(float dt)
@@ -70,19 +72,192 @@ bool GuiButton::Draw(Render* render)
 
 	case GuiControlState::NORMAL:
 	{
-		//MainMenuUI.PushBack({});
-		render->DrawRectangle(bounds, 255, 0, 0, 255);
-
+		//new game
+		if (id == 1)
+		{
+			uitext->x = 41;
+			uitext->y = 854;
+			uitext->w = 194;
+			uitext->h = 52;
+			app->render->DrawTexture(UIText, 150, 150, uitext);
+		}
+		//Options
+		if (id == 2)
+		{
+			uitext->x = 68;
+			uitext->y = 222;
+			uitext->w = 144;
+			uitext->h = 57;
+			app->render->DrawTexture(UIText, 150, 240, uitext);
+		}
+		//Exit
+		if (id == 3)
+		{
+			uitext->x = 137;
+			uitext->y = 553;
+			uitext->w = 78;
+			uitext->h = 51;
+			app->render->DrawTexture(UIText, 150, 420, uitext);
+		}
+		//resume
+		if (id == 5)
+		{
+			uitext->x = 22;
+			uitext->y = 51;
+			uitext->w = 193;
+			uitext->h = 51;
+			app->render->DrawTexture(UIText, -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -app->render->camera.y + 250, uitext);
+		}
+		//return menu
+		if (id == 6)
+		{
+			uitext->x = 68;
+			uitext->y = 222;
+			uitext->w = 144;
+			uitext->h = 57;
+			app->render->DrawTexture(UIText, -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -app->render->camera.y + 320, uitext);
+		}
+		//Exit
+		if (id == 9)
+		{
+			uitext->x = 137;
+			uitext->y = 553;
+			uitext->w = 78;
+			uitext->h = 51;
+			app->render->DrawTexture(UIText, -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -app->render->camera.y + 390, uitext);
+		}
+		else
+		{
+			
+			//render->DrawRectangle(bounds, 255, 255, 255, 160);
+		}
 	} break;
 
 	//L14: TODO 4: Draw the button according the GuiControl State
 	case GuiControlState::FOCUSED:
 	{
-		render->DrawRectangle(bounds, 255, 255, 255, 160);
+		//new game
+		if (id == 1)
+		{
+			uitext->x = 339;
+			uitext->y = 854;
+			uitext->w = 194;
+			uitext->h = 52;
+			app->render->DrawTexture(UIText, 150, 150, uitext);
+		}
+		//options
+		if (id == 2)
+		{
+			uitext->x = 373;
+			uitext->y = 222;
+			uitext->w = 144;
+			uitext->h = 57;
+			app->render->DrawTexture(UIText, 150, 240, uitext);
+		}
+		//Exit
+		if (id == 3)
+		{
+			uitext->x = 442;
+			uitext->y = 553;
+			uitext->w = 78;
+			uitext->h = 51;
+			app->render->DrawTexture(UIText, 150, 420, uitext);
+		}
+		//resume
+		if (id == 5)
+		{
+			uitext->x = 327;
+			uitext->y = 51;
+			uitext->w = 193;
+			uitext->h = 51;
+			app->render->DrawTexture(UIText, -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -app->render->camera.y + 250, uitext);
+		}
+
+		//return menu
+		if (id == 6)
+		{
+			uitext->x = 373;
+			uitext->y = 222;
+			uitext->w = 144;
+			uitext->h = 57;
+			app->render->DrawTexture(UIText, -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -app->render->camera.y + 320, uitext);
+		}
+		//Exit
+		if (id == 9)
+		{
+			uitext->x = 442;
+			uitext->y = 553;
+			uitext->w = 78;
+			uitext->h = 51;
+			app->render->DrawTexture(UIText, -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -app->render->camera.y + 390, uitext);
+		}
+		else
+		{
+			//render->DrawRectangle(bounds, 255, 255, 255, 160);
+		}
+		
 	} break;
 	case GuiControlState::PRESSED:
 	{
-		render->DrawRectangle(bounds, 255, 255, 255, 255);
+		//new game
+		if (id == 1)
+		{
+			uitext->x = 339;
+			uitext->y = 854;
+			uitext->w = 194;
+			uitext->h = 52;
+			app->render->DrawTexture(UIText, 150, 150, uitext);
+		}
+		//options
+		if (id == 2)
+		{
+			uitext->x = 373;
+			uitext->y = 222;
+			uitext->w = 144;
+			uitext->h = 57;
+			app->render->DrawTexture(UIText, 150, 240, uitext);
+		}
+		//Exit
+		if (id == 3)
+		{
+			uitext->x = 442;
+			uitext->y = 553;
+			uitext->w = 78;
+			uitext->h = 51;
+			app->render->DrawTexture(UIText, 150, 420, uitext);
+		}
+		//resume
+		if (id == 5)
+		{
+			uitext->x = 327;
+			uitext->y = 51;
+			uitext->w = 193;
+			uitext->h = 51;
+			app->render->DrawTexture(UIText, -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -app->render->camera.y + 250, uitext);
+		}
+
+		//return menu
+		if (id == 6)
+		{
+			uitext->x = 373;
+			uitext->y = 222;
+			uitext->w = 144;
+			uitext->h = 57;
+			app->render->DrawTexture(UIText, -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -app->render->camera.y + 320, uitext);
+		}
+		//Exit
+		if (id == 9)
+		{
+			uitext->x = 442;
+			uitext->y = 553;
+			uitext->w = 78;
+			uitext->h = 51;
+			app->render->DrawTexture(UIText, -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -app->render->camera.y + 390, uitext);
+		}
+		else
+		{
+			//render->DrawRectangle(bounds, 255, 255, 255, 160);
+		}
 	} break;
 
 	/******/

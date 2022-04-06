@@ -65,9 +65,9 @@ bool GameMenu_Screen::PostUpdate()
 
 void GameMenu_Screen::Menu()
 {
-	btnResume = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Resume", { -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -app->render->camera.y + 250, 160, 40 }, this);
-	btnMenu = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Menu", { -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -app->render->camera.y + 320, 160, 40 }, this);
-	btnExit = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON,3, "Exit", { -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -app->render->camera.y + 390, 160, 40 }, this);
+	btnResume = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 5, "Resume", { -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -app->render->camera.y + 250, 193, 51 }, this);
+	btnMenu = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 6, "Menu", { -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -app->render->camera.y + 320, 160, 40 }, this);
+	btnExit = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 9, "Exit", { -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -app->render->camera.y + 390, 160, 40 }, this);
 
 	btnResume->state = GuiControlState::NORMAL;
 	btnMenu->state = GuiControlState::NORMAL;
@@ -82,7 +82,7 @@ bool GameMenu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 			{
 			case GuiControlType::BUTTON:
 			{
-				if (control->id == 1)
+				if (control->id == 5)
 				{		
 					app->scene->paused = false;
 					btnResume->state = GuiControlState::DISABLED;
@@ -90,7 +90,7 @@ bool GameMenu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 					btnExit->state = GuiControlState::DISABLED;
 				}
 
-				if (control->id == 2)
+				if (control->id == 6)
 				{
 					app->scene->paused = false;
 					Disable();
@@ -104,7 +104,7 @@ bool GameMenu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 					btnExit->state = GuiControlState::DISABLED;
 				}
 
-				if (control->id == 3)
+				if (control->id == 9)
 				{
 					app->menu->exit = true;
 				}

@@ -8,6 +8,7 @@
 #include "Scene.h"
 #include "Menu.h"
 #include "GuiManager.h"
+#include "EntityManager.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -36,6 +37,7 @@ bool Menu_Screen::Awake()
 bool Menu_Screen::Start()
 {
 
+
 	if (app->scene->active == true)
 	{
 		app->scene->Disable();
@@ -45,6 +47,12 @@ bool Menu_Screen::Start()
 	{
 		app->player->Disable();
 	}
+
+	/*if (app->entityManager->active == true)
+	{
+		app->entityManager->Disable();
+	}*/
+
 	return true;
 }
 
@@ -57,6 +65,9 @@ bool Menu_Screen::PreUpdate()
 // Called each loop iteration
 bool Menu_Screen::Update(float dt)
 {
+	int mouseX, mouseY;
+	app->input->GetMousePosition(mouseX, mouseY);
+
 	if (!app->scene->paused && starting)
 	{
 		Menu();
@@ -77,15 +88,9 @@ bool Menu_Screen::Update(float dt)
 		btnConfigEx1->state = GuiControlState::NORMAL;
 		btnConfigBack->state = GuiControlState::NORMAL;
 	}
-	//btnMenuPlay->state = GuiControlState::NORMAL;
-	//btnMenuConfig->state = GuiControlState::NORMAL;
-	//btnMenuExit->state = GuiControlState::NORMAL;
 
-	//SDL_Rect Play{ 150, 150, 150, 90 };
-	//app->render->DrawRectangle(Play, 200, 200, 200);
 	
-	int mouseX, mouseY;
-	app->input->GetMousePosition(mouseX, mouseY);
+
 
 	app->guiManager->Draw();
 
@@ -105,12 +110,14 @@ bool Menu_Screen::PostUpdate()
 
 void Menu_Screen::Menu()
 {
-	btnMenuPlay = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Play", { 150, 150, 150, 60 }, this);
-	btnMenuConfig = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Config", { 150, 240, 150, 30 }, this);
-	btnMenuExit = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 3, "Exit", { 150, 285, 150, 30 }, this);
+	btnMenuPlay = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Play", { 150, 150, 194, 52 }, this);
+	btnMenuConfig = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Config", { 150, 240, 144, 57 }, this);
+	//btnCredits = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 4, "Credits", { 150, 330, 144, 57 }, this);
+	btnMenuExit = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 3, "Exit", { 150, 420, 78, 51 }, this);
 
 	btnMenuPlay->state = GuiControlState::DISABLED;
 	btnMenuConfig->state = GuiControlState::DISABLED;
+	//btnCredits->state = GuiControlState::DISABLED;
 	btnMenuExit->state = GuiControlState::DISABLED;
 }
 
