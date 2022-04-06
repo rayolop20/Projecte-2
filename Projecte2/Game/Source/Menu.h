@@ -53,7 +53,6 @@ private:
 	
 
 	SDL_Texture* enter = nullptr;
-	SDL_Texture* AdventureText = nullptr;
 
 	// L12b: Debug pathfing
 	iPoint origin;

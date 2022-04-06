@@ -71,7 +71,7 @@ bool GuiButton::Draw(Render* render)
 	case GuiControlState::NORMAL:
 	{
 		//MainMenuUI.PushBack({});
-		//render->DrawRectangle(bounds, 0, 0, 0, 255);
+		render->DrawRectangle(bounds, 255, 0, 0, 255);
 
 	} break;
 
