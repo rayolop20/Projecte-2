@@ -92,6 +92,7 @@ public:
 	int ZombieNum = NULL;
 	bool klk = true;
 
+	bool ZombieBattle = false;
 };
 
 #endif // __ZOMBIEENEM_H__

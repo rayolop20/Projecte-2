@@ -46,7 +46,7 @@ struct playr2
 	float damage1 = 40.0;
 	float damage2 = 12.0;
 	float speed = 0.0;
-	float mana = 0.0;
+	float mana = 110.0;
 	float damage = 0.0;
 };
 

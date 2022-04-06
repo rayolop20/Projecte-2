@@ -92,6 +92,8 @@ public:
 	int VampireNum = NULL;
 	bool klk = true;
 
+	bool VampireBattle = false;
+
 };
 
 #endif // __VAMPIRENEM_H__

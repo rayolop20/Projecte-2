@@ -262,7 +262,6 @@ bool battleSystem::Update(float dt)
 	CheckAllies();
 	MaxHp();
 
-
 	return true;
 }
 
@@ -671,7 +670,7 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 		if (control->id == 1 && AttackPhaseActive == true && AttackPhaseEnable == true && VampireTarget != 0 && ZombieTarget != 0) {
 			AttackPhaseDisabled2();
 		}
-		if (control->id == 1 && AttackPhaseActive == false && AttackPhaseEnable == false && AttackPlayer != 0 && VampireTarget != 0 && ZombieTarget != 0)
+		if (control->id == 1 && AttackPhaseActive == false && AttackPhaseEnable == false && AttackPlayer != 0 && (VampireTarget != 0 || ZombieTarget != 0))
 		{
 			AttackPhase();
 			AttackPhaseEnable = true;
@@ -679,13 +678,13 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 		if (AttackPhaseActive == false && AttackPhaseEnable == true) {
 			AttackPhaseEnable = false;
 		}
-		if (control->id == 2 && VampireTarget != 0 && ZombieTarget != 0)
+		if (control->id == 2 && (VampireTarget != 0 || ZombieTarget != 0))
 		{
 			AttackType = 1;
 			AttackPhaseDisabled();
 			AttackPhaseEnable = false;
 		}
-		if (control->id == 3 && VampireTarget != 0 && ZombieTarget != 0)
+		if (control->id == 3 && (VampireTarget != 0 || ZombieTarget != 0))
 		{
 			AttackType = 2;
 			AttackPhaseDisabled();
