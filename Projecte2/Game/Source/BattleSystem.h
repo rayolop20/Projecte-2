@@ -56,6 +56,7 @@ public:
 
 	int VampireTarget = 0;
 	int ZombieTarget = 0;
+	int SkeletonTarget = 0;
 	int playerTarget = 0;
 	int playerTarget_ = 0;
 
@@ -122,6 +123,7 @@ public:
 
 	bool Zombiebattle = false;
 	bool Vampirebattle = false;
+	bool Skeletonbattle = false;
 
 	SDL_Texture* TypoSpecialAttack;
 	SDL_Texture* AttackTexture;

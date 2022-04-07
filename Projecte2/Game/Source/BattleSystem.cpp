@@ -9,6 +9,7 @@
 #include "Player.h"
 #include "VampirEnem.h"
 #include "ZombieEnem.h"
+#include "SkeletonEnem.h"
 #include "EntityNPC.h"
 #include "Collisions.h"
 #include "BattleSystem.h"
@@ -79,6 +80,7 @@ bool battleSystem::Start()
 	//L13: TODO 2: Declare an Item and create it using the EntityManager
 	VampirEnem* Vampir = (VampirEnem*)app->entityManager->CreateEntity(EntityType::VAMPYR, 0, { 0,0 });
 	ZombieEnem* Zombies = (ZombieEnem*)app->entityManager->CreateEntity(EntityType::ZOMBIE, 0, { 0,0 });
+	SkeletonEnem* Skeleton = (SkeletonEnem*)app->entityManager->CreateEntity(EntityType::SKELETON, 0, { 0,0 });
 	EntityNPC* Npc = (EntityNPC*)app->entityManager->CreateEntity(EntityType::NPC, 0, { 0,0 });
 
 	//L13: TODO 4: Create multiple Items
@@ -305,6 +307,7 @@ void battleSystem::AttackPhaseDisabled2() {
 	Attack2->state = GuiControlState::DISABLED;
 	VampireTarget = 0;
 	ZombieTarget = 0;
+	SkeletonTarget = 0;
 	AttackPlayer = 0;
 	AttackPhaseActive = false;
 	AttackPhaseEnable = false;
@@ -384,6 +387,8 @@ void battleSystem::SpecialAttackPhase() {
 			app->BTSystem->waitPlayer[AttackPlayer - 1] += 1;
 			AttackPlayer = 0;
 			VampireTarget = 0;
+			ZombieTarget = 0;
+			SkeletonTarget = 0;
 			for (int i = 0; i <= 4; i++) {
 				if (app->BTSystem->waitPlayer[i] != 0) {
 					app->BTSystem->waitPlayer[i] += 1;
@@ -424,6 +429,8 @@ void battleSystem::SpecialAttackPhase() {
 				AttackAux = 0;
 				AttackPlayer = 0;
 				VampireTarget = 0;
+				ZombieTarget = 0;
+				SkeletonTarget = 0;
 				for (int i = 0; i <= 4; i++) {
 					if (app->BTSystem->waitPlayer[i] != 0) {
 						app->BTSystem->waitPlayer[i] += 1;
@@ -594,6 +601,8 @@ void battleSystem::SpecialAttackPhase() {
 				AttackAux = 0;
 				AttackPlayer = 0;
 				VampireTarget = 0;
+				ZombieTarget = 0;
+				SkeletonTarget = 0;
 				for (int i = 0; i <= 4; i++) {
 					if (app->BTSystem->waitPlayer[i] != 0) {
 						app->BTSystem->waitPlayer[i] += 1;
@@ -700,10 +709,10 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 	{
 		
 		//Checks the GUI element ID
-		if (control->id == 1 && AttackPhaseActive == true && AttackPhaseEnable == true && VampireTarget != 0 && ZombieTarget != 0) {
+		if (control->id == 1 && AttackPhaseActive == true && AttackPhaseEnable == true && VampireTarget != 0 && ZombieTarget != 0 && SkeletonTarget != 0) {
 			AttackPhaseDisabled2();
 		}
-		if (control->id == 1 && AttackPhaseActive == false && AttackPhaseEnable == false && AttackPlayer != 0 && (VampireTarget != 0 || ZombieTarget != 0))
+		if (control->id == 1 && AttackPhaseActive == false && AttackPhaseEnable == false && AttackPlayer != 0 && (VampireTarget != 0 || ZombieTarget != 0 || SkeletonTarget != 0))
 		{
 			AttackPhase();
 			AttackPhaseEnable = true;
@@ -711,24 +720,24 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 		if (AttackPhaseActive == false && AttackPhaseEnable == true) {
 			AttackPhaseEnable = false;
 		}
-		if (control->id == 2 && (VampireTarget != 0 || ZombieTarget != 0))
+		if (control->id == 2 && (VampireTarget != 0 || ZombieTarget != 0 || SkeletonTarget != 0))
 		{
 			AttackType = 1;
 			AttackPhaseDisabled();
 			AttackPhaseEnable = false;
 		}
-		if (control->id == 3 && (VampireTarget != 0 || ZombieTarget != 0))
+		if (control->id == 3 && (VampireTarget != 0 || ZombieTarget != 0 || SkeletonTarget != 0))
 		{
 			AttackType = 2;
 			AttackPhaseDisabled();
 			AttackPhaseEnable = false;
 		}
-		if (control->id == 4 && AttackPlayer == 1 && (VampireTarget != 0 || ZombieTarget != 0) && SpecialAttackEnable == false && app->player->P1.mana >= 60)
+		if (control->id == 4 && AttackPlayer == 1 && (VampireTarget != 0 || ZombieTarget != 0 || SkeletonTarget != 0) && SpecialAttackEnable == false && app->player->P1.mana >= 60)
 		{
 			app->player->P1.mana -= 60;
 			SpecialAttackEnable = true;
 		}
-		if (control->id == 4 && AttackPlayer == 2 && (VampireTarget != 0 || ZombieTarget != 0) && SpecialAttackEnable == false && app->player->P2.mana >= 80)
+		if (control->id == 4 && AttackPlayer == 2 && (VampireTarget != 0 || ZombieTarget != 0 || SkeletonTarget != 0) && SpecialAttackEnable == false && app->player->P2.mana >= 80)
 		{
 			app->player->P2.mana -= 80;
 			SpecialAttackEnable = true;
@@ -738,7 +747,7 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 			app->player->P3.mana -= 25;
 			SpecialAttackEnable = true;
 		}
-		if (control->id == 4 && AttackPlayer == 4 && (VampireTarget != 0 || ZombieTarget != 0) && SpecialAttackEnable == false && app->player->P3.mana >= 40 && app->player->P4.revolverActive == true)
+		if (control->id == 4 && AttackPlayer == 4 && (VampireTarget != 0 || ZombieTarget != 0 || SkeletonTarget != 0) && SpecialAttackEnable == false && app->player->P3.mana >= 40 && app->player->P4.revolverActive == true)
 		{
 			app->player->P4.mana -= 40;
 			SpecialAttackEnable = true;
@@ -754,6 +763,7 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 			Delay = false;
 			Zombiebattle = false;
 			Vampirebattle = false;
+			Skeletonbattle = false;
 			timer1 = SDL_GetTicks() / 1000;
 			timer1_ = timer1;
 		}

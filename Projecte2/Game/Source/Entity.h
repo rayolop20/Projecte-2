@@ -12,6 +12,7 @@ enum class EntityType
 {
 	VAMPYR,
 	ZOMBIE,
+	SKELETON,
 	NPC,
 	GROUNDENEMY,
 	ITEM,

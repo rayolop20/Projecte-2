@@ -3,6 +3,7 @@
 #include "App.h"
 #include "VampirEnem.h"
 #include "ZombieEnem.h"
+#include "SkeletonEnem.h"
 #include "EntityNPC.h"
 #include "Defs.h"
 #include "Log.h"
@@ -56,6 +57,8 @@ Entity* EntityManager::CreateEntity(EntityType type, int id, SDL_Rect bounds)
 		break;
 	case EntityType::ZOMBIE:entity = new ZombieEnem();
 		break;
+	case EntityType::SKELETON:entity = new SkeletonEnem();
+		break;
 	case EntityType::NPC:entity = new EntityNPC();
 		break;
 	case EntityType::GROUNDENEMY:
@@ -108,6 +111,7 @@ bool EntityManager::Update(float dt)
 	entities[0]->PostUpdate();
 	entities[1]->PostUpdate();
 	entities[2]->PostUpdate();
+	entities[3]->PostUpdate();
 	return true;
 }
 
@@ -194,9 +198,13 @@ void EntityManager::OnCollision(Collider* c1, Collider* c2)
 	if (c1->type == Collider::Type::NPC && c2->type == Collider::Type::PLAYER) {
 		entities[2]->OnCollision(c1, c2);
 	}
+	if (c1->type == Collider::Type::SKELETON && c2->type == Collider::Type::PLAYER) {
+		entities[3]->OnCollision(c1, c2);
+	}
 	if (c1->type == Collider::Type::SENSOR && c2->type == Collider::Type::PLAYER) {
 		entities[0]->OnCollision(c1, c2);
 		entities[1]->OnCollision(c1, c2);
 		entities[2]->OnCollision(c1, c2);
+		entities[3]->OnCollision(c1, c2);
 	}
 }

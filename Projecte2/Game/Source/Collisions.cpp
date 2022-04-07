@@ -22,6 +22,7 @@ Collisions::Collisions() : Module()
 	matrix[Collider::Type::PLAYER][Collider::Type::WALLV] = true;
 	matrix[Collider::Type::PLAYER][Collider::Type::VAMPIRE] = true;
 	matrix[Collider::Type::PLAYER][Collider::Type::ZOMBIE] = true;
+	matrix[Collider::Type::PLAYER][Collider::Type::SKELETON] = true;
 	matrix[Collider::Type::PLAYER][Collider::Type::NPC] = true;
 	matrix[Collider::Type::PLAYER][Collider::Type::PLAYER] = false;
 	matrix[Collider::Type::PLAYER][Collider::Type::SENSOR] = true;
@@ -46,6 +47,13 @@ Collisions::Collisions() : Module()
 	matrix[Collider::Type::ZOMBIE][Collider::Type::PLAYER] = true;
 	matrix[Collider::Type::ZOMBIE][Collider::Type::VAMPIRE] = false;
 	matrix[Collider::Type::ZOMBIE][Collider::Type::ZOMBIE] = false;
+
+	matrix[Collider::Type::SKELETON][Collider::Type::WALLV] = true;
+	matrix[Collider::Type::SKELETON][Collider::Type::WALLH] = true;
+	matrix[Collider::Type::SKELETON][Collider::Type::PLAYER] = true;
+	matrix[Collider::Type::SKELETON][Collider::Type::VAMPIRE] = false;
+	matrix[Collider::Type::SKELETON][Collider::Type::ZOMBIE] = false;
+	matrix[Collider::Type::SKELETON][Collider::Type::SKELETON] = false;
 
 	matrix[Collider::Type::NPC][Collider::Type::WALLV] = true;
 	matrix[Collider::Type::NPC][Collider::Type::WALLH] = true;
@@ -175,6 +183,9 @@ void Collisions::DebugDraw()
 			break;
 		case Collider::Type::ZOMBIE: // RED
 			app->render->DrawRectangle(colliders[i]->rect, 255, 0, 255, alpha);
+			break;
+		case Collider::Type::SKELETON: // GREEN
+			app->render->DrawRectangle(colliders[i]->rect, 255, 255, 255, alpha);
 			break;
 		case Collider::Type::NPC: // Green
 			app->render->DrawRectangle(colliders[i]->rect, 0, 255, 0, alpha);

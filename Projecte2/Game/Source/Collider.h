@@ -15,6 +15,7 @@ struct Collider
 		PLAYER,
 		VAMPIRE,
 		ZOMBIE,
+		SKELETON,
 		NPC,
 		WALLV,
 		WALLH,
