@@ -99,6 +99,7 @@ bool ZombieEnem::Update(float dt)
 			EnemyPhase();
 		}
 		Combat();
+		DrawHpBars();
 	}
 	else if (app->BTSystem->battleAux == true) {
 		app->BTSystem->battleAux = false;
@@ -610,6 +611,25 @@ void ZombieEnem::CheckEnemy() {
 			}
 		}
 		app->BTSystem->CombatDeaths = 0;
+	}
+}
+
+void ZombieEnem::DrawHpBars() {
+	if (Zbie[1].dead == false) {
+		SDL_Rect bar1 = { app->player->P1.position.x + 380, app->player->P1.position.y - 200, -(200 * Zbie[1].hp) / 100,15 };
+		app->render->DrawRectangle(bar1, 255, 0, 0);
+	}
+	if (Zbie[2].dead == false) {
+		SDL_Rect bar2 = { app->player->P1.position.x + 380, app->player->P1.position.y - 200 + 120, -(200 * Zbie[2].hp) / 100,15 };
+		app->render->DrawRectangle(bar2, 255, 0, 0);
+	}
+	if (Zbie[3].dead == false) {
+		SDL_Rect bar3 = { app->player->P1.position.x + 380, app->player->P1.position.y - 200 + 240, -(200 * Zbie[3].hp) / 100,15 };
+		app->render->DrawRectangle(bar3, 255, 0, 0);
+	}
+	if (Zbie[4].dead == false) {
+		SDL_Rect bar4 = { app->player->P1.position.x + 380, app->player->P1.position.y - 200 + 360, -(200 * Zbie[4].hp) / 100,15 };
+		app->render->DrawRectangle(bar4, 255, 0, 0);
 	}
 }
 
