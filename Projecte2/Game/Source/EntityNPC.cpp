@@ -70,7 +70,7 @@ bool EntityNPC::Start()
 
 	TextureNPC = app->tex->Load("Assets/textures/coins.png");
 	//coinFx = app->audio->LoadFx("Assets/audio/fx/coin.wav");
-
+	DialogueBox = app->tex->Load("Assets/textures/UI/TextBox.png");
 
 	for (int i = 0; i < NUM_NPC; i++)
 	{
@@ -84,7 +84,8 @@ bool EntityNPC::Start()
 
 bool EntityNPC::Update(float dt)
 {
-	
+	timerNPC = SDL_GetTicks() / 1000;
+
 	for (int i = 0; i < NUM_NPC; i++)
 	{
 		currentAnimation[i]->Update();
@@ -99,6 +100,173 @@ bool EntityNPC::Update(float dt)
 	{
 		npc[i].colliderNPC->SetPos(npc[i].Pos.x, npc[i].Pos.y);
 		npc[i].colliderSNPC->SetPos(npc[i].Pos.x - 32, npc[i].Pos.y - 32);
+	}
+	if (Dialogue1 == true) {
+		if (Dialogue1Count == 1) {
+			app->render->DrawTexture(DialogueBox, app->player->P1.position.x - 360, app->player->P1.position.y + 160);
+			//Who’s there?
+			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && timerNPC > timerNPC_ + 2) {
+				Dialogue1Count=2;
+				timerNPC_ = timerNPC;
+			}
+		}
+		if (Dialogue1Count == 2) {
+			app->render->DrawTexture(DialogueBox, app->player->P1.position.x - 500, app->player->P1.position.y + 160);
+			//We are a squad of alies, identify yourself now!
+
+			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && timerNPC > timerNPC_ + 2) {
+				Dialogue1Count=3;
+				timerNPC_ = timerNPC;
+			}
+		}
+		if (Dialogue1Count == 3) {
+			app->render->DrawTexture(DialogueBox, app->player->P1.position.x - 360, app->player->P1.position.y + 160);
+			//3.”Dieu, merci”!, not only are you human beings, you are
+			//allies! I am a french soldier, a german squad took me to
+			//this castle and although I manage to scape my cell, i’m
+			//still alone in the dungeon, please help me! There are too
+			//many creatures in the next room and I can’t take them out on my own.
+			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && timerNPC > timerNPC_ + 2) {
+				Dialogue1Count++;
+				timerNPC_ = timerNPC;
+			}
+		}
+		if (Dialogue1Count == 4) {
+			app->render->DrawTexture(DialogueBox, app->player->P1.position.x - 500, app->player->P1.position.y + 160);
+			// (He looks well prepared, i think it would be useful to have another soldier in our  
+			// team.However, we just find him here, he may not be someone trustworthy).
+			//Escollir: Si(francés s’uneix).No(francés no s’uneix).
+
+			if (app->input->GetKey(SDL_SCANCODE_Y) == KEY_DOWN && timerNPC > timerNPC_ + 2) {
+				Dialogue1BranchYes++;
+				Dialogue1Count++;
+				timerNPC_ = timerNPC;
+
+			}
+			if (app->input->GetKey(SDL_SCANCODE_N) == KEY_DOWN && timerNPC > timerNPC_ + 2) {
+				Dialogue1BranchNo++;
+				Dialogue1Count++;
+				timerNPC_ = timerNPC;
+
+			}
+
+		}
+
+		if (Dialogue1BranchNo == 1 && Dialogue1BranchYes == 0) {
+			app->render->DrawTexture(DialogueBox, app->player->P1.position.x - 360, app->player->P1.position.y + 160);
+			//Please don’t leave me alone!Are you sure you don’t want me to team up with you ?
+			if (app->input->GetKey(SDL_SCANCODE_Y) == KEY_DOWN && timerNPC > timerNPC_ + 2) {
+				Dialogue1BranchYes++;
+				Dialogue1Count++;
+				timerNPC_ = timerNPC;
+
+			}
+			if (app->input->GetKey(SDL_SCANCODE_N) == KEY_DOWN && timerNPC > timerNPC_ + 2) {
+				Dialogue1BranchNo++;
+				Dialogue1Count++;
+				timerNPC_ = timerNPC;
+
+			}
+		}
+
+		if (Dialogue1BranchNo == 2) {
+			app->render->DrawTexture(DialogueBox, app->player->P1.position.x - 360, app->player->P1.position.y + 160);
+			//I’ll stay here then and try to survive on my own, if you need my help, talk with me. 
+			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && timerNPC > timerNPC_ + 2) {
+				Dialogue1 = false;
+				Dialogue1Count++;
+				timerNPC_ = timerNPC;
+			}
+		}
+
+		if (Dialogue1BranchNo == 4) {
+			// Have you changed your mind?
+			app->render->DrawTexture(DialogueBox, app->player->P1.position.x - 360, app->player->P1.position.y + 160);
+			if (app->input->GetKey(SDL_SCANCODE_Y) == KEY_DOWN && timerNPC > timerNPC_ + 2) {
+				Dialogue1BranchYes++;
+				Dialogue1Count++;
+				timerNPC_ = timerNPC;
+
+			}
+			if (app->input->GetKey(SDL_SCANCODE_N) == KEY_DOWN && timerNPC > timerNPC_ + 2) {
+				Dialogue1BranchNo++;
+				Dialogue1Count++;
+				timerNPC_ = timerNPC;
+
+			}
+		}
+		if (Dialogue1BranchNo == 5) {
+			app->render->DrawTexture(DialogueBox, app->player->P1.position.x - 360, app->player->P1.position.y + 160);
+			// Then why did you ask?
+			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && timerNPC > timerNPC_ + 2) {
+				Dialogue1 = false;
+				timerNPC_ = timerNPC;
+
+			}
+
+		}
+		if (Dialogue1BranchNo == 6) {
+			app->render->DrawTexture(DialogueBox, app->player->P1.position.x - 360, app->player->P1.position.y + 160);
+			// Have you changed your mind?
+			if (app->input->GetKey(SDL_SCANCODE_Y) == KEY_DOWN && timerNPC > timerNPC_ + 2) {
+				Dialogue1BranchYes++;
+				Dialogue1Count++;
+				timerNPC_ = timerNPC;
+
+			}
+			if (app->input->GetKey(SDL_SCANCODE_N) == KEY_DOWN && timerNPC > timerNPC_ + 2) {
+				Dialogue1BranchNo++;
+				Dialogue1Count++;
+				Dialogue1 = false;
+				timerNPC_ = timerNPC;
+
+			}
+		}
+		if (Dialogue1BranchNo > 6) {
+			app->render->DrawTexture(DialogueBox, app->player->P1.position.x - 360, app->player->P1.position.y + 160);
+			// Have you changed your mind?
+			if (app->input->GetKey(SDL_SCANCODE_Y) == KEY_DOWN && timerNPC > timerNPC_ + 2) {
+				Dialogue1BranchYes++;
+				Dialogue1Count++;
+				timerNPC_ = timerNPC;
+
+			}
+			if (app->input->GetKey(SDL_SCANCODE_N) == KEY_DOWN && timerNPC > timerNPC_ + 2) {
+				Dialogue1BranchNo++;
+				Dialogue1Count++;
+				Dialogue1 = false;
+				timerNPC_ = timerNPC;
+
+			}
+		}
+
+		if (Dialogue1BranchYes == 1) {
+			app->render->DrawTexture(DialogueBox, app->player->P1.position.x - 360, app->player->P1.position.y + 160);
+			//Thank you monsieur, I promise to be helpful!
+			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && timerNPC > timerNPC_ + 2) {
+				app->player->P4.position.x = 500;
+				app->player->P4.position.y = 500;
+				Dialogue1BranchYes++;
+				app->player->P4.Move = true;
+				app->player->P4.hp = app->player->P5.hp;
+				app->player->P4.speed1 = app->player->P5.speed1;
+				app->player->P4.speed2 = app->player->P5.speed2;
+				app->player->P4.speed = app->player->P5.speed;
+				app->player->P4.damage = app->player->P5.damage;
+				app->player->P4.damage1 = app->player->P5.damage1;
+				app->player->P4.damage2 = app->player->P5.damage2;
+				app->player->P4.mana = app->player->P5.mana;
+				app->player->P4.mana1 = app->player->P5.mana1;
+				app->player->P4.mana2 = app->player->P5.mana2;
+				app->player->P4.luck = app->player->P5.luck;
+				app->player->P4.IsAlive = true;
+				npc[0].Destroyed = true;
+				timerNPC_ = timerNPC;
+				Dialogue1 = false;
+
+			}
+		}
+
 	}
 	return true;
 }
@@ -135,8 +303,15 @@ void EntityNPC::OnCollision(Collider* c1, Collider* c2)
 		}
 		else if (npc[i].colliderSNPC == c1 && !npc[i].Destroyed)
 		{
-			if (c2->type == Collider::Type::PLAYER)
+			if (c2->type == Collider::Type::PLAYER && app->input->GetKey(SDL_SCANCODE_E)==KEY_DOWN)
 			{
+				timerNPC_ = timerNPC;
+				Dialogue1 = true;
+				if (Dialogue1Count != 0) {
+					Dialogue1BranchNo++;
+				}
+				Dialogue1Count++;
+
 				LOG("Polla");
 			}
 		}

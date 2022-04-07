@@ -60,6 +60,7 @@ public:
 	iPoint position;
 
 	SDL_Texture* TextureNPC = nullptr;
+	SDL_Texture* DialogueBox = nullptr;
 
 	NPC npc[NUM_NPC] = { nullptr };
 
@@ -69,6 +70,13 @@ public:
 
 	int NPCNum = NULL;
 	bool klk = true;
+	bool Dialogue1 = false;
+	int Dialogue1Count = 0;
+	int Dialogue1BranchYes = 0;
+	int Dialogue1BranchNo = 0;
+
+	float timerNPC = 0.0;
+	float timerNPC_ = 0.0;
 
 };
 
