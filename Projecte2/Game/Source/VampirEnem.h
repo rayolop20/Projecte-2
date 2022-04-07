@@ -56,6 +56,8 @@ public:
 	void EnemyPhase();
 	void CheckEnemy();
 
+	void DrawHpBars();
+
 	// Called at the middle of the application loop
 	// Processes new input and handles player movement
 

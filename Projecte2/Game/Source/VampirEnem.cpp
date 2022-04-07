@@ -95,6 +95,7 @@ bool VampirEnem::Update(float dt)
 		DrawEnemies();
 		ChooseEnemy();
 		Combat();
+		DrawHpBars();
 		if (app->BTSystem->PlayerTurn == false)  {
 			CheckEnemy();
 
@@ -731,6 +732,25 @@ void VampirEnem::CheckEnemy() {
 		}
 		app->BTSystem->PlayerTurn = true;
 		app->BTSystem->CombatDeaths = 0;
+	}
+}
+
+void VampirEnem::DrawHpBars() {
+	if (Vpir[1].dead == false) {
+		SDL_Rect bar1 = { app->player->P1.position.x + 380, app->player->P1.position.y - 200, -(200 * Vpir[1].hp) / 100,15 };
+		app->render->DrawRectangle(bar1, 255, 0, 0);
+	}
+	if (Vpir[2].dead == false) {
+		SDL_Rect bar2 = { app->player->P1.position.x + 380, app->player->P1.position.y - 200 + 120, -(200 * Vpir[2].hp) / 100,15 };
+		app->render->DrawRectangle(bar2, 255, 0, 0);
+	}
+	if (Vpir[3].dead == false) {
+		SDL_Rect bar3 = { app->player->P1.position.x + 380, app->player->P1.position.y - 200 + 240, -(200 * Vpir[3].hp) / 100,15 };
+		app->render->DrawRectangle(bar3, 255, 0, 0);
+	}
+	if (Vpir[4].dead == false) {
+		SDL_Rect bar4 = { app->player->P1.position.x + 380, app->player->P1.position.y - 200 + 360, -(200 * Vpir[4].hp) / 100,15 };
+		app->render->DrawRectangle(bar4, 255, 0, 0);
 	}
 }
 
