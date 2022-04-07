@@ -263,7 +263,6 @@ bool EntityNPC::Update(float dt)
 				npc[0].Destroyed = true;
 				timerNPC_ = timerNPC;
 				Dialogue1 = false;
-
 			}
 		}
 
