@@ -82,6 +82,7 @@ public:
 	void CheckAllies();
 	void DrawHpBars();
 	void MaxHp();
+	void MaxMana();
 
 	bool ChoosePlayerPhase = true;
 

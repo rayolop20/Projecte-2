@@ -71,12 +71,16 @@ public:
 	int NPCNum = NULL;
 	bool klk = true;
 	bool Dialogue1 = false;
+	bool Dialogue2 = false;
 	int Dialogue1Count = 0;
+	int Dialogue2Count = 0;
 	int Dialogue1BranchYes = 0;
 	int Dialogue1BranchNo = 0;
 
 	float timerNPC = 0.0;
+	float timerNPC2 = 0.0;
 	float timerNPC_ = 0.0;
+	float timerNPC2_ = 0.0;
 
 };
 

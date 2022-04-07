@@ -10,7 +10,6 @@
 #include "PathFinding.h"
 #include "Map.h"
 #include "Window.h"
-
 #include "Log.h"
 #include "DynArray.h"
 #include "BattleSystem.h"
@@ -494,7 +493,7 @@ void VampirEnem::Combat() {
 			app->BTSystem->AttackPhaseActive = false;
 			app->BTSystem->AttackPhaseEnable = false;
 			app->BTSystem->ChoosePlayerPhase = true;
-			app->BTSystem->waitPlayer[1]++;
+			app->BTSystem->waitPlayer[3]++;
 			app->BTSystem->PlayerTurn = false;
 			app->player->P4.revolverActive = false;
 			for (int i = 0; i <= 4; i++) {

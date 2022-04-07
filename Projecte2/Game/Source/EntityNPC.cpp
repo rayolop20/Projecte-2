@@ -85,6 +85,7 @@ bool EntityNPC::Start()
 bool EntityNPC::Update(float dt)
 {
 	timerNPC = SDL_GetTicks() / 1000;
+	timerNPC2 = SDL_GetTicks() / 1000;
 
 	for (int i = 0; i < NUM_NPC; i++)
 	{
@@ -267,6 +268,49 @@ bool EntityNPC::Update(float dt)
 		}
 
 	}
+	if (Dialogue2 == true) {
+		if (Dialogue2Count == 1) {
+			app->render->DrawTexture(DialogueBox, app->player->P1.position.x - 360, app->player->P1.position.y + 160);
+			//Hey, luck I found you, I am a doctor and I have lost my medkit,
+			//if you help me find it, I may heal myself and help you with your
+			//injuries, I do not remember where it is, but I think this key may be a clue
+			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && timerNPC2 > timerNPC2_ + 2) {
+				Dialogue2 = false;
+				Dialogue2Count = 2;
+				timerNPC2_ = timerNPC2;
+			}
+		}
+		if (Dialogue2Count == 2 && app->player->P1.medkit == false) {
+			app->render->DrawTexture(DialogueBox, app->player->P1.position.x - 360, app->player->P1.position.y + 160);
+			//What? You did not find anything, I am sure this key must open some door...
+			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && timerNPC2 > timerNPC2_ + 2) {
+				Dialogue2 = false;
+				timerNPC2_ = timerNPC2;
+			}
+		}
+		if (Dialogue2Count = 3 && app->player->P1.medkit == true) {
+			app->render->DrawTexture(DialogueBox, app->player->P1.position.x - 360, app->player->P1.position.y + 160);
+			//Fine! I am done! I have some extra bandages I can give you so we can all try to leave this place by our own.
+			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && timerNPC2 > timerNPC2_ + 2) {
+				Dialogue2Count = 3;
+				app->player->P1.hp += 10;
+				app->player->P2.hp += 10;
+				app->player->P3.hp += 10;
+				app->player->P4.hp += 10;
+				Dialogue2 = false;
+				timerNPC2_ = timerNPC2;
+				//npc[1].Destroyed = true;
+			}		
+		}
+		if (Dialogue2Count = 3 && app->player->P1.medkit == false) {
+			app->render->DrawTexture(DialogueBox, app->player->P1.position.x - 360, app->player->P1.position.y + 160);
+			//Nice! Let me hear my bounds for a second...
+			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && timerNPC2 > timerNPC2_ + 2) {
+				Dialogue2Count = 3;
+				timerNPC2_ = timerNPC2;
+			}
+		}
+	}
 	return true;
 }
 
@@ -305,7 +349,13 @@ void EntityNPC::OnCollision(Collider* c1, Collider* c2)
 			if (c2->type == Collider::Type::PLAYER && app->input->GetKey(SDL_SCANCODE_E)==KEY_DOWN)
 			{
 				timerNPC_ = timerNPC;
-				Dialogue1 = true;
+				timerNPC2_ = timerNPC2;
+				//Dialogue1 = true;
+				Dialogue2 = true;
+				if (Dialogue2Count == 0) {
+					Dialogue2Count = 1;
+				}
+				
 				if (Dialogue1Count != 0) {
 					Dialogue1BranchNo++;
 				}

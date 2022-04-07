@@ -266,6 +266,7 @@ bool battleSystem::Update(float dt)
 	}*/
 	CheckAllies();
 	MaxHp();
+	MaxMana();
 
 	return true;
 }
@@ -877,6 +878,21 @@ void battleSystem::MaxHp() {
 	}
 	if (app->player->P4.hp > 50) {
 		app->player->P4.hp = 50;
+	}
+}
+
+void battleSystem::MaxMana() {
+	if (app->player->P1.mana > 100) {
+		app->player->P1.mana = 100;
+	}
+	if (app->player->P2.mana > 100) {
+		app->player->P2.mana = 100;
+	}
+	if (app->player->P3.mana > 100) {
+		app->player->P3.mana = 100;
+	}
+	if (app->player->P4.mana > 100) {
+		app->player->P4.mana = 100;
 	}
 }
 
