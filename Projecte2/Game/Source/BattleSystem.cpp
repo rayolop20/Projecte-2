@@ -327,6 +327,21 @@ void battleSystem::InventoryPhase() {
 	Run->state = GuiControlState::DISABLED;
 }
 
+// QuickTimeEvent1 Position and Speed,
+/*idle.PushBack({ 65, 47, 60, 60 });
+idle.PushBack({ 206, 43, 60, 60 });
+idle.PushBack({ 348, 44, 60, 60 });
+idle.PushBack({ 488, 44, 60, 60 });
+idle.PushBack({ 620, 40, 70, 70 });
+idle.PushBack({ 47, 158, 70, 70 });
+idle.PushBack({ 195, 155, 70, 70 });
+idle.PushBack({ 335, 155, 70, 70 });
+idle.PushBack({ 482, 155, 70, 70 });
+idle.PushBack({ 625, 155, 70, 70 });
+idle.PushBack({ 0, 0, 0, 0 });
+idle.loop = false;
+idle.speed = 0.005f;*/
+
 void battleSystem::SpecialAttackPhase() {
 	srand(time(NULL));
 	if (randomAttack == 0) {//QTE Random activator
