@@ -255,7 +255,7 @@ bool GuiButton::Draw(Render* render)
 		if (id == 34 && app->BTSystem->battle == true)
 		{
 			uitext->x = 198;
-			uitext->y = 2;
+			uitext->y = 187;
 			uitext->w = 152;
 			uitext->h = 59;
 			app->render->DrawTexture(BTLText, app->player->P1.position.x + 15, app->player->P1.position.y + 210, uitext);
@@ -275,7 +275,7 @@ bool GuiButton::Draw(Render* render)
 		if (id == 36 && app->BTSystem->battle == true)
 		{
 			uitext->x = 197;
-			uitext->y = 167;
+			uitext->y = 267;
 			uitext->w = 152;
 			uitext->h = 59;
 			app->render->DrawTexture(BTLText, app->player->P1.position.x + 15, app->player->P1.position.y + 285, uitext);
@@ -357,7 +357,7 @@ bool GuiButton::Draw(Render* render)
 		if (id == 34 && app->BTSystem->battle == true)
 		{
 			uitext->x = 198;
-			uitext->y = 2;
+			uitext->y = 187;
 			uitext->w = 152;
 			uitext->h = 59;
 			app->render->DrawTexture(BTLText, app->player->P1.position.x + 15, app->player->P1.position.y + 210, uitext);
@@ -377,7 +377,7 @@ bool GuiButton::Draw(Render* render)
 		if (id == 36 && app->BTSystem->battle == true)
 		{
 			uitext->x = 197;
-			uitext->y = 167;
+			uitext->y = 267;
 			uitext->w = 152;
 			uitext->h = 59;
 			app->render->DrawTexture(BTLText, app->player->P1.position.x + 15, app->player->P1.position.y + 285, uitext);
