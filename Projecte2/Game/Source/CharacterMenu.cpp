@@ -35,6 +35,7 @@ bool CharacterMenu_Screen::Awake()
 // Called before the first frame
 bool CharacterMenu_Screen::Start()
 {
+	int a;
 	return true;
 }
 
@@ -256,7 +257,7 @@ void CharacterMenu_Screen::Menu()
 	HelmetItem = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Helmet", { -app->render->camera.x + app->win->GetWidth()/2 - 200, -app->render->camera.y + app->win->GetHeight()/2 - 120, 50, 50 }, this);
 	ArmorItem = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Armor", { -app->render->camera.x + app->win->GetWidth() / 2 - 200, -app->render->camera.y + app->win->GetHeight() / 2 + 20, 50, 50 }, this);
 	WeaponItem = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 3, "Weapon", { -app->render->camera.x + app->win->GetWidth() / 2 + 150, -app->render->camera.y + app->win->GetHeight() / 2 - 120, 50, 50 }, this);
-	BootsItem = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 4, "Boots", { -app->render->camera.x + app->win->GetWidth() / 2 + 150, -app->render->camera.y + app->win->GetHeight() / 2 + 20, 50, 50 }, this);
+	//BootsItem = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 4, "Boots", { -app->render->camera.x + app->win->GetWidth() / 2 + 150, -app->render->camera.y + app->win->GetHeight() / 2 + 20, 50, 50 }, this);
 
 	Character1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 5, "Ch1", { -app->render->camera.x + app->win->GetWidth() / 2 - 175, -app->render->camera.y + app->win->GetHeight() / 2 + 130, 50, 50 }, this);
 	Character2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 6, "Ch2", { -app->render->camera.x + app->win->GetWidth() / 2 - 75, -app->render->camera.y + app->win->GetHeight() / 2 + 130, 50, 50 }, this);

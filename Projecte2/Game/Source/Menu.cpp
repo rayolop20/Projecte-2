@@ -9,6 +9,7 @@
 #include "Menu.h"
 #include "GuiManager.h"
 #include "EntityManager.h"
+#include "CharacterMenu.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -36,8 +37,6 @@ bool Menu_Screen::Awake()
 // Called before the first frame
 bool Menu_Screen::Start()
 {
-
-
 	if (app->scene->active == true)
 	{
 		app->scene->Disable();
@@ -46,6 +45,11 @@ bool Menu_Screen::Start()
 	if (app->player->active == true)
 	{
 		app->player->Disable();
+	}
+	
+	if (app->characterMenu->active == true)
+	{
+		app->characterMenu->Disable();
 	}
 
 	/*if (app->entityManager->active == true)
@@ -65,6 +69,7 @@ bool Menu_Screen::PreUpdate()
 // Called each loop iteration
 bool Menu_Screen::Update(float dt)
 {
+
 	int mouseX, mouseY;
 	app->input->GetMousePosition(mouseX, mouseY);
 
@@ -77,6 +82,7 @@ bool Menu_Screen::Update(float dt)
 		btnMenuPlay->state = GuiControlState::NORMAL;
 		btnMenuConfig->state = GuiControlState::NORMAL;
 		btnMenuExit->state = GuiControlState::NORMAL;
+		btnCredits->state = GuiControlState::NORMAL;
 	}
 
 	if (config)
@@ -112,12 +118,12 @@ void Menu_Screen::Menu()
 {
 	btnMenuPlay = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Play", { 150, 150, 194, 52 }, this);
 	btnMenuConfig = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Config", { 150, 240, 144, 57 }, this);
-	//btnCredits = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 4, "Credits", { 150, 330, 144, 57 }, this);
+	btnCredits = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 4, "Credits", { 150, 330, 144, 57 }, this);
 	btnMenuExit = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 3, "Exit", { 150, 420, 78, 51 }, this);
 
 	btnMenuPlay->state = GuiControlState::DISABLED;
 	btnMenuConfig->state = GuiControlState::DISABLED;
-	//btnCredits->state = GuiControlState::DISABLED;
+	btnCredits->state = GuiControlState::DISABLED;
 	btnMenuExit->state = GuiControlState::DISABLED;
 }
 
@@ -152,6 +158,7 @@ bool Menu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 					btnMenuPlay->state = GuiControlState::DISABLED;
 					btnMenuConfig->state = GuiControlState::DISABLED;
 					btnMenuExit->state = GuiControlState::DISABLED;
+					btnCredits->state = GuiControlState::DISABLED;
 
 				}
 
@@ -167,6 +174,12 @@ bool Menu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 				if (control->id == 3)
 				{
 					exit = true;
+				}
+				
+				if (control->id == 4)
+				{
+			
+			
 				}
 
 				if (control->id == 7)

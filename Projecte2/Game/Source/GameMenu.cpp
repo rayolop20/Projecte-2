@@ -96,6 +96,7 @@ bool GameMenu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 					Disable();
 					app->menu->Enable();
 					app->player->Disable();
+					app->scene->Disable();
 					app->render->camera.x = 0;
 					app->render->camera.y = 0;
 					app->menu->starting = true;
