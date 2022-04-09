@@ -129,7 +129,7 @@ bool GuiButton::Draw(Render* render)
 		else
 		{
 			
-			//render->DrawRectangle(bounds, 255, 255, 255, 160);
+			render->DrawRectangle(bounds, 255, 255, 255, 160);
 		}
 	} break;
 
@@ -199,7 +199,7 @@ bool GuiButton::Draw(Render* render)
 		}
 		else
 		{
-			//render->DrawRectangle(bounds, 255, 255, 255, 160);
+			render->DrawRectangle(bounds, 255, 255, 255, 160);
 		}
 		
 	} break;
@@ -262,7 +262,7 @@ bool GuiButton::Draw(Render* render)
 		}
 		else
 		{
-			//render->DrawRectangle(bounds, 255, 255, 255, 160);
+			render->DrawRectangle(bounds, 255, 255, 255, 160);
 		}
 	} break;
 
