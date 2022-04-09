@@ -10,6 +10,7 @@
 #include "GuiManager.h"
 #include "EntityManager.h"
 #include "CharacterMenu.h"
+#include "GameMenu.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -47,9 +48,9 @@ bool Menu_Screen::Start()
 		app->player->Disable();
 	}
 	
-	if (app->characterMenu->active == true)
+	if (app->gameMenu->active == true)
 	{
-		app->characterMenu->Disable();
+		app->gameMenu->Disable();
 	}
 
 	/*if (app->entityManager->active == true)
@@ -149,7 +150,7 @@ bool Menu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 				{
 					Disable();
 					app->scene->Enable();
-					app->player->Enable();
+					//app->player->Enable();
 					app->render->camera.x = (app->player->P1.position.x - 550) * -1;
 					app->render->camera.y = (app->player->P1.position.y - 300) * -1;
 					app->player->P1.position.x = app->player->resetPlayerPos.x;

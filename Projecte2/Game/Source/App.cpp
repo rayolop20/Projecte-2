@@ -56,21 +56,21 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	// Reverse order of CleanUp
 	AddModule(win);
 	AddModule(input);
-	AddModule(tex);
-	AddModule(audio);
-    AddModule(pathfinding);
-	AddModule(fonts);
+	//AddModule(tex);
+	//AddModule(audio);
+    //AddModule(pathfinding);
+	//AddModule(fonts);
 	AddModule(scene);
-	AddModule(BTSystem);
-	AddModule(map);
+	//AddModule(BTSystem);
+	//AddModule(map);
 	AddModule(guiManager);
-	AddModule(entityManager);
-	AddModule(player);
+	//AddModule(entityManager);
+	//AddModule(player);
 	AddModule(menu);
 	AddModule(collisions);
-	AddModule(characterMenu);
+	//AddModule(characterMenu);
 	AddModule(gameMenu);
-	AddModule(dialogues);
+	//AddModule(dialogues);
 
 	// Render last to swap buffer
 	AddModule(render);

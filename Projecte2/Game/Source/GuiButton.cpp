@@ -129,15 +129,6 @@ bool GuiButton::Draw(Render* render)
 			uitext->h = 51;
 			app->render->DrawTexture(UIText, -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -app->render->camera.y + 390, uitext);
 		}
-		//Credits
-		if (id == 4)
-		{
-			uitext->x = 192;
-			uitext->y = 474;
-			uitext->w = 144;
-			uitext->h = 52;
-			app->render->DrawTexture(UIText, 150, 330, uitext);
-		}
 		
 		//Atack
 		if (id == 31 && app->BTSystem->battle == true)
@@ -220,15 +211,6 @@ bool GuiButton::Draw(Render* render)
 			uitext->w = 78;
 			uitext->h = 51;
 			app->render->DrawTexture(UIText, 150, 420, uitext);
-		}
-		//Credits
-		if (id == 4)
-		{
-			uitext->x = 829;
-			uitext->y = 474;
-			uitext->w = 144;
-			uitext->h = 52;
-			app->render->DrawTexture(UIText, 150, 330, uitext);
 		}
 		//resume
 		if (id == 5)
@@ -332,15 +314,6 @@ bool GuiButton::Draw(Render* render)
 			uitext->w = 78;
 			uitext->h = 51;
 			app->render->DrawTexture(UIText, 150, 420, uitext);
-		}
-		//Credits
-		if (id == 4)
-		{
-			uitext->x = 829;
-			uitext->y = 474;
-			uitext->w = 144;
-			uitext->h = 52;
-			app->render->DrawTexture(UIText, 150, 330, uitext);
 		}
 		//resume
 		if (id == 5)
