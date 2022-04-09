@@ -255,7 +255,7 @@ bool GuiButton::Draw(Render* render)
 		if (id == 34 && app->BTSystem->battle == true)
 		{
 			uitext->x = 198;
-			uitext->y = 2;
+			uitext->y = 187;
 			uitext->w = 152;
 			uitext->h = 59;
 			app->render->DrawTexture(BTLText, app->player->P1.position.x + 15, app->player->P1.position.y + 210, uitext);
@@ -275,7 +275,7 @@ bool GuiButton::Draw(Render* render)
 		if (id == 36 && app->BTSystem->battle == true)
 		{
 			uitext->x = 197;
-			uitext->y = 167;
+			uitext->y = 267;
 			uitext->w = 152;
 			uitext->h = 59;
 			app->render->DrawTexture(BTLText, app->player->P1.position.x + 15, app->player->P1.position.y + 285, uitext);
@@ -342,6 +342,45 @@ bool GuiButton::Draw(Render* render)
 			uitext->w = 78;
 			uitext->h = 51;
 			app->render->DrawTexture(UIText, -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -app->render->camera.y + 390, uitext);
+		}
+		//Atack
+		if (id == 31 && app->BTSystem->battle == true)
+		{
+			uitext->x = 25;
+			uitext->y = 187;
+			uitext->w = 152;
+			uitext->h = 59;
+			app->render->DrawTexture(BTLText, app->player->P1.position.x - 165, app->player->P1.position.y + 210, uitext);
+		}
+
+		//Special
+		if (id == 34 && app->BTSystem->battle == true)
+		{
+			uitext->x = 198;
+			uitext->y = 187;
+			uitext->w = 152;
+			uitext->h = 59;
+			app->render->DrawTexture(BTLText, app->player->P1.position.x + 15, app->player->P1.position.y + 210, uitext);
+		}
+
+		//Inventory
+		if (id == 35 && app->BTSystem->battle == true)
+		{
+			uitext->x = 25;
+			uitext->y = 267;
+			uitext->w = 153;
+			uitext->h = 59;
+			app->render->DrawTexture(BTLText, app->player->P1.position.x - 165, app->player->P1.position.y + 285, uitext);
+		}
+
+		//Run
+		if (id == 36 && app->BTSystem->battle == true)
+		{
+			uitext->x = 197;
+			uitext->y = 267;
+			uitext->w = 152;
+			uitext->h = 59;
+			app->render->DrawTexture(BTLText, app->player->P1.position.x + 15, app->player->P1.position.y + 285, uitext);
 		}
 		else
 		{
