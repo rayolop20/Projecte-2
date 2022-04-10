@@ -77,6 +77,7 @@ bool Menu_Screen::Update(float dt)
 	app->input->GetMousePosition(mouseX, mouseY);
 
 
+
 	if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
 	{
 		menuScreen = false;

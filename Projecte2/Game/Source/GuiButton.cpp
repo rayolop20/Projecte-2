@@ -19,6 +19,7 @@ GuiButton::GuiButton(uint32 id, SDL_Rect bounds, const char* text) : GuiControl(
 
 	UIText = app->tex->Load("Assets/textures/UI/MainMenu.png");
 	BTLText = app->tex->Load("Assets/textures/UI/CombatUI.png");
+	clickFx = app->audio->LoadFx("Assets/audio/fx/Acceptar.wav");
 
 }
 
@@ -188,6 +189,10 @@ bool GuiButton::Draw(Render* render)
 	//L14: TODO 4: Draw the button according the GuiControl State
 	case GuiControlState::FOCUSED:
 	{
+		if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_DOWN)
+		{
+			app->audio->PlayFx(clickFx);
+		}
 		//new game
 		if (id == 1)
 		{
@@ -299,12 +304,14 @@ bool GuiButton::Draw(Render* render)
 		
 	} break;
 	case GuiControlState::PRESSED:
-	{
+	{	
+
+
 		//new game
 		if (id == 1)
 		{
-			uitext->x = 339;
-			uitext->y = 854;
+			uitext->x = 790;
+			uitext->y = 930;
 			uitext->w = 194;
 			uitext->h = 52;
 			app->render->DrawTexture(UIText, 150, 150, uitext);
@@ -312,8 +319,8 @@ bool GuiButton::Draw(Render* render)
 		//options
 		if (id == 2)
 		{
-			uitext->x = 373;
-			uitext->y = 222;
+			uitext->x = 825;
+			uitext->y = 295;
 			uitext->w = 144;
 			uitext->h = 57;
 			app->render->DrawTexture(UIText, 150, 240, uitext);
@@ -321,8 +328,8 @@ bool GuiButton::Draw(Render* render)
 		//Exit
 		if (id == 3)
 		{
-			uitext->x = 442;
-			uitext->y = 553;
+			uitext->x = 893;
+			uitext->y = 627;
 			uitext->w = 78;
 			uitext->h = 51;
 			app->render->DrawTexture(UIText, 150, 420, uitext);
@@ -339,8 +346,8 @@ bool GuiButton::Draw(Render* render)
 		//resume
 		if (id == 5)
 		{
-			uitext->x = 327;
-			uitext->y = 51;
+			uitext->x = 832;
+			uitext->y = 125;
 			uitext->w = 193;
 			uitext->h = 51;
 			app->render->DrawTexture(UIText, -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -app->render->camera.y + 250, uitext);
@@ -349,8 +356,8 @@ bool GuiButton::Draw(Render* render)
 		//return menu
 		if (id == 6)
 		{
-			uitext->x = 373;
-			uitext->y = 222;
+			uitext->x = 858;
+			uitext->y = 1075;
 			uitext->w = 144;
 			uitext->h = 57;
 			app->render->DrawTexture(UIText, -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -app->render->camera.y + 320, uitext);
@@ -358,12 +365,13 @@ bool GuiButton::Draw(Render* render)
 		//Exit
 		if (id == 9)
 		{
-			uitext->x = 442;
-			uitext->y = 553;
+			uitext->x = 893;
+			uitext->y = 627;
 			uitext->w = 78;
 			uitext->h = 51;
 			app->render->DrawTexture(UIText, -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -app->render->camera.y + 390, uitext);
 		}
+
 		//Atack
 		if (id == 31 && app->BTSystem->battle == true)
 		{
