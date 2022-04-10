@@ -42,6 +42,7 @@ public:
 	bool debug = false;
 	bool paused = false;
 	bool cMenu = false;
+	bool musicActive = true;
 
 	int xCont = 0;
 private:

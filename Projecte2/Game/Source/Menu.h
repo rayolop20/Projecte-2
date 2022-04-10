@@ -45,6 +45,7 @@ public:
 	bool exit = false;
 	bool starting = true;
 	bool config = false;
+	bool musicActive = true;
 
 private:
 

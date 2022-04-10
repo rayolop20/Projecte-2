@@ -84,6 +84,7 @@ bool GameMenu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 			{
 				if (control->id == 5)
 				{		
+				
 					app->scene->paused = false;
 					btnResume->state = GuiControlState::DISABLED;
 					btnMenu->state = GuiControlState::DISABLED;
@@ -92,6 +93,7 @@ bool GameMenu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 
 				if (control->id == 6)
 				{
+					app->menu->musicActive = true;
 					app->scene->paused = false;
 					Disable();
 					app->menu->Enable();
