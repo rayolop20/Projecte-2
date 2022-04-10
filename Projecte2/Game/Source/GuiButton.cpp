@@ -19,7 +19,7 @@ GuiButton::GuiButton(uint32 id, SDL_Rect bounds, const char* text) : GuiControl(
 
 	UIText = app->tex->Load("Assets/textures/UI/MainMenu.png");
 	BTLText = app->tex->Load("Assets/textures/UI/CombatUI.png");
-	clickFx = app->audio->LoadFx("Assets/audio/fx/Acceptar.wav");
+	clickFx = app->audio->LoadFx("Assets/audio/fx/Click.wav");
 
 }
 
