@@ -44,7 +44,7 @@ public:
 private:
 
 	int clickFx = 1;	
-	//bool active = false;
+	bool active = false;
 	SDL_Texture* enter = nullptr;
 
 	// L12b: Debug pathfing

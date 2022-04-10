@@ -35,9 +35,9 @@ bool GameMenu_Screen::Awake()
 // Called before the first frame
 bool GameMenu_Screen::Start()
 {
-	btnResume = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 5, "Resume", { -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -app->render->camera.y + 250, 193, 51 }, this);
-	btnMenu = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 6, "Menu", { -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -app->render->camera.y + 320, 160, 40 }, this);
-	btnExit = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 9, "Exit", { -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -app->render->camera.y + 390, 160, 40 }, this);
+	//btnResume = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 5, "Resume", { -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -app->render->camera.y + 250, 193, 51 }, this);
+	//btnMenu = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 6, "Menu", { -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -app->render->camera.y + 320, 160, 40 }, this);
+	//btnExit = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 9, "Exit", { -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -app->render->camera.y + 390, 160, 40 }, this);
 
 	return true;
 }
@@ -52,9 +52,11 @@ bool GameMenu_Screen::PreUpdate()
 // Called each loop iteration
 bool GameMenu_Screen::Update(float dt)
 {
-	btnResume->state = GuiControlState::NORMAL;
-	btnMenu->state = GuiControlState::NORMAL;
-	btnExit->state = GuiControlState::NORMAL;
+	Menu();
+
+	//btnResume->state = GuiControlState::NORMAL;
+	//btnMenu->state = GuiControlState::NORMAL;
+	//btnExit->state = GuiControlState::NORMAL;
 
 	return true;
 }
@@ -112,8 +114,20 @@ bool GameMenu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 	}
 }
 
-bool GameMenu_Screen::CleanUp()
+void GameMenu_Screen::Menu()
 {
+	btnResume = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 5, "Resume", { -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -app->render->camera.y + 250, 193, 51 }, this);
+	btnMenu = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 6, "Menu", { -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -app->render->camera.y + 320, 160, 40 }, this);
+	btnExit = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 9, "Exit", { -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -app->render->camera.y + 390, 160, 40 }, this);
+
+	btnResume->state = GuiControlState::NORMAL;
+	btnMenu->state = GuiControlState::NORMAL;
+	btnExit->state = GuiControlState::NORMAL;
+}
+
+bool GameMenu_Screen::CleanUp()
+{ 
+
 		LOG("Freeing scene");
 		return true;
 }

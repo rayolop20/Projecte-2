@@ -10,7 +10,6 @@
 #include "GuiManager.h"
 #include "EntityManager.h"
 #include "CharacterMenu.h"
-#include "GameMenu.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -47,16 +46,7 @@ bool Menu_Screen::Start()
 	{
 		app->player->Disable();
 	}
-	
-	if (app->gameMenu->active == true)
-	{
-		app->gameMenu->Disable();
-	}
 
-	/*if (app->entityManager->active == true)
-	{
-		app->entityManager->Disable();
-	}*/
 
 	return true;
 }
