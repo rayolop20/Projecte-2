@@ -37,6 +37,9 @@ bool Menu_Screen::Awake()
 // Called before the first frame
 bool Menu_Screen::Start()
 {
+	fonsMenu = app->tex->Load("Assets/textures/Assets/GameTitle.png");
+	Logo = app->tex->Load("Assets/textures/Assets/LogoProjecte.png");
+
 	if (app->scene->active == true)
 	{
 		app->scene->Disable();
@@ -73,6 +76,12 @@ bool Menu_Screen::Update(float dt)
 	int mouseX, mouseY;
 	app->input->GetMousePosition(mouseX, mouseY);
 
+
+	if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
+	{
+		menuScreen = false;
+	}
+
 	if (!app->scene->paused && starting)
 	{
 		Menu();
@@ -94,12 +103,18 @@ bool Menu_Screen::Update(float dt)
 		btnConfigEx1->state = GuiControlState::NORMAL;
 		btnConfigBack->state = GuiControlState::NORMAL;
 	}
+	if (menuScreen == false)
+	{
+		app->render->DrawTexture(fonsMenu, 0, 0);
+		app->guiManager->Draw();
+	}
+
+	else
+	{
+		app->render->DrawTexture(Logo, 0, 0);
+	}
 
 	
-
-
-	app->guiManager->Draw();
-
 	return true;
 }
 
@@ -111,6 +126,8 @@ bool Menu_Screen::PostUpdate()
 
 	int mouseX, mouseY;
 	app->input->GetMousePosition(mouseX, mouseY);
+
+
 	return ret;
 }
 
