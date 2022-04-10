@@ -784,8 +784,10 @@ void VampirEnem::OnCollision(Collider* c1, Collider* c2)
 
 void VampirEnem::PathFindVamp(int i)
 {
-	if (path == true && app->BTSystem->battle == false && app->BTSystem->Delay == true)
+	if (app->player->godMode == false)
 	{
+		if (path == true && app->BTSystem->battle == false && app->BTSystem->Delay == true)
+		{
 			app->pathfinding->CreatePath(app->map->WorldToMap(Vpir[i].Pos.x, Vpir[i].Pos.y), app->map->WorldToMap(app->player->P1.position.x, app->player->P1.position.y));
 
 			const DynArray<iPoint>* path = app->pathfinding->GetLastPath();
@@ -796,25 +798,26 @@ void VampirEnem::PathFindVamp(int i)
 				if (Vpir[i].Pos.x <= pos.x - 32 && timer3 > pathfindingtimer + enemySpeed)
 				{
 					pathfindingtimer = timer3;
-					Vpir[i].Pos.x+=32;
+					Vpir[i].Pos.x += 32;
 				}
 				if (Vpir[i].Pos.x >= pos.x + 32 && timer3 > pathfindingtimer + enemySpeed)
 				{
 					pathfindingtimer = timer3;
-					Vpir[i].Pos.x-=32;
+					Vpir[i].Pos.x -= 32;
 				}
-				if (Vpir[i].Pos.y <= pos.y - 32 &&  timer3 > pathfindingtimer + enemySpeed)
+				if (Vpir[i].Pos.y <= pos.y - 32 && timer3 > pathfindingtimer + enemySpeed)
 				{
 					pathfindingtimer = timer3;
-					Vpir[i].Pos.y+=32;
+					Vpir[i].Pos.y += 32;
 				}
 				if (Vpir[i].Pos.y >= pos.y + 32 && timer3 > pathfindingtimer + enemySpeed)
 				{
 					pathfindingtimer = timer3;
-					Vpir[i].Pos.y-=32;
+					Vpir[i].Pos.y -= 32;
 				}
 			}
-		
+
+		}
 	}
 	
 }
