@@ -39,6 +39,7 @@ bool Menu_Screen::Start()
 {
 	fonsMenu = app->tex->Load("Assets/textures/Assets/GameTitle.png");
 	Logo = app->tex->Load("Assets/textures/Assets/LogoProjecte.png");
+	EnterLogo = app->audio->LoadFx("Assets/audio/fx/EnterLogo.wav");
 
 	if (app->scene->active == true)
 	{
@@ -110,16 +111,27 @@ bool Menu_Screen::Update(float dt)
 		btnConfigEx1->state = GuiControlState::NORMAL;
 		btnConfigBack->state = GuiControlState::NORMAL;
 	}
-	if (menuScreen == false)
-	{
-		app->render->DrawTexture(fonsMenu, 0, 0);
-		app->guiManager->Draw();
 	
-	}
-
-	else
+	//logo i fons de pantalla
 	{
-		app->render->DrawTexture(Logo, 0, 0);
+		if (menuScreen == false)
+		{
+			app->render->DrawTexture(fonsMenu, 0, 0);
+			app->guiManager->Draw();
+
+		}
+
+		else
+		{
+
+			app->render->DrawTexture(Logo, 0, 0);
+			if (FXActive == true)
+			{
+				app->audio->PlayFx(EnterLogo);
+				FXActive = false;
+			}
+
+		}
 	}
 
 	
