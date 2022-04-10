@@ -102,6 +102,15 @@ bool GuiButton::Draw(Render* render)
 			uitext->h = 51;
 			app->render->DrawTexture(UIText, 150, 420, uitext);
 		}
+		//credits
+		if (id == 4)
+		{
+			uitext->x = 192;
+			uitext->y = 474;
+			uitext->w = 144;
+			uitext->h = 52;
+			app->render->DrawTexture(UIText, 150, 330, uitext);
+		}
 		//resume
 		if (id == 5)
 		{
@@ -187,12 +196,6 @@ bool GuiButton::Draw(Render* render)
 			uitext->w = 194;
 			uitext->h = 52;
 			app->render->DrawTexture(UIText, 150, 150, uitext);
-
-			/*uitext->x = 1211; //Blood drop
-			uitext->y = 150;
-			uitext->w = 70;
-			uitext->h = 70;
-			app->render->DrawTexture(UIText, 80, 150, uitext);*/
 		}
 		//options
 		if (id == 2)
@@ -211,6 +214,15 @@ bool GuiButton::Draw(Render* render)
 			uitext->w = 78;
 			uitext->h = 51;
 			app->render->DrawTexture(UIText, 150, 420, uitext);
+		}
+		//credits
+		if (id == 4)
+		{
+			uitext->x = 829;
+			uitext->y = 474;
+			uitext->w = 144;
+			uitext->h = 52;
+			app->render->DrawTexture(UIText, 150, 330, uitext);
 		}
 		//resume
 		if (id == 5)
@@ -314,6 +326,15 @@ bool GuiButton::Draw(Render* render)
 			uitext->w = 78;
 			uitext->h = 51;
 			app->render->DrawTexture(UIText, 150, 420, uitext);
+		}
+		//credits
+		if (id == 4)
+		{
+			uitext->x = 829;
+			uitext->y = 474;
+			uitext->w = 144;
+			uitext->h = 52;
+			app->render->DrawTexture(UIText, 150, 330, uitext);
 		}
 		//resume
 		if (id == 5)
