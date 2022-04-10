@@ -159,6 +159,7 @@ public:
 	bool block3_ = true;
 	bool block4_ = true;
 
+	bool godMode = false;
 
 public:
 	SDL_Rect player1;

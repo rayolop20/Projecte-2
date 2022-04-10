@@ -664,39 +664,41 @@ void ZombieEnem::OnCollision(Collider* c1, Collider* c2)
 
 void ZombieEnem::PathFindVamp(int i)
 {
-	if (path == true && app->BTSystem->battle == false && app->BTSystem->Delay == true)
+	if (app->player->godMode == false)
 	{
-		app->pathfinding->CreatePath(app->map->WorldToMap(Zbie[i].Pos.x, Zbie[i].Pos.y), app->map->WorldToMap(app->player->P1.position.x, app->player->P1.position.y));
-
-		const DynArray<iPoint>* path = app->pathfinding->GetLastPath();
-
-		for (uint j = 0; j < path->Count(); ++j)
+		if (path == true && app->BTSystem->battle == false && app->BTSystem->Delay == true)
 		{
-			iPoint pos = app->map->MapToWorld(path->At(j)->x, path->At(j)->y);
-			if (Zbie[i].Pos.x <= pos.x - 32 && timer3 > pathfindingtimer + enemySpeed)
+			app->pathfinding->CreatePath(app->map->WorldToMap(Zbie[i].Pos.x, Zbie[i].Pos.y), app->map->WorldToMap(app->player->P1.position.x, app->player->P1.position.y));
+
+			const DynArray<iPoint>* path = app->pathfinding->GetLastPath();
+
+			for (uint j = 0; j < path->Count(); ++j)
 			{
-				pathfindingtimer = timer3;
-				Zbie[i].Pos.x += 32;
+				iPoint pos = app->map->MapToWorld(path->At(j)->x, path->At(j)->y);
+				if (Zbie[i].Pos.x <= pos.x - 32 && timer3 > pathfindingtimer + enemySpeed)
+				{
+					pathfindingtimer = timer3;
+					Zbie[i].Pos.x += 32;
+				}
+				if (Zbie[i].Pos.x >= pos.x + 32 && timer3 > pathfindingtimer + enemySpeed)
+				{
+					pathfindingtimer = timer3;
+					Zbie[i].Pos.x -= 32;
+				}
+				if (Zbie[i].Pos.y <= pos.y - 32 && timer3 > pathfindingtimer + enemySpeed)
+				{
+					pathfindingtimer = timer3;
+					Zbie[i].Pos.y += 32;
+				}
+				if (Zbie[i].Pos.y >= pos.y + 32 && timer3 > pathfindingtimer + enemySpeed)
+				{
+					pathfindingtimer = timer3;
+					Zbie[i].Pos.y -= 32;
+				}
 			}
-			if (Zbie[i].Pos.x >= pos.x + 32 && timer3 > pathfindingtimer + enemySpeed)
-			{
-				pathfindingtimer = timer3;
-				Zbie[i].Pos.x -= 32;
-			}
-			if (Zbie[i].Pos.y <= pos.y - 32 && timer3 > pathfindingtimer + enemySpeed)
-			{
-				pathfindingtimer = timer3;
-				Zbie[i].Pos.y += 32;
-			}
-			if (Zbie[i].Pos.y >= pos.y + 32 && timer3 > pathfindingtimer + enemySpeed)
-			{
-				pathfindingtimer = timer3;
-				Zbie[i].Pos.y -= 32;
-			}
+
 		}
-
 	}
-
 }
 Zombie ZombieEnem::CreateZombie(int x, int y, SDL_Texture* t)
 {

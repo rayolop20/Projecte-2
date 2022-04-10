@@ -50,7 +50,8 @@ private:
 
 	int clickFx = 1;
 
-	SDL_Texture* enter = nullptr;
+	SDL_Texture* fonsMenu = nullptr;
+	SDL_Texture* Logo = nullptr;
 
 
 	// L12b: Debug pathfing
