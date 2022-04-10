@@ -108,6 +108,7 @@ bool Menu_Screen::Update(float dt)
 	{
 		app->render->DrawTexture(fonsMenu, 0, 0);
 		app->guiManager->Draw();
+		//app->audio->PlayMusic("Assets/audio/music/music_retro_forest.ogg");
 	}
 
 	else
