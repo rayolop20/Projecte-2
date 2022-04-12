@@ -73,6 +73,9 @@ public:
 
 	void PathFindVamp(int i);
 
+	SDL_Texture* selectVampire = nullptr;
+	SDL_Rect* Choose = new SDL_Rect();
+
 public:
 	iPoint position;
 

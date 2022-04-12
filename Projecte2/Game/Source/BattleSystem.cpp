@@ -64,6 +64,7 @@ bool battleSystem::Start()
 	MiniPlayerButton4 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 42, "MiniPlayerButton4", { 0, 0, 0, 0 }, this);
 	MiniPlayerButton4->state = GuiControlState::DISABLED;
 
+	selectPlayer = app->tex->Load("Assets/textures/UI/ChosePlayers.png");
 	//Initialize playerTurns
 	for (int i = 0; i <= 4 - alliesDead;i++) {
 		waitPlayer[i] = 0;
@@ -709,9 +710,11 @@ void battleSystem::ChoosePlayer()
 {
 	if (app->player->P1.IsAlive) {
 		if (AttackPlayer == 1) {
-			SDL_Rect MiniPlayer1_ = { app->player->P1.position.x - 430 + 120, app->player->P1.position.y - 230, 120, 120 };
-			app->render->DrawRectangle(MiniPlayer1_, 255, 255, 0);
-			
+			Choose->x = 5;
+			Choose->y = 6;
+			Choose->w = 120;
+			Choose->h = 120;
+			app->render->DrawTexture(selectPlayer, app->player->P1.position.x - 430 + 120, app->player->P1.position.y - 230, Choose);
 		}
 		MiniPlayerButton1->state = GuiControlState::NORMAL;
 		randomAux = true;
@@ -722,8 +725,11 @@ void battleSystem::ChoosePlayer()
 	}
 	if (app->player->P2.IsAlive) {
 		if (AttackPlayer == 2) {
-			SDL_Rect MiniPlayer1_ = { app->player->P1.position.x - 430, app->player->P1.position.y - 230 + 130, 120, 120 };
-			app->render->DrawRectangle(MiniPlayer1_, 255, 255, 0);
+			Choose->x = 5;
+			Choose->y = 6;
+			Choose->w = 120;
+			Choose->h = 120;
+			app->render->DrawTexture(selectPlayer, app->player->P1.position.x - 430, app->player->P1.position.y - 230 + 130, Choose);
 		}
 		MiniPlayerButton2->state = GuiControlState::NORMAL;
 	}
@@ -733,8 +739,11 @@ void battleSystem::ChoosePlayer()
 	}
 	if (app->player->P3.IsAlive) {
 		if (AttackPlayer == 3) {
-			SDL_Rect MiniPlayer1_ = { app->player->P1.position.x - 430 + 120, app->player->P1.position.y - 230 + 260, 120, 120 };
-			app->render->DrawRectangle(MiniPlayer1_, 255, 255, 0);
+			Choose->x = 5;
+			Choose->y = 6;
+			Choose->w = 120;
+			Choose->h = 120;
+			app->render->DrawTexture(selectPlayer, app->player->P1.position.x - 430 + 120, app->player->P1.position.y - 230 + 260, Choose);
 		}
 		MiniPlayerButton3->state = GuiControlState::NORMAL;
 	}
@@ -744,8 +753,11 @@ void battleSystem::ChoosePlayer()
 	}
 	if (app->player->P4.IsAlive) {
 		if (AttackPlayer == 4) {
-			SDL_Rect MiniPlayer1_ = { app->player->P1.position.x - 430, app->player->P1.position.y - 230 + 390, 120, 120 };
-			app->render->DrawRectangle(MiniPlayer1_, 255, 255, 0);
+			Choose->x = 5;
+			Choose->y = 6;
+			Choose->w = 120;
+			Choose->h = 120;
+			app->render->DrawTexture(selectPlayer, app->player->P1.position.x - 430, app->player->P1.position.y - 230 + 390, Choose);
 		}
 		MiniPlayerButton4->state = GuiControlState::NORMAL;
 	}

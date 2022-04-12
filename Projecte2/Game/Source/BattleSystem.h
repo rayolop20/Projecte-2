@@ -147,6 +147,9 @@ public:
 
 	SDL_Texture* TypoSpecialAttack;
 	SDL_Texture* AttackTexture;
+
+	SDL_Texture* selectPlayer = nullptr;
+	SDL_Rect* Choose = new SDL_Rect();
 private:
 
 

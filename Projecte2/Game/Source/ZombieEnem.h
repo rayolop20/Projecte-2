@@ -69,6 +69,9 @@ public:
 
 	void PathFindVamp(int i);
 
+	SDL_Texture* selectZombie = nullptr;
+	SDL_Rect* Choose = new SDL_Rect();
+
 public:
 	iPoint position;
 
@@ -91,6 +94,8 @@ public:
 
 	int ZombieNum = NULL;
 	bool klk = true;
+
+
 
 };
 

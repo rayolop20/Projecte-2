@@ -117,6 +117,7 @@ bool Menu_Screen::Update(float dt)
 		if (menuScreen == false)
 		{
 			app->render->DrawTexture(fonsMenu, 0, 0);
+			app->render->DrawTexture(fonsMenu, 0, 0);
 			app->guiManager->Draw();
 
 		}

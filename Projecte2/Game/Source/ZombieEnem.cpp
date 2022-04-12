@@ -67,6 +67,7 @@ bool ZombieEnem::Start()
 {
 
 	TextureZombie = app->tex->Load("Assets/textures/coins.png");
+	selectZombie = app->tex->Load("Assets/textures/UI/ChosePlayers.png");
 	//coinFx = app->audio->LoadFx("Assets/audio/fx/coin.wav");
 
 
@@ -138,8 +139,6 @@ bool ZombieEnem::Update(float dt)
 	}
 	return true;
 }
-
-
 
 bool ZombieEnem::PostUpdate()
 {
@@ -442,8 +441,11 @@ void ZombieEnem::DrawEnemies() {
 		for (int i = 1; i < Zbie[0].numEnemies + 1; i++) {
 			if (Zbie[i].dead == false) {
 				if (app->BTSystem->ZombieTarget == i) {
-					SDL_Rect Enem1 = { app->player->P1.position.x + 395, app->player->P1.position.y - 335 + 120 * i, 110, 110 };
-					app->render->DrawRectangle(Enem1, 255, 255, 0);
+					Choose->x = 4;
+					Choose->y = 135;
+					Choose->w = 110;
+					Choose->h = 110;
+					app->render->DrawTexture(selectZombie, app->player->P1.position.x + 395, app->player->P1.position.y - 335 + 120 * i, Choose);
 				}
 				SDL_Rect Enem1 = { app->player->P1.position.x + 400, app->player->P1.position.y - 330 + 120 * i, 100, 100 };
 				app->render->DrawRectangle(Enem1, 255, 255, 255);
