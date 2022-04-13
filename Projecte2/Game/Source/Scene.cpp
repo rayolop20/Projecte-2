@@ -82,6 +82,12 @@ bool Scene::PreUpdate()
 // Called each loop iteration
 bool Scene::Update(float dt)
 {
+	
+	if (musicActive == true)
+	{
+		app->audio->PlayMusic("Assets/audio/music/music_8_bit_adventure.ogg");
+		musicActive = false;
+	}
 
 	{
 		// L02: DONE 3: Request Load / Save when pressing L/S

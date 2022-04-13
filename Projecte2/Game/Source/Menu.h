@@ -45,12 +45,15 @@ public:
 	bool exit = false;
 	bool starting = true;
 	bool config = false;
+	bool musicActive = true;
+	bool FXActive = true;
 
 private:
 
-	int clickFx = 1;
+	int EnterLogo = 1;
 
-	SDL_Texture* enter = nullptr;
+	SDL_Texture* fonsMenu = nullptr;
+	SDL_Texture* Logo = nullptr;
 
 
 	// L12b: Debug pathfing

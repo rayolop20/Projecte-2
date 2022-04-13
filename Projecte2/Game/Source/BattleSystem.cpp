@@ -63,6 +63,8 @@ bool battleSystem::Start()
 	MiniPlayerButton3->state = GuiControlState::DISABLED;
 	MiniPlayerButton4 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 42, "MiniPlayerButton4", { 0, 0, 0, 0 }, this);
 	MiniPlayerButton4->state = GuiControlState::DISABLED;
+
+	selectPlayer = app->tex->Load("Assets/textures/UI/ChosePlayers.png");
 	//Initialize playerTurns
 	for (int i = 0; i <= 4 - alliesDead;i++) {
 		waitPlayer[i] = 0;
@@ -241,12 +243,33 @@ bool battleSystem::Update(float dt)
 	app->entityManager->Draw();
 
 	if (InventoryEnable) {
+		if (invenCont == 0)
+		{
+			InventoryButtons();
+			invenCont = 1;
+		}
 		InventoryPhase();
+	}
+	if (!InventoryEnable && invenCont == 1)
+	{
+		Ch1->state = GuiControlState::DISABLED;
+		Ch2->state = GuiControlState::DISABLED;
+		Ch3->state = GuiControlState::DISABLED;
+		Ch4->state = GuiControlState::DISABLED;
+		Item1->state = GuiControlState::DISABLED;
+		Item2->state = GuiControlState::DISABLED;
+		Item3->state = GuiControlState::DISABLED;
+		Item4->state = GuiControlState::DISABLED;
+		CloseInventory->state = GuiControlState::DISABLED;
+
+		invenCont = 0;
 	}
 	if (debug == true) {
 		//Debug Collisions
 		app->collisions->DebugDraw();
 	}
+
+	n = app->player->P1.damage;
 	//InGameMenu
 	/*if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 	{
@@ -312,9 +335,67 @@ void battleSystem::AttackPhaseDisabled2() {
 	randomAux = true;
 }
 
+void battleSystem::InventoryButtons()
+{
+	Ch1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 57, "Ch1", { -app->render->camera.x + app->win->GetWidth() / 2 - 190, -app->render->camera.y + app->win->GetHeight() / 2 - 90, 80, 180 }, this);
+	Ch1->state = GuiControlState::DISABLED;
+	Ch2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 58, "Ch2", { -app->render->camera.x + app->win->GetWidth() / 2 - 90, -app->render->camera.y + app->win->GetHeight() / 2 - 90, 80, 180 }, this);
+	Ch2->state = GuiControlState::DISABLED;
+	Ch3 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 59, "Ch3", { -app->render->camera.x + app->win->GetWidth() / 2 +10, -app->render->camera.y + app->win->GetHeight() / 2 - 90, 80, 180 }, this);
+	Ch3->state = GuiControlState::DISABLED;
+	Ch4 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 60, "Ch4", { -app->render->camera.x + app->win->GetWidth() / 2 + 110, -app->render->camera.y + app->win->GetHeight() / 2 - 90, 80, 180 }, this);
+	Ch4->state = GuiControlState::DISABLED;
+
+	Item1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 61, "Item1", { -app->render->camera.x + app->win->GetWidth() / 2 - 200, -app->render->camera.y + app->win->GetHeight() / 2 - 130, 50, 50 }, this);
+	Item1->state = GuiControlState::DISABLED;
+	Item2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 62, "Item2", { -app->render->camera.x + app->win->GetWidth() / 2 - 100, -app->render->camera.y + app->win->GetHeight() / 2 - 130, 50, 50 }, this);
+	Item2->state = GuiControlState::DISABLED;
+	Item3 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 63, "Item3", { -app->render->camera.x + app->win->GetWidth() / 2 - 0, -app->render->camera.y + app->win->GetHeight() / 2 - 130, 50, 50 }, this);
+	Item3->state = GuiControlState::DISABLED;
+	Item4 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 64, "Item4", { -app->render->camera.x + app->win->GetWidth() / 2 + 100, -app->render->camera.y + app->win->GetHeight() / 2 - 130, 50, 50 }, this);
+	Item4->state = GuiControlState::DISABLED;
+}
+
 void battleSystem::InventoryPhase() {
 	SDL_Rect Inventory_ = { app->player->P1.position.x - 640 + 32 + 50,app->player->P1.position.y - 360 + 32 + 25,1280 - 100,720 - 50};
 	app->render->DrawRectangle(Inventory_, 0,250,0);
+
+	SDL_Rect ItemsRect = { -app->render->camera.x + (app->win->GetWidth() / 2 - 300), -app->render->camera.y + (app->win->GetHeight() / 2 - 200), 600, 400 };
+	app->render->DrawRectangle(ItemsRect, 250, 0, 0);
+
+	Item1->state = GuiControlState::NORMAL;
+	Item2->state = GuiControlState::NORMAL;
+	Item3->state = GuiControlState::NORMAL;
+	Item4->state = GuiControlState::NORMAL;
+
+	if (choosingPlayer)
+	{
+		SDL_Rect characterRect = { -app->render->camera.x + (app->win->GetWidth() / 2 - 200), -app->render->camera.y + (app->win->GetHeight() / 2 - 100), 400, 200 };
+		app->render->DrawRectangle(characterRect, 0, 0, 250);
+
+		Ch1->state = GuiControlState::NORMAL;
+		Ch2->state = GuiControlState::NORMAL;
+		Ch3->state = GuiControlState::NORMAL;
+		Ch4->state = GuiControlState::NORMAL;
+
+		Item1->state = GuiControlState::DISABLED;
+		Item2->state = GuiControlState::DISABLED;
+		Item3->state = GuiControlState::DISABLED;
+		Item4->state = GuiControlState::DISABLED;
+	}
+	if (!choosingPlayer)
+	{
+		Ch1->state = GuiControlState::DISABLED;
+		Ch2->state = GuiControlState::DISABLED;
+		Ch3->state = GuiControlState::DISABLED;
+		Ch4->state = GuiControlState::DISABLED;
+
+		Item1->state = GuiControlState::NORMAL;
+		Item2->state = GuiControlState::NORMAL;
+		Item3->state = GuiControlState::NORMAL;
+		Item4->state = GuiControlState::NORMAL;
+	}
+
 	MiniPlayerButton1->state = GuiControlState::DISABLED;
 	MiniPlayerButton2->state = GuiControlState::DISABLED;
 	MiniPlayerButton3->state = GuiControlState::DISABLED;
@@ -629,9 +710,11 @@ void battleSystem::ChoosePlayer()
 {
 	if (app->player->P1.IsAlive) {
 		if (AttackPlayer == 1) {
-			SDL_Rect MiniPlayer1_ = { app->player->P1.position.x - 430 + 120, app->player->P1.position.y - 230, 120, 120 };
-			app->render->DrawRectangle(MiniPlayer1_, 255, 255, 0);
-			
+			Choose->x = 5;
+			Choose->y = 6;
+			Choose->w = 120;
+			Choose->h = 120;
+			app->render->DrawTexture(selectPlayer, app->player->P1.position.x - 430 + 120, app->player->P1.position.y - 230, Choose);
 		}
 		MiniPlayerButton1->state = GuiControlState::NORMAL;
 		randomAux = true;
@@ -642,8 +725,11 @@ void battleSystem::ChoosePlayer()
 	}
 	if (app->player->P2.IsAlive) {
 		if (AttackPlayer == 2) {
-			SDL_Rect MiniPlayer1_ = { app->player->P1.position.x - 430, app->player->P1.position.y - 230 + 130, 120, 120 };
-			app->render->DrawRectangle(MiniPlayer1_, 255, 255, 0);
+			Choose->x = 5;
+			Choose->y = 6;
+			Choose->w = 120;
+			Choose->h = 120;
+			app->render->DrawTexture(selectPlayer, app->player->P1.position.x - 430, app->player->P1.position.y - 230 + 130, Choose);
 		}
 		MiniPlayerButton2->state = GuiControlState::NORMAL;
 	}
@@ -653,8 +739,11 @@ void battleSystem::ChoosePlayer()
 	}
 	if (app->player->P3.IsAlive) {
 		if (AttackPlayer == 3) {
-			SDL_Rect MiniPlayer1_ = { app->player->P1.position.x - 430 + 120, app->player->P1.position.y - 230 + 260, 120, 120 };
-			app->render->DrawRectangle(MiniPlayer1_, 255, 255, 0);
+			Choose->x = 5;
+			Choose->y = 6;
+			Choose->w = 120;
+			Choose->h = 120;
+			app->render->DrawTexture(selectPlayer, app->player->P1.position.x - 430 + 120, app->player->P1.position.y - 230 + 260, Choose);
 		}
 		MiniPlayerButton3->state = GuiControlState::NORMAL;
 	}
@@ -664,8 +753,11 @@ void battleSystem::ChoosePlayer()
 	}
 	if (app->player->P4.IsAlive) {
 		if (AttackPlayer == 4) {
-			SDL_Rect MiniPlayer1_ = { app->player->P1.position.x - 430, app->player->P1.position.y - 230 + 390, 120, 120 };
-			app->render->DrawRectangle(MiniPlayer1_, 255, 255, 0);
+			Choose->x = 5;
+			Choose->y = 6;
+			Choose->w = 120;
+			Choose->h = 120;
+			app->render->DrawTexture(selectPlayer, app->player->P1.position.x - 430, app->player->P1.position.y - 230 + 390, Choose);
 		}
 		MiniPlayerButton4->state = GuiControlState::NORMAL;
 	}
@@ -823,6 +915,150 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 			app->player->P4.IsAlive = false;
 			app->player->P4.hp = 0;
 
+		}
+		//Ch1
+		if (control->id == 57) {
+			
+			choosingPlayer = false;
+			InventoryEnable = false;
+
+			if (increaseDmg)
+			{
+				app->player->P1.damage += 10;
+				increaseDmg = false;
+			}
+			if (increaseLuck)
+			{
+				app->player->P1.luck += 10;
+				increaseLuck = false;
+			}
+			if (increaseSpeed)
+			{
+				app->player->P1.speed += 10;
+				increaseSpeed = false;
+			}
+			if (healing)
+			{
+				for (int i = 0; i < 10; i++)
+				{
+					app->player->P1.hp++;
+				}
+				if (app->player->P1.hp >= 75.0) app->player->P1.hp = 75.0;
+				healing = false;
+			}
+		}
+		//Ch2
+		if (control->id == 58) {
+			
+			choosingPlayer = false;
+			InventoryEnable = false;
+
+			if (increaseDmg)
+			{
+				app->player->P2.damage += 10;
+				increaseDmg = false;
+			}
+			if (increaseLuck)
+			{
+				app->player->P2.luck += 10;
+				increaseLuck = false;
+			}
+			if (increaseSpeed)
+			{
+				app->player->P2.speed += 10;
+				increaseSpeed = false;
+			}
+			if (healing)
+			{
+				for (int i = 0; i < 10; i++)
+				{
+					app->player->P2.hp++;
+				}
+				if (app->player->P2.hp >= 45.0) app->player->P2.hp = 45.0;
+				healing = false;
+			}
+		}
+		//Ch3
+		if (control->id == 59) {
+			
+			choosingPlayer = false;
+			InventoryEnable = false;
+
+			if (increaseDmg)
+			{
+				app->player->P3.damage += 10;
+				increaseDmg = false;
+			}
+			if (increaseLuck)
+			{
+				app->player->P3.luck += 10;
+				increaseLuck = false;
+			}
+			if (increaseSpeed)
+			{
+				app->player->P3.speed += 10;
+				increaseSpeed = false;
+			}
+			if (healing)
+			{
+				for (int i = 0; i < 10; i++)
+				{
+					app->player->P3.hp++;
+				}
+				if (app->player->P3.hp >= 40.0) app->player->P3.hp = 40.0;
+				healing = false;
+			}
+		}
+		//Ch4
+		if (control->id == 60) {
+			
+			choosingPlayer = false;
+			InventoryEnable = false;
+
+			if (increaseDmg)
+			{
+				app->player->P4.damage += 10;
+				increaseDmg = false;
+			}
+			if (increaseLuck)
+			{
+				app->player->P4.luck += 10;
+				increaseLuck = false;
+			}
+			if (increaseSpeed)
+			{
+				app->player->P4.speed += 10;
+				increaseSpeed = false;
+			}
+			if (healing)
+			{
+				for (int i = 0; i < 10; i++)
+				{
+					app->player->P4.hp++;
+				}
+				if (app->player->P4.hp >= 50.0) app->player->P4.hp = 50.0;
+				healing = false;
+			}
+		}
+		if (control->id == 61) {
+			
+			choosingPlayer = true;
+			increaseDmg = true;
+		}
+		if (control->id == 62) {
+			
+			choosingPlayer = true;
+			increaseLuck = true;
+		}
+		if (control->id == 63) {
+			
+			choosingPlayer = true;
+			increaseSpeed = true;
+		}
+		if (control->id == 64) {
+			
+			choosingPlayer = true;
+			healing = true;
 		}
 	}
 

@@ -50,11 +50,6 @@ public:
 	bool Charac3 = false;
 	bool Charac4 = false;
 
-	bool Helmet = false;
-	bool Armor = false;
-	bool Weapon = false;
-	bool Boots = false;
-
 private:
 
 	int clickFx = 1;	
@@ -72,31 +67,15 @@ private:
 	// L12b: Debug pathfing
 	iPoint origin;
 
-	GuiButton* HelmetItem;
-	GuiButton* ArmorItem;
-	GuiButton* WeaponItem;
-	GuiButton* BootsItem;
-
 	GuiButton* Character1;
 	GuiButton* Character2;
 	GuiButton* Character3;
 	GuiButton* Character4;
 
-	GuiButton* Helmet1;
-	GuiButton* Helmet2;
-	GuiButton* Helmet3;
+	GuiButton* Item1;
+	GuiButton* Item2;
+	GuiButton* Item3;
 
-	GuiButton* Armor1;
-	GuiButton* Armor2;
-	GuiButton* Armor3;
-
-	GuiButton* Weapon1;
-	GuiButton* Weapon2;
-	GuiButton* Weapon3;
-
-	GuiButton* Boots1;
-	GuiButton* Boots2;
-	GuiButton* Boots3;
 };
 
 #endif // __MENU_SCENE_H__

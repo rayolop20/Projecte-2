@@ -207,6 +207,20 @@ bool Player::Update(float dt)
 	{
 		if (!app->scene->paused)
 		{
+			//godmode
+			{
+				if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN )
+				{
+					if (godMode == false)
+					{
+						godMode = true;
+					} 
+					else
+					{
+						godMode = false;
+					}
+				}
+			}
 			//left
 			{
 				if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && P1.moveXD == false && app->BTSystem->battle == false)
@@ -306,155 +320,157 @@ bool Player::PostUpdate()
 
 void Player::OnCollision(Collider* c1, Collider* c2)
 {
-	if ((c1 == P1.Pcol))
+	if (godMode == false)
 	{
-		//walls
+		if ((c1 == P1.Pcol))
 		{
-			if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::WALLV)
+			//walls
 			{
-
-				if (c1->rect.x < c2->rect.x && c1->rect.x + 64 > c2->rect.x && P1.moveXA == true && block1 == false && block2 == true)//Esquerra
+				if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::WALLV)
 				{
-					P1.position.x = c2->rect.x - 64;
-					block1 = false;
-				}
-				else {
-					block1 = true;
-				}
 
-				if (c1->rect.x > c2->rect.x && c1->rect.x + 64 > c2->rect.x && P1.moveXD == true && block1 == true && block2 == false && block3 == true && block4 == true)//Dreta
+					if (c1->rect.x < c2->rect.x && c1->rect.x + 64 > c2->rect.x && P1.moveXA == true && block1 == false && block2 == true)//Esquerra
+					{
+						P1.position.x = c2->rect.x - 64;
+						block1 = false;
+					}
+					else {
+						block1 = true;
+					}
+
+					if (c1->rect.x > c2->rect.x && c1->rect.x + 64 > c2->rect.x && P1.moveXD == true && block1 == true && block2 == false && block3 == true && block4 == true)//Dreta
+					{
+						P1.position.x = c2->rect.x + 32;
+						block2 = false;
+					}
+					else {
+						block2 = true;
+					}
+
+					if (c1->rect.y < c2->rect.y && c1->rect.y + 64 > c2->rect.y && P1.moveYW == true && block1 == true && block2 == true)//Adalt
+					{
+						P1.position.y = c2->rect.y - 64;
+						block3 = false;
+					}
+					else {
+						block3 = true;
+					}
+
+					if (c1->rect.y > c2->rect.y && c1->rect.y + 64 > c2->rect.y && P1.moveYS == true && block1 == true && block2 == true)//Abaix
+					{
+						P1.position.y = c2->rect.y + 32;
+						block4 = false;
+					}
+					else {
+						block4 = true;
+					}
+
+				}
+				if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::WALLH)
 				{
-					P1.position.x = c2->rect.x + 32;
-					block2 = false;
-				}
-				else {
-					block2 = true;
-				}
 
-				if (c1->rect.y < c2->rect.y && c1->rect.y + 64 > c2->rect.y && P1.moveYW == true && block1 == true && block2 == true)//Adalt
-				{
-					P1.position.y = c2->rect.y - 64;
-					block3 = false;
-				}
-				else {
-					block3 = true;
-				}
+					if (c1->rect.x < c2->rect.x && c1->rect.x + 64 > c2->rect.x && P1.moveXA == true && block1_ == false && block2_ == true)//Esquerra
+					{
+						P1.position.x = c2->rect.x - 64;
+						block1_ = false;
+					}
+					else {
+						block1_ = true;
+					}
 
-				if (c1->rect.y > c2->rect.y && c1->rect.y + 64 > c2->rect.y && P1.moveYS == true && block1 == true && block2 == true)//Abaix
-				{
-					P1.position.y = c2->rect.y + 32;
-					block4 = false;
-				}
-				else {
-					block4 = true;
-				}
+					if (c1->rect.x > c2->rect.x && c1->rect.x + 64 > c2->rect.x && P1.moveXD == true && block1_ == true && block2_ == false && block3_ == true && block4_ == true)//Dreta
+					{
+						P1.position.x = c2->rect.x + 32;
+						block2_ = false;
+					}
+					else {
+						block2_ = true;
+					}
 
+					if (c1->rect.y < c2->rect.y && c1->rect.y + 64 > c2->rect.y && P1.moveYW == true && block1_ == true && block2_ == true)//Adalt
+					{
+						P1.position.y = c2->rect.y - 64;
+						block3_ = false;
+					}
+					else {
+						block3_ = true;
+					}
+
+					if (c1->rect.y > c2->rect.y && c1->rect.y + 64 > c2->rect.y && P1.moveYS == true && block1_ == true && block2_ == true)//Abaix
+					{
+						P1.position.y = c2->rect.y + 32;
+						block4_ = false;
+					}
+					else {
+						block4_ = true;
+					}
+
+				}
 			}
-			if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::WALLH)
+
+			//Enemies
 			{
-
-				if (c1->rect.x < c2->rect.x && c1->rect.x + 64 > c2->rect.x && P1.moveXA == true && block1_ == false && block2_ == true)//Esquerra
+				if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::VAMPIRE && app->BTSystem->Delay == true)
 				{
-					P1.position.x = c2->rect.x - 64;
-					block1_ = false;
+					app->BTSystem->battle = true;
 				}
-				else {
-					block1_ = true;
+			}
+			{
+				if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::ZOMBIE && app->BTSystem->Delay == true)
+				{
+					app->BTSystem->battle = true;
+				}
+			}
+
+			//Sensors
+			{
+				if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::SENSOR_PLAYER2 && P2.Move == false)
+				{
+					if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
+					{
+						P2.Move = true;
+						P2.P2Active = false;
+						P2.IsAlive = true;
+					}
+					if (P2.Move == false)
+					{
+						P2.P2Active = true;
+					}
 				}
 
-				if (c1->rect.x > c2->rect.x && c1->rect.x + 64 > c2->rect.x && P1.moveXD == true && block1_ == true && block2_ == false && block3_ == true && block4_ == true)//Dreta
+				if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::SENSOR_PLAYER3 && P3.Move == false)
 				{
-					P1.position.x = c2->rect.x + 32;
-					block2_ = false;
-				}
-				else {
-					block2_ = true;
+					if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
+					{
+						P3.Move = true;
+						P3.P3Active = false;
+						P3.IsAlive = true;
+					}
+					if (P3.Move == false)
+					{
+						P3.P3Active = true;
+					}
 				}
 
-				if (c1->rect.y < c2->rect.y && c1->rect.y + 64 > c2->rect.y && P1.moveYW == true && block1_ == true && block2_ == true)//Adalt
+				if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::SENSOR_PLAYER4 && P4.Move == false)
 				{
-					P1.position.y = c2->rect.y - 64;
-					block3_ = false;
-				}
-				else {
-					block3_ = true;
-				}
+					if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
+					{
+						P4.Move = true;
+						P4.P4Active = false;
+						P4.IsAlive = true;
+					}
+					if (P4.Move == false)
+					{
+						P4.P4Active = true;
+					}
 
-				if (c1->rect.y > c2->rect.y && c1->rect.y + 64 > c2->rect.y && P1.moveYS == true && block1_ == true && block2_ == true)//Abaix
-				{
-					P1.position.y = c2->rect.y + 32;
-					block4_ = false;
-				}
-				else {
-					block4_ = true;
 				}
 
 			}
 		}
 
-		//Enemies
-		{
-			if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::VAMPIRE && app->BTSystem->Delay == true)
-			{
-				app->BTSystem->battle = true;
-			}
-		}
-		{
-			if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::ZOMBIE && app->BTSystem->Delay == true)
-			{
-				app->BTSystem->battle = true;
-			}
-		}
-
-		//Sensors
-		{
-			if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::SENSOR_PLAYER2 && P2.Move == false)
-			{
-				if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
-				{
-					P2.Move = true;
-					P2.P2Active = false;
-					P2.IsAlive = true;
-				}
-				if (P2.Move == false)
-				{
-					P2.P2Active = true;
-				}
-			}
-			
-			if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::SENSOR_PLAYER3 && P3.Move == false)
-			{
-				if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
-				{
-					P3.Move = true;
-					P3.P3Active = false;
-					P3.IsAlive = true;
-				}
-				if (P3.Move == false)
-				{
-					P3.P3Active = true;
-				}
-			}
-			
-			if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::SENSOR_PLAYER4 && P4.Move == false)
-			{
-				if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
-				{
-					P4.Move = true;
-					P4.P4Active = false;
-					P4.IsAlive = true;
-				}
-				if (P4.Move == false)
-				{
-					P4.P4Active = true;
-				}
-
-			}
-
-		}
 	}
-
-	
 
 }
 

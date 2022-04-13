@@ -67,6 +67,7 @@ bool ZombieEnem::Start()
 {
 
 	TextureZombie = app->tex->Load("Assets/textures/coins.png");
+	selectZombie = app->tex->Load("Assets/textures/UI/ChosePlayers.png");
 	//coinFx = app->audio->LoadFx("Assets/audio/fx/coin.wav");
 
 
@@ -138,8 +139,6 @@ bool ZombieEnem::Update(float dt)
 	}
 	return true;
 }
-
-
 
 bool ZombieEnem::PostUpdate()
 {
@@ -442,8 +441,11 @@ void ZombieEnem::DrawEnemies() {
 		for (int i = 1; i < Zbie[0].numEnemies + 1; i++) {
 			if (Zbie[i].dead == false) {
 				if (app->BTSystem->ZombieTarget == i) {
-					SDL_Rect Enem1 = { app->player->P1.position.x + 395, app->player->P1.position.y - 335 + 120 * i, 110, 110 };
-					app->render->DrawRectangle(Enem1, 255, 255, 0);
+					Choose->x = 4;
+					Choose->y = 135;
+					Choose->w = 110;
+					Choose->h = 110;
+					app->render->DrawTexture(selectZombie, app->player->P1.position.x + 395, app->player->P1.position.y - 335 + 120 * i, Choose);
 				}
 				SDL_Rect Enem1 = { app->player->P1.position.x + 400, app->player->P1.position.y - 330 + 120 * i, 100, 100 };
 				app->render->DrawRectangle(Enem1, 255, 255, 255);
@@ -664,39 +666,41 @@ void ZombieEnem::OnCollision(Collider* c1, Collider* c2)
 
 void ZombieEnem::PathFindVamp(int i)
 {
-	if (path == true && app->BTSystem->battle == false && app->BTSystem->Delay == true)
+	if (app->player->godMode == false)
 	{
-		app->pathfinding->CreatePath(app->map->WorldToMap(Zbie[i].Pos.x, Zbie[i].Pos.y), app->map->WorldToMap(app->player->P1.position.x, app->player->P1.position.y));
-
-		const DynArray<iPoint>* path = app->pathfinding->GetLastPath();
-
-		for (uint j = 0; j < path->Count(); ++j)
+		if (path == true && app->BTSystem->battle == false && app->BTSystem->Delay == true)
 		{
-			iPoint pos = app->map->MapToWorld(path->At(j)->x, path->At(j)->y);
-			if (Zbie[i].Pos.x <= pos.x - 32 && timer3 > pathfindingtimer + enemySpeed)
+			app->pathfinding->CreatePath(app->map->WorldToMap(Zbie[i].Pos.x, Zbie[i].Pos.y), app->map->WorldToMap(app->player->P1.position.x, app->player->P1.position.y));
+
+			const DynArray<iPoint>* path = app->pathfinding->GetLastPath();
+
+			for (uint j = 0; j < path->Count(); ++j)
 			{
-				pathfindingtimer = timer3;
-				Zbie[i].Pos.x += 32;
+				iPoint pos = app->map->MapToWorld(path->At(j)->x, path->At(j)->y);
+				if (Zbie[i].Pos.x <= pos.x - 32 && timer3 > pathfindingtimer + enemySpeed)
+				{
+					pathfindingtimer = timer3;
+					Zbie[i].Pos.x += 32;
+				}
+				if (Zbie[i].Pos.x >= pos.x + 32 && timer3 > pathfindingtimer + enemySpeed)
+				{
+					pathfindingtimer = timer3;
+					Zbie[i].Pos.x -= 32;
+				}
+				if (Zbie[i].Pos.y <= pos.y - 32 && timer3 > pathfindingtimer + enemySpeed)
+				{
+					pathfindingtimer = timer3;
+					Zbie[i].Pos.y += 32;
+				}
+				if (Zbie[i].Pos.y >= pos.y + 32 && timer3 > pathfindingtimer + enemySpeed)
+				{
+					pathfindingtimer = timer3;
+					Zbie[i].Pos.y -= 32;
+				}
 			}
-			if (Zbie[i].Pos.x >= pos.x + 32 && timer3 > pathfindingtimer + enemySpeed)
-			{
-				pathfindingtimer = timer3;
-				Zbie[i].Pos.x -= 32;
-			}
-			if (Zbie[i].Pos.y <= pos.y - 32 && timer3 > pathfindingtimer + enemySpeed)
-			{
-				pathfindingtimer = timer3;
-				Zbie[i].Pos.y += 32;
-			}
-			if (Zbie[i].Pos.y >= pos.y + 32 && timer3 > pathfindingtimer + enemySpeed)
-			{
-				pathfindingtimer = timer3;
-				Zbie[i].Pos.y -= 32;
-			}
+
 		}
-
 	}
-
 }
 Zombie ZombieEnem::CreateZombie(int x, int y, SDL_Texture* t)
 {

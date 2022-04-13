@@ -54,10 +54,24 @@ public:
 	GuiButton* MiniPlayerButton4;
 	GuiButton* MiniEnemyButton;
 
+	GuiButton* Item1;
+	GuiButton* Item2;
+	GuiButton* Item3;
+	GuiButton* Item4;
+
+	GuiButton* Ch1;
+	GuiButton* Ch2;
+	GuiButton* Ch3;
+	GuiButton* Ch4;
+
+	float n = 0;
+
 	int VampireTarget = 0;
 	int ZombieTarget = 0;
 	int playerTarget = 0;
 	int playerTarget_ = 0;
+
+	int invenCont = 0;
 
 	int AttackPlayer = 0;
 
@@ -69,6 +83,13 @@ public:
 	bool AttackPhaseEnable = false;
 	bool battleWin = NULL;
 
+	bool increaseDmg = false;
+	bool increaseSpeed = false;
+	bool increaseLuck = false;
+	bool healing = false;
+
+	bool choosingPlayer = false;
+
 	int CombatDeaths = 0;
 
 	void AttackPhase();
@@ -76,6 +97,7 @@ public:
 	void AttackPhaseDisabled2();
 
 	void InventoryPhase();
+	void InventoryButtons();
 	void SpecialAttackPhase();
 
 	void ChoosePlayer();
@@ -125,6 +147,9 @@ public:
 
 	SDL_Texture* TypoSpecialAttack;
 	SDL_Texture* AttackTexture;
+
+	SDL_Texture* selectPlayer = nullptr;
+	SDL_Rect* Choose = new SDL_Rect();
 private:
 
 

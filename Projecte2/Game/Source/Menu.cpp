@@ -9,6 +9,7 @@
 #include "Menu.h"
 #include "GuiManager.h"
 #include "EntityManager.h"
+#include "CharacterMenu.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -36,7 +37,9 @@ bool Menu_Screen::Awake()
 // Called before the first frame
 bool Menu_Screen::Start()
 {
-
+	fonsMenu = app->tex->Load("Assets/textures/Assets/GameTitle.png");
+	Logo = app->tex->Load("Assets/textures/Assets/LogoProjecte.png");
+	EnterLogo = app->audio->LoadFx("Assets/audio/fx/EnterLogo.wav");
 
 	if (app->scene->active == true)
 	{
@@ -46,6 +49,11 @@ bool Menu_Screen::Start()
 	if (app->player->active == true)
 	{
 		app->player->Disable();
+	}
+	
+	if (app->characterMenu->active == true)
+	{
+		app->characterMenu->Disable();
 	}
 
 	/*if (app->entityManager->active == true)
@@ -65,8 +73,22 @@ bool Menu_Screen::PreUpdate()
 // Called each loop iteration
 bool Menu_Screen::Update(float dt)
 {
+
 	int mouseX, mouseY;
 	app->input->GetMousePosition(mouseX, mouseY);
+
+	//music
+	if (musicActive == true && menuScreen == false)
+	{
+		app->audio->PlayMusic("Assets/audio/music/music_retro_forest.ogg");
+		musicActive = false;
+	}
+
+
+	if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
+	{
+		menuScreen = false;
+	}
 
 	if (!app->scene->paused && starting)
 	{
@@ -77,6 +99,7 @@ bool Menu_Screen::Update(float dt)
 		btnMenuPlay->state = GuiControlState::NORMAL;
 		btnMenuConfig->state = GuiControlState::NORMAL;
 		btnMenuExit->state = GuiControlState::NORMAL;
+		btnCredits->state = GuiControlState::NORMAL;
 	}
 
 	if (config)
@@ -88,12 +111,31 @@ bool Menu_Screen::Update(float dt)
 		btnConfigEx1->state = GuiControlState::NORMAL;
 		btnConfigBack->state = GuiControlState::NORMAL;
 	}
+	
+	//logo i fons de pantalla
+	{
+		if (menuScreen == false)
+		{
+			app->render->DrawTexture(fonsMenu, 0, 0);
+			app->render->DrawTexture(fonsMenu, 0, 0);
+			app->guiManager->Draw();
+
+		}
+
+		else
+		{
+
+			app->render->DrawTexture(Logo, 0, 0);
+			if (FXActive == true)
+			{
+				app->audio->PlayFx(EnterLogo);
+				FXActive = false;
+			}
+
+		}
+	}
 
 	
-
-
-	app->guiManager->Draw();
-
 	return true;
 }
 
@@ -105,6 +147,8 @@ bool Menu_Screen::PostUpdate()
 
 	int mouseX, mouseY;
 	app->input->GetMousePosition(mouseX, mouseY);
+
+
 	return ret;
 }
 
@@ -112,12 +156,12 @@ void Menu_Screen::Menu()
 {
 	btnMenuPlay = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Play", { 150, 150, 194, 52 }, this);
 	btnMenuConfig = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Config", { 150, 240, 144, 57 }, this);
-	//btnCredits = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 4, "Credits", { 150, 330, 144, 57 }, this);
+	btnCredits = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 4, "Credits", { 150, 330, 144, 57 }, this);
 	btnMenuExit = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 3, "Exit", { 150, 420, 78, 51 }, this);
 
 	btnMenuPlay->state = GuiControlState::DISABLED;
 	btnMenuConfig->state = GuiControlState::DISABLED;
-	//btnCredits->state = GuiControlState::DISABLED;
+	btnCredits->state = GuiControlState::DISABLED;
 	btnMenuExit->state = GuiControlState::DISABLED;
 }
 
@@ -141,6 +185,7 @@ bool Menu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 				//Checks the GUI element ID
 				if (control->id == 1)
 				{
+
 					Disable();
 					app->scene->Enable();
 					app->player->Enable();
@@ -148,10 +193,12 @@ bool Menu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 					app->render->camera.y = (app->player->P1.position.y - 300) * -1;
 					app->player->P1.position.x = app->player->resetPlayerPos.x;
 					app->player->P1.position.y = app->player->resetPlayerPos.y;
+					app->scene->musicActive = true;
 					LOG("Click on button 1");
 					btnMenuPlay->state = GuiControlState::DISABLED;
 					btnMenuConfig->state = GuiControlState::DISABLED;
 					btnMenuExit->state = GuiControlState::DISABLED;
+					btnCredits->state = GuiControlState::DISABLED;
 
 				}
 
@@ -167,6 +214,12 @@ bool Menu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 				if (control->id == 3)
 				{
 					exit = true;
+				}
+				
+				if (control->id == 4)
+				{
+			
+			
 				}
 
 				if (control->id == 7)
