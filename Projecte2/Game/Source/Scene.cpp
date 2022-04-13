@@ -82,6 +82,12 @@ bool Scene::PreUpdate()
 // Called each loop iteration
 bool Scene::Update(float dt)
 {
+	
+	if (musicActive == true)
+	{
+		app->audio->PlayMusic("Assets/audio/music/music_8_bit_adventure.ogg");
+		musicActive = false;
+	}
 
 	{
 		// L02: DONE 3: Request Load / Save when pressing L/S
@@ -115,13 +121,13 @@ bool Scene::Update(float dt)
 
 
 		//InGameMenu
-		if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+		if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN && paused == false)
 		{
 			paused = true;
 
 			Pause();
 			//InGameMenu
-			if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN && !cMenu)
+			if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN && !cMenu && paused == false)
 			{
 				paused = true;
 

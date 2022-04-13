@@ -66,6 +66,7 @@ bool VampirEnem::Start()
 {
 	
 	TextureVampire = app->tex->Load("Assets/textures/coins.png");
+	selectVampire = app->tex->Load("Assets/textures/UI/ChosePlayers.png");
 	//coinFx = app->audio->LoadFx("Assets/audio/fx/coin.wav");
 
 
@@ -537,8 +538,11 @@ void VampirEnem::DrawEnemies() {
 		for (int i = 1; i < Vpir[0].numEnemies + 1; i++) {
 			if (Vpir[i].dead == false) {
 				if (app->BTSystem->VampireTarget == i) {
-					SDL_Rect Enem1 = { app->player->P1.position.x + 395, app->player->P1.position.y - 335 + 120 * i, 110, 110 };
-					app->render->DrawRectangle(Enem1, 255, 255, 0);
+					Choose->x = 4;
+					Choose->y = 135;
+					Choose->w = 110;
+					Choose->h = 110;
+					app->render->DrawTexture(selectVampire, app->player->P1.position.x + 395, app->player->P1.position.y - 335 + 120 * i, Choose);
 				}
 				SDL_Rect Enem1 = { app->player->P1.position.x + 400, app->player->P1.position.y - 330 + 120 * i, 100, 100 };
 				app->render->DrawRectangle(Enem1, 255, 255, 255);
@@ -783,8 +787,10 @@ void VampirEnem::OnCollision(Collider* c1, Collider* c2)
 
 void VampirEnem::PathFindVamp(int i)
 {
-	if (path == true && app->BTSystem->battle == false && app->BTSystem->Delay == true)
+	if (app->player->godMode == false)
 	{
+		if (path == true && app->BTSystem->battle == false && app->BTSystem->Delay == true)
+		{
 			app->pathfinding->CreatePath(app->map->WorldToMap(Vpir[i].Pos.x, Vpir[i].Pos.y), app->map->WorldToMap(app->player->P1.position.x, app->player->P1.position.y));
 
 			const DynArray<iPoint>* path = app->pathfinding->GetLastPath();
@@ -795,25 +801,26 @@ void VampirEnem::PathFindVamp(int i)
 				if (Vpir[i].Pos.x <= pos.x - 32 && timer3 > pathfindingtimer + enemySpeed)
 				{
 					pathfindingtimer = timer3;
-					Vpir[i].Pos.x+=32;
+					Vpir[i].Pos.x += 32;
 				}
 				if (Vpir[i].Pos.x >= pos.x + 32 && timer3 > pathfindingtimer + enemySpeed)
 				{
 					pathfindingtimer = timer3;
-					Vpir[i].Pos.x-=32;
+					Vpir[i].Pos.x -= 32;
 				}
-				if (Vpir[i].Pos.y <= pos.y - 32 &&  timer3 > pathfindingtimer + enemySpeed)
+				if (Vpir[i].Pos.y <= pos.y - 32 && timer3 > pathfindingtimer + enemySpeed)
 				{
 					pathfindingtimer = timer3;
-					Vpir[i].Pos.y+=32;
+					Vpir[i].Pos.y += 32;
 				}
 				if (Vpir[i].Pos.y >= pos.y + 32 && timer3 > pathfindingtimer + enemySpeed)
 				{
 					pathfindingtimer = timer3;
-					Vpir[i].Pos.y-=32;
+					Vpir[i].Pos.y -= 32;
 				}
 			}
-		
+
+		}
 	}
 	
 }
