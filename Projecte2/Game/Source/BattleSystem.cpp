@@ -73,8 +73,12 @@ bool battleSystem::Start()
 		poisonCount[i] = 0;
 	}
 	// L03: DONE: Load map
-	TypoSpecialAttack = app->tex->Load("Assets/textures/Fonts/Typo_SpecialAttack_4.png");
 	AttackTexture = app->tex->Load("Assets/UI/CombatUI.png");
+	Tutorial = app->tex->Load("Assets/textures/UI/QTETutorial.png");
+	QTE4 = app->tex->Load("Assets/textures/UI/QTE4.png");
+	PopQTE2 = app->tex->Load("Assets/textures/UI/QTE1_1.png");
+
+	
 	// Load music
 	//app->audio->PlayMusic("Assets/audio/music/music_spy.ogg");
 
@@ -84,7 +88,6 @@ bool battleSystem::Start()
 	EntityNPC* Npc = (EntityNPC*)app->entityManager->CreateEntity(EntityType::NPC, 0, { 0,0 });
 
 	//L13: TODO 4: Create multiple Items
-	
 
 	AttackPhaseActive = false;
 	AttackAux = 0;
@@ -430,10 +433,18 @@ idle.speed = 0.005f;*/
 void battleSystem::SpecialAttackPhase() {
 	srand(time(NULL));
 	if (randomAttack == 0) {//QTE Random activator
-		randomAttack = (rand() % 4) + 1;
+		randomAttack = (rand() % 1) + 2;
 	}
 	if (randomAttack == 1) {//QTE 1
 		timer1 = SDL_GetTicks() / 1000;
+		if (AttackAux == 0){
+			SDL_Rect* Tutorial1 = new SDL_Rect();
+			Tutorial1->x = 0;
+			Tutorial1->y = 0;
+			Tutorial1->w = 528;
+			Tutorial1->h = 434;
+			app->render->DrawTexture(Tutorial, app->player->P1.position.x - 238, app->player->P1.position.y- 200,Tutorial1);
+		}
 		if (AttackAux == 0 && app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
 			timer1_ = timer1;
 			AttackAux = 1;
@@ -461,19 +472,33 @@ void battleSystem::SpecialAttackPhase() {
 	}
 	if (randomAttack == 2) {//QTE 2
 		timer1 = SDL_GetTicks() / 1000;
+		if (AttackAux == 0) {
+			SDL_Rect* Tutorial2 = new SDL_Rect();
+			Tutorial2->x = 578;
+			Tutorial2->y = 0;
+			Tutorial2->w = 528;
+			Tutorial2->h = 434;
+			app->render->DrawTexture(Tutorial, app->player->P1.position.x - 238, app->player->P1.position.y - 200, Tutorial2);
+		}
 		if (AttackAux == 0 && app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
 			timer1_ = timer1;
 			AttackAux = 1;
 		}
+		if (AttackAux != 0) {
+			app->render->DrawTexture(PopQTE2, POSQTE2X - 6, POSQTE2Y - 6);
+		}
 		randomx = (rand() % 500);
 		randomy = (rand() % 300);
-		if (QTE2->state == GuiControlState::DISABLED && AttackAux != 0) {
-			randomx = (rand() % 800);
-			randomy = (rand() % 400);
-			QTE2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 38, "QTE2", { randomx + app->player->P1.position.x - 300, randomy + app->player->P1.position.y - 200, 50, 50 }, this);
-			QTE2->state = GuiControlState::NORMAL;
 
+		if (QTE2->state == GuiControlState::DISABLED && AttackAux != 0) {
+			randomx = (rand() % 700);
+			randomy = (rand() % 400);
+			POSQTE2X = randomx + app->player->P1.position.x - 300;
+			POSQTE2Y = randomy + app->player->P1.position.y - 200;
+			QTE2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 38, "QTE2", { POSQTE2X, POSQTE2Y, 50, 50 }, this);
+			QTE2->state = GuiControlState::NORMAL;
 		}
+
 		if (AttackAux > 100) {
 			AttackAux = 100 ;
 		}
@@ -498,6 +523,14 @@ void battleSystem::SpecialAttackPhase() {
 	}
 	if (randomAttack == 3) {//QTE 3
 		timer1 = SDL_GetTicks() / 1000;
+		if (AttackAux == 0) {
+			SDL_Rect* Tutorial3 = new SDL_Rect();
+			Tutorial3->x = 1148;
+			Tutorial3->y = 0;
+			Tutorial3->w = 528;
+			Tutorial3->h = 434;
+			app->render->DrawTexture(Tutorial, app->player->P1.position.x - 238, app->player->P1.position.y - 200, Tutorial3);
+		}
 		randomtargetRect = (rand() % 185) + 165;
  		if (AttackAux == 0 && app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
 			_timer1_ = timer1;
@@ -556,6 +589,14 @@ void battleSystem::SpecialAttackPhase() {
 	}
 	if (randomAttack == 4) {//QTE 4
 		timer1 = SDL_GetTicks() / 1000;
+		if (AttackAux == 0) {
+			SDL_Rect* Tutorial4 = new SDL_Rect();
+			Tutorial4->x = 0;
+			Tutorial4->y = 469;
+			Tutorial4->w = 528;
+			Tutorial4->h = 434;
+			app->render->DrawTexture(Tutorial, app->player->P1.position.x - 238, app->player->P1.position.y - 200, Tutorial4);
+		}
 		if (AttackAux == 0 && app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
 			timer1_ = timer1;
 			AttackAux = 1;
@@ -566,13 +607,12 @@ void battleSystem::SpecialAttackPhase() {
 				randomLetterGenerator = (rand() % 26) + 1;
 				LetterGenerator = false;
 			}
-			SDL_Rect *TypoLetter = new SDL_Rect();
-			TypoLetter->x = (randomLetterGenerator-1)*22;
-			TypoLetter->y = 0;
-			TypoLetter->w = 22;
-			TypoLetter->h = 54;
-			
-			app->render->DrawTexture(TypoSpecialAttack, app->player->P1.position.x + 32, app->player->P1.position.y - 64,TypoLetter);
+			SDL_Rect *QTE4_ = new SDL_Rect();
+			QTE4_->x = (randomLetterGenerator-1)*64;
+			QTE4_->y = 0;
+			QTE4_->w = 64;
+			QTE4_->h = 64;
+			app->render->DrawTexture(QTE4, app->player->P1.position.x, app->player->P1.position.y - 64, QTE4_);
 			if (app->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN && randomLetterGenerator == 1) {
 				AttackAux += 10;
 				LetterGenerator = true;

@@ -90,6 +90,9 @@ public:
 
 	bool choosingPlayer = false;
 
+	int POSQTE2Y = 0;
+	int POSQTE2X = 0;
+
 	int CombatDeaths = 0;
 
 	void AttackPhase();
@@ -147,9 +150,10 @@ public:
 	bool Zombiebattle = false;
 	bool Vampirebattle = false;
 
-	SDL_Texture* TypoSpecialAttack;
 	SDL_Texture* AttackTexture;
-	SDL_Texture* qte2effects;
+	SDL_Texture* Tutorial;
+	SDL_Texture* PopQTE2 = nullptr;
+	SDL_Texture* QTE4;
 
 	SDL_Texture* selectPlayer = nullptr;
 	SDL_Rect* Choose = new SDL_Rect();

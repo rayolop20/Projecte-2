@@ -80,7 +80,7 @@ struct playr4
 	Collider* Player4C = nullptr;
 	bool P4Active = false;
 	bool Move = false;
-	bool IsAlive = true;
+	bool IsAlive = false;
 	float hp = 50.0;
 	float speed1 = 15.0;
 	float speed2 = 10.0;
@@ -178,6 +178,7 @@ public:
 	SDL_Texture* player4Hp = nullptr;
 
 	SDL_Texture* player1S = nullptr;
+	SDL_Texture* player4S = nullptr;
 
 	Animation* currentAnim1;
 	Animation idleAnim1;
@@ -185,6 +186,12 @@ public:
 	Animation upAnim1;
 	Animation rightAnim1;
 	Animation leftAnim1;
+	Animation* currentAnim4;
+	Animation idleAnim4;
+	Animation downAnim4;
+	Animation upAnim4;
+	Animation rightAnim4;
+	Animation leftAnim4;
 	int OrdenPlayers = 0;
 
 	iPoint resetPlayerPos;

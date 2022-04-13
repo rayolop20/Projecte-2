@@ -52,6 +52,39 @@ Player::Player() : Module()
 	upAnim1.loop = true;
 	upAnim1.speed = 0.1f;
 
+
+	idleAnim4.PushBack({ 39, 7, 49, 115 });
+	idleAnim4.loop = true;
+	idleAnim4.speed = 0.001f;
+
+	downAnim4.PushBack({ 39, 7, 49, 115 });
+	downAnim4.PushBack({ 167, 7, 49, 117 });
+	downAnim4.PushBack({ 295, 7, 49, 115 });
+	downAnim4.PushBack({ 423, 7, 49, 117 });
+	downAnim4.loop = true;
+	downAnim4.speed = 0.1f;
+
+	leftAnim4.PushBack({ 555, 7, 44, 114 });
+	leftAnim4.PushBack({ 683, 7, 44, 114 });
+	leftAnim4.PushBack({ 811, 7, 44, 114 });
+	leftAnim4.PushBack({ 939, 7, 44, 114 });
+	leftAnim4.loop = true;
+	leftAnim4.speed = 0.1f;
+	
+	rightAnim4.PushBack({ 1065, 7, 44, 114 });
+	rightAnim4.PushBack({ 1193, 7, 44, 114 });
+	rightAnim4.PushBack({ 1321, 7, 44, 114 });
+	rightAnim4.PushBack({ 1449, 7, 44, 114 });
+	rightAnim4.loop = true;
+	rightAnim4.speed = 0.1f;
+
+	upAnim4.PushBack({ 1575, 7, 49, 115 });
+	upAnim4.PushBack({ 1703, 7, 49, 117 });
+	upAnim4.PushBack({ 1831, 7, 49, 115 });
+	upAnim4.PushBack({ 1959, 7, 49, 117 });
+	upAnim4.loop = true;
+	upAnim4.speed = 0.1f;
+
 	/*	idleAnim1.PushBack({ 0, 0, 28, 64});
 	idleAnim1.loop = true;
 	idleAnim1.speed = 0.001f;
@@ -134,6 +167,7 @@ bool Player::Start()
 	bool ret = true;
 
 	currentAnim1 = &idleAnim1;
+	currentAnim4 = &idleAnim4;
 
 	//Pres E
 	player1Hp = app->tex->Load("Assets/textures/UI/hpbarplayertest.png");
@@ -142,6 +176,7 @@ bool Player::Start()
 	player4Hp = app->tex->Load("Assets/textures/UI/hpbarplayertest4.png");
 	PE = app->tex->Load("Assets/UI/UiIcons.png");
 	player1S = app->tex->Load("Assets/textures/Soldiers/soldier.png");
+	player4S = app->tex->Load("Assets/textures/Soldiers/soldier_ita_.png");
 	darkness = app->tex->Load("Assets/textures/Fog/darkness.png");
 
 	P1.Pcol = app->collisions->AddCollider({ P1.position.x,P1.position.y, 64, 90 }, Collider::Type::PLAYER, this);
@@ -232,12 +267,18 @@ bool Player::Update(float dt)
 					block1_ = false;
 					block2_ = true;
 					currentAnim1 = &rightAnim1;
+					if (P4.IsAlive == true) {
+						currentAnim4 = &rightAnim4;
+					}
 				}
 
 				if (app->input->GetKey(SDL_SCANCODE_D) == KEY_UP)
 				{
 					P1.moveXA = false;
 					currentAnim1 = &idleAnim1;
+					if (P4.IsAlive == true) {
+						currentAnim4 = &idleAnim4;
+					}
 				}
 			}
 			//right
@@ -251,12 +292,18 @@ bool Player::Update(float dt)
 					block1_ = true;
 					block2_ = false;
 					currentAnim1 = &leftAnim1;
+					if (P4.IsAlive == true) {
+						currentAnim4 = &leftAnim4;
+					}
 				}
 
 				if (app->input->GetKey(SDL_SCANCODE_A) == KEY_UP)
 				{
 					P1.moveXD = false;
 					currentAnim1 = &idleAnim1;
+					if (P4.IsAlive == true) {
+						currentAnim4 = &idleAnim4;
+					}
 				}
 			}
 			//up
@@ -266,12 +313,18 @@ bool Player::Update(float dt)
 					P1.position.y -= 3;
 					P1.moveYS = true;
 					currentAnim1 = &upAnim1;
+					if (P4.IsAlive == true) {
+						currentAnim4 = &upAnim4;
+					}
 				}
 
 				if (app->input->GetKey(SDL_SCANCODE_W) == KEY_UP)
 				{
 					P1.moveYS = false;
 					currentAnim1 = &idleAnim1;
+					if (P4.IsAlive == true) {
+						currentAnim4 = &idleAnim4;
+					}
 				}
 			}
 			//down
@@ -281,12 +334,19 @@ bool Player::Update(float dt)
 					P1.position.y += 3;
 					P1.moveYW = true;
 					currentAnim1 = &downAnim1;
+					if (P4.IsAlive == true) {
+						currentAnim4 = &upAnim4;
+					}
+					
 				}
 
 				if (app->input->GetKey(SDL_SCANCODE_S) == KEY_UP)
 				{
 					P1.moveYW = false;
 					currentAnim1 = &idleAnim1;
+					if (P4.IsAlive == true) {
+						currentAnim4 = &idleAnim4;
+					}
 				}
 			}
 		}
@@ -308,10 +368,13 @@ bool Player::PostUpdate()
 {
 	//draw player
 	player1 = currentAnim1->GetCurrentFrame();
+	player4 = currentAnim4->GetCurrentFrame();
 
 	app->render->DrawTexture(player1S, P1.position.x + 7, P1.position.y - 20, &player1);
+	app->render->DrawTexture(player4S, P4.position.x + 7, P4.position.y - 20, &player4);
 
 	currentAnim1->Update();
+	currentAnim4->Update();
 
 	return true;
 }
@@ -579,10 +642,13 @@ void Player::movementPlayer()
 				if (P4.position.x >= pos.x)
 				{
 					P4.position.x--;
+
+
 				}
 				if (P4.position.y <= pos.y)
 				{
 					P4.position.y++;
+
 				}
 				if (P4.position.y >= pos.y)
 				{

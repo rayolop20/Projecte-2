@@ -21,6 +21,7 @@ GuiButton::GuiButton(uint32 id, SDL_Rect bounds, const char* text) : GuiControl(
 	BTLText = app->tex->Load("Assets/textures/UI/CombatUI.png");
 	clickFx = app->audio->LoadFx("Assets/audio/fx/Click.wav");
 
+
 }
 
 GuiButton::~GuiButton()
@@ -297,6 +298,7 @@ bool GuiButton::Draw(Render* render)
 			uitext->h = 59;
 			app->render->DrawTexture(BTLText, app->player->P1.position.x + 15, app->player->P1.position.y + 285, uitext);
 		}
+		
 		else
 		{
 			render->DrawRectangle(bounds, 255, 255, 255, 160);

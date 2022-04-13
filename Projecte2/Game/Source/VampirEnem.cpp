@@ -97,9 +97,8 @@ bool VampirEnem::Update(float dt)
 		Combat();
 		DrawHpBars();
 		if (app->BTSystem->PlayerTurn == false)  {
-			CheckEnemy();
-
 			EnemyPhase();
+			CheckEnemy();
 		}
 	}
 	else if (app->BTSystem->battleAux == true) {
@@ -729,7 +728,6 @@ void VampirEnem::CheckEnemy() {
 				klk = true;
 			}
 		}
-		app->BTSystem->PlayerTurn = true;
 		app->BTSystem->CombatDeaths = 0;
 	}
 }
