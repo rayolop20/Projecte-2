@@ -302,9 +302,9 @@ bool EntityNPC::Update(float dt)
 				//npc[1].Destroyed = true;
 			}		
 		}
-		if (Dialogue2Count = 3 && app->player->P1.medkit == false) {
+		if (Dialogue2Count = 2 && app->player->P1.medkit == true) {
 			app->render->DrawTexture(DialogueBox, app->player->P1.position.x - 360, app->player->P1.position.y + 160);
-			//Nice! Let me hear my bounds for a second...
+			//Nice! Let me heal my bounds for a second...
 			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && timerNPC2 > timerNPC2_ + 2) {
 				Dialogue2Count = 3;
 				timerNPC2_ = timerNPC2;

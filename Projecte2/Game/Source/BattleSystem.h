@@ -112,6 +112,7 @@ public:
 
 	float timer1 = 0;
 	float timer1_ = 0;
+	float _timer1_ = 0;
 	float timer2 = 0;
 	float timer2_ = 0;
 	float AttackAux;
@@ -148,6 +149,7 @@ public:
 
 	SDL_Texture* TypoSpecialAttack;
 	SDL_Texture* AttackTexture;
+	SDL_Texture* qte2effects;
 
 	SDL_Texture* selectPlayer = nullptr;
 	SDL_Rect* Choose = new SDL_Rect();

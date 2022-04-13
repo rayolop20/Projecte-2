@@ -25,6 +25,8 @@ struct Zombie
 	float damage = 17.0;
 	float speed = 17.0;
 	int numEnemies = 4;
+	bool poisoned = false;
+	bool onFire = false;
 };
 
 class ZombieEnem : public Entity

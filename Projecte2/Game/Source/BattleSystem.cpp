@@ -73,7 +73,7 @@ bool battleSystem::Start()
 		poisonCount[i] = 0;
 	}
 	// L03: DONE: Load map
-	TypoSpecialAttack = app->tex->Load("Assets/textures/Typo_SpecialAttack_4.png");
+	TypoSpecialAttack = app->tex->Load("Assets/textures/Fonts/Typo_SpecialAttack_4.png");
 	AttackTexture = app->tex->Load("Assets/UI/CombatUI.png");
 	// Load music
 	//app->audio->PlayMusic("Assets/audio/music/music_spy.ogg");
@@ -210,6 +210,9 @@ bool battleSystem::Update(float dt)
 		CloseInventory->bounds.h = 0;
 		Run->bounds.w = 0;
 		Run->bounds.h = 0;
+		for (int i = 0; i < 4; i++) {
+			waitPlayer[i] = 0;
+		}
 	}
 	if (Delay == false) {//Delay after Run Button
 		timer1 = SDL_GetTicks() / 1000;
@@ -427,7 +430,7 @@ idle.speed = 0.005f;*/
 void battleSystem::SpecialAttackPhase() {
 	srand(time(NULL));
 	if (randomAttack == 0) {//QTE Random activator
-		randomAttack = (rand() % 1) + 1;
+		randomAttack = (rand() % 1) + 3;
 	}
 	if (randomAttack == 1) {//QTE 1
 		timer1 = SDL_GetTicks() / 1000;
@@ -442,7 +445,7 @@ void battleSystem::SpecialAttackPhase() {
     		AttackAux = 100;
 		}
 		if (timer1 > timer1_ + 5 && AttackAux != 0) {
-   			randomAttack = 0;
+			randomAttack = 0;
 			//enemy.hp = enemy.hp - player.attack + AttackAux;
 			for (int i = 0; i <= 4; i++) {
 				if (app->BTSystem->waitPlayer[i] != 0) {
@@ -467,8 +470,9 @@ void battleSystem::SpecialAttackPhase() {
 		if (QTE2->state == GuiControlState::DISABLED && AttackAux != 0) {
 			randomx = (rand() % 800);
 			randomy = (rand() % 400);
-			QTE2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 8, "QTE2", { randomx + app->player->P1.position.x - 300, randomy + app->player->P1.position.y - 200, 50, 50 }, this);
+			QTE2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 38, "QTE2", { randomx + app->player->P1.position.x - 300, randomy + app->player->P1.position.y - 200, 50, 50 }, this);
 			QTE2->state = GuiControlState::NORMAL;
+
 		}
 		if (AttackAux > 100) {
 			AttackAux = 100 ;
@@ -478,9 +482,6 @@ void battleSystem::SpecialAttackPhase() {
 			QTE2->state = GuiControlState::DISABLED;
 			//enemy.hp = enemy.hp - player.attack + AttackAux;
 			AttackAux = 0;
-			app->BTSystem->waitPlayer[AttackPlayer - 1] += 1;
-			AttackPlayer = 0;
-			VampireTarget = 0;
 			for (int i = 0; i <= 4; i++) {
 				if (app->BTSystem->waitPlayer[i] != 0) {
 					app->BTSystem->waitPlayer[i] += 1;
@@ -496,16 +497,16 @@ void battleSystem::SpecialAttackPhase() {
 		//pp->render->DrawRectangle(block1, 250, 0, 0);
 	}
 	if (randomAttack == 3) {//QTE 3
+		timer1 = SDL_GetTicks() / 1000;
 		randomtargetRect = (rand() % 185) + 165;
-		if (AttackAux == 0 && app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
-			timer1_ = timer1;
+ 		if (AttackAux == 0 && app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+			_timer1_ = timer1;
 			AttackAux = 1;
 			randomtargetRect = (rand() % 185) + 165;
 			randomtargetRect_ = randomtargetRect;
 		}
 		if (AttackAux != 0) {
-
-			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && timer1_ > timer1 + 0.5) {
+			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && timer1 > _timer1_ + 0.25) {
 				finalpos = timer1_ + app->player->P1.position.x - 125;
 				if (finalpos > randomtargetRect_ + app->player->P1.position.x - 125  - 115 && finalpos < randomtargetRect_ + app->player->P1.position.x - 125 - 115 + 30) {
 					AttackAux = 100;
@@ -517,22 +518,6 @@ void battleSystem::SpecialAttackPhase() {
 					AttackAux = 25;
 				}
 				randomAttack = 0;
-				//enemy.hp = enemy.hp - player.attack + AttackAux;
-				AttackAux = 0;
-				AttackPlayer = 0;
-				VampireTarget = 0;
-				for (int i = 0; i <= 4; i++) {
-					if (app->BTSystem->waitPlayer[i] != 0) {
-						app->BTSystem->waitPlayer[i] += 1;
-					}
-					if (app->BTSystem->waitPlayer[i] == 5) {
-						app->BTSystem->waitPlayer[i] = 0;
-					}
-				}
-				SpecialAttackEnable = false;
-				SpeacialAttackEnd = true;
-
-
 			}
 			if (timer1_ < 280 && rectDirection == false) {//PointRect right movement
 				timer1_+=3.5;
@@ -555,6 +540,18 @@ void battleSystem::SpecialAttackPhase() {
 			app->render->DrawRectangle(targetRect, 250, 250, 0);
 			SDL_Rect PointRect = {timer1_ + app->player->P1.position.x - 125,app->player->P1.position.y + 210,20,20 };
 			app->render->DrawRectangle(PointRect, 250, 0, 0);
+			if (AttackAux == 25 || AttackAux == 50 || AttackAux == 100) {
+				for (int i = 0; i <= 4; i++) {
+					if (app->BTSystem->waitPlayer[i] != 0) {
+						app->BTSystem->waitPlayer[i] += 1;
+					}
+					if (app->BTSystem->waitPlayer[i] == 5) {
+						app->BTSystem->waitPlayer[i] = 0;
+					}
+				}
+				SpecialAttackEnable = false;
+				SpeacialAttackEnd = true;
+			}
 		}
 	}
 	if (randomAttack == 4) {//QTE 4
@@ -687,10 +684,6 @@ void battleSystem::SpecialAttackPhase() {
 			if (timer1 > timer1_ + 10 && AttackAux != 0) {
 				randomLetterGenerator = 0;
 				randomAttack = 0;
-				//enemy.hp = enemy.hp - player.attack + AttackAux;
-				AttackAux = 0;
-				AttackPlayer = 0;
-				VampireTarget = 0;
 				for (int i = 0; i <= 4; i++) {
 					if (app->BTSystem->waitPlayer[i] != 0) {
 						app->BTSystem->waitPlayer[i] += 1;

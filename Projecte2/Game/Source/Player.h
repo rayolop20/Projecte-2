@@ -39,7 +39,7 @@ struct playr2
 	bool P2Active = false;
 	bool IsAlive = false;
 	bool Move = false;
-	float hp = 45.0;
+	float hp = 0;
 	float speed1 = 0.0;
 	float speed2 = 10.0;
 	float luck = 0.0;
@@ -60,7 +60,7 @@ struct playr3
 	bool P3Active = false;
 	bool Move = false;
 	bool IsAlive = false;
-	float hp = 40.0;
+	float hp = 0;
 	float speed1 = 5.0;
 	float speed2 = 15.0;
 	float luck = 0.0;
@@ -99,7 +99,7 @@ struct playr5
 {
 	//French
 	bool IsAlive = false;
-	float hp = 50.0;
+	float hp = 0;
 	float speed1 = 20.0;
 	float speed2 = 15.0;
 	float luck = 0.0;

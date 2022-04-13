@@ -88,7 +88,7 @@ bool VampirEnem::Update(float dt)
 	Vpir[1].hp, Vpir[2].hp, Vpir[3].hp, Vpir[4].hp, app->player->P1.hp, app->player->P2.hp, app->player->P3.hp, app->player->P4.hp);
 	app->win->SetTitle(title);
 
-	if (app->BTSystem->battle == true && app->player->P1.IsAlive == true && app->BTSystem->Vampirebattle) {
+	if (app->BTSystem->battle == true && app->player->P1.IsAlive == true && app->BTSystem->Vampirebattle == true) {
 		if (app->BTSystem->SpawnedEnemies == false) {
 			SpawnEnemies();
 		}
@@ -364,10 +364,8 @@ void VampirEnem::Combat() {
 					} while (randomNumber2 == app->BTSystem->VampireTarget);
 					Vpir[randomNumber2].hp -= app->player->P4.damage2 + app->player->P4.damage;
 				}
-
 				Vpir[app->BTSystem->VampireTarget].hp -= app->player->P4.damage1 + app->player->P4.damage;
 				randomNumber = (rand() % 100) + 1;
-
 			} while (randomNumber <= app->player->P4.speed + app->player->P4.speed1);
 			app->player->P4.mana += app->player->P4.mana1;
 			app->BTSystem->VampireTarget = 0;
@@ -681,9 +679,7 @@ void VampirEnem::EnemyPhase() {
 						app->player->P4.hp -= Vpir[app->BTSystem->playerTarget].damage;
 					} while (randomNumber <= Vpir[app->BTSystem->playerTarget].speed);
 					app->BTSystem->PlayerTurn = true;
-
 				}
-
 			}
 		}
 		app->BTSystem->SpecialAttackEnable = false;
