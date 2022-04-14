@@ -190,8 +190,10 @@ bool Player::Start()
 }
 
 bool Player::Update(float dt)
-{
-	app->render->DrawTexture(darkness, P1.position.x - 608, P1.position.y - 360 + 32);
+{	
+	if (app->BTSystem->battle == false) {
+		app->render->DrawTexture(darkness, P1.position.x - 608, P1.position.y - 360 + 32);
+	}
 	//imputs
 	{
 		if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
@@ -335,7 +337,7 @@ bool Player::Update(float dt)
 					P1.moveYW = true;
 					currentAnim1 = &downAnim1;
 					if (P4.IsAlive == true) {
-						currentAnim4 = &upAnim4;
+						currentAnim4 = &downAnim4;
 					}
 					
 				}
@@ -367,14 +369,17 @@ bool Player::Update(float dt)
 bool Player::PostUpdate()
 {
 	//draw player
-	player1 = currentAnim1->GetCurrentFrame();
-	player4 = currentAnim4->GetCurrentFrame();
+	
 
-	app->render->DrawTexture(player1S, P1.position.x + 7, P1.position.y - 20, &player1);
-	app->render->DrawTexture(player4S, P4.position.x + 7, P4.position.y - 20, &player4);
+	if (app->BTSystem->battle == false) {
+		player1 = currentAnim1->GetCurrentFrame();
+		player4 = currentAnim4->GetCurrentFrame();
 
-	currentAnim1->Update();
-	currentAnim4->Update();
+		app->render->DrawTexture(player1S, P1.position.x + 7, P1.position.y - 20, &player1);
+		app->render->DrawTexture(player4S, P4.position.x + 7, P4.position.y - 20, &player4);
+		currentAnim1->Update();
+		currentAnim4->Update();
+	}
 
 	return true;
 }

@@ -76,8 +76,10 @@ bool EntityNPC::Start()
 	{
 		currentAnimation[i] = &idle;
 	}
-
+	
 	npc[0] = CreateNPC(500, 500, TextureNPC);
+	npc[1] = CreateNPC(300, 1000, TextureNPC);
+	npc[2] = CreateNPC(100, 1000, TextureNPC);
 
 	return false;
 }
@@ -86,6 +88,7 @@ bool EntityNPC::Update(float dt)
 {
 	timerNPC = SDL_GetTicks() / 1000;
 	timerNPC2 = SDL_GetTicks() / 1000;
+	timerNPC3 = SDL_GetTicks() / 1000;
 
 	for (int i = 0; i < NUM_NPC; i++)
 	{
@@ -97,12 +100,13 @@ bool EntityNPC::Update(float dt)
 			npc[i].colliderNPC->pendingToDelete = true;
 		}
 	}
-	for (int i = 0; i < 1; i++)
+	for (int i = 0; i < 3; i++)
 	{
 		npc[i].colliderNPC->SetPos(npc[i].Pos.x, npc[i].Pos.y);
 		npc[i].colliderSNPC->SetPos(npc[i].Pos.x - 32, npc[i].Pos.y - 32);
 	}
 	if (Dialogue1 == true) {
+		app->scene->paused = true;
 		if (Dialogue1Count == 1) {
 			app->render->DrawTexture(DialogueBox, app->player->P1.position.x - 360, app->player->P1.position.y + 160);
 			//Who’s there?
@@ -175,6 +179,7 @@ bool EntityNPC::Update(float dt)
 			//I’ll stay here then and try to survive on my own, if you need my help, talk with me. 
 			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && timerNPC > timerNPC_ + 2) {
 				Dialogue1 = false;
+				app->scene->paused = false;
 				Dialogue1Count++;
 				timerNPC_ = timerNPC;
 			}
@@ -200,6 +205,7 @@ bool EntityNPC::Update(float dt)
 			app->render->DrawTexture(DialogueBox, app->player->P1.position.x - 360, app->player->P1.position.y + 160);
 			// Then why did you ask?
 			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && timerNPC > timerNPC_ + 2) {
+				app->scene->paused = false;
 				Dialogue1 = false;
 				timerNPC_ = timerNPC;
 
@@ -219,6 +225,7 @@ bool EntityNPC::Update(float dt)
 				Dialogue1BranchNo++;
 				Dialogue1Count++;
 				Dialogue1 = false;
+				app->scene->paused = false;
 				timerNPC_ = timerNPC;
 
 			}
@@ -236,6 +243,7 @@ bool EntityNPC::Update(float dt)
 				Dialogue1BranchNo++;
 				Dialogue1Count++;
 				Dialogue1 = false;
+				app->scene->paused = false;
 				timerNPC_ = timerNPC;
 
 			}
@@ -249,6 +257,7 @@ bool EntityNPC::Update(float dt)
 				app->player->P4.position.y = 500;
 				Dialogue1BranchYes++;
 				app->player->P4.Move = true;
+				app->player->P4.P4Active = true;
 				app->player->P4.hp = app->player->P5.hp;
 				app->player->P4.speed1 = app->player->P5.speed1;
 				app->player->P4.speed2 = app->player->P5.speed2;
@@ -264,33 +273,38 @@ bool EntityNPC::Update(float dt)
 				npc[0].Destroyed = true;
 				timerNPC_ = timerNPC;
 				Dialogue1 = false;
+				app->scene->paused = false;
 			}
 		}
 
 	}
 	if (Dialogue2 == true) {
+		app->scene->paused = true;
+
 		if (Dialogue2Count == 1) {
 			app->render->DrawTexture(DialogueBox, app->player->P1.position.x - 360, app->player->P1.position.y + 160);
-			//Hey, luck I found you, I am a doctor and I have lost my medkit,
-			//if you help me find it, I may heal myself and help you with your
+			//Hey, luck I found you, I have lost my wife who is a nurse,
+			//if you help me find her, she may help you with your
 			//injuries, I do not remember where it is, but I think this key may be a clue
 			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && timerNPC2 > timerNPC2_ + 2) {
 				Dialogue2 = false;
+				app->scene->paused = false;
 				Dialogue2Count = 2;
 				timerNPC2_ = timerNPC2;
 			}
 		}
 		if (Dialogue2Count == 2 && app->player->P1.medkit == false) {
 			app->render->DrawTexture(DialogueBox, app->player->P1.position.x - 360, app->player->P1.position.y + 160);
-			//What? You did not find anything, I am sure this key must open some door...
+			//What? You did not find her?! I am sure this key must open some door...
 			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && timerNPC2 > timerNPC2_ + 2) {
 				Dialogue2 = false;
+				app->scene->paused = false;
 				timerNPC2_ = timerNPC2;
 			}
 		}
-		if (Dialogue2Count = 3 && app->player->P1.medkit == true) {
+		if (Dialogue2Count == 3 && app->player->P1.medkit == true) {
 			app->render->DrawTexture(DialogueBox, app->player->P1.position.x - 360, app->player->P1.position.y + 160);
-			//Fine! I am done! I have some extra bandages I can give you so we can all try to leave this place by our own.
+			//There you go, almost new! See you soon and thanks a lot!
 			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && timerNPC2 > timerNPC2_ + 2) {
 				Dialogue2Count = 3;
 				app->player->P1.hp += 10;
@@ -298,16 +312,49 @@ bool EntityNPC::Update(float dt)
 				app->player->P3.hp += 10;
 				app->player->P4.hp += 10;
 				Dialogue2 = false;
+				app->scene->paused = false;
 				timerNPC2_ = timerNPC2;
-				//npc[1].Destroyed = true;
+				npc[1].Destroyed = true;
 			}		
 		}
-		if (Dialogue2Count = 2 && app->player->P1.medkit == true) {
+		if (Dialogue2Count == 2 && app->player->P1.medkit == true) {
 			app->render->DrawTexture(DialogueBox, app->player->P1.position.x - 360, app->player->P1.position.y + 160);
-			//Nice! Let me heal my bounds for a second...
+			//Oh my god Elisenda! I thought you where dead. These brave soldiers reunited us, could you try to heal their injuries 
+			//so they have more probabilities to scape?
 			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && timerNPC2 > timerNPC2_ + 2) {
 				Dialogue2Count = 3;
 				timerNPC2_ = timerNPC2;
+			}
+		}
+	}
+	if (Dialogue3 == true) {
+		app->scene->paused = true;
+
+		if (Dialogue3Count == 1) {
+			app->render->DrawTexture(DialogueBox, app->player->P1.position.x - 360, app->player->P1.position.y + 160);
+			//h...hey? Who is there? Please do not kill me...
+			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && timerNPC3 > timerNPC3_ + 2) {
+ 				Dialogue3Count = 2;
+				timerNPC3_ = timerNPC3;
+			}
+		}
+		if (Dialogue3Count == 2) {
+			app->render->DrawTexture(DialogueBox, app->player->P1.position.x - 500, app->player->P1.position.y + 160);
+			//We are alies do not worry, we have come to bring you with your husband who sent us to you. Are you injured?
+			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && timerNPC3 > timerNPC3_ + 2) {
+				Dialogue3Count = 3;
+				timerNPC3_ = timerNPC3;
+			}
+		}
+		if (Dialogue3Count == 3) {
+			app->render->DrawTexture(DialogueBox, app->player->P1.position.x - 360, app->player->P1.position.y + 160);
+			//Thanks god! I am fine, just a little in shock yet. I will follow you, hurry up please! They are everywhere...
+			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && timerNPC3 > timerNPC3_ + 2) {
+				Dialogue3 = false;
+				app->scene->paused = false;
+				timerNPC3_ = timerNPC3;
+				npc[2].Destroyed = true;
+				app->player->P1.medkit = true;
 			}
 		}
 	}
@@ -346,20 +393,30 @@ void EntityNPC::OnCollision(Collider* c1, Collider* c2)
 		}
 		else if (npc[i].colliderSNPC == c1 && !npc[i].Destroyed)
 		{
-			if (c2->type == Collider::Type::PLAYER && app->input->GetKey(SDL_SCANCODE_E)==KEY_DOWN)
+			if (c2->type == Collider::Type::PLAYER && app->input->GetKey(SDL_SCANCODE_E)==KEY_DOWN && Dialogue1 == false && Dialogue2 == false && Dialogue3 == false)
 			{
 				timerNPC_ = timerNPC;
 				timerNPC2_ = timerNPC2;
-				//Dialogue1 = true;
-				Dialogue2 = true;
-				if (Dialogue2Count == 0) {
-					Dialogue2Count = 1;
+				timerNPC3_ = timerNPC3;
+				if (i == 0) {
+					Dialogue1 = true;
+					if (Dialogue1Count != 0) {
+						Dialogue1BranchNo++;
+					}
+					Dialogue1Count++;
 				}
-				
-				if (Dialogue1Count != 0) {
-					Dialogue1BranchNo++;
+				if (i == 1) {
+					Dialogue2 = true;
+					if (Dialogue2Count == 0) {
+						Dialogue2Count = 1;
+					}
 				}
-				Dialogue1Count++;
+				if (i == 2) {
+					Dialogue3 = true;
+					if (Dialogue3Count == 0) {
+						Dialogue3Count = 1;
+					}
+				}
 
 				LOG("Polla");
 			}

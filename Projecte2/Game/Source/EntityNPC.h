@@ -72,8 +72,10 @@ public:
 	bool klk = true;
 	bool Dialogue1 = false;
 	bool Dialogue2 = false;
+	bool Dialogue3 = false;
 	int Dialogue1Count = 0;
 	int Dialogue2Count = 0;
+	int Dialogue3Count = 0;
 	int Dialogue1BranchYes = 0;
 	int Dialogue1BranchNo = 0;
 
@@ -81,6 +83,8 @@ public:
 	float timerNPC2 = 0.0;
 	float timerNPC_ = 0.0;
 	float timerNPC2_ = 0.0;
+	float timerNPC3 = 0.0;
+	float timerNPC3_ = 0.0;
 
 };
 

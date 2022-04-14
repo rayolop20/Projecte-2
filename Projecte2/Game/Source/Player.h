@@ -99,7 +99,7 @@ struct playr5
 {
 	//French
 	bool IsAlive = false;
-	float hp = 0;
+	float hp = 20;
 	float speed1 = 20.0;
 	float speed2 = 15.0;
 	float luck = 0.0;
