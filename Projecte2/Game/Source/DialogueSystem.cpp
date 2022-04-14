@@ -31,15 +31,15 @@ DialogueSystem::~DialogueSystem()
 bool DialogueSystem::Start()
 {
 
-	char lookupTable[] = { "! @,_./0123456789$;< ?abcdefghijklmnopqrstuvwxyz" };
-	scoreFont = app->fonts->Load("Assets/Textures/Fonts/fonts.png", lookupTable, 5);
+	//char lookupTable[] = { "! @,_./0123456789$;< ?abcdefghijklmnopqrstuvwxyz" };
+	//scoreFont = app->fonts->Load("Assets/Textures/Fonts/fonts.png", lookupTable, 5);
 	return true;
 }
 
 bool DialogueSystem::Update(float dt)
 {
-	sprintf_s(scoreText, "pts;%2d", score);
-	app->fonts->DrawTxt(50, 20, scoreFont, scoreText);
+	//sprintf_s(scoreText, "pts;%2d", score);
+	//app->fonts->DrawTxt(50, 20, scoreFont, scoreText);
 	return true;
 }
 
