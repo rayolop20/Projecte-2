@@ -71,21 +71,45 @@ bool EntityNPC::Start()
 	TextureNPC = app->tex->Load("Assets/textures/coins.png");
 	//coinFx = app->audio->LoadFx("Assets/audio/fx/coin.wav");
 	DialogueBox = app->tex->Load("Assets/textures/UI/TextBox.png");
+	door = app->tex->Load("Assets/textures/Assets/door.png");
+	door2 = app->tex->Load("Assets/textures/Assets/door2.png");
+	door3 = app->tex->Load("Assets/textures/Assets/door3.png");
 
 	for (int i = 0; i < NUM_NPC; i++)
 	{
 		currentAnimation[i] = &idle;
 	}
 	
-	npc[0] = CreateNPC(500, 500, TextureNPC);
-	npc[1] = CreateNPC(300, 1000, TextureNPC);
-	npc[2] = CreateNPC(100, 1000, TextureNPC);
+	npc[0] = CreateNPC(96, 1378, TextureNPC);
+	npc[1] = CreateNPC(960, 217, TextureNPC);
+	npc[2] = CreateNPC(1365, 1951, TextureNPC);
+
+	KLK = app->collisions->AddCollider({ 1312, 1664, 96, 64 }, Collider::Type::KEY_SENSOR, (Module*)app->entityManager);
+	KLK2 = app->collisions->AddCollider({ 1504, 2304,64, 96 }, Collider::Type::KEY_SENSOR, (Module*)app->entityManager);
 
 	return false;
 }
 
 bool EntityNPC::Update(float dt)
 {
+
+	if (Dialogue2Count != 0) {
+		KLK->pendingToDelete = true;
+		app->render->DrawTexture(door2, 1312, 1664);
+
+	}
+	else {
+		app->render->DrawTexture(door, 1312, 1664);
+	}
+
+	if (app->player->P2.IsAlive == true && app->player->P3.IsAlive == true && app->player->P4.IsAlive == true) {
+		KLK2->pendingToDelete = true;
+	}
+	else{
+		app->render->DrawTexture(door3, 1536, 2304);
+
+	}
+
 	timerNPC = SDL_GetTicks() / 1000;
 	timerNPC2 = SDL_GetTicks() / 1000;
 	timerNPC3 = SDL_GetTicks() / 1000;

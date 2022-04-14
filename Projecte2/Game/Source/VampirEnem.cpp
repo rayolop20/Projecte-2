@@ -75,7 +75,7 @@ bool VampirEnem::Start()
 		currentAnimation[i] = &idle;
 	}
 
-	Vpir[0] = CreateVampire(/*Vpir->Pos.x, Vpir->Pos.x,*/800,800, TextureVampire);
+	Vpir[0] = CreateVampire(1131,1489, TextureVampire);
 
 	return false;
 }

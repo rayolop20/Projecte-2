@@ -433,7 +433,7 @@ idle.speed = 0.005f;*/
 void battleSystem::SpecialAttackPhase() {
 	srand(time(NULL));
 	if (randomAttack == 0) {//QTE Random activator
-		randomAttack = (rand() % 1) + 2;
+		randomAttack = (rand() % 1) + 4;
 	}
 	if (randomAttack == 1) {//QTE 1
 		timer1 = SDL_GetTicks() / 1000;
@@ -519,7 +519,7 @@ void battleSystem::SpecialAttackPhase() {
 			SpeacialAttackEnd = true;
 
 		}
-		//pp->render->DrawRectangle(block1, 250, 0, 0);
+		//app->render->DrawRectangle(block1, 250, 0, 0);
 	}
 	if (randomAttack == 3) {//QTE 3
 		timer1 = SDL_GetTicks() / 1000;
