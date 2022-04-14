@@ -612,7 +612,7 @@ void ZombieEnem::ChooseEnemy() {
 		}
 	}
 	for (int i = 1; i < Zbie[0].numEnemies + 1; i++) {//
-		if (Zbie[i].dead == false && x > 1005 && x < 1110 && y > -5 + 120 * i && y < 115 + 120 * i + 100 && app->input->GetMouseButtonDown(1) == KEY_DOWN && app->BTSystem->PlayerTurn == true && app->BTSystem->SpecialAttackEnable == false && app->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT) {
+		if (Zbie[i].dead == false && x > 1005 && x < 1110 && y > -5 + 120 * i && y < 115 + 120 * i + 100 && app->input->GetMouseButtonDown(1) == KEY_DOWN && app->BTSystem->PlayerTurn == true && app->BTSystem->SpecialAttackEnable == false && app->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT && app->player->godMode == true) {
 			//app->BTSystem->ZombieTarget = i;
 			Zbie[i].hp = 0;
 		}
@@ -692,7 +692,9 @@ void ZombieEnem::EnemyPhase() {
 					int randomNumber = 0;
 					do {
 						randomNumber = (rand() % 100) + 1;
-						app->player->P1.hp -= Zbie[app->BTSystem->playerTarget].damage;
+						if (app->player->godMode == false) {
+							app->player->P1.hp -= Zbie[app->BTSystem->playerTarget].damage;
+						}
 					} while (randomNumber <= Zbie[app->BTSystem->playerTarget].speed);
 					app->BTSystem->PlayerTurn = true;
 				}
@@ -700,7 +702,9 @@ void ZombieEnem::EnemyPhase() {
 					int randomNumber = 0;
 					do {
 						randomNumber = (rand() % 100) + 1;
-						app->player->P2.hp -= Zbie[app->BTSystem->playerTarget].damage;
+						if (app->player->godMode == false) {
+							app->player->P2.hp -= Zbie[app->BTSystem->playerTarget].damage;
+						}
 					} while (randomNumber <= Zbie[app->BTSystem->playerTarget].speed);
 					app->BTSystem->PlayerTurn = true;
 
@@ -709,7 +713,9 @@ void ZombieEnem::EnemyPhase() {
 					int randomNumber = 0;
 					do {
 						randomNumber = (rand() % 100) + 1;
-						app->player->P3.hp -= Zbie[app->BTSystem->playerTarget].damage;
+						if (app->player->godMode == false) {
+							app->player->P3.hp -= Zbie[app->BTSystem->playerTarget].damage;
+						}
 					} while (randomNumber <= Zbie[app->BTSystem->playerTarget].speed);
 					app->BTSystem->PlayerTurn = true;
 
@@ -718,7 +724,9 @@ void ZombieEnem::EnemyPhase() {
 					int randomNumber = 0;
 					do {
 						randomNumber = (rand() % 100) + 1;
-						app->player->P4.hp -= Zbie[app->BTSystem->playerTarget].damage;
+						if (app->player->godMode == false) {
+							app->player->P4.hp -= Zbie[app->BTSystem->playerTarget].damage;
+						}
 					} while (randomNumber <= Zbie[app->BTSystem->playerTarget].speed);
 					app->BTSystem->PlayerTurn = true;
 
