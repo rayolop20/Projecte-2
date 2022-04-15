@@ -190,7 +190,8 @@ pugi::xml_node App::LoadConfig(pugi::xml_document& configFile) const
 
 	pugi::xml_parse_result result = configFile.load_file(CONFIG_FILENAME);
 
-	if (result == NULL) LOG("Could not load xml file: %s. pugi error: %s", CONFIG_FILENAME, result.description());
+	if (result == NULL)
+		LOG("Could not load xml file: %s. pugi error: %s", CONFIG_FILENAME, result.description());
 	else ret = configFile.child("config");
 
 	return ret;

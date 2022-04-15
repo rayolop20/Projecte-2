@@ -17,7 +17,7 @@
 
 VampirEnem::VampirEnem():Entity (EntityType::VAMPYR)
 {
-	name.Create("VampirEnem");
+	name.Create("Vampire");
 	idle.PushBack({ 5, 6, 16, 17 });
 	idle.PushBack({ 28, 6, 12, 17 });
 	idle.PushBack({ 11, 29, 5, 16 });
@@ -28,22 +28,11 @@ VampirEnem::VampirEnem():Entity (EntityType::VAMPYR)
 
 VampirEnem::~VampirEnem()
 {
-	name.Create("Vampire");
+
 }
 
-/*
-bool VampirEnem::Awake(pugi::xml_node& config)
-{
-	LOG("Loading VampirEnem");
-	bool ret = true;
 
 
-	Vpir[0].Pos.x = config.child("Position").attribute("PositionX").as_int();
-	Vpir[0].Pos.y = config.child("Position").attribute("PositionY").as_int();
-
-
-	return false;
-}
 
 
 bool VampirEnem::LoadState(pugi::xml_node& data)
@@ -61,7 +50,20 @@ bool VampirEnem::SaveState(pugi::xml_node& data) const
 	VPyr.append_attribute("y") = Vpir[0].Pos.y;
 	return false;
 }
-*/
+
+bool VampirEnem::Awake(pugi::xml_node& config)
+{
+	LOG("Loading Vampire");
+	bool ret = true;
+
+
+	Vpir[0].Pos.x = config.child("Position").attribute("PositionX").as_int();
+	Vpir[0].Pos.y = config.child("Position").attribute("PositionY").as_int();
+
+
+	return ret;
+}
+
 bool VampirEnem::Start()
 {
 	
@@ -75,7 +77,7 @@ bool VampirEnem::Start()
 		currentAnimation[i] = &idle;
 	}
 
-	Vpir[0] = CreateVampire(/*Vpir->Pos.x, Vpir->Pos.x,*/800,800, TextureVampire);
+	Vpir[0] = CreateVampire(Vpir->Pos.x, Vpir->Pos.x,/*800,800*/ TextureVampire);
 
 	return false;
 }

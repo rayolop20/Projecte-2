@@ -17,7 +17,7 @@ struct playr1
 	bool key = false;
 	bool medkit = false;
 	bool IsAlive = true;
-	float hp = 75.0;
+	float hp;
 	float speed1 = 15.0;
 	float speed2 = 5.0;
 	float luck = 0.0;
@@ -26,7 +26,7 @@ struct playr1
 	float damage1 = 20.0;
 	float damage2 = 12.0;
 	float speed = 0.0;
-	float mana = 110.0;
+	float mana;
 	float damage = 0.0;
 
 };
@@ -39,7 +39,7 @@ struct playr2
 	bool P2Active = false;
 	bool IsAlive = true;
 	bool Move = false;
-	float hp = 10;
+	float hp;
 	float speed1 = 0.0;
 	float speed2 = 10.0;
 	float luck = 0.0;
@@ -48,7 +48,7 @@ struct playr2
 	float damage1 = 40.0;
 	float damage2 = 12.0;
 	float speed = 0.0;
-	float mana = 110.0;
+	float mana;
 	float damage = 0.0;
 };
 
@@ -60,7 +60,7 @@ struct playr3
 	bool P3Active = false;
 	bool Move = false;
 	bool IsAlive = true;
-	float hp = 10;
+	float hp;
 	float speed1 = 5.0;
 	float speed2 = 15.0;
 	float luck = 0.0;
@@ -69,7 +69,7 @@ struct playr3
 	float damage1 = 15.0;
 	float damage2 = 20.0;
 	float speed = 0.0;
-	float mana = 110.0;
+	float mana;
 	float damage = 0.0;
 };
 
@@ -81,7 +81,7 @@ struct playr4
 	bool P4Active = false;
 	bool Move = false;
 	bool IsAlive = true;
-	float hp = 15.0;
+	float hp;
 	float speed1 = 15.0;
 	float speed2 = 10.0;
 	float luck = 0.0;
@@ -90,7 +90,7 @@ struct playr4
 	float damage1 = 10.0;
 	float damage2 = 15.0;
 	float speed = 0.0;
-	float mana = 110.0;
+	float mana;
 	float damage = 0.0;
 	bool revolverActive = true;
 };
@@ -127,7 +127,7 @@ public:
 
 	bool SaveState(pugi::xml_node&) const;
 
-	bool Awake(pugi::xml_node&);
+	bool Awake(pugi::xml_node& config);
 	// Called when the module is activated
 	// Loads the necessary textures for the player
 
