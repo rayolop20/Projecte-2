@@ -33,8 +33,7 @@ VampirEnem::~VampirEnem()
 
 
 
-
-
+/*
 bool VampirEnem::LoadState(pugi::xml_node& data)
 {
 	Vpir[0].Pos.x = data.child("Vampire").attribute("x").as_int();
@@ -55,7 +54,7 @@ bool VampirEnem::Awake(pugi::xml_node& config)
 {
 	LOG("Loading Vampire");
 	bool ret = true;
-
+	AwakeEnable = false;
 
 	Vpir[0].Pos.x = config.child("Position").attribute("PositionX").as_int();
 	Vpir[0].Pos.y = config.child("Position").attribute("PositionY").as_int();
@@ -63,7 +62,7 @@ bool VampirEnem::Awake(pugi::xml_node& config)
 
 	return ret;
 }
-
+*/
 bool VampirEnem::Start()
 {
 	
@@ -77,7 +76,7 @@ bool VampirEnem::Start()
 		currentAnimation[i] = &idle;
 	}
 
-	Vpir[0] = CreateVampire(Vpir->Pos.x, Vpir->Pos.x,/*800,800*/ TextureVampire);
+	Vpir[0] = CreateVampire(/*Vpir->Pos.x, Vpir->Pos.x, */ 800, 800, TextureVampire);
 
 	return false;
 }

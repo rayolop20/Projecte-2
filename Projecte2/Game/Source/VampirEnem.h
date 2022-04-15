@@ -42,11 +42,11 @@ public:
 
 	// Called when the module is activated
 	// Loads the necessary textures for the player
-	bool LoadState(pugi::xml_node&);
+	//bool LoadState(pugi::xml_node&);
 
-	bool SaveState(pugi::xml_node&) const;
+	//bool SaveState(pugi::xml_node&) const;
 
-	bool Awake(pugi::xml_node& config);
+	//bool Awake(pugi::xml_node& config);
 
 	bool Start();
 
