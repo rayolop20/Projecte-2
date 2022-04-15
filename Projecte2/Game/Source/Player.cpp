@@ -12,6 +12,7 @@
 #include "Map.h"
 #include "EntityManager.h"
 #include "Scene.h"
+#include "Menu.h"
 #include "BattleSystem.h"
 
 #include "Defs.h"
@@ -191,7 +192,7 @@ bool Player::Start()
 
 bool Player::Update(float dt)
 {	
-	if (app->BTSystem->battle == false) {
+	if (app->BTSystem->battle == false && app->menu->config == false) {
 		app->render->DrawTexture(darkness, P1.position.x - 608, P1.position.y - 360 + 32);
 	}
 	//imputs
@@ -220,18 +221,18 @@ bool Player::Update(float dt)
 	// all textures
 	{
 		//player2
-		if (P2.P2Active == true)
+		if (P2.P2Active == true && app->menu->config == false)
 		{
 			app->render->DrawTexture(PE, P2.position.x - 20, P2.position.y - 100);
 		}
 		
 		//player3
-		if (P3.P3Active == true)
+		if (P3.P3Active == true && app->menu->config == false)
 		{
 			app->render->DrawTexture(PE, P3.position.x - 20, P3.position.y - 100);
 		}
 		//player4
-		if (P4.P4Active == true)
+		if (P4.P4Active == true && app->menu->config == false)
 		{
 			app->render->DrawTexture(PE, P4.position.x - 20, P4.position.y - 100);
 		}
@@ -374,7 +375,7 @@ bool Player::PostUpdate()
 	//draw player
 	
 
-	if (app->BTSystem->battle == false) {
+	if (app->BTSystem->battle == false && app->menu->config == false) {
 		player1 = currentAnim1->GetCurrentFrame();
 		player4 = currentAnim4->GetCurrentFrame();
 

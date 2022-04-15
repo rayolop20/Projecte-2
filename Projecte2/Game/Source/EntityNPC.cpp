@@ -8,6 +8,7 @@
 #include "Player.h"
 #include "PathFinding.h"
 #include "Map.h"
+#include "Menu.h"
 #include "EntityNPC.h"
 #include "Window.h"
 
@@ -93,19 +94,19 @@ bool EntityNPC::Start()
 bool EntityNPC::Update(float dt)
 {
 
-	if (Dialogue2Count != 0) {
+	if (Dialogue2Count != 0 && app->menu->config == false) {
 		KLK->pendingToDelete = true;
 		app->render->DrawTexture(door2, 1312, 1664);
 
 	}
-	else {
+	else if (app->menu->config == false){
 		app->render->DrawTexture(door, 1312, 1664);
 	}
 
 	if (app->player->P2.IsAlive == true && app->player->P3.IsAlive == true && app->player->P4.IsAlive == true) {
 		KLK2->pendingToDelete = true;
 	}
-	else{
+	else if(app->menu->config == false){
 		app->render->DrawTexture(door3, 1536, 2304);
 
 	}
@@ -392,7 +393,7 @@ bool EntityNPC::PostUpdate()
 	LOG("FUNCIONA?");
 	for (int i = 0; i < NUM_NPC; i++)
 	{
-		if (npc[i].dead == false)
+		if (npc[i].dead == false && app->menu->config == false)
 		{
 			app->render->DrawTexture(npc[i].NPCT, npc[i].Pos.x, npc[i].Pos.y, &(currentAnimation[i]->GetCurrentFrame()));
 		}

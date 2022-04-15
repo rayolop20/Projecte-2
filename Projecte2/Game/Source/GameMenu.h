@@ -40,6 +40,9 @@ public:
 
 	// Called before quitting
 	bool CleanUp();
+	GuiButton* btnResume;
+	GuiButton* btnMenu;
+	GuiButton* btnExit;
 
 private:
 
@@ -50,9 +53,7 @@ private:
 	// L12b: Debug pathfing
 	iPoint origin;
 
-	GuiButton* btnResume;
-	GuiButton* btnMenu;
-	GuiButton* btnExit;
+	
 
 };
 
