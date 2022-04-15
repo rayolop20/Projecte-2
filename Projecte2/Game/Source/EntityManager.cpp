@@ -4,7 +4,6 @@
 #include "VampirEnem.h"
 #include "ZombieEnem.h"
 #include "EntityNPC.h"
-#include "Entity.h"
 #include "Defs.h"
 #include "Log.h"
 
@@ -115,27 +114,18 @@ bool EntityManager::Update(float dt)
 
 bool EntityManager::UpdateAll(float dt, bool doLogic)
 {
-
 	bool ret = true;
 	ListItem<Entity*>* item;
 	Entity* pEntity = NULL;
-
 
 	if (doLogic)
 	{
 		for (item = entities.start; item != NULL && ret == true; item = item->next)
 		{
 			pEntity = item->data;
-			if (item->data->AwakeEnable == false)
-			{
-				if (pEntity->active == false) continue;
-				ret = item->data->Update(dt);
-			}
 
-			else
-			{
-				//ret = item->data->Awake();
-			}
+			if (pEntity->active == false) continue;
+			ret = item->data->Update(dt);
 		}
 	}
 
