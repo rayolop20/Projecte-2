@@ -22,7 +22,6 @@ enum class EntityType
 class Entity
 {
 public:
-
 	Entity(EntityType type) : type(type), active(true) {}
 
 	virtual bool Start()
@@ -51,6 +50,16 @@ public:
 	virtual bool LoadState(pugi::xml_node&)
 	{
 		return true;
+	}
+
+	virtual bool SaveState(pugi::xml_node&) const
+	{
+		return false;
+	}
+
+	virtual bool Awake(pugi::xml_node& config)
+	{
+		return false;
 	}
 
 	virtual bool SaveState(pugi::xml_node&)
@@ -83,6 +92,7 @@ public:
 public:
 
 	SString name;
+	bool AwakeEnable = true;
 	EntityType type;
 	bool active = true;
 	//SString name;         // Entity name identifier?
