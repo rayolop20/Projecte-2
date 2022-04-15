@@ -19,12 +19,37 @@
 ZombieEnem::ZombieEnem() :Entity(EntityType::ZOMBIE)
 {
 	name.Create("VampirEnem");
-	idle.PushBack({ 5, 6, 16, 17 });
-	idle.PushBack({ 28, 6, 12, 17 });
-	idle.PushBack({ 11, 29, 5, 16 });
-	idle.PushBack({ 28, 28, 12, 17 });
-	idle.loop = true;
-	idle.speed = 0.001f;
+	idleAnim.PushBack({ 45, 18, 36, 102 });
+	idleAnim.loop = true;
+	idleAnim.speed = 0.001f;
+
+	downAnim.PushBack({ 45, 18, 36, 102 });
+	downAnim.PushBack({ 168,18, 41, 104 });
+	downAnim.PushBack({ 301,18, 36, 102 });
+	downAnim.PushBack({ 429,17, 42, 104 });
+	downAnim.loop = true;
+	downAnim.speed = 0.1f;
+
+	leftAnim.PushBack({ 563,18, 31, 103 });
+	leftAnim.PushBack({ 674,20, 43, 101 });
+	leftAnim.PushBack({ 819,18, 31, 103 });
+	leftAnim.PushBack({ 929,19, 42, 101 });
+	leftAnim.loop = true;
+	leftAnim.speed = 0.1f;
+
+	rightAnim.PushBack({ 1058,18, 31, 103 });
+	rightAnim.PushBack({ 1191,21, 42, 100 });
+	rightAnim.PushBack({ 1314,18, 31, 103 });
+	rightAnim.PushBack({ 1450,21, 42, 99 });
+	rightAnim.loop = true;
+	rightAnim.speed = 0.1f;
+
+	upAnim.PushBack({ 1581,18, 36, 102 });
+	upAnim.PushBack({ 1704,18, 41, 104 });
+	upAnim.PushBack({ 1837,18, 36, 102 });
+	upAnim.PushBack({ 1965,17, 42, 104 });
+	upAnim.loop = true;
+	upAnim.speed = 0.1f;
 }
 
 ZombieEnem::~ZombieEnem()
@@ -66,14 +91,14 @@ bool VampirEnem::SaveState(pugi::xml_node& data) const
 bool ZombieEnem::Start()
 {
 
-	TextureZombie = app->tex->Load("Assets/textures/coins.png");
+	TextureZombie = app->tex->Load("Assets/textures/Enem/zombie.png");
 	selectZombie = app->tex->Load("Assets/textures/UI/ChosePlayers.png");
 	//coinFx = app->audio->LoadFx("Assets/audio/fx/coin.wav");
 
 
 	for (int i = 0; i < NUM_ZOMBIE; i++)
 	{
-		currentAnimation[i] = &idle;
+		currentAnimation[i] = &idleAnim;
 	}
 
 	Zbie[0] = CreateZombie(/*Vpir->Pos.x, Vpir->Pos.x,*/360, 360, TextureZombie);
@@ -195,6 +220,7 @@ bool ZombieEnem::PostUpdate()
 		{
 			app->render->DrawTexture(Zbie[i].zombieT, Zbie[i].Pos.x, Zbie[i].Pos.y, &(currentAnimation[i]->GetCurrentFrame()));
 		}
+		currentAnimation[i]->Update();
 	}
 	return true;
 }
@@ -848,21 +874,25 @@ void ZombieEnem::PathFindVamp(int i)
 				iPoint pos = app->map->MapToWorld(path->At(j)->x, path->At(j)->y);
 				if (Zbie[i].Pos.x <= pos.x - 32 && timer3 > pathfindingtimer + enemySpeed)
 				{
+					currentAnimation[i] = &rightAnim;
 					pathfindingtimer = timer3;
 					Zbie[i].Pos.x += 32;
 				}
 				if (Zbie[i].Pos.x >= pos.x + 32 && timer3 > pathfindingtimer + enemySpeed)
 				{
+					currentAnimation[i] = &leftAnim;
 					pathfindingtimer = timer3;
 					Zbie[i].Pos.x -= 32;
 				}
 				if (Zbie[i].Pos.y <= pos.y - 32 && timer3 > pathfindingtimer + enemySpeed)
 				{
+					currentAnimation[i] = &downAnim;
 					pathfindingtimer = timer3;
 					Zbie[i].Pos.y += 32;
 				}
 				if (Zbie[i].Pos.y >= pos.y + 32 && timer3 > pathfindingtimer + enemySpeed)
 				{
+					currentAnimation[i] = &upAnim;
 					pathfindingtimer = timer3;
 					Zbie[i].Pos.y -= 32;
 				}
