@@ -96,6 +96,18 @@ bool GameMenu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 				if (control->id == 2) {
 					app->menu->config = true;
 					app->menu->btnConfigBack->state = GuiControlState::NORMAL;
+					if (app->menu->On == true) {
+						app->menu->btnConfigOn->state = GuiControlState::NORMAL;
+					}
+					else {
+						app->menu->btnConfigOff->state = GuiControlState::NORMAL;
+					}
+					if (app->menu->fps30 == true) {
+						app->menu->btnConfig30->state = GuiControlState::NORMAL;
+					}
+					else {
+						app->menu->btnConfig60->state = GuiControlState::NORMAL;
+					}
 
 					app->menu->btnMenuPlay->state = GuiControlState::DISABLED;
 					app->menu->btnMenuConfig->state = GuiControlState::DISABLED;

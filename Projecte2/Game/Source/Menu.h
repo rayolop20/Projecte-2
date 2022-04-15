@@ -47,6 +47,8 @@ public:
 	bool config = false;
 	bool musicActive = true;
 	bool FXActive = true;
+	bool On = false;
+	bool fps30 = false;
 
 	GuiButton* btnMenuConfig;
 	GuiButton* btnMenuPlay;
@@ -55,6 +57,10 @@ public:
 
 	GuiButton* btnConfigEx1;
 	GuiButton* btnConfigBack;
+	GuiButton* btnConfigOn;
+	GuiButton* btnConfigOff;
+	GuiButton* btnConfig30;
+	GuiButton* btnConfig60;
 
 	SDL_Texture* options = nullptr;
 private:

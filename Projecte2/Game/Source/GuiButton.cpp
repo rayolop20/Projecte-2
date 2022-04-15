@@ -146,7 +146,6 @@ bool GuiButton::Draw(Render* render)
 			uitext->h = 64;
 			app->render->DrawTexture(UIText, 450,625, uitext);
 		}
-
 		if (id == 8 && app->menu->config == true && app->menu->menuScreen == true)
 		{
 			uitext->x = 90;
