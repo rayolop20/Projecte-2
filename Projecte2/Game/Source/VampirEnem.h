@@ -85,7 +85,11 @@ public:
 	Vampire Vpir[NUM_VAMPIRE] = { nullptr };
 
 	Animation* currentAnimation[NUM_VAMPIRE] = { nullptr };
-	Animation idle;
+	Animation idleAnim;
+	Animation upAnim;
+	Animation downAnim;
+	Animation rightAnim;
+	Animation leftAnim;
 	Animation dead;
 
 	float randomEnemyhp = 0.0;
