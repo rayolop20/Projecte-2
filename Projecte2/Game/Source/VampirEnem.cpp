@@ -124,8 +124,9 @@ bool VampirEnem::Update(float dt)
 		Combat();
 		DrawHpBars();
 		if (app->BTSystem->PlayerTurn == false)  {
-			EnemyPhase();
 			CheckEnemy();
+
+			EnemyPhase();
 		}
 	}
 	else if (app->BTSystem->battleAux == true) {
@@ -441,7 +442,7 @@ void VampirEnem::Combat() {
 
 		}
 		if (app->BTSystem->AttackPlayer == 1 && app->BTSystem->SpecialAttackEnable == false && app->BTSystem->SpeacialAttackEnd == true) {
-			Vpir[app->BTSystem->VampireTarget].poisoned = true;
+ 			Vpir[app->BTSystem->VampireTarget].poisoned = true;
 			Vpir[app->BTSystem->VampireTarget].hp -= (20 * app->BTSystem->AttackAux) / 100;
 			app->BTSystem->AttackAux = 0;
 			app->BTSystem->VampireTarget = 0;
@@ -451,7 +452,7 @@ void VampirEnem::Combat() {
 			app->BTSystem->AttackPhaseActive = false;
 			app->BTSystem->AttackPhaseEnable = false;
 			app->BTSystem->ChoosePlayerPhase = true;
-			app->BTSystem->waitPlayer[0]++;
+			app->BTSystem->waitPlayer[0] += 1;
 			app->BTSystem->PlayerTurn = false;
 			for (int i = 0; i <= 4; i++) {
 				if (app->BTSystem->waitPlayer[i] != 0) {
