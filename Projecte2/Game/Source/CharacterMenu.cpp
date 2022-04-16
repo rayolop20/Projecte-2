@@ -36,6 +36,9 @@ bool CharacterMenu_Screen::Awake()
 bool CharacterMenu_Screen::Start()
 {
 	int a;
+
+	inventoryTex = app->tex->Load("Assets/textures/UI/InventoryB.png");
+
 	return true;
 }
 
@@ -49,31 +52,31 @@ bool CharacterMenu_Screen::PreUpdate()
 // Called each loop iteration
 bool CharacterMenu_Screen::Update(float dt)
 {
-	menu = { -app->render->camera.x + (app->win->GetWidth() / 2 - 300), -app->render->camera.y + (app->win->GetHeight() / 2 - 200), 600, 400 };
+	menu = { -app->render->camera.x + (app->win->GetWidth() / 2 - 500), -app->render->camera.y + (app->win->GetHeight() / 2 - 300), 1000, 600 };
 	app->render->DrawRectangle(menu, 0, 250, 0);
 	if (Charac1)
 	{
-		Ch1 = { -app->render->camera.x + (app->win->GetWidth() / 2 - 260), -app->render->camera.y + (app->win->GetHeight() / 2 - 170), 180, 280 };
+		Ch1 = { -app->render->camera.x + (app->win->GetWidth() / 2 - 460), -app->render->camera.y + (app->win->GetHeight() / 2 - 200), 180, 280 };
 		app->render->DrawRectangle(Ch1, 0, 0, 250);
 	}
 	else if (Charac2)
 	{
-		Ch2 = { -app->render->camera.x + (app->win->GetWidth() / 2 - 260), -app->render->camera.y + (app->win->GetHeight() / 2 - 170), 180, 280 };
+		Ch2 = { -app->render->camera.x + (app->win->GetWidth() / 2 - 460), -app->render->camera.y + (app->win->GetHeight() / 2 - 200), 180, 280 };
 		app->render->DrawRectangle(Ch2, 250, 0, 250);
 	}
 	else if (Charac3)
 	{
-		Ch3 = { -app->render->camera.x + (app->win->GetWidth() / 2 - 260), -app->render->camera.y + (app->win->GetHeight() / 2 - 170), 180, 280 };
+		Ch3 = { -app->render->camera.x + (app->win->GetWidth() / 2 - 460), -app->render->camera.y + (app->win->GetHeight() / 2 - 200), 180, 280 };
 		app->render->DrawRectangle(Ch3, 250, 250, 0);
 	}
 	else if (Charac4)
 	{
-		Ch4 = { -app->render->camera.x + (app->win->GetWidth() / 2 - 260), -app->render->camera.y + (app->win->GetHeight() / 2 - 170), 180, 280 };
+		Ch4 = { -app->render->camera.x + (app->win->GetWidth() / 2 - 460), -app->render->camera.y + (app->win->GetHeight() / 2 - 200), 180, 280 };
 		app->render->DrawRectangle(Ch4, 0, 250, 250);
 	}
 
 	itemMenu = { -app->render->camera.x + (app->win->GetWidth() / 2 - 40), -app->render->camera.y + (app->win->GetHeight() / 2 - 170), 300, 280 };
-	app->render->DrawRectangle(itemMenu, 250, 0, 0);
+	//app->render->DrawRectangle(itemMenu, 250, 0, 0);
 
 	if (buttonCont == 0 && !init)
 	{
@@ -121,9 +124,23 @@ bool CharacterMenu_Screen::Update(float dt)
 		inventory = false;
 	}
 
-	if (inventory) app->scene->xCont = 1;
+	if (inventory)
+	{
+		app->scene->xCont = 1;
 
-	init = false;
+		Ch1Section = { -app->render->camera.x + app->win->GetWidth() / 2 - 445, -app->render->camera.y + app->win->GetHeight() / 2 + 100, 60, 60 };
+		Ch2Section = { -app->render->camera.x + app->win->GetWidth() / 2 - 355, -app->render->camera.y + app->win->GetHeight() / 2 + 100, 60, 60 };
+		Ch3Section = { -app->render->camera.x + app->win->GetWidth() / 2 - 445, -app->render->camera.y + app->win->GetHeight() / 2 + 180, 60, 60 };
+		Ch4Section = { -app->render->camera.x + app->win->GetWidth() / 2 - 355, -app->render->camera.y + app->win->GetHeight() / 2 + 180, 60, 60 };
+
+		app->render->DrawRectangle(Ch1Section, 250, 0, 0);
+		app->render->DrawRectangle(Ch2Section, 250, 0, 0);
+		app->render->DrawRectangle(Ch3Section, 250, 0, 0);
+		app->render->DrawRectangle(Ch4Section, 250, 0, 0);
+	}
+
+	if (init) init = false;
+	
 
 	return true;
 }
@@ -133,6 +150,25 @@ bool CharacterMenu_Screen::PostUpdate()
 {
 	bool ret = true;
 
+	if (inventory)
+	{
+		SDL_Rect* bagSection = new SDL_Rect();
+		bagSection->x = 13;
+		bagSection->y = 26;
+		bagSection->w = 612;
+		bagSection->h = 479;
+
+		app->render->DrawTexture(inventoryTex, -app->render->camera.x + (app->win->GetWidth() / 2 - 180), -app->render->camera.y + (app->win->GetHeight() / 2 - 230), bagSection);
+
+		Item1Section = { -app->render->camera.x + app->win->GetWidth() / 2 - 99, -app->render->camera.y + app->win->GetHeight() / 2 - 160, 70, 70 };
+		Item2Section = { -app->render->camera.x + app->win->GetWidth() / 2 - 4, -app->render->camera.y + app->win->GetHeight() / 2 - 160, 70, 70 };
+		Item3Section = { -app->render->camera.x + app->win->GetWidth() / 2 + 91, -app->render->camera.y + app->win->GetHeight() / 2 - 160, 70, 70 };
+
+		app->render->DrawRectangle(Item1Section, 250, 0, 0);
+		app->render->DrawRectangle(Item2Section, 250, 0, 0);
+		app->render->DrawRectangle(Item3Section, 250, 0, 0);
+	}
+
 	int mouseX, mouseY;
 	app->input->GetMousePosition(mouseX, mouseY);
 	return ret;
@@ -140,14 +176,14 @@ bool CharacterMenu_Screen::PostUpdate()
 
 void CharacterMenu_Screen::Menu()
 {
-	Character1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 50, "Ch1", { -app->render->camera.x + app->win->GetWidth() / 2 - 175, -app->render->camera.y + app->win->GetHeight() / 2 + 130, 50, 50 }, this);
-	Character2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 51, "Ch2", { -app->render->camera.x + app->win->GetWidth() / 2 - 75, -app->render->camera.y + app->win->GetHeight() / 2 + 130, 50, 50 }, this);
-	Character3 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 52, "Ch3", { -app->render->camera.x + app->win->GetWidth() / 2 + 25, -app->render->camera.y + app->win->GetHeight() / 2 + 130, 50, 50 }, this);
-	Character4 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 53, "Ch4", { -app->render->camera.x + app->win->GetWidth() / 2 + 125, -app->render->camera.y + app->win->GetHeight() / 2 + 130, 50, 50 }, this);
+	Character1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 50, "Ch1", { -app->render->camera.x + app->win->GetWidth() / 2 - 445, -app->render->camera.y + app->win->GetHeight() / 2 + 100, 60, 60 }, this);
+	Character2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 51, "Ch2", { -app->render->camera.x + app->win->GetWidth() / 2 - 355, -app->render->camera.y + app->win->GetHeight() / 2 + 100, 60, 60 }, this);
+	Character3 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 52, "Ch3", { -app->render->camera.x + app->win->GetWidth() / 2 - 445, -app->render->camera.y + app->win->GetHeight() / 2 + 180, 60, 60 }, this);
+	Character4 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 53, "Ch4", { -app->render->camera.x + app->win->GetWidth() / 2 - 355, -app->render->camera.y + app->win->GetHeight() / 2 + 180, 60, 60 }, this);
 
-	Item1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 54, "Boots1", { -app->render->camera.x + app->win->GetWidth() / 2 + 10, -app->render->camera.y + app->win->GetHeight() / 2 - 130, 50, 50 }, this);
-	Item2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 55, "Boots2", { -app->render->camera.x + app->win->GetWidth() / 2 + 80, -app->render->camera.y + app->win->GetHeight() / 2 - 130, 50, 50 }, this);
-	Item3 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 56, "Boots3", { -app->render->camera.x + app->win->GetWidth() / 2 + 150, -app->render->camera.y + app->win->GetHeight() / 2 - 130, 50, 50 }, this);
+	Item1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 54, "Boots1", { -app->render->camera.x + app->win->GetWidth() / 2 - 99, -app->render->camera.y + app->win->GetHeight() / 2 - 160, 70, 70 }, this);
+	Item2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 55, "Boots2", { -app->render->camera.x + app->win->GetWidth() / 2 - 4, -app->render->camera.y + app->win->GetHeight() / 2 - 160, 70, 70 }, this);
+	Item3 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 56, "Boots3", { -app->render->camera.x + app->win->GetWidth() / 2 + 91, -app->render->camera.y + app->win->GetHeight() / 2 - 160, 70, 70 }, this);
 
 	Character1->state = GuiControlState::NORMAL;
 	Character2->state = GuiControlState::NORMAL;
@@ -222,6 +258,7 @@ bool CharacterMenu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 bool CharacterMenu_Screen::CleanUp()
 {
 		LOG("Freeing scene");
+		app->tex->UnLoad(inventoryTex);
 		return true;
 }
 

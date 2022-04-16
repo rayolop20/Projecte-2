@@ -684,4 +684,3 @@ void Player::movementPlayer()
 			}
 	}
 }
-

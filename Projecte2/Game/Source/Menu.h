@@ -48,6 +48,8 @@ public:
 	bool musicActive = true;
 	bool FXActive = true;
 	bool playing = false;
+	bool On = false;
+	bool fps30 = true;
 
 	GuiButton* btnMenuConfig = nullptr;
 	GuiButton* btnMenuPlay = nullptr;
@@ -56,6 +58,8 @@ public:
 
 	GuiButton* btnConfigEx1 = nullptr;
 	GuiButton* btnConfigBack = nullptr;
+	GuiButton* btnFullscreen = nullptr;
+	GuiButton* btnFPS = nullptr;
 
 	SDL_Texture* options = nullptr;
 private:
