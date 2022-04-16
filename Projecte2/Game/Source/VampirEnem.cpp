@@ -125,7 +125,6 @@ bool VampirEnem::Update(float dt)
 		DrawHpBars();
 		if (app->BTSystem->PlayerTurn == false)  {
 			CheckEnemy();
-
 			EnemyPhase();
 		}
 	}

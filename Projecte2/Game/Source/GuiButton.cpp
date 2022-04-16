@@ -245,7 +245,6 @@ bool GuiButton::Draw(Render* render)
 			uitext->h = 53;
 			app->render->DrawTexture(BTLText, app->player->P1.position.x - 155, app->player->P1.position.y + 120, uitext);
 		}
-		
 		//Special
 		if (id == 34 && app->BTSystem->battle == true)
 		{

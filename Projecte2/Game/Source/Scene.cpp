@@ -109,13 +109,13 @@ bool Scene::Update(float dt)
 
 
 		//InGameMenu
-		if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN && paused == false)
+		if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN && paused == false && app->BTSystem->battle == false)
 		{
 			paused = true;
 
 			Pause();
 			//InGameMenu
-			if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN && !cMenu && paused == false)
+			if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN && !cMenu && paused == false && app->BTSystem->battle == false)
 			{
 				paused = true;
 
@@ -130,7 +130,7 @@ bool Scene::Update(float dt)
 		//	btnExit->Update(dt);
 		//}
 
-		if (app->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN && !cMenu && xCont == 0)
+		if (app->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN && !cMenu && xCont ==  0 && app->BTSystem->battle == false)
 		{
 			cMenu = true;
 			paused = true;

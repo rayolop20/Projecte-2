@@ -14,6 +14,7 @@
 #include "Scene.h"
 #include "Menu.h"
 #include "BattleSystem.h"
+#include "CharacterMenu.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -398,7 +399,7 @@ bool Player::PostUpdate()
 	//draw player
 	
 
-	if (app->BTSystem->battle == false && app->menu->config == false) {
+	if (app->BTSystem->battle == false && app->menu->config == false && app->characterMenu->inventory == false) {
 		player1 = currentAnim1->GetCurrentFrame();
 		player4 = currentAnim4->GetCurrentFrame();
 
