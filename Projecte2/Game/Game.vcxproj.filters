@@ -34,11 +34,8 @@
     <ClCompile Include="Source\CharacterMenu.cpp" />
     <ClCompile Include="Source\GameMenu.cpp" />
     <ClCompile Include="Source\EntityNPC.cpp" />
-
-    <ClCompile Include="Source\OpcionMenu.cpp" />
     <ClCompile Include="Source\DialogueSystem.cpp" />
     <ClCompile Include="Source\ZombieEnem.cpp" />
-
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -95,11 +92,9 @@
     <ClInclude Include="Source\CharacterMenu.h" />
     <ClInclude Include="Source\GameMenu.h" />
     <ClInclude Include="Source\EntityNPC.h" />
-
-    <ClInclude Include="Source\OpcionMenu.h" />
     <ClInclude Include="Source\DialogueSystem.h" />
     <ClInclude Include="Source\ZombieEnem.h" />
-
+    <ClInclude Include="Source\MemLeack.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">

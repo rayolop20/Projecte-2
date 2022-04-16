@@ -57,19 +57,19 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(win);
 	AddModule(input);
 	AddModule(tex);
-	AddModule(audio);
-    AddModule(pathfinding);
-	AddModule(fonts);
-	AddModule(scene);
-	AddModule(BTSystem);
-	AddModule(map);
+	AddModule(audio);//20  Mb
 	AddModule(guiManager);
+	AddModule(pathfinding); // 17Mb
+	AddModule(fonts);
+	AddModule(scene);//22Mb
+	AddModule(BTSystem); //aquest junt amb el entity manager crea 306 MB
+	AddModule(map);//21 Mb
 	AddModule(entityManager);
-	AddModule(player);
-	AddModule(menu);
+	AddModule(player); //23mb
+	AddModule(menu); //(112 Mb)
 	AddModule(collisions);
-	AddModule(characterMenu);
-	AddModule(gameMenu);
+	AddModule(characterMenu); // genera memory leacks sempre k es clica la I (120mb)
+	AddModule(gameMenu); // 84 Mb de memoria
 	AddModule(dialogues);
 
 	// Render last to swap buffer
@@ -190,7 +190,8 @@ pugi::xml_node App::LoadConfig(pugi::xml_document& configFile) const
 
 	pugi::xml_parse_result result = configFile.load_file(CONFIG_FILENAME);
 
-	if (result == NULL) LOG("Could not load xml file: %s. pugi error: %s", CONFIG_FILENAME, result.description());
+	if (result == NULL)
+		LOG("Could not load xml file: %s. pugi error: %s", CONFIG_FILENAME, result.description());
 	else ret = configFile.child("config");
 
 	return ret;

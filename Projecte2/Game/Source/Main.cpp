@@ -3,6 +3,7 @@
 #include "Defs.h"
 #include "Log.h"
 #include "Input.h"
+#include "MemLeack.h"
 
 #include <windows.h>
 #include <stdlib.h>
@@ -40,7 +41,7 @@ int main(int argc, char* args[])
 	LOG("Engine starting ...");
 	MainState state = CREATE;
 	int result = EXIT_FAILURE;
-
+	float dt = 16.0f;
 	while (state != EXIT)
 	{
 		auto start = chrono::steady_clock::now();
@@ -91,6 +92,14 @@ int main(int argc, char* args[])
 		case LOOP:
 			if (app->Update() == false)
 				state = CLEAN;
+			if (app->Maxfps == true)
+			{
+				dt = 32.f;
+			}
+			if (app->Maxfps == false)
+			{
+				dt = 16.0f;
+			}
 			break;
 
 			// Cleanup allocated memory -----------------------------------------
@@ -117,13 +126,13 @@ int main(int argc, char* args[])
 		auto end = chrono::steady_clock::now();
 		auto CelapsetTime = chrono::duration_cast<chrono::milliseconds>(end - start).count();
 
-		if (app->dt - CelapsetTime > 0.0f) {
-			SDL_Delay(app->dt - CelapsetTime);
+		if (dt - CelapsetTime > 0.0f) {
+			SDL_Delay(dt - CelapsetTime);
 		}
-		LOG("delta time is: %f ms", app->dt - CelapsetTime);
+		LOG("delta time is: %f ms", dt - CelapsetTime);
 	}
 
-
+	ReportMemoryLeaks();
 	LOG("... Bye! :)\n");
 
 	// Dump memory leaks

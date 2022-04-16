@@ -71,12 +71,34 @@ public:
 	int NPCNum = NULL;
 	bool klk = true;
 	bool Dialogue1 = false;
+	bool Dialogue2 = false;
+	bool Dialogue3 = false;
 	int Dialogue1Count = 0;
+	int Dialogue2Count = 0;
+	int Dialogue3Count = 0;
 	int Dialogue1BranchYes = 0;
 	int Dialogue1BranchNo = 0;
+	int FText = -1;
+
+	SDL_Texture* door = nullptr;
+	SDL_Texture* door2 = nullptr;
+	SDL_Texture* door3 = nullptr;
+	Collider* KLK;
+	Collider* KLK2;
 
 	float timerNPC = 0.0;
+	float timerNPC2 = 0.0;
 	float timerNPC_ = 0.0;
+	float timerNPC2_ = 0.0;
+	float timerNPC3 = 0.0;
+	float timerNPC3_ = 0.0;
+
+
+	char Text1[150] = { "\0" };
+	char Text2[150] = { "\0" };
+	char Text3[150] = { "\0" };
+	char Text4[150] = { "\0" };
+	char Text5[150] = { "\0" };
 
 };
 

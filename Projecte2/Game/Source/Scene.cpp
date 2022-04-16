@@ -52,18 +52,6 @@ bool Scene::Start()
 	};
 	app->map->DColisions();
 	pathTex = app->tex->Load("Assets/maps/path2.png");
-	// Load music
-	//app->audio->PlayMusic("Assets/audio/music/music_spy.ogg");
-
-	//L13: TODO 2: Declare an Item and create it using the EntityManager
-	//VampirEnem* Vampir = (VampirEnem*)app->entityManager->CreateEntity(EntityType::VAMPYRENEM, 0, {10, 10});
-
-
-	//L13: TODO 4: Create multiple Items
-
-	// L14: TODO 2: Declare a GUI Button and create it using the GuiManager
-	//btn1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Test1", { (app->win->GetWidth() / 2) - 300, app->win->GetWidth() / 10, 160, 40 }, this);
-	//btn2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Test2", { (app->win->GetWidth() / 2) + 300, app->win->GetWidth() / 10, 160, 40 }, this);
 
 	return true;
 }
@@ -82,7 +70,13 @@ bool Scene::PreUpdate()
 // Called each loop iteration
 bool Scene::Update(float dt)
 {
-
+	
+	if (musicActive == true)
+	{
+		app->audio->PlayMusic("Assets/audio/music/music_8_bit_adventure.ogg");
+		musicActive = false;
+	}
+	
 	{
 		// L02: DONE 3: Request Load / Save when pressing L/S
 		if (app->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN && app->BTSystem->battle == false)
@@ -115,13 +109,13 @@ bool Scene::Update(float dt)
 
 
 		//InGameMenu
-		if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+		if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN && paused == false)
 		{
 			paused = true;
 
 			Pause();
 			//InGameMenu
-			if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN && !cMenu)
+			if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN && !cMenu && paused == false)
 			{
 				paused = true;
 
@@ -158,6 +152,64 @@ bool Scene::Update(float dt)
 			xCont = 0;
 		}
 
+		if (app->menu->config == true) {
+			SDL_Rect* OptionsTxt = new SDL_Rect();
+			OptionsTxt->x = 0;
+			OptionsTxt->y = 0;
+			OptionsTxt->w = 918;
+			OptionsTxt->h = 559;
+			SDL_Rect* OptionsOn = new SDL_Rect();
+			OptionsOn->x = 8;
+			OptionsOn->y = 650;
+			OptionsOn->w = 263;
+			OptionsOn->h = 78;
+			SDL_Rect* OptionsOff = new SDL_Rect();
+			OptionsOff->x = 8;
+			OptionsOff->y = 568;
+			OptionsOff->w = 263;
+			OptionsOff->h = 78;
+			SDL_Rect* Options60 = new SDL_Rect();
+			Options60->x = 272;
+			Options60->y = 568;
+			Options60->w = 263;
+			Options60->h = 78;
+			SDL_Rect* Options30 = new SDL_Rect();
+			Options30->x = 274;
+			Options30->y = 650;
+			Options30->w = 263;
+			Options30->h = 78;
+			app->render->DrawTexture(app->menu->options, app->player->P1.position.x - 400, app->player->P1.position.y - 250, OptionsTxt);
+			app->menu->btnConfigBack->bounds.x = -app->render->camera.x + (app->win->GetWidth() / 2) - 150;
+			app->menu->btnConfigBack->bounds.y = -app->render->camera.y + 650;
+			if (app->menu->On == true) {
+				app->render->DrawTexture(app->menu->options, -app->render->camera.x + (app->win->GetWidth() / 2) + 190, -app->render->camera.y + 330, OptionsOn);
+				//Activar Fullscreen
+				SDL_SetWindowFullscreen(app->win->window, SDL_WINDOW_FULLSCREEN);
+			}
+			if (app->menu->On == false) {
+				app->render->DrawTexture(app->menu->options, -app->render->camera.x + (app->win->GetWidth() / 2) + 190, -app->render->camera.y + 330, OptionsOff);
+				//Desactivar Fullscreen
+				SDL_SetWindowFullscreen(app->win->window, SDL_WINDOW_MAXIMIZED);
+			}
+			if (app->menu->fps30 == true) {
+				app->render->DrawTexture(app->menu->options, -app->render->camera.x + (app->win->GetWidth() / 2) + 190, -app->render->camera.y + 495, Options30);
+				//app->dt = 32.0f;
+				app->Maxfps = false;
+			}
+			if (app->menu->fps30 == false) {
+				app->render->DrawTexture(app->menu->options, -app->render->camera.x + (app->win->GetWidth() / 2) + 190, -app->render->camera.y + 495, Options60);
+				//Desactivar 60fps
+				//app->dt = 16.0f;
+				app->Maxfps = true;
+			}
+			app->menu->btnFullscreen->bounds.x = -app->render->camera.x + (app->win->GetWidth() / 2) + 190;
+			app->menu->btnFullscreen->bounds.y = -app->render->camera.y + 330;
+			app->menu->btnFullscreen->state = GuiControlState::NORMAL;
+			app->menu->btnFPS->bounds.x = -app->render->camera.x + (app->win->GetWidth() / 2) + 175;
+			app->menu->btnFPS->bounds.y = -app->render->camera.y + 465;
+			app->menu->btnFPS->state = GuiControlState::NORMAL;
+
+		}
 		return true;
 	}
 }

@@ -54,11 +54,25 @@ public:
 	GuiButton* MiniPlayerButton4;
 	GuiButton* MiniEnemyButton;
 
+	GuiButton* Item1;
+	GuiButton* Item2;
+	GuiButton* Item3;
+	GuiButton* Item4;
+
+	GuiButton* Ch1;
+	GuiButton* Ch2;
+	GuiButton* Ch3;
+	GuiButton* Ch4;
+
+	float n = 0;
+
 	int VampireTarget = 0;
 	int ZombieTarget = 0;
 	int SkeletonTarget = 0;
 	int playerTarget = 0;
 	int playerTarget_ = 0;
+
+	int invenCont = 0;
 
 	int AttackPlayer = 0;
 
@@ -70,6 +84,16 @@ public:
 	bool AttackPhaseEnable = false;
 	bool battleWin = NULL;
 
+	bool increaseDmg = false;
+	bool increaseSpeed = false;
+	bool increaseLuck = false;
+	bool healing = false;
+
+	bool choosingPlayer = false;
+
+	int POSQTE2Y = 0;
+	int POSQTE2X = 0;
+
 	int CombatDeaths = 0;
 
 	void AttackPhase();
@@ -77,12 +101,14 @@ public:
 	void AttackPhaseDisabled2();
 
 	void InventoryPhase();
+	void InventoryButtons();
 	void SpecialAttackPhase();
 
 	void ChoosePlayer();
 	void CheckAllies();
 	void DrawHpBars();
 	void MaxHp();
+	void MaxMana();
 
 	bool ChoosePlayerPhase = true;
 
@@ -90,6 +116,7 @@ public:
 
 	float timer1 = 0;
 	float timer1_ = 0;
+	float _timer1_ = 0;
 	float timer2 = 0;
 	float timer2_ = 0;
 	float AttackAux;
@@ -125,8 +152,13 @@ public:
 	bool Vampirebattle = false;
 	bool Skeletonbattle = false;
 
-	SDL_Texture* TypoSpecialAttack;
 	SDL_Texture* AttackTexture;
+	SDL_Texture* Tutorial;
+	SDL_Texture* PopQTE2 = nullptr;
+	SDL_Texture* QTE4;
+
+	SDL_Texture* selectPlayer = nullptr;
+	SDL_Rect* Choose = new SDL_Rect();
 private:
 
 

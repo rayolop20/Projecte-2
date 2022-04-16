@@ -45,23 +45,34 @@ public:
 	bool exit = false;
 	bool starting = true;
 	bool config = false;
+	bool musicActive = true;
+	bool FXActive = true;
+	bool playing = false;
+	bool On = false;
+	bool fps30 = true;
 
+	GuiButton* btnMenuConfig = nullptr;
+	GuiButton* btnMenuPlay = nullptr;
+	GuiButton* btnCredits = nullptr;
+	GuiButton* btnMenuExit = nullptr;
+
+	GuiButton* btnConfigEx1 = nullptr;
+	GuiButton* btnConfigBack = nullptr;
+	GuiButton* btnFullscreen = nullptr;
+	GuiButton* btnFPS = nullptr;
+
+	SDL_Texture* options = nullptr;
 private:
 
-	int clickFx = 1;
+	int EnterLogo = 1;
 
-	SDL_Texture* enter = nullptr;
+	SDL_Texture* fonsMenu = nullptr;
+	SDL_Texture* Logo = nullptr;
 
 
 	// L12b: Debug pathfing
 	iPoint origin;
-	GuiButton* btnMenuPlay;
-	GuiButton* btnMenuConfig;
-	GuiButton* btnCredits;
-	GuiButton* btnMenuExit;
-
-	GuiButton* btnConfigEx1;
-	GuiButton* btnConfigBack;
+	
 
 
 };

@@ -22,15 +22,15 @@
   <map>
     <folder>Assets/maps/</folder>
   </map>
-  
+
   <!-- L13: Create a structure in XML to store multiple entities -->
    <players>
-	<Player1 PositionX = "90" PositionY = "190"/>
-	<Player2 PositionX = "1780" PositionY = "2410"/>
-	<Player3 PositionX = "1777" PositionY = "2252"/>
-	<Player4 PositionX = "1613" PositionY = "2410"/>
+	<Player1 PositionX = "90" PositionY = "190" Hp = "75" mana = "100"/>
+	<Player2 PositionX = "1780" PositionY = "2410"  Hp = "75" mana = "110"/>
+	<Player3 PositionX = "1777" PositionY = "2252" Hp = "75" mana = "110"/>
+	<Player4 PositionX = "1613" PositionY = "2410" Hp = "75" mana = "110"/>
   </players>
  <Vampire>
-	<Position PositionX = "1111" PositionY = "2048"/>
+	<Position PositionX = "800" PositionY = "800"/>
   </Vampire>
 </config>

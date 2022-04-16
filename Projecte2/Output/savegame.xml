@@ -4,21 +4,25 @@
 	<input />
 	<textures />
 	<audio />
-	<pathfinding />
-	<scene />
-	<scene />
-	<map />
 	<guiManager />
+	<pathfinding />
+	<:anonymous />
+	<scene />
+	<:anonymous />
+	<map />
 	<entitymanager />
-	<player>
-		<Player1 x="468" y="463" />
-		<Player2 x="468" y="463" />
-		<Player3 x="468" y="463" />
-		<Player4 x="468" y="463" />
-	</player>
+	<players>
+		<Player1 x="90" y="496" Hp="0" mana ="0"/>
+		<Player2 x="1780" y="2410" Hp="0" mana ="0"/>
+		<Player3 x="1777" y="2252" Hp="0" mana ="0"/>
+		<Player4 x="1613" y="2410" Hp="0" mana ="0"/>
+	</players>
 	<Menu />
 	<:anonymous />
+	<CharacterMenu />
+	<GameMenu />
+	<:anonymous />
 	<renderer>
-		<camera x="82" y="-163" />
+		<camera x="518" y="-168" />
 	</renderer>
 </save_state>

@@ -25,6 +25,8 @@ struct Zombie
 	float damage = 17.0;
 	float speed = 17.0;
 	int numEnemies = 4;
+	bool poisoned = false;
+	bool onFire = false;
 };
 
 class ZombieEnem : public Entity
@@ -69,6 +71,9 @@ public:
 
 	void PathFindVamp(int i);
 
+	SDL_Texture* selectZombie = nullptr;
+	SDL_Rect* Choose = new SDL_Rect();
+
 public:
 	iPoint position;
 
@@ -77,7 +82,11 @@ public:
 	Zombie Zbie[NUM_ZOMBIE] = { nullptr };
 
 	Animation* currentAnimation[NUM_ZOMBIE] = { nullptr };
-	Animation idle;
+	Animation idleAnim;
+	Animation upAnim;
+	Animation downAnim;
+	Animation rightAnim;
+	Animation leftAnim;
 	Animation dead;
 
 	float randomEnemyhp = 0.0;
@@ -91,6 +100,8 @@ public:
 
 	int ZombieNum = NULL;
 	bool klk = true;
+
+
 
 };
 

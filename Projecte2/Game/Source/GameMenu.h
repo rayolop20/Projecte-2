@@ -40,7 +40,10 @@ public:
 
 	// Called before quitting
 	bool CleanUp();
-
+	GuiControl* btnResume;
+	GuiControl* btnMenu;
+	GuiControl* btnExit;
+	bool active = false;
 private:
 
 	int clickFx = 1;	
@@ -50,9 +53,7 @@ private:
 	// L12b: Debug pathfing
 	iPoint origin;
 
-	GuiButton* btnResume;
-	GuiButton* btnMenu;
-	GuiButton* btnExit;
+	
 
 };
 

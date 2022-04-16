@@ -2,8 +2,10 @@
 #define __GUICONTROL_H__
 
 #include "Input.h"
+#include "App.h"
 #include "Render.h"
 #include "Module.h"
+#include "Textures.h"
 
 #include "Point.h"
 #include "SString.h"
@@ -38,6 +40,12 @@ class GuiControl
 public:
 
 	GuiControl(GuiControlType type, uint32 id) : type(type), id(id), state(GuiControlState::NORMAL) {}
+
+	~GuiControl() {
+		app->tex->UnLoad(UIText);
+		app->tex->UnLoad(BTLText);
+		RELEASE(uitext);
+	}
 
 	GuiControl(GuiControlType type, SDL_Rect bounds, const char* text) :
 		type(type),
@@ -77,8 +85,10 @@ public:
 
 public:
 	SDL_Texture* UIText = nullptr;
+	SDL_Texture* BTLText = nullptr;
 	SDL_Rect* uitext = new SDL_Rect();
 
+	int clickFx = 1;
 
 	uint32 id;
 
@@ -89,12 +99,12 @@ public:
 	SDL_Rect bounds;        // Position and size
 	SDL_Color color;        // Tint color
 
-	SDL_Texture* texture;   // Texture atlas reference
+	SDL_Texture* texture = nullptr;   // Texture atlas reference
 	SDL_Rect section;       // Texture atlas base section
 
 	//Font font;              // Text font
 
-	Module* observer;        // Observer module (it should probably be an array/list)
+	Module* observer = nullptr;        // Observer module (it should probably be an array/list)
 };
 
 #endif // __GUICONTROL_H__

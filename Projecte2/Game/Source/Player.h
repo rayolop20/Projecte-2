@@ -14,8 +14,10 @@ struct playr1
 	iPoint position;
 	Collider* Pcol = nullptr;
 	bool moveXD = false, moveXA = false, moveYW = false, moveYS = false;
+	bool key = false;
+	bool medkit = false;
 	bool IsAlive = true;
-	float hp = 75.0;
+	float hp;
 	float speed1 = 15.0;
 	float speed2 = 5.0;
 	float luck = 0.0;
@@ -24,7 +26,7 @@ struct playr1
 	float damage1 = 20.0;
 	float damage2 = 12.0;
 	float speed = 0.0;
-	float mana = 0.0;
+	float mana;
 	float damage = 0.0;
 
 };
@@ -35,9 +37,9 @@ struct playr2
 	iPoint position;
 	Collider* Player2C = nullptr;
 	bool P2Active = false;
-	bool IsAlive = false;
+	bool IsAlive = true;
 	bool Move = false;
-	float hp = 45.0;
+	float hp;
 	float speed1 = 0.0;
 	float speed2 = 10.0;
 	float luck = 0.0;
@@ -46,7 +48,7 @@ struct playr2
 	float damage1 = 40.0;
 	float damage2 = 12.0;
 	float speed = 0.0;
-	float mana = 0.0;
+	float mana;
 	float damage = 0.0;
 };
 
@@ -57,8 +59,8 @@ struct playr3
 	Collider* Player3C = nullptr;
 	bool P3Active = false;
 	bool Move = false;
-	bool IsAlive = false;
-	float hp = 40.0;
+	bool IsAlive = true;
+	float hp = 10;
 	float speed1 = 5.0;
 	float speed2 = 15.0;
 	float luck = 0.0;
@@ -67,7 +69,7 @@ struct playr3
 	float damage1 = 15.0;
 	float damage2 = 20.0;
 	float speed = 0.0;
-	float mana = 0.0;
+	float mana;
 	float damage = 0.0;
 };
 
@@ -79,7 +81,7 @@ struct playr4
 	bool P4Active = false;
 	bool Move = false;
 	bool IsAlive = true;
-	float hp = 50.0;
+	float hp = 15.0;
 	float speed1 = 15.0;
 	float speed2 = 10.0;
 	float luck = 0.0;
@@ -88,7 +90,7 @@ struct playr4
 	float damage1 = 10.0;
 	float damage2 = 15.0;
 	float speed = 0.0;
-	float mana = 0.0;
+	float mana;
 	float damage = 0.0;
 	bool revolverActive = true;
 };
@@ -97,7 +99,7 @@ struct playr5
 {
 	//French
 	bool IsAlive = false;
-	float hp = 50.0;
+	float hp = 20;
 	float speed1 = 20.0;
 	float speed2 = 15.0;
 	float luck = 0.0;
@@ -125,7 +127,7 @@ public:
 
 	bool SaveState(pugi::xml_node&) const;
 
-	bool Awake(pugi::xml_node&);
+	bool Awake(pugi::xml_node& config);
 	// Called when the module is activated
 	// Loads the necessary textures for the player
 
@@ -137,6 +139,8 @@ public:
 
 	// Called at the end of the application loop
 	// Performs the render call of the player sprite
+	bool CleanUp();
+
 	bool PostUpdate();
 
 	// Collision callback, called when the player intersects with another collider
@@ -159,6 +163,7 @@ public:
 	bool block3_ = true;
 	bool block4_ = true;
 
+	bool godMode = false;
 
 public:
 	SDL_Rect player1;
@@ -175,6 +180,7 @@ public:
 	SDL_Texture* player4Hp = nullptr;
 
 	SDL_Texture* player1S = nullptr;
+	SDL_Texture* player4S = nullptr;
 
 	Animation* currentAnim1;
 	Animation idleAnim1;
@@ -182,6 +188,12 @@ public:
 	Animation upAnim1;
 	Animation rightAnim1;
 	Animation leftAnim1;
+	Animation* currentAnim4;
+	Animation idleAnim4;
+	Animation downAnim4;
+	Animation upAnim4;
+	Animation rightAnim4;
+	Animation leftAnim4;
 	int OrdenPlayers = 0;
 
 	iPoint resetPlayerPos;

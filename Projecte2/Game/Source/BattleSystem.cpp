@@ -9,7 +9,6 @@
 #include "Player.h"
 #include "VampirEnem.h"
 #include "ZombieEnem.h"
-#include "SkeletonEnem.h"
 #include "EntityNPC.h"
 #include "Collisions.h"
 #include "BattleSystem.h"
@@ -40,30 +39,32 @@ bool battleSystem::Awake()
 // Called before the first frame
 bool battleSystem::Start()
 {
-	Attack = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Attack", {0, 0, 0, 0 }, this);
+	Attack = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 31, "Attack", {0, 0, 0, 0 }, this);
 	Attack->state = GuiControlState::DISABLED;
-	Attack1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Attack1", { 0, 0, 0, 0 }, this);
+	Attack1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 32, "Attack1", { 0, 0, 0, 0 }, this);
 	Attack1->state = GuiControlState::DISABLED;
-	Attack2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 3, "Attack2", { 0, 0, 0, 0 }, this);
+	Attack2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 33, "Attack2", { 0, 0, 0, 0 }, this);
 	Attack2->state = GuiControlState::DISABLED;
-	SpecialAttack = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 4, "SpecialAttack", { 0, 0, 0, 0 }, this);
+	SpecialAttack = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 34, "SpecialAttack", { 0, 0, 0, 0 }, this);
 	SpecialAttack->state = GuiControlState::DISABLED;
-	Inventory = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 5, "Inventory", { 0,0, 0, 0 }, this);
+	Inventory = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 35, "Inventory", { 0,0, 0, 0 }, this);
 	Inventory->state = GuiControlState::DISABLED;
-	Run = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 6, "Run", { 0, 0, 0, 0 }, this);
+	Run = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 36, "Run", { 0, 0, 0, 0 }, this);
 	Run->state = GuiControlState::DISABLED;
-	CloseInventory = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 7, "CloseInventory", { 0, 0, 0, 0 }, this);
+	CloseInventory = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 37, "CloseInventory", { 0, 0, 0, 0 }, this);
 	CloseInventory->state = GuiControlState::DISABLED;
-	QTE2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 8, "QTE2", { 0, 0, 0, 0 }, this);
+	QTE2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 38, "QTE2", { 0, 0, 0, 0 }, this);
 	QTE2->state = GuiControlState::DISABLED;
-	MiniPlayerButton1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 9, "MiniPlayerButton1", { 0,0, 0, 0 }, this);
+	MiniPlayerButton1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 39, "MiniPlayerButton1", { 0,0, 0, 0 }, this);
 	MiniPlayerButton1->state = GuiControlState::DISABLED;
-	MiniPlayerButton2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 10, "MiniPlayerButton2", { 0, 0, 0, 0 }, this);
+	MiniPlayerButton2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 40, "MiniPlayerButton2", { 0, 0, 0, 0 }, this);
 	MiniPlayerButton2->state = GuiControlState::DISABLED;
-	MiniPlayerButton3 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 11, "MiniPlayerButton3", {0, 0, 0, 0 }, this);
+	MiniPlayerButton3 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 41, "MiniPlayerButton3", {0, 0, 0, 0 }, this);
 	MiniPlayerButton3->state = GuiControlState::DISABLED;
-	MiniPlayerButton4 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 12, "MiniPlayerButton4", { 0, 0, 0, 0 }, this);
+	MiniPlayerButton4 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 42, "MiniPlayerButton4", { 0, 0, 0, 0 }, this);
 	MiniPlayerButton4->state = GuiControlState::DISABLED;
+
+	selectPlayer = app->tex->Load("Assets/textures/UI/ChosePlayers.png");
 	//Initialize playerTurns
 	for (int i = 0; i <= 4 - alliesDead;i++) {
 		waitPlayer[i] = 0;
@@ -72,19 +73,21 @@ bool battleSystem::Start()
 		poisonCount[i] = 0;
 	}
 	// L03: DONE: Load map
-	TypoSpecialAttack = app->tex->Load("Assets/textures/Typo_SpecialAttack_4.png");
 	AttackTexture = app->tex->Load("Assets/UI/CombatUI.png");
+	Tutorial = app->tex->Load("Assets/textures/UI/QTETutorial.png");
+	QTE4 = app->tex->Load("Assets/textures/UI/QTE4.png");
+	PopQTE2 = app->tex->Load("Assets/textures/UI/QTE1_1.png");
+
+	
 	// Load music
 	//app->audio->PlayMusic("Assets/audio/music/music_spy.ogg");
 
 	//L13: TODO 2: Declare an Item and create it using the EntityManager
 	VampirEnem* Vampir = (VampirEnem*)app->entityManager->CreateEntity(EntityType::VAMPYR, 0, { 0,0 });
 	ZombieEnem* Zombies = (ZombieEnem*)app->entityManager->CreateEntity(EntityType::ZOMBIE, 0, { 0,0 });
-	SkeletonEnem* Skeleton = (SkeletonEnem*)app->entityManager->CreateEntity(EntityType::SKELETON, 0, { 0,0 });
 	EntityNPC* Npc = (EntityNPC*)app->entityManager->CreateEntity(EntityType::NPC, 0, { 0,0 });
 
 	//L13: TODO 4: Create multiple Items
-	
 
 	AttackPhaseActive = false;
 	AttackAux = 0;
@@ -210,6 +213,9 @@ bool battleSystem::Update(float dt)
 		CloseInventory->bounds.h = 0;
 		Run->bounds.w = 0;
 		Run->bounds.h = 0;
+		for (int i = 0; i < 4; i++) {
+			waitPlayer[i] = 0;
+		}
 	}
 	if (Delay == false) {//Delay after Run Button
 		timer1 = SDL_GetTicks() / 1000;
@@ -243,12 +249,33 @@ bool battleSystem::Update(float dt)
 	app->entityManager->Draw();
 
 	if (InventoryEnable) {
+		if (invenCont == 0)
+		{
+			InventoryButtons();
+			invenCont = 1;
+		}
 		InventoryPhase();
+	}
+	if (!InventoryEnable && invenCont == 1)
+	{
+		Ch1->state = GuiControlState::DISABLED;
+		Ch2->state = GuiControlState::DISABLED;
+		Ch3->state = GuiControlState::DISABLED;
+		Ch4->state = GuiControlState::DISABLED;
+		Item1->state = GuiControlState::DISABLED;
+		Item2->state = GuiControlState::DISABLED;
+		Item3->state = GuiControlState::DISABLED;
+		Item4->state = GuiControlState::DISABLED;
+		CloseInventory->state = GuiControlState::DISABLED;
+
+		invenCont = 0;
 	}
 	if (debug == true) {
 		//Debug Collisions
 		app->collisions->DebugDraw();
 	}
+
+	n = app->player->P1.damage;
 	//InGameMenu
 	/*if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 	{
@@ -268,6 +295,7 @@ bool battleSystem::Update(float dt)
 	}*/
 	CheckAllies();
 	MaxHp();
+	MaxMana();
 
 	return true;
 }
@@ -307,7 +335,6 @@ void battleSystem::AttackPhaseDisabled2() {
 	Attack2->state = GuiControlState::DISABLED;
 	VampireTarget = 0;
 	ZombieTarget = 0;
-	SkeletonTarget = 0;
 	AttackPlayer = 0;
 	AttackPhaseActive = false;
 	AttackPhaseEnable = false;
@@ -315,9 +342,67 @@ void battleSystem::AttackPhaseDisabled2() {
 	randomAux = true;
 }
 
+void battleSystem::InventoryButtons()
+{
+	Ch1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 57, "Ch1", { -app->render->camera.x + app->win->GetWidth() / 2 - 190, -app->render->camera.y + app->win->GetHeight() / 2 - 90, 80, 180 }, this);
+	Ch1->state = GuiControlState::DISABLED;
+	Ch2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 58, "Ch2", { -app->render->camera.x + app->win->GetWidth() / 2 - 90, -app->render->camera.y + app->win->GetHeight() / 2 - 90, 80, 180 }, this);
+	Ch2->state = GuiControlState::DISABLED;
+	Ch3 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 59, "Ch3", { -app->render->camera.x + app->win->GetWidth() / 2 +10, -app->render->camera.y + app->win->GetHeight() / 2 - 90, 80, 180 }, this);
+	Ch3->state = GuiControlState::DISABLED;
+	Ch4 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 60, "Ch4", { -app->render->camera.x + app->win->GetWidth() / 2 + 110, -app->render->camera.y + app->win->GetHeight() / 2 - 90, 80, 180 }, this);
+	Ch4->state = GuiControlState::DISABLED;
+
+	Item1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 61, "Item1", { -app->render->camera.x + app->win->GetWidth() / 2 - 200, -app->render->camera.y + app->win->GetHeight() / 2 - 130, 50, 50 }, this);
+	Item1->state = GuiControlState::DISABLED;
+	Item2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 62, "Item2", { -app->render->camera.x + app->win->GetWidth() / 2 - 100, -app->render->camera.y + app->win->GetHeight() / 2 - 130, 50, 50 }, this);
+	Item2->state = GuiControlState::DISABLED;
+	Item3 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 63, "Item3", { -app->render->camera.x + app->win->GetWidth() / 2 - 0, -app->render->camera.y + app->win->GetHeight() / 2 - 130, 50, 50 }, this);
+	Item3->state = GuiControlState::DISABLED;
+	Item4 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 64, "Item4", { -app->render->camera.x + app->win->GetWidth() / 2 + 100, -app->render->camera.y + app->win->GetHeight() / 2 - 130, 50, 50 }, this);
+	Item4->state = GuiControlState::DISABLED;
+}
+
 void battleSystem::InventoryPhase() {
 	SDL_Rect Inventory_ = { app->player->P1.position.x - 640 + 32 + 50,app->player->P1.position.y - 360 + 32 + 25,1280 - 100,720 - 50};
 	app->render->DrawRectangle(Inventory_, 0,250,0);
+
+	SDL_Rect ItemsRect = { -app->render->camera.x + (app->win->GetWidth() / 2 - 300), -app->render->camera.y + (app->win->GetHeight() / 2 - 200), 600, 400 };
+	app->render->DrawRectangle(ItemsRect, 250, 0, 0);
+
+	Item1->state = GuiControlState::NORMAL;
+	Item2->state = GuiControlState::NORMAL;
+	Item3->state = GuiControlState::NORMAL;
+	Item4->state = GuiControlState::NORMAL;
+
+	if (choosingPlayer)
+	{
+		SDL_Rect characterRect = { -app->render->camera.x + (app->win->GetWidth() / 2 - 200), -app->render->camera.y + (app->win->GetHeight() / 2 - 100), 400, 200 };
+		app->render->DrawRectangle(characterRect, 0, 0, 250);
+
+		Ch1->state = GuiControlState::NORMAL;
+		Ch2->state = GuiControlState::NORMAL;
+		Ch3->state = GuiControlState::NORMAL;
+		Ch4->state = GuiControlState::NORMAL;
+
+		Item1->state = GuiControlState::DISABLED;
+		Item2->state = GuiControlState::DISABLED;
+		Item3->state = GuiControlState::DISABLED;
+		Item4->state = GuiControlState::DISABLED;
+	}
+	if (!choosingPlayer)
+	{
+		Ch1->state = GuiControlState::DISABLED;
+		Ch2->state = GuiControlState::DISABLED;
+		Ch3->state = GuiControlState::DISABLED;
+		Ch4->state = GuiControlState::DISABLED;
+
+		Item1->state = GuiControlState::NORMAL;
+		Item2->state = GuiControlState::NORMAL;
+		Item3->state = GuiControlState::NORMAL;
+		Item4->state = GuiControlState::NORMAL;
+	}
+
 	MiniPlayerButton1->state = GuiControlState::DISABLED;
 	MiniPlayerButton2->state = GuiControlState::DISABLED;
 	MiniPlayerButton3->state = GuiControlState::DISABLED;
@@ -330,13 +415,37 @@ void battleSystem::InventoryPhase() {
 	Run->state = GuiControlState::DISABLED;
 }
 
+// QuickTimeEvent1 Position and Speed,
+/*idle.PushBack({ 65, 47, 60, 60 });
+idle.PushBack({ 206, 43, 60, 60 });
+idle.PushBack({ 348, 44, 60, 60 });
+idle.PushBack({ 488, 44, 60, 60 });
+idle.PushBack({ 620, 40, 70, 70 });
+idle.PushBack({ 47, 158, 70, 70 });
+idle.PushBack({ 195, 155, 70, 70 });
+idle.PushBack({ 335, 155, 70, 70 });
+idle.PushBack({ 482, 155, 70, 70 });
+idle.PushBack({ 625, 155, 70, 70 });
+idle.PushBack({ 0, 0, 0, 0 });
+idle.loop = false;
+idle.speed = 0.005f;*/
+
 void battleSystem::SpecialAttackPhase() {
 	srand(time(NULL));
 	if (randomAttack == 0) {//QTE Random activator
-		randomAttack = (rand() % 1) + 1;
+		//randomAttack = (rand() % 1) + 3;
+		randomAttack = rand() % 4 + 1;
 	}
 	if (randomAttack == 1) {//QTE 1
 		timer1 = SDL_GetTicks() / 1000;
+		if (AttackAux == 0){
+			SDL_Rect* Tutorial1 = new SDL_Rect();
+			Tutorial1->x = 0;
+			Tutorial1->y = 0;
+			Tutorial1->w = 528;
+			Tutorial1->h = 434;
+			app->render->DrawTexture(Tutorial, app->player->P1.position.x - 238, app->player->P1.position.y- 200,Tutorial1);
+		}
 		if (AttackAux == 0 && app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
 			timer1_ = timer1;
 			AttackAux = 1;
@@ -348,7 +457,7 @@ void battleSystem::SpecialAttackPhase() {
     		AttackAux = 100;
 		}
 		if (timer1 > timer1_ + 5 && AttackAux != 0) {
-   			randomAttack = 0;
+			randomAttack = 0;
 			//enemy.hp = enemy.hp - player.attack + AttackAux;
 			for (int i = 0; i <= 4; i++) {
 				if (app->BTSystem->waitPlayer[i] != 0) {
@@ -364,18 +473,33 @@ void battleSystem::SpecialAttackPhase() {
 	}
 	if (randomAttack == 2) {//QTE 2
 		timer1 = SDL_GetTicks() / 1000;
+		if (AttackAux == 0) {
+			SDL_Rect* Tutorial2 = new SDL_Rect();
+			Tutorial2->x = 578;
+			Tutorial2->y = 0;
+			Tutorial2->w = 528;
+			Tutorial2->h = 434;
+			app->render->DrawTexture(Tutorial, app->player->P1.position.x - 238, app->player->P1.position.y - 200, Tutorial2);
+		}
 		if (AttackAux == 0 && app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
 			timer1_ = timer1;
 			AttackAux = 1;
 		}
+		if (AttackAux != 0) {
+			app->render->DrawTexture(PopQTE2, POSQTE2X - 6, POSQTE2Y - 6);
+		}
 		randomx = (rand() % 500);
 		randomy = (rand() % 300);
+
 		if (QTE2->state == GuiControlState::DISABLED && AttackAux != 0) {
-			randomx = (rand() % 800);
+			randomx = (rand() % 700);
 			randomy = (rand() % 400);
-			QTE2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 8, "QTE2", { randomx + app->player->P1.position.x - 300, randomy + app->player->P1.position.y - 200, 50, 50 }, this);
+			POSQTE2X = randomx + app->player->P1.position.x - 300;
+			POSQTE2Y = randomy + app->player->P1.position.y - 200;
+			QTE2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 38, "QTE2", { POSQTE2X, POSQTE2Y, 50, 50 }, this);
 			QTE2->state = GuiControlState::NORMAL;
 		}
+
 		if (AttackAux > 100) {
 			AttackAux = 100 ;
 		}
@@ -384,11 +508,6 @@ void battleSystem::SpecialAttackPhase() {
 			QTE2->state = GuiControlState::DISABLED;
 			//enemy.hp = enemy.hp - player.attack + AttackAux;
 			AttackAux = 0;
-			app->BTSystem->waitPlayer[AttackPlayer - 1] += 1;
-			AttackPlayer = 0;
-			VampireTarget = 0;
-			ZombieTarget = 0;
-			SkeletonTarget = 0;
 			for (int i = 0; i <= 4; i++) {
 				if (app->BTSystem->waitPlayer[i] != 0) {
 					app->BTSystem->waitPlayer[i] += 1;
@@ -404,16 +523,24 @@ void battleSystem::SpecialAttackPhase() {
 		//pp->render->DrawRectangle(block1, 250, 0, 0);
 	}
 	if (randomAttack == 3) {//QTE 3
+		timer1 = SDL_GetTicks() / 1000;
+		if (AttackAux == 0) {
+			SDL_Rect* Tutorial3 = new SDL_Rect();
+			Tutorial3->x = 1148;
+			Tutorial3->y = 0;
+			Tutorial3->w = 528;
+			Tutorial3->h = 434;
+			app->render->DrawTexture(Tutorial, app->player->P1.position.x - 238, app->player->P1.position.y - 200, Tutorial3);
+		}
 		randomtargetRect = (rand() % 185) + 165;
-		if (AttackAux == 0 && app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
-			timer1_ = timer1;
+ 		if (AttackAux == 0 && app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+			_timer1_ = timer1;
 			AttackAux = 1;
 			randomtargetRect = (rand() % 185) + 165;
 			randomtargetRect_ = randomtargetRect;
 		}
 		if (AttackAux != 0) {
-
-			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && timer1_ > timer1 + 0.5) {
+			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && timer1 > _timer1_ + 0.25) {
 				finalpos = timer1_ + app->player->P1.position.x - 125;
 				if (finalpos > randomtargetRect_ + app->player->P1.position.x - 125  - 115 && finalpos < randomtargetRect_ + app->player->P1.position.x - 125 - 115 + 30) {
 					AttackAux = 100;
@@ -425,24 +552,6 @@ void battleSystem::SpecialAttackPhase() {
 					AttackAux = 25;
 				}
 				randomAttack = 0;
-				//enemy.hp = enemy.hp - player.attack + AttackAux;
-				AttackAux = 0;
-				AttackPlayer = 0;
-				VampireTarget = 0;
-				ZombieTarget = 0;
-				SkeletonTarget = 0;
-				for (int i = 0; i <= 4; i++) {
-					if (app->BTSystem->waitPlayer[i] != 0) {
-						app->BTSystem->waitPlayer[i] += 1;
-					}
-					if (app->BTSystem->waitPlayer[i] == 5) {
-						app->BTSystem->waitPlayer[i] = 0;
-					}
-				}
-				SpecialAttackEnable = false;
-				SpeacialAttackEnd = true;
-
-
 			}
 			if (timer1_ < 280 && rectDirection == false) {//PointRect right movement
 				timer1_+=3.5;
@@ -465,10 +574,30 @@ void battleSystem::SpecialAttackPhase() {
 			app->render->DrawRectangle(targetRect, 250, 250, 0);
 			SDL_Rect PointRect = {timer1_ + app->player->P1.position.x - 125,app->player->P1.position.y + 210,20,20 };
 			app->render->DrawRectangle(PointRect, 250, 0, 0);
+			if (AttackAux == 25 || AttackAux == 50 || AttackAux == 100) {
+				for (int i = 0; i <= 4; i++) {
+					if (app->BTSystem->waitPlayer[i] != 0) {
+						app->BTSystem->waitPlayer[i] += 1;
+					}
+					if (app->BTSystem->waitPlayer[i] == 5) {
+						app->BTSystem->waitPlayer[i] = 0;
+					}
+				}
+				SpecialAttackEnable = false;
+				SpeacialAttackEnd = true;
+			}
 		}
 	}
 	if (randomAttack == 4) {//QTE 4
 		timer1 = SDL_GetTicks() / 1000;
+		if (AttackAux == 0) {
+			SDL_Rect* Tutorial4 = new SDL_Rect();
+			Tutorial4->x = 0;
+			Tutorial4->y = 469;
+			Tutorial4->w = 528;
+			Tutorial4->h = 434;
+			app->render->DrawTexture(Tutorial, app->player->P1.position.x - 238, app->player->P1.position.y - 200, Tutorial4);
+		}
 		if (AttackAux == 0 && app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
 			timer1_ = timer1;
 			AttackAux = 1;
@@ -479,13 +608,12 @@ void battleSystem::SpecialAttackPhase() {
 				randomLetterGenerator = (rand() % 26) + 1;
 				LetterGenerator = false;
 			}
-			SDL_Rect *TypoLetter = new SDL_Rect();
-			TypoLetter->x = (randomLetterGenerator-1)*22;
-			TypoLetter->y = 0;
-			TypoLetter->w = 22;
-			TypoLetter->h = 54;
-			
-			app->render->DrawTexture(TypoSpecialAttack, app->player->P1.position.x + 32, app->player->P1.position.y - 64,TypoLetter);
+			SDL_Rect *QTE4_ = new SDL_Rect();
+			QTE4_->x = (randomLetterGenerator-1)*64;
+			QTE4_->y = 0;
+			QTE4_->w = 64;
+			QTE4_->h = 64;
+			app->render->DrawTexture(QTE4, app->player->P1.position.x, app->player->P1.position.y - 64, QTE4_);
 			if (app->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN && randomLetterGenerator == 1) {
 				AttackAux += 10;
 				LetterGenerator = true;
@@ -597,12 +725,6 @@ void battleSystem::SpecialAttackPhase() {
 			if (timer1 > timer1_ + 10 && AttackAux != 0) {
 				randomLetterGenerator = 0;
 				randomAttack = 0;
-				//enemy.hp = enemy.hp - player.attack + AttackAux;
-				AttackAux = 0;
-				AttackPlayer = 0;
-				VampireTarget = 0;
-				ZombieTarget = 0;
-				SkeletonTarget = 0;
 				for (int i = 0; i <= 4; i++) {
 					if (app->BTSystem->waitPlayer[i] != 0) {
 						app->BTSystem->waitPlayer[i] += 1;
@@ -623,9 +745,11 @@ void battleSystem::ChoosePlayer()
 {
 	if (app->player->P1.IsAlive) {
 		if (AttackPlayer == 1) {
-			SDL_Rect MiniPlayer1_ = { app->player->P1.position.x - 430 + 120, app->player->P1.position.y - 230, 120, 120 };
-			app->render->DrawRectangle(MiniPlayer1_, 255, 255, 0);
-			
+			Choose->x = 5;
+			Choose->y = 6;
+			Choose->w = 120;
+			Choose->h = 120;
+			app->render->DrawTexture(selectPlayer, app->player->P1.position.x - 430 + 120, app->player->P1.position.y - 230, Choose);
 		}
 		MiniPlayerButton1->state = GuiControlState::NORMAL;
 		randomAux = true;
@@ -636,8 +760,11 @@ void battleSystem::ChoosePlayer()
 	}
 	if (app->player->P2.IsAlive) {
 		if (AttackPlayer == 2) {
-			SDL_Rect MiniPlayer1_ = { app->player->P1.position.x - 430, app->player->P1.position.y - 230 + 130, 120, 120 };
-			app->render->DrawRectangle(MiniPlayer1_, 255, 255, 0);
+			Choose->x = 5;
+			Choose->y = 6;
+			Choose->w = 120;
+			Choose->h = 120;
+			app->render->DrawTexture(selectPlayer, app->player->P1.position.x - 430, app->player->P1.position.y - 230 + 130, Choose);
 		}
 		MiniPlayerButton2->state = GuiControlState::NORMAL;
 	}
@@ -647,8 +774,11 @@ void battleSystem::ChoosePlayer()
 	}
 	if (app->player->P3.IsAlive) {
 		if (AttackPlayer == 3) {
-			SDL_Rect MiniPlayer1_ = { app->player->P1.position.x - 430 + 120, app->player->P1.position.y - 230 + 260, 120, 120 };
-			app->render->DrawRectangle(MiniPlayer1_, 255, 255, 0);
+			Choose->x = 5;
+			Choose->y = 6;
+			Choose->w = 120;
+			Choose->h = 120;
+			app->render->DrawTexture(selectPlayer, app->player->P1.position.x - 430 + 120, app->player->P1.position.y - 230 + 260, Choose);
 		}
 		MiniPlayerButton3->state = GuiControlState::NORMAL;
 	}
@@ -658,8 +788,11 @@ void battleSystem::ChoosePlayer()
 	}
 	if (app->player->P4.IsAlive) {
 		if (AttackPlayer == 4) {
-			SDL_Rect MiniPlayer1_ = { app->player->P1.position.x - 430, app->player->P1.position.y - 230 + 390, 120, 120 };
-			app->render->DrawRectangle(MiniPlayer1_, 255, 255, 0);
+			Choose->x = 5;
+			Choose->y = 6;
+			Choose->w = 120;
+			Choose->h = 120;
+			app->render->DrawTexture(selectPlayer, app->player->P1.position.x - 430, app->player->P1.position.y - 230 + 390, Choose);
 		}
 		MiniPlayerButton4->state = GuiControlState::NORMAL;
 	}
@@ -709,10 +842,10 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 	{
 		
 		//Checks the GUI element ID
-		if (control->id == 1 && AttackPhaseActive == true && AttackPhaseEnable == true && VampireTarget != 0 && ZombieTarget != 0 && SkeletonTarget != 0) {
+		if (control->id == 31 && AttackPhaseActive == true && AttackPhaseEnable == true && VampireTarget != 0 && ZombieTarget != 0) {
 			AttackPhaseDisabled2();
 		}
-		if (control->id == 1 && AttackPhaseActive == false && AttackPhaseEnable == false && AttackPlayer != 0 && (VampireTarget != 0 || ZombieTarget != 0 || SkeletonTarget != 0))
+		if (control->id == 31 && AttackPhaseActive == false && AttackPhaseEnable == false && AttackPlayer != 0 && (VampireTarget != 0 || ZombieTarget != 0))
 		{
 			AttackPhase();
 			AttackPhaseEnable = true;
@@ -720,104 +853,247 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 		if (AttackPhaseActive == false && AttackPhaseEnable == true) {
 			AttackPhaseEnable = false;
 		}
-		if (control->id == 2 && (VampireTarget != 0 || ZombieTarget != 0 || SkeletonTarget != 0))
+		if (control->id == 32 && (VampireTarget != 0 || ZombieTarget != 0))
 		{
 			AttackType = 1;
 			AttackPhaseDisabled();
 			AttackPhaseEnable = false;
 		}
-		if (control->id == 3 && (VampireTarget != 0 || ZombieTarget != 0 || SkeletonTarget != 0))
+		if (control->id == 33 && (VampireTarget != 0 || ZombieTarget != 0))
 		{
 			AttackType = 2;
 			AttackPhaseDisabled();
 			AttackPhaseEnable = false;
 		}
-		if (control->id == 4 && AttackPlayer == 1 && (VampireTarget != 0 || ZombieTarget != 0 || SkeletonTarget != 0) && SpecialAttackEnable == false && app->player->P1.mana >= 60)
+		if (control->id == 34 && AttackPlayer == 1 && (VampireTarget != 0 || ZombieTarget != 0) && SpecialAttackEnable == false && app->player->P1.mana >= 60)
 		{
 			app->player->P1.mana -= 60;
 			SpecialAttackEnable = true;
 		}
-		if (control->id == 4 && AttackPlayer == 2 && (VampireTarget != 0 || ZombieTarget != 0 || SkeletonTarget != 0) && SpecialAttackEnable == false && app->player->P2.mana >= 80)
+		if (control->id == 34 && AttackPlayer == 2 && (VampireTarget != 0 || ZombieTarget != 0) && SpecialAttackEnable == false && app->player->P2.mana >= 80)
 		{
 			app->player->P2.mana -= 80;
 			SpecialAttackEnable = true;
 		}
-		if (control->id == 4 && AttackPlayer == 3 && SpecialAttackEnable == false && app->player->P3.mana >= 25)
+		if (control->id == 34 && AttackPlayer == 3 && SpecialAttackEnable == false && app->player->P3.mana >= 25)
 		{
 			app->player->P3.mana -= 25;
 			SpecialAttackEnable = true;
 		}
-		if (control->id == 4 && AttackPlayer == 4 && (VampireTarget != 0 || ZombieTarget != 0 || SkeletonTarget != 0) && SpecialAttackEnable == false && app->player->P3.mana >= 40 && app->player->P4.revolverActive == true)
+		if (control->id == 34 && AttackPlayer == 4 && (VampireTarget != 0 || ZombieTarget != 0) && SpecialAttackEnable == false && app->player->P3.mana >= 40 && app->player->P4.revolverActive == true)
 		{
 			app->player->P4.mana -= 40;
 			SpecialAttackEnable = true;
 		}
-		if (control->id == 5)
+		if (control->id == 35)
 		{
 			InventoryEnable = true;
 			
 			CloseInventory->state = GuiControlState::NORMAL;
 		}
-		if (control->id == 6 && battle == true) {
+		if (control->id == 36 && battle == true) {
 			battle = false;
 			Delay = false;
 			Zombiebattle = false;
 			Vampirebattle = false;
-			Skeletonbattle = false;
 			timer1 = SDL_GetTicks() / 1000;
 			timer1_ = timer1;
 		}
-		if (control->id == 7) {
+		if (control->id == 37) {
 			InventoryEnable = false;
 			CloseInventory->state = GuiControlState::DISABLED;
 		}
-		if (control->id == 8) {
+		if (control->id == 38) {
 			QTE2->state = GuiControlState::DISABLED;
 			AttackAux += 8;
 		}
-		if (control->id == 9 && ChoosePlayerPhase == true && SpecialAttackEnable == false && waitPlayer[0] == 0) {
+		if (control->id == 39 && ChoosePlayerPhase == true && SpecialAttackEnable == false && waitPlayer[0] == 0) {
 			AttackPlayer = 1;
 			SpecialAttackEnable = false;
 			
 		}
-		if (control->id == 9 && ChoosePlayerPhase == true && SpecialAttackEnable == false && app->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT) {//GodMode
+		if (control->id == 39 && ChoosePlayerPhase == true && SpecialAttackEnable == false && app->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT) {//GodMode
 			AttackPlayer = 1;
 			SpecialAttackEnable = false;
 			app->player->P1.IsAlive = false;
 			app->player->P1.hp = 0;
 		}
-		if (control->id == 10 && ChoosePlayerPhase == true && SpecialAttackEnable == false && waitPlayer[1] == 0) {
+		if (control->id == 40 && ChoosePlayerPhase == true && SpecialAttackEnable == false && waitPlayer[1] == 0) {
 			AttackPlayer = 2;
 			SpecialAttackEnable = false;
 		}
-		if (control->id == 10 && ChoosePlayerPhase == true && SpecialAttackEnable == false && app->input->GetKey(SDL_SCANCODE_LCTRL)==KEY_REPEAT) {//GodMode
+		if (control->id == 41 && ChoosePlayerPhase == true && SpecialAttackEnable == false && app->input->GetKey(SDL_SCANCODE_LCTRL)==KEY_REPEAT) {//GodMode
 			AttackPlayer = 2;
 			SpecialAttackEnable = false;
 			app->player->P2.IsAlive = false;
 			app->player->P2.hp = 0;
 
 		}
-		if (control->id == 11 && ChoosePlayerPhase == true && SpecialAttackEnable == false && waitPlayer[2] == 0) {
+		if (control->id == 41 && ChoosePlayerPhase == true && SpecialAttackEnable == false && waitPlayer[2] == 0) {
 			SpecialAttackEnable = false;
 			AttackPlayer = 3;
 		}
-		if (control->id == 11 && ChoosePlayerPhase == true && SpecialAttackEnable == false && app->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT) {//GodMode
+		if (control->id == 42 && ChoosePlayerPhase == true && SpecialAttackEnable == false && app->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT) {//GodMode
 			AttackPlayer = 3;
 			SpecialAttackEnable = false;
 			app->player->P3.IsAlive = false;
 			app->player->P3.hp = 0;
 
 		}
-		if (control->id == 12 && ChoosePlayerPhase == true && waitPlayer[3] == 0 && SpecialAttackEnable == false) {
+		if (control->id == 42 && ChoosePlayerPhase == true && waitPlayer[3] == 0 && SpecialAttackEnable == false) {
 			SpecialAttackEnable = false;
 			AttackPlayer = 4;
 		}
-		if (control->id == 12 && ChoosePlayerPhase == true && SpecialAttackEnable == false && app->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT) {//GodMode
+		if (control->id == 42 && ChoosePlayerPhase == true && SpecialAttackEnable == false && app->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT) {//GodMode
 			AttackPlayer = 4;
 			SpecialAttackEnable = false;
 			app->player->P4.IsAlive = false;
 			app->player->P4.hp = 0;
 
+		}
+		//Ch1
+		if (control->id == 57) {
+			
+			choosingPlayer = false;
+			InventoryEnable = false;
+
+			if (increaseDmg)
+			{
+				app->player->P1.damage += 10;
+				increaseDmg = false;
+			}
+			if (increaseLuck)
+			{
+				app->player->P1.luck += 10;
+				increaseLuck = false;
+			}
+			if (increaseSpeed)
+			{
+				app->player->P1.speed += 10;
+				increaseSpeed = false;
+			}
+			if (healing)
+			{
+				for (int i = 0; i < 10; i++)
+				{
+					app->player->P1.hp++;
+				}
+				if (app->player->P1.hp >= 75.0) app->player->P1.hp = 75.0;
+				healing = false;
+			}
+		}
+		//Ch2
+		if (control->id == 58) {
+			
+			choosingPlayer = false;
+			InventoryEnable = false;
+
+			if (increaseDmg)
+			{
+				app->player->P2.damage += 10;
+				increaseDmg = false;
+			}
+			if (increaseLuck)
+			{
+				app->player->P2.luck += 10;
+				increaseLuck = false;
+			}
+			if (increaseSpeed)
+			{
+				app->player->P2.speed += 10;
+				increaseSpeed = false;
+			}
+			if (healing)
+			{
+				for (int i = 0; i < 10; i++)
+				{
+					app->player->P2.hp++;
+				}
+				if (app->player->P2.hp >= 45.0) app->player->P2.hp = 45.0;
+				healing = false;
+			}
+		}
+		//Ch3
+		if (control->id == 59) {
+			
+			choosingPlayer = false;
+			InventoryEnable = false;
+
+			if (increaseDmg)
+			{
+				app->player->P3.damage += 10;
+				increaseDmg = false;
+			}
+			if (increaseLuck)
+			{
+				app->player->P3.luck += 10;
+				increaseLuck = false;
+			}
+			if (increaseSpeed)
+			{
+				app->player->P3.speed += 10;
+				increaseSpeed = false;
+			}
+			if (healing)
+			{
+				for (int i = 0; i < 10; i++)
+				{
+					app->player->P3.hp++;
+				}
+				if (app->player->P3.hp >= 40.0) app->player->P3.hp = 40.0;
+				healing = false;
+			}
+		}
+		//Ch4
+		if (control->id == 60) {
+			
+			choosingPlayer = false;
+			InventoryEnable = false;
+
+			if (increaseDmg)
+			{
+				app->player->P4.damage += 10;
+				increaseDmg = false;
+			}
+			if (increaseLuck)
+			{
+				app->player->P4.luck += 10;
+				increaseLuck = false;
+			}
+			if (increaseSpeed)
+			{
+				app->player->P4.speed += 10;
+				increaseSpeed = false;
+			}
+			if (healing)
+			{
+				for (int i = 0; i < 10; i++)
+				{
+					app->player->P4.hp++;
+				}
+				if (app->player->P4.hp >= 50.0) app->player->P4.hp = 50.0;
+				healing = false;
+			}
+		}
+		if (control->id == 61) {
+			
+			choosingPlayer = true;
+			increaseDmg = true;
+		}
+		if (control->id == 62) {
+			
+			choosingPlayer = true;
+			increaseLuck = true;
+		}
+		if (control->id == 63) {
+			
+			choosingPlayer = true;
+			increaseSpeed = true;
+		}
+		if (control->id == 64) {
+			
+			choosingPlayer = true;
+			healing = true;
 		}
 	}
 
@@ -887,6 +1163,21 @@ void battleSystem::MaxHp() {
 	}
 	if (app->player->P4.hp > 50) {
 		app->player->P4.hp = 50;
+	}
+}
+
+void battleSystem::MaxMana() {
+	if (app->player->P1.mana > 100) {
+		app->player->P1.mana = 100;
+	}
+	if (app->player->P2.mana > 100) {
+		app->player->P2.mana = 100;
+	}
+	if (app->player->P3.mana > 100) {
+		app->player->P3.mana = 100;
+	}
+	if (app->player->P4.mana > 100) {
+		app->player->P4.mana = 100;
 	}
 }
 

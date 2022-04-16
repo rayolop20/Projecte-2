@@ -10,43 +10,56 @@
 #include "PathFinding.h"
 #include "Map.h"
 #include "Window.h"
-
 #include "Log.h"
 #include "DynArray.h"
 #include "BattleSystem.h"
+#include "Menu.h"
 #include <time.h>
 
 VampirEnem::VampirEnem():Entity (EntityType::VAMPYR)
 {
-	name.Create("VampirEnem");
-	idle.PushBack({ 5, 6, 16, 17 });
-	idle.PushBack({ 28, 6, 12, 17 });
-	idle.PushBack({ 11, 29, 5, 16 });
-	idle.PushBack({ 28, 28, 12, 17 });
-	idle.loop = true;
-	idle.speed = 0.001f;
+	name.Create("Vampire");
+	idleAnim.PushBack({ 41,18, 45, 102 });
+	idleAnim.loop = true;
+	idleAnim.speed = 0.1f;
+
+	downAnim.PushBack({ 41,18, 45, 102 });
+	downAnim.PushBack({ 169,18, 45, 104 });
+	downAnim.PushBack({ 297,18, 45, 102 });
+	downAnim.PushBack({ 425,18, 65, 104 });
+	downAnim.loop = true;
+	downAnim.speed = 0.1f;
+
+	leftAnim.PushBack({ 563,19, 31, 102 });
+	leftAnim.PushBack({ 691,19, 31, 102 });
+	leftAnim.PushBack({ 819,19, 31, 102 });
+	leftAnim.PushBack({ 945,19, 33, 101 });
+	leftAnim.loop = true;
+	leftAnim.speed = 0.1f;
+
+	rightAnim.PushBack({ 1070,19, 31, 102 });
+	rightAnim.PushBack({ 1198,19, 31, 102 });
+	rightAnim.PushBack({ 1326,19, 31, 102 });
+	rightAnim.PushBack({ 1454,19, 33, 101 });
+	rightAnim.loop = true;
+	rightAnim.speed = 0.1f;
+
+	upAnim.PushBack({ 1577,18, 45, 102 });
+	upAnim.PushBack({ 1705,18, 45, 104 });
+	upAnim.PushBack({ 1833,18, 45, 102 });
+	upAnim.PushBack({ 1961,18, 45, 104 });
+	upAnim.loop = true;
+	upAnim.speed = 0.1f;
 }
 
 VampirEnem::~VampirEnem()
 {
-	name.Create("Vampire");
+
 }
+
+
 
 /*
-bool VampirEnem::Awake(pugi::xml_node& config)
-{
-	LOG("Loading VampirEnem");
-	bool ret = true;
-
-
-	Vpir[0].Pos.x = config.child("Position").attribute("PositionX").as_int();
-	Vpir[0].Pos.y = config.child("Position").attribute("PositionY").as_int();
-
-
-	return false;
-}
-
-
 bool VampirEnem::LoadState(pugi::xml_node& data)
 {
 	Vpir[0].Pos.x = data.child("Vampire").attribute("x").as_int();
@@ -62,17 +75,31 @@ bool VampirEnem::SaveState(pugi::xml_node& data) const
 	VPyr.append_attribute("y") = Vpir[0].Pos.y;
 	return false;
 }
+
+bool VampirEnem::Awake(pugi::xml_node& config)
+{
+	LOG("Loading Vampire");
+	bool ret = true;
+	AwakeEnable = false;
+
+	Vpir[0].Pos.x = config.child("Position").attribute("PositionX").as_int();
+	Vpir[0].Pos.y = config.child("Position").attribute("PositionY").as_int();
+
+
+	return ret;
+}
 */
 bool VampirEnem::Start()
 {
-	
-	TextureVampire = app->tex->Load("Assets/textures/coins.png");
+
+	TextureVampire = app->tex->Load("Assets/textures/Enem/vampire.png");
+	selectVampire = app->tex->Load("Assets/textures/UI/ChosePlayers.png");
 	//coinFx = app->audio->LoadFx("Assets/audio/fx/coin.wav");
 
 
 	for (int i = 0; i < NUM_VAMPIRE; i++)
 	{
-		currentAnimation[i] = &idle;
+		currentAnimation[i] = &idleAnim;
 	}
 
 	Vpir[0] = CreateVampire(/*Vpir->Pos.x, Vpir->Pos.x,*/800,800, TextureVampire);
@@ -82,13 +109,13 @@ bool VampirEnem::Start()
 
 bool VampirEnem::Update(float dt)
 {
-	
+
 	static char title[256];
 	sprintf_s(title, 256, "ENEMH1: %.1f ENEMHP2: %.1f ENEMH3: %.1f ENEMHP4: %.1f Playerhp1: %.1f Playerhp2: %.1f Playerhp3: %.1f Playerhp4: %.1f",
 	Vpir[1].hp, Vpir[2].hp, Vpir[3].hp, Vpir[4].hp, app->player->P1.hp, app->player->P2.hp, app->player->P3.hp, app->player->P4.hp);
 	app->win->SetTitle(title);
 
-	if (app->BTSystem->battle == true && app->player->P1.IsAlive == true && app->BTSystem->Vampirebattle) {
+	if (app->BTSystem->battle == true && app->player->P1.IsAlive == true && app->BTSystem->Vampirebattle == true) {
 		if (app->BTSystem->SpawnedEnemies == false) {
 			SpawnEnemies();
 		}
@@ -97,9 +124,8 @@ bool VampirEnem::Update(float dt)
 		Combat();
 		DrawHpBars();
 		if (app->BTSystem->PlayerTurn == false)  {
-			CheckEnemy();
-
 			EnemyPhase();
+			CheckEnemy();
 		}
 	}
 	else if (app->BTSystem->battleAux == true) {
@@ -146,9 +172,10 @@ bool VampirEnem::PostUpdate()
 	LOG("FUNCIONA?");
 	for (int i = 0; i < NUM_VAMPIRE; i++)
 	{
-		if (Vpir[i].dead == false) 
+		if (Vpir[i].dead == false && app->menu->config == false app->BTSystem->battle == false)
 		{
 		app->render->DrawTexture(Vpir[i].vampireT, Vpir[i].Pos.x, Vpir[i].Pos.y, &(currentAnimation[i]->GetCurrentFrame()));
+		currentAnimation[i]->Update();
 		}
 	}
 	return true;
@@ -364,10 +391,8 @@ void VampirEnem::Combat() {
 					} while (randomNumber2 == app->BTSystem->VampireTarget);
 					Vpir[randomNumber2].hp -= app->player->P4.damage2 + app->player->P4.damage;
 				}
-
 				Vpir[app->BTSystem->VampireTarget].hp -= app->player->P4.damage1 + app->player->P4.damage;
 				randomNumber = (rand() % 100) + 1;
-
 			} while (randomNumber <= app->player->P4.speed + app->player->P4.speed1);
 			app->player->P4.mana += app->player->P4.mana1;
 			app->BTSystem->VampireTarget = 0;
@@ -494,7 +519,7 @@ void VampirEnem::Combat() {
 			app->BTSystem->AttackPhaseActive = false;
 			app->BTSystem->AttackPhaseEnable = false;
 			app->BTSystem->ChoosePlayerPhase = true;
-			app->BTSystem->waitPlayer[1]++;
+			app->BTSystem->waitPlayer[3]++;
 			app->BTSystem->PlayerTurn = false;
 			app->player->P4.revolverActive = false;
 			for (int i = 0; i <= 4; i++) {
@@ -538,8 +563,11 @@ void VampirEnem::DrawEnemies() {
 		for (int i = 1; i < Vpir[0].numEnemies + 1; i++) {
 			if (Vpir[i].dead == false) {
 				if (app->BTSystem->VampireTarget == i) {
-					SDL_Rect Enem1 = { app->player->P1.position.x + 395, app->player->P1.position.y - 335 + 120 * i, 110, 110 };
-					app->render->DrawRectangle(Enem1, 255, 255, 0);
+					Choose->x = 4;
+					Choose->y = 135;
+					Choose->w = 110;
+					Choose->h = 110;
+					app->render->DrawTexture(selectVampire, app->player->P1.position.x + 395, app->player->P1.position.y - 335 + 120 * i, Choose);
 				}
 				SDL_Rect Enem1 = { app->player->P1.position.x + 400, app->player->P1.position.y - 330 + 120 * i, 100, 100 };
 				app->render->DrawRectangle(Enem1, 255, 255, 255);
@@ -570,7 +598,7 @@ void VampirEnem::ChooseEnemy() {
 			}
 		}
 		for (int i = 1; i < Vpir[0].numEnemies + 1; i++) {//
-			if (Vpir[i].dead == false && x > 1005 && x < 1110 && y > -5 + 120 * i && y < 115 + 120 * i + 100 && app->input->GetMouseButtonDown(1) == KEY_DOWN && app->BTSystem->PlayerTurn == true && app->BTSystem->SpecialAttackEnable == false && app->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT) {
+			if (Vpir[i].dead == false && x > 1005 && x < 1110 && y > -5 + 120 * i && y < 115 + 120 * i + 100 && app->input->GetMouseButtonDown(1) == KEY_DOWN && app->BTSystem->PlayerTurn == true && app->BTSystem->SpecialAttackEnable == false && app->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT && app->player->godMode == true) {
 				//app->BTSystem->VampireTarget = i;
 				Vpir[i].hp = 0;
 			}
@@ -649,7 +677,9 @@ void VampirEnem::EnemyPhase() {
 					int randomNumber = 0;
 					do {
 						randomNumber = (rand() % 100) + 1;
-						app->player->P1.hp -= Vpir[app->BTSystem->playerTarget].damage;
+						if (app->player->godMode == false) {
+							app->player->P1.hp -= Vpir[app->BTSystem->playerTarget].damage;
+						}
 					} while (randomNumber <= Vpir[app->BTSystem->playerTarget].speed);
    					app->BTSystem->PlayerTurn = true;
 				}
@@ -657,7 +687,9 @@ void VampirEnem::EnemyPhase() {
 					int randomNumber = 0;
 					do {
 						randomNumber = (rand() % 100) + 1;
-						app->player->P2.hp -= Vpir[app->BTSystem->playerTarget].damage;
+						if (app->player->godMode == false) {
+							app->player->P2.hp -= Vpir[app->BTSystem->playerTarget].damage;
+						}
 					} while (randomNumber <= Vpir[app->BTSystem->playerTarget].speed);
 					app->BTSystem->PlayerTurn = true;
 
@@ -666,7 +698,9 @@ void VampirEnem::EnemyPhase() {
 					int randomNumber = 0;
 					do {
 						randomNumber = (rand() % 100) + 1;
-						app->player->P3.hp -= Vpir[app->BTSystem->playerTarget].damage;
+						if (app->player->godMode == false) {
+							app->player->P3.hp -= Vpir[app->BTSystem->playerTarget].damage;
+						}
 					} while (randomNumber <= Vpir[app->BTSystem->playerTarget].speed);
 					app->BTSystem->PlayerTurn = true;
 
@@ -675,12 +709,12 @@ void VampirEnem::EnemyPhase() {
 					int randomNumber = 0;
 					do {
 						randomNumber = (rand() % 100) + 1;
-						app->player->P4.hp -= Vpir[app->BTSystem->playerTarget].damage;
+						if (app->player->godMode == false) {
+							app->player->P4.hp -= Vpir[app->BTSystem->playerTarget].damage;
+						}
 					} while (randomNumber <= Vpir[app->BTSystem->playerTarget].speed);
 					app->BTSystem->PlayerTurn = true;
-
 				}
-
 			}
 		}
 		app->BTSystem->SpecialAttackEnable = false;
@@ -730,7 +764,6 @@ void VampirEnem::CheckEnemy() {
 				klk = true;
 			}
 		}
-		app->BTSystem->PlayerTurn = true;
 		app->BTSystem->CombatDeaths = 0;
 	}
 }
@@ -756,7 +789,7 @@ void VampirEnem::DrawHpBars() {
 
 void VampirEnem::OnCollision(Collider* c1, Collider* c2)
 {
-	
+
 	for (uint i = 0; i < NUM_VAMPIRE; ++i)
 	{
 		if (Vpir[i].colliderV == c1 && !Vpir[i].Destroyed)
@@ -784,8 +817,10 @@ void VampirEnem::OnCollision(Collider* c1, Collider* c2)
 
 void VampirEnem::PathFindVamp(int i)
 {
-	if (path == true && app->BTSystem->battle == false && app->BTSystem->Delay == true)
+	if (app->player->godMode == false)
 	{
+		if (path == true && app->BTSystem->battle == false && app->BTSystem->Delay == true)
+		{
 			app->pathfinding->CreatePath(app->map->WorldToMap(Vpir[i].Pos.x, Vpir[i].Pos.y), app->map->WorldToMap(app->player->P1.position.x, app->player->P1.position.y));
 
 			const DynArray<iPoint>* path = app->pathfinding->GetLastPath();
@@ -795,28 +830,33 @@ void VampirEnem::PathFindVamp(int i)
 				iPoint pos = app->map->MapToWorld(path->At(j)->x, path->At(j)->y);
 				if (Vpir[i].Pos.x <= pos.x - 32 && timer3 > pathfindingtimer + enemySpeed)
 				{
+					currentAnimation[i] = &rightAnim;
 					pathfindingtimer = timer3;
-					Vpir[i].Pos.x+=32;
+					Vpir[i].Pos.x += 32;
 				}
 				if (Vpir[i].Pos.x >= pos.x + 32 && timer3 > pathfindingtimer + enemySpeed)
 				{
+					currentAnimation[i] = &leftAnim;
 					pathfindingtimer = timer3;
-					Vpir[i].Pos.x-=32;
+					Vpir[i].Pos.x -= 32;
 				}
-				if (Vpir[i].Pos.y <= pos.y - 32 &&  timer3 > pathfindingtimer + enemySpeed)
+				if (Vpir[i].Pos.y <= pos.y - 32 && timer3 > pathfindingtimer + enemySpeed)
 				{
+					currentAnimation[i] = &downAnim;
 					pathfindingtimer = timer3;
-					Vpir[i].Pos.y+=32;
+					Vpir[i].Pos.y += 32;
 				}
 				if (Vpir[i].Pos.y >= pos.y + 32 && timer3 > pathfindingtimer + enemySpeed)
 				{
+					currentAnimation[i] = &upAnim;
 					pathfindingtimer = timer3;
-					Vpir[i].Pos.y-=32;
+					Vpir[i].Pos.y -= 32;
 				}
 			}
-		
+
+		}
 	}
-	
+
 }
 Vampire VampirEnem::CreateVampire(int x, int y, SDL_Texture* t)
 {
@@ -830,4 +870,3 @@ Vampire VampirEnem::CreateVampire(int x, int y, SDL_Texture* t)
 
 	return Vampires;
 }
-
