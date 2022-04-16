@@ -172,7 +172,7 @@ bool VampirEnem::PostUpdate()
 	LOG("FUNCIONA?");
 	for (int i = 0; i < NUM_VAMPIRE; i++)
 	{
-		if (Vpir[i].dead == false && app->menu->config == false)
+		if (Vpir[i].dead == false && app->menu->config == false app->BTSystem->battle == false)
 		{
 		app->render->DrawTexture(Vpir[i].vampireT, Vpir[i].Pos.x, Vpir[i].Pos.y, &(currentAnimation[i]->GetCurrentFrame()));
 		currentAnimation[i]->Update();

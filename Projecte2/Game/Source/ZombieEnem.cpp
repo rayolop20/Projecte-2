@@ -217,7 +217,7 @@ bool ZombieEnem::PostUpdate()
 	LOG("FUNCIONA?");
 	for (int i = 0; i < NUM_ZOMBIE; i++)
 	{
-		if (Zbie[i].dead == false && app->menu->config == false)
+		if (Zbie[i].dead == false && app->menu->config == false && app->BTSystem->battle == false)
 		{
 			app->render->DrawTexture(Zbie[i].zombieT, Zbie[i].Pos.x, Zbie[i].Pos.y, &(currentAnimation[i]->GetCurrentFrame()));
 		}
