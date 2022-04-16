@@ -36,6 +36,9 @@ bool CharacterMenu_Screen::Awake()
 bool CharacterMenu_Screen::Start()
 {
 	int a;
+
+	inventoryTex = app->tex->Load("Assets/textures/UI/Inventory.png");
+
 	return true;
 }
 
@@ -73,7 +76,7 @@ bool CharacterMenu_Screen::Update(float dt)
 	}
 
 	itemMenu = { -app->render->camera.x + (app->win->GetWidth() / 2 - 40), -app->render->camera.y + (app->win->GetHeight() / 2 - 170), 300, 280 };
-	app->render->DrawRectangle(itemMenu, 250, 0, 0);
+	//app->render->DrawRectangle(itemMenu, 250, 0, 0);
 
 	if (buttonCont == 0 && !init)
 	{
@@ -121,9 +124,23 @@ bool CharacterMenu_Screen::Update(float dt)
 		inventory = false;
 	}
 
-	if (inventory) app->scene->xCont = 1;
+	if (inventory)
+	{
+		app->scene->xCont = 1;
 
-	init = false;
+		Ch1Section = { -app->render->camera.x + app->win->GetWidth() / 2 - 175, -app->render->camera.y + app->win->GetHeight() / 2 + 130, 50, 50 };
+		Ch2Section = { -app->render->camera.x + app->win->GetWidth() / 2 - 75, -app->render->camera.y + app->win->GetHeight() / 2 + 130, 50, 50 };
+		Ch3Section = { -app->render->camera.x + app->win->GetWidth() / 2 + 25, -app->render->camera.y + app->win->GetHeight() / 2 + 130, 50, 50 };
+		Ch4Section = { -app->render->camera.x + app->win->GetWidth() / 2 + 125, -app->render->camera.y + app->win->GetHeight() / 2 + 130, 50, 50 };
+
+		app->render->DrawRectangle(Ch1Section, 250, 0, 0);
+		app->render->DrawRectangle(Ch2Section, 250, 0, 0);
+		app->render->DrawRectangle(Ch3Section, 250, 0, 0);
+		app->render->DrawRectangle(Ch4Section, 250, 0, 0);
+	}
+
+	if (init) init = false;
+	
 
 	return true;
 }
@@ -132,6 +149,17 @@ bool CharacterMenu_Screen::Update(float dt)
 bool CharacterMenu_Screen::PostUpdate()
 {
 	bool ret = true;
+
+	if (inventory)
+	{
+		SDL_Rect* bagSection = new SDL_Rect();
+		bagSection->x = 18;
+		bagSection->y = 35;
+		bagSection->w = 814;
+		bagSection->h = 639;
+
+		//app->render->DrawTexture(inventoryTex, -app->render->camera.x + (app->win->GetWidth() / 2 - 40), -app->render->camera.y + (app->win->GetHeight() / 2 - 170), bagSection);
+	}
 
 	int mouseX, mouseY;
 	app->input->GetMousePosition(mouseX, mouseY);

@@ -62,6 +62,12 @@ private:
 	SDL_Rect Ch3;
 	SDL_Rect Ch4;
 
+	SDL_Rect Ch1Section;
+	SDL_Rect Ch2Section;
+	SDL_Rect Ch3Section;
+	SDL_Rect Ch4Section;
+
+	SDL_Texture* inventoryTex = nullptr;
 	SDL_Texture* enter = nullptr;
 
 	// L12b: Debug pathfing
