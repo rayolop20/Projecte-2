@@ -49,6 +49,7 @@ public:
 	bool FXActive = true;
 	bool playing = false;
 	bool On = false;
+	bool fps30 = true;
 
 	GuiButton* btnMenuConfig;
 	GuiButton* btnMenuPlay;
@@ -58,6 +59,7 @@ public:
 	GuiButton* btnConfigEx1;
 	GuiButton* btnConfigBack;
 	GuiButton* btnFullscreen;
+	GuiButton* btnFPS;
 
 	SDL_Texture* options = nullptr;
 private:
