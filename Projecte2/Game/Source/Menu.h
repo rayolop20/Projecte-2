@@ -47,6 +47,7 @@ public:
 	bool config = false;
 	bool musicActive = true;
 	bool FXActive = true;
+	bool playing = false;
 
 	GuiButton* btnMenuConfig;
 	GuiButton* btnMenuPlay;

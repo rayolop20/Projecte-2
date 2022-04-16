@@ -79,6 +79,7 @@ bool GuiButton::Draw(Render* render)
 	case GuiControlState::NORMAL:
 	{
 		//new game
+		
 		if (id == 1)
 		{
 			uitext->x = 160;
@@ -144,7 +145,7 @@ bool GuiButton::Draw(Render* render)
 			uitext->y = 1254;
 			uitext->w = 406;
 			uitext->h = 64;
-			app->render->DrawTexture(UIText, 450,625, uitext);
+			app->render->DrawTexture(UIText, 450, 625, uitext);
 		}
 
 		if (id == 8 && app->menu->config == true && app->menu->menuScreen == true)
@@ -153,7 +154,7 @@ bool GuiButton::Draw(Render* render)
 			uitext->y = 1254;
 			uitext->w = 406;
 			uitext->h = 64;
-			app->render->DrawTexture(UIText, app->player->P1.position.x - 120,app->player->P1.position.y + 325, uitext);
+			app->render->DrawTexture(UIText, app->player->P1.position.x - 120, app->player->P1.position.y + 325, uitext);
 		}
 		//Exit
 		if (id == 9)
