@@ -21,7 +21,7 @@ struct Skeleton
 	bool Destroyed = false;
 	uint vCount = 0;
 	bool dead = false;
-	float hp = 105.0;
+	float hp = 55.0;
 	float damage = 1.0;
 	float speed = 17.0;
 	int numEnemies = 4;
@@ -55,6 +55,7 @@ public:
 	void ChooseEnemy();
 	void EnemyPhase();
 	void CheckEnemy();
+	void DrawHpBars();
 
 	// Called at the middle of the application loop
 	// Processes new input and handles player movement
@@ -71,6 +72,9 @@ public:
 
 	void PathFindVamp(int i);
 
+	SDL_Texture* selectSkeleton = nullptr;
+	SDL_Rect* Choose = new SDL_Rect();
+
 public:
 	iPoint position;
 
@@ -79,8 +83,14 @@ public:
 	Skeleton Ston[NUM_SKELETON] = { nullptr };
 
 	Animation* currentAnimation[NUM_SKELETON] = { nullptr };
-	Animation idle;
+	Animation idleAnim;
+	Animation upAnim;
+	Animation downAnim;
+	Animation rightAnim;
+	Animation leftAnim;
 	Animation dead;
+	Animation idle;
+	
 
 	float randomEnemyhp = 0.0;
 	float randomEnemySpeed = 0.0;
@@ -90,8 +100,8 @@ public:
 	float enemySpeed = 20;//Velocitat inversa, 0 es velocitat maxima i valor més gran, velocitat més lenta.
 	float pathfindingtimer = 0;
 	bool pathfindingaux = true;
-	int WhichSkeleton = 0;
-	int SkeletonNum = NULL;
+	//int WhichSkeleton = 0; 
+	int SkeletonNum = NULL; 
 	bool klk = true;
 
 };

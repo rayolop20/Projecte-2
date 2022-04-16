@@ -199,10 +199,10 @@ void EntityManager::OnCollision(Collider* c1, Collider* c2)
 		entities[1]->OnCollision(c1, c2);
 	}
 	if (c1->type == Collider::Type::NPC && c2->type == Collider::Type::PLAYER) {
-		entities[2]->OnCollision(c1, c2);
+		entities[3]->OnCollision(c1, c2);
 	}
 	if (c1->type == Collider::Type::SKELETON && c2->type == Collider::Type::PLAYER) {
-		entities[3]->OnCollision(c1, c2);
+		entities[2]->OnCollision(c1, c2);
 	}
 	if (c1->type == Collider::Type::SENSOR && c2->type == Collider::Type::PLAYER) {
 		entities[0]->OnCollision(c1, c2);

@@ -10,6 +10,7 @@
 #include "PathFinding.h"
 #include "Map.h"
 #include "Window.h"
+#include "Menu.h"
 
 #include "Log.h"
 #include "DynArray.h"
@@ -66,35 +67,38 @@ bool VampirEnem::SaveState(pugi::xml_node& data) const
 bool SkeletonEnem::Start()
 {
 
-	TextureSkeleton = app->tex->Load("Assets/textures/coins.png");
+	TextureSkeleton = app->tex->Load("Assets/textures/Enem/zombie.png");
+	selectSkeleton = app->tex->Load("Assets/textures/UI/ChosePlayers.png");
 	//coinFx = app->audio->LoadFx("Assets/audio/fx/coin.wav");
 
 
 	for (int i = 0; i < NUM_SKELETON; i++)
 	{
-		currentAnimation[i] = &idle;
+		currentAnimation[i] = &idleAnim;
 	}
 
-	Ston[0] = CreateSkeleton(/*Vpir->Pos.x, Vpir->Pos.x,*/360, 360, TextureSkeleton);
+	Ston[0] = CreateSkeleton(/*Vpir->Pos.x, Vpir->Pos.x,*/320, 320, TextureSkeleton);
 
 	return false;
 }
 
 bool SkeletonEnem::Update(float dt)
 {
-
 	static char title[256];
-	sprintf_s(title, 256, "ENEMH1: %.1f ENEMHP2: %.1f ENEMH3: %.1f ENEMHP4: %.1f Playerhp1: %.1f Playerhp2: %.1f Playerhp3: %.1f Playerhp4: %.1f",
-		Ston[1].hp, Ston[2].hp, Ston[3].hp, Ston[4].hp, app->player->P1.hp, app->player->P2.hp, app->player->P3.hp, app->player->P4.hp);
-	app->win->SetTitle(title);
+	//sprintf_s(title, 256, "ENEMH1: %.1f ENEMHP2: %.1f ENEMH3: %.1f ENEMHP4: %.1f Playerhp1: %.1f Playerhp2: %.1f Playerhp3: %.1f Playerhp4: %.1f",
+//Zbie[1].hp, Zbie[2].hp, Zbie[3].hp, Zbie[4].hp, app->player->P1.hp, app->player->P2.hp, app->player->P3.hp, app->player->P4.hp);
 
-	if (app->BTSystem->battle == true && app->player->P1.IsAlive == true && app->BTSystem->Skeletonbattle) {
+	//app->win->SetTitle(title);
+
+	if (app->BTSystem->battle == true && app->player->P1.IsAlive == true && app->BTSystem->Skeletonbattle == true) {
+		LOG("");
 		if (app->BTSystem->SpawnedEnemies == false) {
 			SpawnEnemies();
 		}
 		DrawEnemies();
 		ChooseEnemy();
 		Combat();
+		DrawHpBars();
 		if (app->BTSystem->PlayerTurn == false) {
 			CheckEnemy();
 
@@ -134,26 +138,69 @@ bool SkeletonEnem::Update(float dt)
 	{
 		Ston[i].colliderSK->SetPos(Ston[i].Pos.x, Ston[i].Pos.y);
 		Ston[i].colliderS->SetPos(Ston[i].Pos.x - 84, Ston[i].Pos.y - 84);
+	}if (app->BTSystem->battle == true && app->player->P1.IsAlive == true && app->BTSystem->Skeletonbattle == true) {
+		if (app->BTSystem->SpawnedEnemies == false) {
+			SpawnEnemies();
+		}
+		DrawEnemies();
+		ChooseEnemy();
+		Combat();
+		DrawHpBars();
+		if (app->BTSystem->PlayerTurn == false) {
+			EnemyPhase();
+			CheckEnemy();
+		}
+	}
+	else if (app->BTSystem->battleAux == true) {
+		app->BTSystem->battleAux = false;
+		Ston[0].Destroyed = true;
+	}
+	timer3 = SDL_GetTicks() / 10;
+
+	/*if (app->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN)
+	{
+		PathFindVamp(VampireNum);
+	}
+
+	if (app->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
+	{
+		if (pathfindingaux == true) {
+			pathfindingtimer = timer3;
+			pathfindingaux = false;
+		}
+		path = true;
+	}*/
+	for (int i = 0; i < NUM_SKELETON; i++)
+	{
+		currentAnimation[i]->Update();
+
+		if (Ston[i].Destroyed == true)
+		{
+			Ston[i].dead = true;
+			Ston[i].colliderS->pendingToDelete = true;
+		}
+	}
+	for (int i = 0; i < 1; i++)
+	{
+		Ston[i].colliderSK->SetPos(Ston[i].Pos.x, Ston[i].Pos.y);
+		Ston[i].colliderS->SetPos(Ston[i].Pos.x - 84, Ston[i].Pos.y - 84);
 	}
 	return true;
 }
-
-
 
 bool SkeletonEnem::PostUpdate()
 {
-	LOG("FUNCIONA?");
+
 	for (int i = 0; i < NUM_SKELETON; i++)
 	{
-		if (Ston[i].dead == false)
+		if (Ston[i].dead == false && app->menu->config == false && app->BTSystem->battle == false)
 		{
 			app->render->DrawTexture(Ston[i].skeletonT, Ston[i].Pos.x, Ston[i].Pos.y, &(currentAnimation[i]->GetCurrentFrame()));
 		}
+		currentAnimation[i]->Update();
 	}
 	return true;
 }
-
-
 
 void SkeletonEnem::Combat() {
 	if (app->BTSystem->Skeletonbattle == true) {
@@ -183,6 +230,7 @@ void SkeletonEnem::Combat() {
 				randomNumber = (rand() % 100) + 1;
 
 			} while (randomNumber <= app->player->P1.speed + app->player->P1.speed1);
+
 			app->player->P1.mana += app->player->P1.mana1;
 			app->BTSystem->SkeletonTarget = 0;
 			app->BTSystem->randomAux = false;
@@ -215,7 +263,7 @@ void SkeletonEnem::Combat() {
 				} while (randomNumber2_ == app->BTSystem->SkeletonTarget || randomNumber2_ == randomNumber2);
 
 				Ston[randomNumber2].hp -= app->player->P1.damage2 + app->player->P1.damage;
-				Ston[randomNumber2_].hp -= app->player->P1.damage + app->player->P1.damage2;
+				Ston[randomNumber2_].hp -= app->player->P1.damage2 + app->player->P1.damage;
 				Ston[app->BTSystem->SkeletonTarget].hp -= app->player->P1.damage2 + app->player->P1.damage;
 				randomNumber = (rand() % 100) + 1;
 
@@ -363,10 +411,8 @@ void SkeletonEnem::Combat() {
 					} while (randomNumber2 == app->BTSystem->SkeletonTarget);
 					Ston[randomNumber2].hp -= app->player->P4.damage2 + app->player->P4.damage;
 				}
-
 				Ston[app->BTSystem->SkeletonTarget].hp -= app->player->P4.damage1 + app->player->P4.damage;
 				randomNumber = (rand() % 100) + 1;
-
 			} while (randomNumber <= app->player->P4.speed + app->player->P4.speed1);
 			app->player->P4.mana += app->player->P4.mana1;
 			app->BTSystem->SkeletonTarget = 0;
@@ -390,7 +436,7 @@ void SkeletonEnem::Combat() {
 		if (app->BTSystem->AttackType == 2 && app->BTSystem->AttackPlayer == 4 && app->BTSystem->randomAux == true) {
 			int randomNumber = 0;
 			do {
-				Ston[app->BTSystem->SkeletonTarget].hp -= app->player->P4.damage2 + app->player->P4.damage;
+				Ston[app->BTSystem->SkeletonTarget].hp -= app->player->P4.damage2;
 				randomNumber = (rand() % 100) + 1;
 
 			} while (randomNumber <= app->player->P4.speed + app->player->P4.speed2);
@@ -493,7 +539,7 @@ void SkeletonEnem::Combat() {
 			app->BTSystem->AttackPhaseActive = false;
 			app->BTSystem->AttackPhaseEnable = false;
 			app->BTSystem->ChoosePlayerPhase = true;
-			app->BTSystem->waitPlayer[1]++;
+			app->BTSystem->waitPlayer[3]++;
 			app->BTSystem->PlayerTurn = false;
 			app->player->P4.revolverActive = false;
 			for (int i = 0; i <= 4; i++) {
@@ -505,7 +551,6 @@ void SkeletonEnem::Combat() {
 				}
 			}
 		}
-
 		app->BTSystem->SpeacialAttackEnd = false;
 		app->BTSystem->alliesDead = 0;
 	}
@@ -514,7 +559,6 @@ void SkeletonEnem::Combat() {
 void SkeletonEnem::SpawnEnemies() {
 	if (app->BTSystem->Skeletonbattle == true) {
 		srand(time(NULL));
-
 		for (int i = 1; i < Ston[0].numEnemies + 1; i++) {
 			Ston[i].dead = false;
 			randomEnemyhp = (rand() % 10) + 1;
@@ -525,7 +569,6 @@ void SkeletonEnem::SpawnEnemies() {
 				Ston[i].speed += randomEnemySpeed;
 				Ston[i].damage += randomEnemyDamage;
 			}
-
 		}
 	}
 	klk = false;
@@ -534,11 +577,15 @@ void SkeletonEnem::SpawnEnemies() {
 
 void SkeletonEnem::DrawEnemies() {
 	if (app->BTSystem->Skeletonbattle == true) {
+
 		for (int i = 1; i < Ston[0].numEnemies + 1; i++) {
 			if (Ston[i].dead == false) {
 				if (app->BTSystem->SkeletonTarget == i) {
-					SDL_Rect Enem1 = { app->player->P1.position.x + 395, app->player->P1.position.y - 335 + 120 * i, 110, 110 };
-					app->render->DrawRectangle(Enem1, 255, 255, 0);
+					Choose->x = 4;
+					Choose->y = 135;
+					Choose->w = 110;
+					Choose->h = 110;
+					app->render->DrawTexture(selectSkeleton, app->player->P1.position.x + 395, app->player->P1.position.y - 335 + 120 * i, Choose);
 				}
 				SDL_Rect Enem1 = { app->player->P1.position.x + 400, app->player->P1.position.y - 330 + 120 * i, 100, 100 };
 				app->render->DrawRectangle(Enem1, 255, 255, 255);
@@ -559,7 +606,7 @@ void SkeletonEnem::ChooseEnemy() {
 
 		for (int i = 1; i < Ston[0].numEnemies + 1; i++) {
 			/*if (Vpir[i].dead == false && x >= 772 && x <= 772 + 50 && y >= 18 + 60*i && y <= 18 + 60 * i + 50 && app->input->GetMouseButtonDown(1) == KEY_DOWN && app->BTSystem->AttackPlayer != 0 && app->BTSystem->PlayerTurn == true) {
-				app->BTSystem->VampireTarget = i;
+				app->BTSystem->ZombieTarget = i;
 				//SDL_Rect Enem1 = { app->player->P1.position.x + 400, app->player->P1.position.y - 330 + 120 * i, 100, 100 };
 
 			}*/
@@ -569,8 +616,8 @@ void SkeletonEnem::ChooseEnemy() {
 			}
 		}
 		for (int i = 1; i < Ston[0].numEnemies + 1; i++) {//
-			if (Ston[i].dead == false && x > 1005 && x < 1110 && y > -5 + 120 * i && y < 115 + 120 * i + 100 && app->input->GetMouseButtonDown(1) == KEY_DOWN && app->BTSystem->PlayerTurn == true && app->BTSystem->SpecialAttackEnable == false && app->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT) {
-				//app->BTSystem->VampireTarget = i;
+			if (Ston[i].dead == false && x > 1005 && x < 1110 && y > -5 + 120 * i && y < 115 + 120 * i + 100 && app->input->GetMouseButtonDown(1) == KEY_DOWN && app->BTSystem->PlayerTurn == true && app->BTSystem->SpecialAttackEnable == false && app->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT && app->player->godMode == true) {
+				//app->BTSystem->ZombieTarget = i;
 				Ston[i].hp = 0;
 			}
 
@@ -580,6 +627,7 @@ void SkeletonEnem::ChooseEnemy() {
 
 void SkeletonEnem::EnemyPhase() {
 	if (app->BTSystem->Skeletonbattle == true) {
+
 		if (app->BTSystem->alliesDead == 0) {
 			if (app->player->P1.IsAlive == false) {
 				app->BTSystem->alliesDead++;
@@ -648,7 +696,9 @@ void SkeletonEnem::EnemyPhase() {
 					int randomNumber = 0;
 					do {
 						randomNumber = (rand() % 100) + 1;
-						app->player->P1.hp -= Ston[app->BTSystem->playerTarget].damage;
+						if (app->player->godMode == false) {
+							app->player->P1.hp -= Ston[app->BTSystem->playerTarget].damage;
+						}
 					} while (randomNumber <= Ston[app->BTSystem->playerTarget].speed);
 					app->BTSystem->PlayerTurn = true;
 				}
@@ -656,7 +706,9 @@ void SkeletonEnem::EnemyPhase() {
 					int randomNumber = 0;
 					do {
 						randomNumber = (rand() % 100) + 1;
-						app->player->P2.hp -= Ston[app->BTSystem->playerTarget].damage;
+						if (app->player->godMode == false) {
+							app->player->P2.hp -= Ston[app->BTSystem->playerTarget].damage;
+						}
 					} while (randomNumber <= Ston[app->BTSystem->playerTarget].speed);
 					app->BTSystem->PlayerTurn = true;
 
@@ -665,7 +717,9 @@ void SkeletonEnem::EnemyPhase() {
 					int randomNumber = 0;
 					do {
 						randomNumber = (rand() % 100) + 1;
-						app->player->P3.hp -= Ston[app->BTSystem->playerTarget].damage;
+						if (app->player->godMode == false) {
+							app->player->P3.hp -= Ston[app->BTSystem->playerTarget].damage;
+						}
 					} while (randomNumber <= Ston[app->BTSystem->playerTarget].speed);
 					app->BTSystem->PlayerTurn = true;
 
@@ -674,7 +728,9 @@ void SkeletonEnem::EnemyPhase() {
 					int randomNumber = 0;
 					do {
 						randomNumber = (rand() % 100) + 1;
-						app->player->P4.hp -= Ston[app->BTSystem->playerTarget].damage;
+						if (app->player->godMode == false) {
+							app->player->P4.hp -= Ston[app->BTSystem->playerTarget].damage;
+						}
 					} while (randomNumber <= Ston[app->BTSystem->playerTarget].speed);
 					app->BTSystem->PlayerTurn = true;
 
@@ -729,21 +785,41 @@ void SkeletonEnem::CheckEnemy() {
 				klk = true;
 			}
 		}
-		app->BTSystem->PlayerTurn = true;
 		app->BTSystem->CombatDeaths = 0;
+	}
+}
+
+void SkeletonEnem::DrawHpBars() {
+	if (Ston[1].dead == false) {
+		SDL_Rect bar1 = { app->player->P1.position.x + 380, app->player->P1.position.y - 200, -(200 * Ston[1].hp) / 100,15 };
+		app->render->DrawRectangle(bar1, 255, 0, 0);
+	}
+	if (Ston[2].dead == false) {
+		SDL_Rect bar2 = { app->player->P1.position.x + 380, app->player->P1.position.y - 200 + 120, -(200 * Ston[2].hp) / 100,15 };
+		app->render->DrawRectangle(bar2, 255, 0, 0);
+	}
+	if (Ston[3].dead == false) {
+		SDL_Rect bar3 = { app->player->P1.position.x + 380, app->player->P1.position.y - 200 + 240, -(200 * Ston[3].hp) / 100,15 };
+		app->render->DrawRectangle(bar3, 255, 0, 0);
+	}
+	if (Ston[4].dead == false) {
+		SDL_Rect bar4 = { app->player->P1.position.x + 380, app->player->P1.position.y - 200 + 360, -(200 * Ston[4].hp) / 100,15 };
+		app->render->DrawRectangle(bar4, 255, 0, 0);
 	}
 }
 
 void SkeletonEnem::OnCollision(Collider* c1, Collider* c2)
 {
-
+	LOG("");
 	for (uint i = 0; i < NUM_SKELETON; ++i)
 	{
 		if (Ston[i].colliderSK == c1 && !Ston[i].Destroyed)
 		{
+		
 			if (c2->type == Collider::Type::PLAYER)
 			{
 				app->BTSystem->Skeletonbattle = true;
+				//Vpir[0].Destroyed = true;
 			}
 		}
 		else if (Ston[i].colliderS == c1 && !Ston[i].Destroyed)
@@ -764,50 +840,56 @@ void SkeletonEnem::OnCollision(Collider* c1, Collider* c2)
 
 void SkeletonEnem::PathFindVamp(int i)
 {
-	if (path == true && app->BTSystem->battle == false && app->BTSystem->Delay == true)
+	if (app->player->godMode == false)
 	{
-		app->pathfinding->CreatePath(app->map->WorldToMap(Ston[i].Pos.x, Ston[i].Pos.y), app->map->WorldToMap(app->player->P1.position.x, app->player->P1.position.y));
-
-		const DynArray<iPoint>* path = app->pathfinding->GetLastPath();
-
-		for (uint j = 0; j < path->Count(); ++j)
+		if (path == true && app->BTSystem->battle == false && app->BTSystem->Delay == true)
 		{
-			iPoint pos = app->map->MapToWorld(path->At(j)->x, path->At(j)->y);
-			if (Ston[i].Pos.x <= pos.x - 32 && timer3 > pathfindingtimer + enemySpeed)
+			app->pathfinding->CreatePath(app->map->WorldToMap(Ston[i].Pos.x, Ston[i].Pos.y), app->map->WorldToMap(app->player->P1.position.x, app->player->P1.position.y));
+
+			const DynArray<iPoint>* path = app->pathfinding->GetLastPath();
+
+			for (uint j = 0; j < path->Count(); ++j)
 			{
-				pathfindingtimer = timer3;
-				Ston[i].Pos.x += 32;
+				iPoint pos = app->map->MapToWorld(path->At(j)->x, path->At(j)->y);
+				if (Ston[i].Pos.x <= pos.x - 32 && timer3 > pathfindingtimer + enemySpeed)
+				{
+					currentAnimation[i] = &rightAnim;
+					pathfindingtimer = timer3;
+					Ston[i].Pos.x += 32;
+				}
+				if (Ston[i].Pos.x >= pos.x + 32 && timer3 > pathfindingtimer + enemySpeed)
+				{
+					//currentAnimation[i] = &leftAnim;
+					pathfindingtimer = timer3;
+					Ston[i].Pos.x -= 32;
+				}
+				if (Ston[i].Pos.y <= pos.y - 32 && timer3 > pathfindingtimer + enemySpeed)
+				{
+					//currentAnimation[i] = &downAnim;
+					pathfindingtimer = timer3;
+					Ston[i].Pos.y += 32;
+				}
+				if (Ston[i].Pos.y >= pos.y + 32 && timer3 > pathfindingtimer + enemySpeed)
+				{
+					//currentAnimation[i] = &upAnim;
+					pathfindingtimer = timer3;
+					Ston[i].Pos.y -= 32;
+				}
 			}
-			if (Ston[i].Pos.x >= pos.x + 32 && timer3 > pathfindingtimer + enemySpeed)
-			{
-				pathfindingtimer = timer3;
-				Ston[i].Pos.x -= 32;
-			}
-			if (Ston[i].Pos.y <= pos.y - 32 && timer3 > pathfindingtimer + enemySpeed)
-			{
-				pathfindingtimer = timer3;
-				Ston[i].Pos.y += 32;
-			}
-			if (Ston[i].Pos.y >= pos.y + 32 && timer3 > pathfindingtimer + enemySpeed)
-			{
-				pathfindingtimer = timer3;
-				Ston[i].Pos.y -= 32;
-			}
+
 		}
-
 	}
-
 }
 Skeleton SkeletonEnem::CreateSkeleton(int x, int y, SDL_Texture* t)
 {
-	Skeleton skeleton;
+	Skeleton Skeletons;
 
-	skeleton.colliderSK = app->collisions->AddCollider({ x, y, 32, 32 }, Collider::Type::SKELETON, (Module*)app->entityManager);
-	skeleton.colliderS = app->collisions->AddCollider({ x, y, 200, 200 }, Collider::Type::SENSOR, (Module*)app->entityManager);
-	skeleton.skeletonT = t;
-	skeleton.Pos.x = x;
-	skeleton.Pos.y = y;
+	Skeletons.colliderSK = app->collisions->AddCollider({ x, y, 32, 32 }, Collider::Type::SKELETON, (Module*)app->entityManager);
+	Skeletons.colliderS = app->collisions->AddCollider({ x, y, 200, 200 }, Collider::Type::SENSOR, (Module*)app->entityManager);
+	Skeletons.skeletonT = t;
+	Skeletons.Pos.x = x;
+	Skeletons.Pos.y = y;
 
-	return skeleton;
+	return Skeletons;
 }
 
