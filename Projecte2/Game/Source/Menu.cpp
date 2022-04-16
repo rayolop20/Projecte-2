@@ -47,7 +47,12 @@ bool Menu_Screen::Start()
 	btnCredits = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 4, "Credits", { 150, 330, 144, 57 }, this);
 	btnMenuExit = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 3, "Exit", { 150, 420, 78, 51 }, this);
 	btnConfigBack = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 8, "Back to menu", { 450, 625, 418, 62 }, this);
+	btnFullscreen = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 81, "Fullscreen", { 0, 0, 263, 78 }, this);
+	btnFPS = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 82, "FPS", { 0, 0, 263, 78 }, this);
 
+	btnFPS->state = GuiControlState::DISABLED;
+	btnConfigBack->state = GuiControlState::DISABLED;
+	btnFullscreen->state = GuiControlState::DISABLED;
 	btnMenuPlay->state = GuiControlState::DISABLED;
 	btnMenuConfig->state = GuiControlState::DISABLED;
 	btnCredits->state = GuiControlState::DISABLED;
@@ -135,10 +140,55 @@ bool Menu_Screen::Update(float dt)
 		OptionsTxt->y = 0;
 		OptionsTxt->w = 918;
 		OptionsTxt->h = 559;
+		SDL_Rect* OptionsOn = new SDL_Rect();
+		OptionsOn->x = 8;
+		OptionsOn->y = 650;
+		OptionsOn->w = 263;
+		OptionsOn->h = 78;
+		SDL_Rect* OptionsOff = new SDL_Rect();
+		OptionsOff->x = 8;
+		OptionsOff->y = 568;
+		OptionsOff->w = 263;
+		OptionsOff->h = 78;
+		SDL_Rect* Options60 = new SDL_Rect();
+		Options60->x = 272;
+		Options60->y = 568;
+		Options60->w = 263;
+		Options60->h = 78;
+		SDL_Rect* Options30 = new SDL_Rect();
+		Options30->x = 274;
+		Options30->y = 650;
+		Options30->w = 263;
+		Options30->h = 78;
 		if (menuScreen == false) {
 			app->render->DrawTexture(options, 200, 50, OptionsTxt);
+			//-app->render->camera.x + (app->win->GetWidth() / 2 - 80), -app->render->camera.y + 320
+			if (On == true) {
+				app->render->DrawTexture(options, -app->render->camera.x + (app->win->GetWidth() / 2) + 175, -app->render->camera.y + 300, OptionsOn);
+				//Activar Fullscreen
+			}
+			if (On == false) {
+				app->render->DrawTexture(options, -app->render->camera.x + (app->win->GetWidth() / 2) + 175, -app->render->camera.y + 300, OptionsOff);
+				//Desactivar Fullscreen
+			}
+			if (fps30 == true) {
+				app->render->DrawTexture(options, -app->render->camera.x + (app->win->GetWidth() / 2) + 175, -app->render->camera.y + 465, Options30);
+				//Activar 30fps
+			}
+			if (fps30 == false) {
+				app->render->DrawTexture(options, -app->render->camera.x + (app->win->GetWidth() / 2) + 175, -app->render->camera.y + 465, Options60);
+				//Desactivar 60fps
+			}
+			btnFullscreen->bounds.x = -app->render->camera.x + (app->win->GetWidth() / 2) + 175;
+			btnFullscreen->bounds.y = -app->render->camera.y + 300;
+			btnFullscreen->state = GuiControlState::NORMAL;
+			btnFPS->bounds.x = -app->render->camera.x + (app->win->GetWidth() / 2) + 175;
+			btnFPS->bounds.y = -app->render->camera.y + 465;
+			btnFPS->state = GuiControlState::NORMAL;
+
 		}
 		btnConfigBack->state = GuiControlState::NORMAL;
+		
 	}
 	
 	//logo i fons de pantalla
@@ -182,6 +232,8 @@ void Menu_Screen::Menu()
 void Menu_Screen::MenuConfig()
 {
 	btnConfigBack->state = GuiControlState::NORMAL;
+	app->menu->btnConfigBack->bounds.x = -app->render->camera.x + (app->win->GetWidth() / 2) - 200;
+	app->menu->btnConfigBack->bounds.y = -app->render->camera.y + 625;
 }
 
 bool Menu_Screen::OnGuiMouseClickEvent(GuiControl* control)
@@ -226,7 +278,6 @@ bool Menu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 					LOG("Config ON");
 					config = true;
 					btnConfigBack->state = GuiControlState::NORMAL;
-
 					app->menu->btnMenuConfig->state = GuiControlState::DISABLED;
 					app->gameMenu->btnResume->state = GuiControlState::DISABLED;
 					app->gameMenu->btnMenu->state = GuiControlState::DISABLED;
@@ -276,6 +327,18 @@ bool Menu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 					app->gameMenu->btnResume->state = GuiControlState::NORMAL;
 					app->gameMenu->btnMenu->state = GuiControlState::NORMAL;
 					app->gameMenu->btnExit->state = GuiControlState::NORMAL;
+				}
+				if (control->id == 81 && On == true) {
+					On = false;
+				}
+				else if (control->id == 81 && On == false) {
+					On = true;
+				}
+				if (control->id == 82 && fps30 == true) {
+					fps30 = false;
+				}
+				else if (control->id == 82 && fps30 == false) {
+					fps30 = true;
 				}
 				default: break;
 			}
