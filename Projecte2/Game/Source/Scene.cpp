@@ -169,9 +169,31 @@ bool Scene::Update(float dt)
 			OptionsTxt->y = 0;
 			OptionsTxt->w = 918;
 			OptionsTxt->h = 559;
+			SDL_Rect* OptionsOn = new SDL_Rect();
+			OptionsOn->x = 8;
+			OptionsOn->y = 650;
+			OptionsOn->w = 263;
+			OptionsOn->h = 78;
+			SDL_Rect* OptionsOff = new SDL_Rect();
+			OptionsOff->x = 8;
+			OptionsOff->y = 568;
+			OptionsOff->w = 263;
+			OptionsOff->h = 78;
 			app->render->DrawTexture(app->menu->options, app->player->P1.position.x - 400, app->player->P1.position.y - 250, OptionsTxt);
-			app->menu->btnConfigBack->bounds.x = app->player->P1.position.x - 120;
-			app->menu->btnConfigBack->bounds.y = app->player->P1.position.y + 325;
+			app->menu->btnConfigBack->bounds.x = -app->render->camera.x + (app->win->GetWidth() / 2) - 150;
+			app->menu->btnConfigBack->bounds.y = -app->render->camera.y + 650;
+			if (app->menu->On == true) {
+				app->render->DrawTexture(app->menu->options, -app->render->camera.x + (app->win->GetWidth() / 2) + 190, -app->render->camera.y + 330, OptionsOn);
+				//Activar Fullscreen
+			}
+			if (app->menu->On == false) {
+				app->render->DrawTexture(app->menu->options, -app->render->camera.x + (app->win->GetWidth() / 2) + 190, -app->render->camera.y + 330, OptionsOff);
+				//Desactivar Fullscreen
+			}
+			app->menu->btnFullscreen->bounds.x = -app->render->camera.x + (app->win->GetWidth() / 2) + 190;
+			app->menu->btnFullscreen->bounds.y = -app->render->camera.y + 330;
+			app->menu->btnFullscreen->state = GuiControlState::NORMAL;
+
 		}
 		return true;
 	}
