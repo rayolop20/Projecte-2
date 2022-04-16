@@ -18,6 +18,7 @@ struct Collider
 		NPC,
 		WALLV,
 		WALLH,
+		KEY_SENSOR,
 		//Sensors
 		SENSOR,
 		SENSOR_PLAYER2,

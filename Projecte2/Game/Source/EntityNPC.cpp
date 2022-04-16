@@ -77,7 +77,9 @@ bool EntityNPC::Start()
 	//text
 	char lookupTable[] = { "! @,_./0123456789$;< ?abcdefghijklmnopqrstuvwxyz" };
 	FText = app->fonts->Load("Assets/Textures/Fonts/fonts.png", lookupTable, 1);
-
+	door = app->tex->Load("Assets/textures/Assets/door.png");
+	door2 = app->tex->Load("Assets/textures/Assets/door2.png");
+	door3 = app->tex->Load("Assets/textures/Assets/door3.png");
 
 	for (int i = 0; i < NUM_NPC; i++)
 	{
@@ -87,6 +89,8 @@ bool EntityNPC::Start()
 	npc[0] = CreateNPC(500, 500, TextureNPC);
 	npc[1] = CreateNPC(300, 1000, TextureNPC);
 	npc[2] = CreateNPC(100, 1000, TextureNPC);
+	KLK = app->collisions->AddCollider({ 1312, 1664, 96, 64 }, Collider::Type::KEY_SENSOR, (Module*)app->entityManager);
+	KLK2 = app->collisions->AddCollider({ 1504, 2304,64, 96 }, Collider::Type::KEY_SENSOR, (Module*)app->entityManager);
 
 	return false;
 }
