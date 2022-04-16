@@ -49,7 +49,7 @@ bool Menu_Screen::Start()
 	btnConfigBack = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 8, "Back to menu", { 450, 625, 418, 62 }, this);
 	btnFullscreen = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 81, "Fullscreen", { 0, 0, 263, 78 }, this);
 	btnFPS = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 82, "FPS", { 0, 0, 263, 78 }, this);
-	
+
 	btnFPS->state = GuiControlState::DISABLED;
 	btnConfigBack->state = GuiControlState::DISABLED;
 	btnFullscreen->state = GuiControlState::DISABLED;
