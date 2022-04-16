@@ -433,7 +433,8 @@ idle.speed = 0.005f;*/
 void battleSystem::SpecialAttackPhase() {
 	srand(time(NULL));
 	if (randomAttack == 0) {//QTE Random activator
-		randomAttack = rand() % 4 + 1;
+		randomAttack = (rand() % 1) + 3;
+		//randomAttack = rand() % 4 + 1;
 	}
 	if (randomAttack == 1) {//QTE 1
 		timer1 = SDL_GetTicks() / 1000;
