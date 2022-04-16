@@ -199,6 +199,8 @@ bool Scene::CleanUp()
 void Scene::Pause()
 {
 	app->gameMenu->Enable();
+	app->gameMenu->active = true;
+	app->gameMenu->Start();
 }
 
 void Scene::DebugPath()

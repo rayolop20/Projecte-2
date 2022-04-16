@@ -171,7 +171,7 @@ void Menu_Screen::Menu()
 		btnMenuExit->state = GuiControlState::NORMAL;
 	}
 	else {
-		btnConfigBack->state = GuiControlState::DISABLED;
+	btnConfigBack->state = GuiControlState::DISABLED;
 		btnMenuPlay->state = GuiControlState::DISABLED;
 		btnMenuConfig->state = GuiControlState::DISABLED;
 		btnCredits->state = GuiControlState::DISABLED;
@@ -204,11 +204,7 @@ bool Menu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 					app->render->camera.y = (app->player->P1.position.y - 300) * -1;
 					app->scene->musicActive = true;
 					LOG("Click on button 1");
-					btnMenuPlay->state = GuiControlState::DISABLED;
-					btnMenuConfig->state = GuiControlState::DISABLED;
-					btnMenuExit->state = GuiControlState::DISABLED;
-					btnCredits->state = GuiControlState::DISABLED;
-
+					CleanUp();
 				}
 
 				if (control->id == 2 && playing == false)
@@ -287,6 +283,15 @@ bool Menu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 bool Menu_Screen::CleanUp()
 {
 		LOG("Freeing scene");
+		app->guiManager->DestroyGuiControl(btnMenuConfig);
+		app->guiManager->DestroyGuiControl(btnConfigBack);
+		app->guiManager->DestroyGuiControl(btnCredits);
+		app->guiManager->DestroyGuiControl(btnMenuExit);
+		app->guiManager->DestroyGuiControl(btnMenuPlay);
+		app->guiManager->DestroyGuiControl(btnConfigEx1);
+		app->tex->UnLoad(options);
+		app->tex->UnLoad(fonsMenu);
+		app->tex->UnLoad(Logo);
 
 		return true;
 }

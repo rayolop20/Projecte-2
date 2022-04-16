@@ -49,13 +49,13 @@ public:
 	bool FXActive = true;
 	bool playing = false;
 
-	GuiButton* btnMenuConfig;
-	GuiButton* btnMenuPlay;
-	GuiButton* btnCredits;
-	GuiButton* btnMenuExit;
+	GuiButton* btnMenuConfig = nullptr;
+	GuiButton* btnMenuPlay = nullptr;
+	GuiButton* btnCredits = nullptr;
+	GuiButton* btnMenuExit = nullptr;
 
-	GuiButton* btnConfigEx1;
-	GuiButton* btnConfigBack;
+	GuiButton* btnConfigEx1 = nullptr;
+	GuiButton* btnConfigBack = nullptr;
 
 	SDL_Texture* options = nullptr;
 private:

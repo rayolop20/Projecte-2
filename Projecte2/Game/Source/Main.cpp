@@ -3,6 +3,7 @@
 #include "Defs.h"
 #include "Log.h"
 #include "Input.h"
+#include "MemLeack.h"
 
 #include <windows.h>
 #include <stdlib.h>
@@ -123,7 +124,7 @@ int main(int argc, char* args[])
 		LOG("delta time is: %f ms", app->dt - CelapsetTime);
 	}
 
-
+	ReportMemoryLeaks();
 	LOG("... Bye! :)\n");
 
 	// Dump memory leaks

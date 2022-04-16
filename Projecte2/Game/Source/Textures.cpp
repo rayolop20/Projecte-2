@@ -54,7 +54,7 @@ bool Textures::CleanUp()
 	{
 		SDL_DestroyTexture(item->data);
 	}
-
+	textureP.clear();
 	textures.clear();
 	IMG_Quit();
 	return true;
@@ -63,6 +63,41 @@ bool Textures::CleanUp()
 // Load new texture from file path
 SDL_Texture* const Textures::Load(const char* path)
 {
+		for (int i = 0, count = textureP.count(); i < count; i++)
+		{
+			if (textureP[i].path == path)
+			{
+				return textures[textureP[i].index];
+			}
+		}
+
+	SDL_Texture* texture = nullptr;
+	SDL_Surface* surface = IMG_Load(path);
+
+	if (surface == NULL)
+	{
+		LOG("Could not load surface with path: %s. IMG_Load: %s", path, IMG_GetError());
+	}
+	else
+	{
+		texture = SDL_CreateTextureFromSurface(app->render->renderer,surface);
+
+		if (texture == nullptr)
+		{
+			LOG("Unable to create texture from surface! SDL Error: %s\n", SDL_GetError());
+		}
+		else
+		{
+			textures.add(texture);
+			TexturePath tp = { path, textures.count() - 1, (int)&texture };
+			textureP.add(tp);
+			//texturePath.insert(std::pair<std::string, int>(path, textures.count() - 1));
+			//printf("direccion in memory : %#x || path: %s \n", texture, path.c_str());
+		}
+
+		SDL_FreeSurface(surface);
+	}
+	/*
 	SDL_Texture* texture = NULL;
 	SDL_Surface* surface = IMG_Load(path);
 
@@ -75,7 +110,7 @@ SDL_Texture* const Textures::Load(const char* path)
 		texture = LoadSurface(surface);
 		SDL_FreeSurface(surface);
 	}
-
+	*/
 	return texture;
 }
 

@@ -36,7 +36,8 @@ bool GameMenu_Screen::Awake()
 // Called before the first frame
 bool GameMenu_Screen::Start()
 {
-	
+	if (active == true)
+	{
 	btnMenu = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 6, "Menu", { -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -1390, 160, 40 }, this);
 	btnExit = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 9, "Exit", { -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -1480, 160, 40 }, this);
 	btnResume = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 5, "Resume", { -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -1250, 193, 51 }, this);
@@ -44,6 +45,7 @@ bool GameMenu_Screen::Start()
 	btnResume->state = GuiControlState::DISABLED;
 	btnExit->state = GuiControlState::DISABLED;
 	btnMenu->state = GuiControlState::DISABLED;
+	}
 	return true;
 }
 
@@ -148,14 +150,19 @@ bool GameMenu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 					app->render->camera.x = 0;
 					app->render->camera.y = 0;
 					app->menu->starting = true;
-					btnResume->state = GuiControlState::DISABLED;
+					app->guiManager->DestroyAllGui();
+					app->menu->Start();
+					//app->guiManager->DestroyGuiControl(app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 9, "Exit", { -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -1480, 160, 40 }, this));
+					//app->guiManager->DestroyGuiControl(app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 5, "Resume", { -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -1250, 193, 51 }, this));
+				/*	btnResume->state = GuiControlState::DISABLED;
 					btnMenu->state = GuiControlState::DISABLED;
 					btnExit->state = GuiControlState::DISABLED;
 					app->menu->btnMenuConfig->state = GuiControlState::DISABLED;
 
 					app->menu->btnMenuPlay->state = GuiControlState::DISABLED;
 					app->menu->btnMenuExit->state = GuiControlState::DISABLED;
-					app->menu->btnConfigBack->state = GuiControlState::DISABLED;
+					app->menu->btnConfigBack->state = GuiControlState::DISABLED;*/
+					active = false;
 				}
 
 				if (control->id == 9)
@@ -171,6 +178,7 @@ bool GameMenu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 
 bool GameMenu_Screen::CleanUp()
 {
+
 		LOG("Freeing scene");
 		return true;
 }
