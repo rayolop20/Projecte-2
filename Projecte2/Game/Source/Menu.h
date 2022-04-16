@@ -61,6 +61,8 @@ public:
 	GuiButton* btnFullscreen = nullptr;
 	GuiButton* btnFPS = nullptr;
 
+	GuiSlider* Volume = nullptr;
+
 	SDL_Texture* options = nullptr;
 private:
 

@@ -2,6 +2,13 @@
 #include "Render.h"
 #include "App.h"
 #include "Audio.h"
+#include "Scene.h"
+#include "Window.h"
+#include "Textures.h"
+#include "Player.h"
+#include "Animation.h"
+#include "BattleSystem.h"
+#include "Menu.h"
 
 GuiSlider::GuiSlider(uint32 id, SDL_Rect bounds, const char* text) : GuiControl(GuiControlType::SLIDER, id)
 {
@@ -66,12 +73,12 @@ bool GuiSlider::Draw(bool camera, Render* render, Input* input)
         {
         case GuiControlState::DISABLED: render->DrawRectangle(bounds,  0, 0, 0, 100 );
             break;
-        case GuiControlState::NORMAL: render->DrawRectangle(bounds, 0, 255, 0, 100 );
+        case GuiControlState::NORMAL: render->DrawRectangle(bounds, 0, 255, 0, 0 );
             break;
-        case GuiControlState::FOCUSED: render->DrawRectangle(bounds,  0, 0, 255, 50 );
+        case GuiControlState::FOCUSED: render->DrawRectangle(bounds,  0, 0, 255, 0 );
             break;
         case GuiControlState::PRESSED:
-            render->DrawRectangle(bounds, 0, 0, 255, 100 );
+            render->DrawRectangle(bounds, 155, 103, 60, 0 );
             sliderRect = { bounds.x, bounds.y, mouseX - bounds.x, bounds.h };
             innerRect.x = sliderRect.w + sliderRect.x;
             innerRect.x -= innerRect.w / 2;
@@ -79,7 +86,7 @@ bool GuiSlider::Draw(bool camera, Render* render, Input* input)
             innerRect.h = sliderRect.h - sliderRect.h / 2;
             innerRect.w = innerRect.h;
             break;
-        case GuiControlState::SELECTED: render->DrawRectangle(bounds,  0, 255, 0, 255 );
+        case GuiControlState::SELECTED: render->DrawRectangle(bounds,  0, 255, 0, 0 );
             break;
         default:
             break;
@@ -90,14 +97,14 @@ bool GuiSlider::Draw(bool camera, Render* render, Input* input)
     {
         switch (state)
         {
-        case GuiControlState::DISABLED: render->DrawRectangle(bounds,  0, 0, 0, 255 );
+        case GuiControlState::DISABLED: render->DrawRectangle(bounds,  0, 0, 0, 0 );
             break;
-        case GuiControlState::NORMAL: render->DrawRectangle(bounds, 0, 255, 0, 255 );
+        case GuiControlState::NORMAL: render->DrawRectangle(bounds, 0, 255, 0, 0 );
             break;
-        case GuiControlState::FOCUSED: render->DrawRectangle(bounds,  0, 0, 255, 255 );
+        case GuiControlState::FOCUSED: render->DrawRectangle(bounds,  0, 0, 255, 0 );
             break;
         case GuiControlState::PRESSED:
-            render->DrawRectangle(bounds,  255, 0, 255, 255 );
+            render->DrawRectangle(bounds,  255, 0, 255, 0 );
             sliderRect = { bounds.x, bounds.y, mouseX - bounds.x, bounds.h };
             innerRect.x = sliderRect.w + sliderRect.x;
             innerRect.x -= innerRect.w / 2;
@@ -105,7 +112,7 @@ bool GuiSlider::Draw(bool camera, Render* render, Input* input)
             innerRect.h = sliderRect.h - sliderRect.h / 2;
             innerRect.w = innerRect.h;
             break;
-        case GuiControlState::SELECTED: render->DrawRectangle(bounds,  0, 255, 0, 255 );
+        case GuiControlState::SELECTED: render->DrawRectangle(bounds,  0, 255, 0, 0 );
             break;
         default:
             break;
@@ -117,14 +124,14 @@ bool GuiSlider::Draw(bool camera, Render* render, Input* input)
 
     if (!debugDraw)
     {
-        render->DrawRectangle(sliderRect,  0, 0, 255, 155 );
-        if (sliderRect.x == bounds.x) render->DrawRectangle(innerRect,  0, 0, 255, 200 );
+        render->DrawRectangle(sliderRect,  0, 0, 255, 0 );
+        if (sliderRect.x == bounds.x) render->DrawRectangle(innerRect, 155, 103, 60, 255 );
     }
 
     else
     {
-        render->DrawRectangle(sliderRect, 0, 255, 255, 255 );
-        if (sliderRect.x == bounds.x) render->DrawRectangle(innerRect, 255, 0, 255, 255 );
+        render->DrawRectangle(sliderRect, 0, 255, 255, 0 );
+        if (sliderRect.x == bounds.x) render->DrawRectangle(innerRect, 155, 103, 60, 255 );
     }
 
     return false;

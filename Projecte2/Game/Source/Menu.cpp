@@ -50,6 +50,11 @@ bool Menu_Screen::Start()
 	btnConfigBack = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 8, "Back to menu", { 450, 625, 418, 62 }, this);
 	btnFullscreen = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 81, "Fullscreen", { 0, 0, 263, 78 }, this);
 	btnFPS = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 82, "FPS", { 0, 0, 263, 78 }, this);
+	
+	Volume = (GuiSlider*)app->guiManager->CreateGuiControl(GuiControlType::SLIDER, 83, "Volumen", { 585, 170, 460, 30 }, this);
+	Volume->maxValue = app->audio->maxMusicValue;
+	Volume->minValue = 0;
+	
 
 	btnFPS->state = GuiControlState::DISABLED;
 	btnConfigBack->state = GuiControlState::DISABLED;
@@ -58,6 +63,7 @@ bool Menu_Screen::Start()
 	btnMenuConfig->state = GuiControlState::DISABLED;
 	btnCredits->state = GuiControlState::DISABLED;
 	btnMenuExit->state = GuiControlState::DISABLED;
+	Volume->state = GuiControlState::DISABLED;
 
 	if (app->scene->active == true)
 	{
@@ -129,6 +135,7 @@ bool Menu_Screen::Update(float dt)
 	}
 	
 	if (app->menu->config == true) {
+		
 		SDL_Rect* OptionsTxt = new SDL_Rect();
 		OptionsTxt->x = 0;
 		OptionsTxt->y = 0;
@@ -154,6 +161,8 @@ bool Menu_Screen::Update(float dt)
 		Options30->y = 650;
 		Options30->w = 263;
 		Options30->h = 78;
+
+		
 		app->render->DrawTexture(app->menu->options, 215, 85, OptionsTxt);
 		app->menu->btnConfigBack->bounds.x = -app->render->camera.x + (app->win->GetWidth() / 2) - 150;
 		app->menu->btnConfigBack->bounds.y = -app->render->camera.y + 650;
@@ -184,6 +193,8 @@ bool Menu_Screen::Update(float dt)
 		app->menu->btnFPS->bounds.x = -app->render->camera.x + (app->win->GetWidth() / 2) + 175;
 		app->menu->btnFPS->bounds.y = -app->render->camera.y + 465;
 		app->menu->btnFPS->state = GuiControlState::NORMAL;
+		Volume->Draw(true, app->render, app->input);
+		app->menu->Volume->state = GuiControlState::NORMAL;
 
 	}
 	//logo i fons de pantalla
@@ -335,6 +346,15 @@ bool Menu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 				else if (control->id == 82 && fps30 == false) {
 					fps30 = true;
 				}
+			case GuiControlType::SLIDER:
+			{
+				if (control->id == 83)
+				{
+					app->audio->MusicVolumeControl(Volume->GetValue());
+					app->audio->FxVolumeControl(Volume->GetValue());
+				}
+				break;
+			}
 				default: break;
 			}
 		}
