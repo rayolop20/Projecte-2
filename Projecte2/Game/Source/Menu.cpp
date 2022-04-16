@@ -286,9 +286,12 @@ bool Menu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 
 bool Menu_Screen::CleanUp()
 {
-		LOG("Freeing scene");
+	LOG("Freeing scene");
+	//app->tex->UnLoad(fonsMenu);
+	//app->tex->UnLoad(Logo);
+	//app->tex->UnLoad(options);
 
-		return true;
+	return true;
 }
 
 

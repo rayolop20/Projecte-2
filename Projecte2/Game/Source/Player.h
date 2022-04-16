@@ -139,6 +139,8 @@ public:
 
 	// Called at the end of the application loop
 	// Performs the render call of the player sprite
+	bool CleanUp();
+
 	bool PostUpdate();
 
 	// Collision callback, called when the player intersects with another collider
