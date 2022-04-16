@@ -39,13 +39,14 @@ public:
 	~VampirEnem();
 
 
-	//bool Awake(pugi::xml_node&);
+
 	// Called when the module is activated
 	// Loads the necessary textures for the player
 	//bool LoadState(pugi::xml_node&);
 
 	//bool SaveState(pugi::xml_node&) const;
 
+	//bool Awake(pugi::xml_node& config);
 
 	bool Start();
 
@@ -84,7 +85,11 @@ public:
 	Vampire Vpir[NUM_VAMPIRE] = { nullptr };
 
 	Animation* currentAnimation[NUM_VAMPIRE] = { nullptr };
-	Animation idle;
+	Animation idleAnim;
+	Animation upAnim;
+	Animation downAnim;
+	Animation rightAnim;
+	Animation leftAnim;
 	Animation dead;
 
 	float randomEnemyhp = 0.0;

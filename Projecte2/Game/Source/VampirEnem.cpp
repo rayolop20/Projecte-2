@@ -18,35 +18,48 @@
 
 VampirEnem::VampirEnem():Entity (EntityType::VAMPYR)
 {
-	name.Create("VampirEnem");
-	idle.PushBack({ 5, 6, 16, 17 });
-	idle.PushBack({ 28, 6, 12, 17 });
-	idle.PushBack({ 11, 29, 5, 16 });
-	idle.PushBack({ 28, 28, 12, 17 });
-	idle.loop = true;
-	idle.speed = 0.001f;
+	name.Create("Vampire");
+	idleAnim.PushBack({ 41,18, 45, 102 });
+	idleAnim.loop = true;
+	idleAnim.speed = 0.1f;
+
+	downAnim.PushBack({ 41,18, 45, 102 });
+	downAnim.PushBack({ 169,18, 45, 104 });
+	downAnim.PushBack({ 297,18, 45, 102 });
+	downAnim.PushBack({ 425,18, 65, 104 });
+	downAnim.loop = true;
+	downAnim.speed = 0.1f;
+
+	leftAnim.PushBack({ 563,19, 31, 102 });
+	leftAnim.PushBack({ 691,19, 31, 102 });
+	leftAnim.PushBack({ 819,19, 31, 102 });
+	leftAnim.PushBack({ 945,19, 33, 101 });
+	leftAnim.loop = true;
+	leftAnim.speed = 0.1f;
+
+	rightAnim.PushBack({ 1070,19, 31, 102 });
+	rightAnim.PushBack({ 1198,19, 31, 102 });
+	rightAnim.PushBack({ 1326,19, 31, 102 });
+	rightAnim.PushBack({ 1454,19, 33, 101 });
+	rightAnim.loop = true;
+	rightAnim.speed = 0.1f;
+
+	upAnim.PushBack({ 1577,18, 45, 102 });
+	upAnim.PushBack({ 1705,18, 45, 104 });
+	upAnim.PushBack({ 1833,18, 45, 102 });
+	upAnim.PushBack({ 1961,18, 45, 104 });
+	upAnim.loop = true;
+	upAnim.speed = 0.1f;
 }
 
 VampirEnem::~VampirEnem()
 {
-	name.Create("Vampire");
+
 }
+
+
 
 /*
-bool VampirEnem::Awake(pugi::xml_node& config)
-{
-	LOG("Loading VampirEnem");
-	bool ret = true;
-
-
-	Vpir[0].Pos.x = config.child("Position").attribute("PositionX").as_int();
-	Vpir[0].Pos.y = config.child("Position").attribute("PositionY").as_int();
-
-
-	return false;
-}
-
-
 bool VampirEnem::LoadState(pugi::xml_node& data)
 {
 	Vpir[0].Pos.x = data.child("Vampire").attribute("x").as_int();
@@ -62,18 +75,31 @@ bool VampirEnem::SaveState(pugi::xml_node& data) const
 	VPyr.append_attribute("y") = Vpir[0].Pos.y;
 	return false;
 }
+
+bool VampirEnem::Awake(pugi::xml_node& config)
+{
+	LOG("Loading Vampire");
+	bool ret = true;
+	AwakeEnable = false;
+
+	Vpir[0].Pos.x = config.child("Position").attribute("PositionX").as_int();
+	Vpir[0].Pos.y = config.child("Position").attribute("PositionY").as_int();
+
+
+	return ret;
+}
 */
 bool VampirEnem::Start()
 {
-	
-	TextureVampire = app->tex->Load("Assets/textures/coins.png");
+
+	TextureVampire = app->tex->Load("Assets/textures/Enem/vampire.png");
 	selectVampire = app->tex->Load("Assets/textures/UI/ChosePlayers.png");
 	//coinFx = app->audio->LoadFx("Assets/audio/fx/coin.wav");
 
 
 	for (int i = 0; i < NUM_VAMPIRE; i++)
 	{
-		currentAnimation[i] = &idle;
+		currentAnimation[i] = &idleAnim;
 	}
 
 	Vpir[0] = CreateVampire(/*Vpir->Pos.x, Vpir->Pos.x,*/800,800, TextureVampire);
@@ -83,7 +109,7 @@ bool VampirEnem::Start()
 
 bool VampirEnem::Update(float dt)
 {
-	
+
 	static char title[256];
 	sprintf_s(title, 256, "ENEMH1: %.1f ENEMHP2: %.1f ENEMH3: %.1f ENEMHP4: %.1f Playerhp1: %.1f Playerhp2: %.1f Playerhp3: %.1f Playerhp4: %.1f",
 	Vpir[1].hp, Vpir[2].hp, Vpir[3].hp, Vpir[4].hp, app->player->P1.hp, app->player->P2.hp, app->player->P3.hp, app->player->P4.hp);
@@ -149,6 +175,7 @@ bool VampirEnem::PostUpdate()
 		if (Vpir[i].dead == false && app->menu->config == false)
 		{
 		app->render->DrawTexture(Vpir[i].vampireT, Vpir[i].Pos.x, Vpir[i].Pos.y, &(currentAnimation[i]->GetCurrentFrame()));
+		currentAnimation[i]->Update();
 		}
 	}
 	return true;
@@ -762,7 +789,7 @@ void VampirEnem::DrawHpBars() {
 
 void VampirEnem::OnCollision(Collider* c1, Collider* c2)
 {
-	
+
 	for (uint i = 0; i < NUM_VAMPIRE; ++i)
 	{
 		if (Vpir[i].colliderV == c1 && !Vpir[i].Destroyed)
@@ -803,21 +830,25 @@ void VampirEnem::PathFindVamp(int i)
 				iPoint pos = app->map->MapToWorld(path->At(j)->x, path->At(j)->y);
 				if (Vpir[i].Pos.x <= pos.x - 32 && timer3 > pathfindingtimer + enemySpeed)
 				{
+					currentAnimation[i] = &rightAnim;
 					pathfindingtimer = timer3;
 					Vpir[i].Pos.x += 32;
 				}
 				if (Vpir[i].Pos.x >= pos.x + 32 && timer3 > pathfindingtimer + enemySpeed)
 				{
+					currentAnimation[i] = &leftAnim;
 					pathfindingtimer = timer3;
 					Vpir[i].Pos.x -= 32;
 				}
 				if (Vpir[i].Pos.y <= pos.y - 32 && timer3 > pathfindingtimer + enemySpeed)
 				{
+					currentAnimation[i] = &downAnim;
 					pathfindingtimer = timer3;
 					Vpir[i].Pos.y += 32;
 				}
 				if (Vpir[i].Pos.y >= pos.y + 32 && timer3 > pathfindingtimer + enemySpeed)
 				{
+					currentAnimation[i] = &upAnim;
 					pathfindingtimer = timer3;
 					Vpir[i].Pos.y -= 32;
 				}
@@ -825,7 +856,7 @@ void VampirEnem::PathFindVamp(int i)
 
 		}
 	}
-	
+
 }
 Vampire VampirEnem::CreateVampire(int x, int y, SDL_Texture* t)
 {
@@ -839,4 +870,3 @@ Vampire VampirEnem::CreateVampire(int x, int y, SDL_Texture* t)
 
 	return Vampires;
 }
-

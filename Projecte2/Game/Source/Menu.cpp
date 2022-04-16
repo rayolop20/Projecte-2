@@ -200,8 +200,6 @@ bool Menu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 					app->player->Enable();
 					app->render->camera.x = (app->player->P1.position.x - 550) * -1;
 					app->render->camera.y = (app->player->P1.position.y - 300) * -1;
-					app->player->P1.position.x = app->player->resetPlayerPos.x;
-					app->player->P1.position.y = app->player->resetPlayerPos.y;
 					app->scene->musicActive = true;
 					LOG("Click on button 1");
 					btnMenuPlay->state = GuiControlState::DISABLED;

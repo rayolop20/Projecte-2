@@ -106,15 +106,23 @@ bool Player::LoadState(pugi::xml_node& data)
 	//player 1
 	P1.position.x = data.child("Player1").attribute("x").as_int();
 	P1.position.y = data.child("Player1").attribute("y").as_int();
+	P1.hp = data.child("Player1").attribute("Hp").as_int();
+	P1.mana = data.child("Player1").attribute("mana").as_int();
 	//player 2
 	P2.position.x = data.child("Player2").attribute("x").as_int();
 	P2.position.y = data.child("Player2").attribute("y").as_int();
+	P2.hp = data.child("Player2").attribute("Hp").as_int();
+	P2.mana = data.child("Player2").attribute("mana").as_int();
 	//player 3
 	P3.position.x = data.child("Player3").attribute("x").as_int();
 	P3.position.y = data.child("Player3").attribute("y").as_int();
+	P3.hp = data.child("Player3").attribute("Hp").as_int();
+	P3.mana = data.child("Player3").attribute("mana").as_int();
 	//player4
 	P4.position.x = data.child("Player4").attribute("x").as_int();
 	P4.position.y = data.child("Player4").attribute("y").as_int();
+	P4.hp = data.child("Player4").attribute("Hp").as_int();
+	P4.mana = data.child("Player4").attribute("mana").as_int();
 	return false;
 }
 
@@ -127,15 +135,23 @@ bool Player::SaveState(pugi::xml_node& data) const
 	//p1
 	Pyr1.append_attribute("x") = app->player->P1.position.x;
 	Pyr1.append_attribute("y") = app->player->P1.position.y;
+	Pyr1.append_attribute("Hp") = app->player->P1.hp;
+	Pyr1.append_attribute("mana") = app->player->P1.mana;
 	//p2
 	Pyr2.append_attribute("x") = app->player->P2.position.x;
 	Pyr2.append_attribute("y") = app->player->P2.position.y;
+	Pyr2.append_attribute("Hp") = app->player->P2.hp;
+	Pyr2.append_attribute("mana") = app->player->P2.mana;
 	//p3
 	Pyr3.append_attribute("x") = app->player->P3.position.x;
 	Pyr3.append_attribute("y") = app->player->P3.position.y;
+	Pyr3.append_attribute("Hp") = app->player->P3.hp;
+	Pyr3.append_attribute("mana") = app->player->P3.mana;
 	//p4
 	Pyr4.append_attribute("x") = app->player->P4.position.x;
 	Pyr4.append_attribute("y") = app->player->P4.position.y;
+	Pyr4.append_attribute("Hp") = app->player->P4.hp;
+	Pyr4.append_attribute("mana") = app->player->P4.mana;
 	return false;
 }
 
@@ -147,18 +163,23 @@ bool Player::Awake(pugi::xml_node& config) {
 	//p1
 	P1.position.x = config.child("Player1").attribute("PositionX").as_int();
 	P1.position.y = config.child("Player1").attribute("PositionY").as_int();
+	P1.mana = config.child("Player1").attribute("mana").as_int();
+	P1.hp = config.child("Player1").attribute("Hp").as_int();
 	//p2
 	P2.position.x = config.child("Player2").attribute("PositionX").as_int();
 	P2.position.y = config.child("Player2").attribute("PositionY").as_int();
+	P2.mana = config.child("Player2").attribute("mana").as_int();
+	P2.hp = config.child("Player2").attribute("Hp").as_int();
 	//p3
 	P3.position.x = config.child("Player3").attribute("PositionX").as_int();
 	P3.position.y = config.child("Player3").attribute("PositionY").as_int();
+	P3.mana = config.child("Player3").attribute("mana").as_int();
+	P3.hp = config.child("Player3").attribute("Hp").as_int();
 	//P4
 	P4.position.x = config.child("Player4").attribute("PositionX").as_int();
 	P4.position.y = config.child("Player4").attribute("PositionY").as_int();
-
-	resetPlayerPos.x = config.child("Player1").attribute("PositionX").as_int();
-	resetPlayerPos.y = config.child("Player1").attribute("PositionY").as_int();
+	P4.mana = config.child("Player4").attribute("mana").as_int();
+	P4.hp = config.child("Player4").attribute("Hp").as_int();
 
 	return ret;
 }
