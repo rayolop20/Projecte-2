@@ -132,73 +132,8 @@ bool Menu_Screen::Update(float dt)
 		OptionsTxt->y = 0;
 		OptionsTxt->w = 918;
 		OptionsTxt->h = 559;
-		SDL_Rect* OptionsOn = new SDL_Rect();
-		OptionsOn->x = 4;
-		OptionsOn->y = 647;
-		OptionsOn->w = 268;
-		OptionsOn->h = 79;
-		SDL_Rect* OptionsOff = new SDL_Rect();
-		OptionsOff->x = 4;
-		OptionsOff->y = 567;
-		OptionsOff->w = 268;
-		OptionsOff->h = 79;
-		SDL_Rect* Options30 = new SDL_Rect();
-		Options30->x = 271;
-		Options30->y = 647;
-		Options30->w = 268;
-		Options30->h = 79;
-		SDL_Rect* Options60 = new SDL_Rect();
-		Options60->x = 271;
-		Options60->y = 567;
-		Options60->w = 268;
-		Options60->h = 79;
-		app->render->DrawTexture(options, 200, 50, OptionsTxt);
-
 		if (menuScreen == false) {
-			if (On == false) {
-				btnConfigOff->bounds.w = 152;
-				btnConfigOff->bounds.h = 43;
-				btnConfigOff->bounds.x = 810;
-				btnConfigOff->bounds.y = 300;
-				btnConfigOn->bounds.w = 0;
-				btnConfigOn->bounds.h = 0;
-				btnConfigOff->state = GuiControlState::NORMAL;
-				btnConfigOn->state = GuiControlState::DISABLED;
-				app->render->DrawTexture(options, 810, 300, OptionsOff);
-			}
-			else {
-				btnConfigOn->state = GuiControlState::NORMAL;
-				btnConfigOff->state = GuiControlState::DISABLED;
-				btnConfigOn->bounds.w = 152;
-				btnConfigOn->bounds.h = 43;
-				btnConfigOn->bounds.x = 810;
-				btnConfigOn->bounds.y = 300;
-				btnConfigOff->bounds.w = 0;
-				btnConfigOff->bounds.h = 0;
-				app->render->DrawTexture(options, 810, 300, OptionsOn);
-			}
-			if (fps30 == false) {
-				btnConfig60->bounds.w = 152;
-				btnConfig60->bounds.h = 43;
-				btnConfig60->bounds.x = 810;
-				btnConfig60->bounds.y = 465;
-				btnConfig30->bounds.w = 0;
-				btnConfig30->bounds.h = 0;
-				btnConfig60->state = GuiControlState::NORMAL;
-				btnConfig30->state = GuiControlState::DISABLED;
-				app->render->DrawTexture(options, 810, 465, Options60);
-			}
-			else {
-				btnConfig30->state = GuiControlState::NORMAL;
-				btnConfig60->state = GuiControlState::DISABLED;
-				btnConfig30->bounds.w = 152;
-				btnConfig30->bounds.h = 43;
-				btnConfig30->bounds.x = 810;
-				btnConfig30->bounds.y = 465;
-				btnConfig60->bounds.w = 0;
-				btnConfig60->bounds.h = 0;
-				app->render->DrawTexture(options, 810, 465, Options30);
-			}
+			app->render->DrawTexture(options, 200, 50, OptionsTxt);
 		}
 		else {
 			
@@ -233,17 +168,8 @@ void Menu_Screen::Menu()
 	btnCredits = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 4, "Credits", { 150, 330, 144, 57 }, this);
 	btnMenuExit = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 3, "Exit", { 150, 420, 78, 51 }, this);
 	btnConfigBack = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 8, "Back to menu", { 450, 650, 418, 62 }, this);
-	btnConfigOn = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 81, "Fullscreen on", { 450, 650, 152, 43 }, this);
-	btnConfigOff = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 82, "Fullscreen off", { 450, 650, 152, 43 }, this);
-	btnConfig30 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 83, "Fullscreen on", { 450, 650, 152, 43 }, this);
-	btnConfig60 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 84, "Fullscreen off", { 450, 650, 152, 43 }, this);
-
 
 	btnConfigBack->state = GuiControlState::DISABLED;
-	btnConfigOn->state = GuiControlState::DISABLED;
-	btnConfigOff->state = GuiControlState::DISABLED;
-	btnConfig30->state = GuiControlState::DISABLED;
-	btnConfig60->state = GuiControlState::DISABLED;
 	btnMenuPlay->state = GuiControlState::DISABLED;
 	btnMenuConfig->state = GuiControlState::DISABLED;
 	btnCredits->state = GuiControlState::DISABLED;
@@ -325,6 +251,7 @@ bool Menu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 				{
 					config = false;
 					btnConfigBack->state = GuiControlState::DISABLED;
+
 					app->menu->btnConfigBack->state = GuiControlState::DISABLED;
 					app->menu->btnMenuConfig->state = GuiControlState::NORMAL;
 					app->menu->btnCredits->state = GuiControlState::NORMAL;
@@ -333,22 +260,8 @@ bool Menu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 					app->gameMenu->btnExit->state = GuiControlState::NORMAL;
 					app->menu->btnMenuPlay->state = GuiControlState::NORMAL;
 					app->menu->btnMenuExit->state = GuiControlState::NORMAL;
-				}
-				if (control->id == 81) {
-					On = false;
-					//Desactivar fullscreen
-				}
-				if (control->id == 82) {
-					On = true;
-					//Activar fullscreen
-				}
-				if (control->id == 83) {
-					fps30 = false;
-					//Desactivar 60fps
-				}
-				if (control->id == 84) {
-					fps30 = true;
-					//Activar 60fps
+
+					
 				}
 				default: break;
 			}
