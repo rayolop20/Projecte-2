@@ -556,14 +556,6 @@ bool GuiButton::Draw(Render* render)
 			uitext->h = 57;
 			app->render->DrawTexture(UIText, -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -app->render->camera.y + 390, uitext);
 		}
-		if (id == 8 && app->menu->config == true)
-		{
-			uitext->x = 721;
-			uitext->y = 1254;
-			uitext->w = 406;
-			uitext->h = 64;
-			app->render->DrawTexture(UIText, 450, 625, uitext);
-		}
 		//Exit
 		if (id == 9)
 		{

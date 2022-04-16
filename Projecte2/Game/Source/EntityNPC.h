@@ -61,9 +61,6 @@ public:
 
 	SDL_Texture* TextureNPC = nullptr;
 	SDL_Texture* DialogueBox = nullptr;
-	SDL_Texture* door = nullptr;
-	SDL_Texture* door2 = nullptr;
-	SDL_Texture* door3 = nullptr;
 
 	NPC npc[NUM_NPC] = { nullptr };
 
@@ -81,10 +78,6 @@ public:
 	int Dialogue3Count = 0;
 	int Dialogue1BranchYes = 0;
 	int Dialogue1BranchNo = 0;
-
-
-	Collider* KLK;
-	Collider* KLK2;
 
 	float timerNPC = 0.0;
 	float timerNPC2 = 0.0;

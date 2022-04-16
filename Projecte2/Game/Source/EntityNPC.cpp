@@ -72,27 +72,22 @@ bool EntityNPC::Start()
 	TextureNPC = app->tex->Load("Assets/textures/coins.png");
 	//coinFx = app->audio->LoadFx("Assets/audio/fx/coin.wav");
 	DialogueBox = app->tex->Load("Assets/textures/UI/TextBox.png");
-	door = app->tex->Load("Assets/textures/Assets/door.png");
-	door2 = app->tex->Load("Assets/textures/Assets/door2.png");
-	door3 = app->tex->Load("Assets/textures/Assets/door3.png");
 
 	for (int i = 0; i < NUM_NPC; i++)
 	{
 		currentAnimation[i] = &idle;
 	}
 	
-	npc[0] = CreateNPC(96, 1378, TextureNPC);
-	npc[1] = CreateNPC(960, 217, TextureNPC);
-	npc[2] = CreateNPC(1365, 1951, TextureNPC);
-
-	KLK = app->collisions->AddCollider({ 1312, 1664, 96, 64 }, Collider::Type::KEY_SENSOR, (Module*)app->entityManager);
-	KLK2 = app->collisions->AddCollider({ 1504, 2304,64, 96 }, Collider::Type::KEY_SENSOR, (Module*)app->entityManager);
+	npc[0] = CreateNPC(500, 500, TextureNPC);
+	npc[1] = CreateNPC(300, 1000, TextureNPC);
+	npc[2] = CreateNPC(100, 1000, TextureNPC);
 
 	return false;
 }
 
 bool EntityNPC::Update(float dt)
 {
+<<<<<<< HEAD
 
 	if (Dialogue2Count != 0 && app->menu->config == false) {
 		KLK->pendingToDelete = true;
@@ -111,6 +106,8 @@ bool EntityNPC::Update(float dt)
 
 	}
 
+=======
+>>>>>>> parent of ab772e8 (MEGAPUSHDELAPARRACRIMINALMENTYATUSABES)
 	timerNPC = SDL_GetTicks() / 1000;
 	timerNPC2 = SDL_GetTicks() / 1000;
 	timerNPC3 = SDL_GetTicks() / 1000;

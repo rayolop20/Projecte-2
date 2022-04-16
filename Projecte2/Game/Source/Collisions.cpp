@@ -6,7 +6,6 @@
 #include "Scene.h"
 #include "SString.h"
 #include "GuiManager.h"
-#include "Player.h"
 
 
 Collisions::Collisions() : Module()
@@ -29,11 +28,6 @@ Collisions::Collisions() : Module()
 	matrix[Collider::Type::PLAYER][Collider::Type::SENSOR_PLAYER2] = true;
 	matrix[Collider::Type::PLAYER][Collider::Type::SENSOR_PLAYER3] = true;
 	matrix[Collider::Type::PLAYER][Collider::Type::SENSOR_PLAYER4] = true;
-
-	matrix[Collider::Type::PLAYER][Collider::Type::KEY_SENSOR] = true;
-	matrix[Collider::Type::KEY_SENSOR][Collider::Type::PLAYER] = true;
-	
-	
 	
 	
 	matrix[Collider::Type::WALLV][Collider::Type::WALLV] = false;
@@ -186,9 +180,6 @@ void Collisions::DebugDraw()
 			app->render->DrawRectangle(colliders[i]->rect, 0, 255, 0, alpha);
 			break;
 		case Collider::Type::SENSOR: // Blue
-			app->render->DrawRectangle(colliders[i]->rect, 0, 0, 255, alpha);
-			break;
-		case Collider::Type::KEY_SENSOR: // Blue
 			app->render->DrawRectangle(colliders[i]->rect, 0, 0, 255, alpha);
 			break;
 		case Collider::Type::SENSOR_PLAYER2: // Blue

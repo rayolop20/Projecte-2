@@ -260,9 +260,6 @@ bool Player::Update(float dt)
 				}
 			}
 			//left
-			if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN) {
-				int klk = 0;
-			}
 			{
 				if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && P1.moveXD == false && app->BTSystem->battle == false)
 				{
@@ -398,7 +395,7 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 		{
 			//walls
 			{
-				if (c1->type == Collider::Type::PLAYER && (c2->type == Collider::Type::WALLV || c2->type == Collider::Type::KEY_SENSOR))
+				if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::WALLV)
 				{
 
 					if (c1->rect.x < c2->rect.x && c1->rect.x + 64 > c2->rect.x && P1.moveXA == true && block1 == false && block2 == true)//Esquerra
@@ -438,7 +435,7 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 					}
 
 				}
-				if (c1->type == Collider::Type::PLAYER && (c2->type == Collider::Type::WALLH || c2->type == Collider::Type::KEY_SENSOR))
+				if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::WALLH)
 				{
 
 					if (c1->rect.x < c2->rect.x && c1->rect.x + 64 > c2->rect.x && P1.moveXA == true && block1_ == false && block2_ == true)//Esquerra
