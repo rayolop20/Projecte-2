@@ -38,6 +38,7 @@ bool Menu_Screen::Awake()
 // Called before the first frame
 bool Menu_Screen::Start()
 {
+	
 	fonsMenu = app->tex->Load("Assets/textures/Assets/GameTitle.png");
 	Logo = app->tex->Load("Assets/textures/Assets/LogoProjecte.png");
 	EnterLogo = app->audio->LoadFx("Assets/audio/fx/EnterLogo.wav");
@@ -72,11 +73,6 @@ bool Menu_Screen::Start()
 	{
 		app->characterMenu->Disable();
 	}
-
-	/*if (app->entityManager->active == true)
-	{
-		app->entityManager->Disable();
-	}*/
 
 	return true;
 }
@@ -132,9 +128,7 @@ bool Menu_Screen::Update(float dt)
 		btnCredits->state = GuiControlState::NORMAL;
 	}
 	
-	if (config)
-	{
-		MenuConfig();
+	if (app->menu->config == true) {
 		SDL_Rect* OptionsTxt = new SDL_Rect();
 		OptionsTxt->x = 0;
 		OptionsTxt->y = 0;
@@ -160,37 +154,38 @@ bool Menu_Screen::Update(float dt)
 		Options30->y = 650;
 		Options30->w = 263;
 		Options30->h = 78;
-		if (menuScreen == false) {
-			app->render->DrawTexture(options, 200, 50, OptionsTxt);
-			//-app->render->camera.x + (app->win->GetWidth() / 2 - 80), -app->render->camera.y + 320
-			if (On == true) {
-				app->render->DrawTexture(options, -app->render->camera.x + (app->win->GetWidth() / 2) + 175, -app->render->camera.y + 300, OptionsOn);
-				//Activar Fullscreen
-			}
-			if (On == false) {
-				app->render->DrawTexture(options, -app->render->camera.x + (app->win->GetWidth() / 2) + 175, -app->render->camera.y + 300, OptionsOff);
-				//Desactivar Fullscreen
-			}
-			if (fps30 == true) {
-				app->render->DrawTexture(options, -app->render->camera.x + (app->win->GetWidth() / 2) + 175, -app->render->camera.y + 465, Options30);
-				//Activar 30fps
-			}
-			if (fps30 == false) {
-				app->render->DrawTexture(options, -app->render->camera.x + (app->win->GetWidth() / 2) + 175, -app->render->camera.y + 465, Options60);
-				//Desactivar 60fps
-			}
-			btnFullscreen->bounds.x = -app->render->camera.x + (app->win->GetWidth() / 2) + 175;
-			btnFullscreen->bounds.y = -app->render->camera.y + 300;
-			btnFullscreen->state = GuiControlState::NORMAL;
-			btnFPS->bounds.x = -app->render->camera.x + (app->win->GetWidth() / 2) + 175;
-			btnFPS->bounds.y = -app->render->camera.y + 465;
-			btnFPS->state = GuiControlState::NORMAL;
-
+		app->render->DrawTexture(app->menu->options, app->player->P1.position.x - 400, app->player->P1.position.y - 250, OptionsTxt);
+		app->menu->btnConfigBack->bounds.x = -app->render->camera.x + (app->win->GetWidth() / 2) - 150;
+		app->menu->btnConfigBack->bounds.y = -app->render->camera.y + 650;
+		if (app->menu->On == true) {
+			app->render->DrawTexture(app->menu->options, -app->render->camera.x + (app->win->GetWidth() / 2) + 190, -app->render->camera.y + 330, OptionsOn);
+			//Activar Fullscreen
+			SDL_SetWindowFullscreen(app->win->window, SDL_WINDOW_FULLSCREEN);
 		}
-		btnConfigBack->state = GuiControlState::NORMAL;
-		
+		if (app->menu->On == false) {
+			app->render->DrawTexture(app->menu->options, -app->render->camera.x + (app->win->GetWidth() / 2) + 190, -app->render->camera.y + 330, OptionsOff);
+			//Desactivar Fullscreen
+			SDL_SetWindowFullscreen(app->win->window, SDL_WINDOW_MAXIMIZED);
+		}
+		if (app->menu->fps30 == true) {
+			app->render->DrawTexture(app->menu->options, -app->render->camera.x + (app->win->GetWidth() / 2) + 190, -app->render->camera.y + 495, Options30);
+			//app->dt = 32.0f;
+			app->Maxfps = false;
+		}
+		if (app->menu->fps30 == false) {
+			app->render->DrawTexture(app->menu->options, -app->render->camera.x + (app->win->GetWidth() / 2) + 190, -app->render->camera.y + 495, Options60);
+			//Desactivar 60fps
+			//app->dt = 16.0f;
+			app->Maxfps = true;
+		}
+		app->menu->btnFullscreen->bounds.x = -app->render->camera.x + (app->win->GetWidth() / 2) + 190;
+		app->menu->btnFullscreen->bounds.y = -app->render->camera.y + 330;
+		app->menu->btnFullscreen->state = GuiControlState::NORMAL;
+		app->menu->btnFPS->bounds.x = -app->render->camera.x + (app->win->GetWidth() / 2) + 175;
+		app->menu->btnFPS->bounds.y = -app->render->camera.y + 465;
+		app->menu->btnFPS->state = GuiControlState::NORMAL;
+
 	}
-	
 	//logo i fons de pantalla
 
 
@@ -256,7 +251,11 @@ bool Menu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 					app->render->camera.y = (app->player->P1.position.y - 300) * -1;
 					app->scene->musicActive = true;
 					LOG("Click on button 1");
-					CleanUp();
+					btnMenuPlay->state = GuiControlState::DISABLED;
+					btnMenuConfig->state = GuiControlState::DISABLED;
+					btnMenuExit->state = GuiControlState::DISABLED;
+					btnCredits->state = GuiControlState::DISABLED;
+					//CleanUp();
 				}
 
 				if (control->id == 2 && playing == false)
@@ -346,6 +345,7 @@ bool Menu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 bool Menu_Screen::CleanUp()
 {
 		LOG("Freeing scene");
+		/*
 		app->guiManager->DestroyGuiControl(btnMenuConfig);
 		app->guiManager->DestroyGuiControl(btnConfigBack);
 		app->guiManager->DestroyGuiControl(btnCredits);
@@ -355,7 +355,7 @@ bool Menu_Screen::CleanUp()
 		app->tex->UnLoad(options);
 		app->tex->UnLoad(fonsMenu);
 		app->tex->UnLoad(Logo);
-
+		*/
 	return true;
 }
 
