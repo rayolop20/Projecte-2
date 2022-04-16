@@ -48,15 +48,6 @@ public:
 	bool musicActive = true;
 	bool FXActive = true;
 
-	GuiButton* btnMenuConfig;
-	GuiButton* btnMenuPlay;
-	GuiButton* btnCredits;
-	GuiButton* btnMenuExit;
-
-	GuiButton* btnConfigEx1;
-	GuiButton* btnConfigBack;
-
-	SDL_Texture* options = nullptr;
 private:
 
 	int EnterLogo = 1;
@@ -67,7 +58,13 @@ private:
 
 	// L12b: Debug pathfing
 	iPoint origin;
-	
+	GuiButton* btnMenuPlay;
+	GuiButton* btnMenuConfig;
+	GuiButton* btnCredits;
+	GuiButton* btnMenuExit;
+
+	GuiButton* btnConfigEx1;
+	GuiButton* btnConfigBack;
 
 
 };

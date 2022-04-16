@@ -8,7 +8,6 @@
 #include "Player.h"
 #include "Animation.h"
 #include "BattleSystem.h"
-#include "Menu.h"
 
 GuiButton::GuiButton(uint32 id, SDL_Rect bounds, const char* text) : GuiControl(GuiControlType::BUTTON, id)
 {
@@ -94,13 +93,7 @@ bool GuiButton::Draw(Render* render)
 			uitext->y = 295;
 			uitext->w = 144;
 			uitext->h = 57;
-			if (app->menu->menuScreen == false) {
-				app->render->DrawTexture(UIText, 150, 240, uitext);
-			}
-			else if(app->scene->paused == true){
-				app->render->DrawTexture(UIText, -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -app->render->camera.y + 320, uitext);
-
-			}
+			app->render->DrawTexture(UIText, 150, 240, uitext);
 		}
 		//Exit
 		if (id == 3)
@@ -136,24 +129,7 @@ bool GuiButton::Draw(Render* render)
 			uitext->y = 1075;
 			uitext->w = 144;
 			uitext->h = 57;
-			app->render->DrawTexture(UIText, -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -app->render->camera.y + 390, uitext);
-		}
-		if (id == 8 && app->menu->config == true && app->menu->menuScreen == false)
-		{
-			uitext->x = 90;
-			uitext->y = 1254;
-			uitext->w = 406;
-			uitext->h = 64;
-			app->render->DrawTexture(UIText, 450,625, uitext);
-		}
-
-		if (id == 8 && app->menu->config == true && app->menu->menuScreen == true)
-		{
-			uitext->x = 90;
-			uitext->y = 1254;
-			uitext->w = 406;
-			uitext->h = 64;
-			app->render->DrawTexture(UIText, app->player->P1.position.x - 120,app->player->P1.position.y + 325, uitext);
+			app->render->DrawTexture(UIText, -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -app->render->camera.y + 320, uitext);
 		}
 		//Exit
 		if (id == 9)
@@ -162,7 +138,7 @@ bool GuiButton::Draw(Render* render)
 			uitext->y = 627;
 			uitext->w = 78;
 			uitext->h = 51;
-			app->render->DrawTexture(UIText, -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -app->render->camera.y + 480, uitext);
+			app->render->DrawTexture(UIText, -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -app->render->camera.y + 390, uitext);
 		}
 		
 		//Atack
@@ -303,14 +279,8 @@ bool GuiButton::Draw(Render* render)
 			uitext->x = 825;
 			uitext->y = 295;
 			uitext->w = 144;
-			uitext->h = 57; 
-			if (app->menu->menuScreen == false) {
-				app->render->DrawTexture(UIText, 150, 240, uitext);
-			}
-			else if (app->scene->paused == true) {
-				app->render->DrawTexture(UIText, -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -app->render->camera.y + 320, uitext);
-
-			}
+			uitext->h = 57;
+			app->render->DrawTexture(UIText, 150, 240, uitext);
 		}
 		//Exit
 		if (id == 3)
@@ -347,23 +317,7 @@ bool GuiButton::Draw(Render* render)
 			uitext->y = 1075;
 			uitext->w = 144;
 			uitext->h = 57;
-			app->render->DrawTexture(UIText, -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -app->render->camera.y + 390, uitext);
-		}
-		if (id == 8 && app->menu->config == true && app->menu->menuScreen == false)
-		{
-			uitext->x = 721;
-			uitext->y = 1254;
-			uitext->w = 406;
-			uitext->h = 64;
-			app->render->DrawTexture(UIText, 450, 625, uitext);
-		}
-		if (id == 8 && app->menu->config == true && app->menu->menuScreen == true)
-		{
-			uitext->x = 721;
-			uitext->y = 1254;
-			uitext->w = 406;
-			uitext->h = 64;
-			app->render->DrawTexture(UIText, app->player->P1.position.x - 120, app->player->P1.position.y + 325, uitext);
+			app->render->DrawTexture(UIText, -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -app->render->camera.y + 320, uitext);
 		}
 		//Exit
 		if (id == 9)
@@ -372,7 +326,7 @@ bool GuiButton::Draw(Render* render)
 			uitext->y = 627;
 			uitext->w = 78;
 			uitext->h = 51;
-			app->render->DrawTexture(UIText, -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -app->render->camera.y + 480, uitext);
+			app->render->DrawTexture(UIText, -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -app->render->camera.y + 390, uitext);
 		}
 
 		//Atack
@@ -511,13 +465,7 @@ bool GuiButton::Draw(Render* render)
 			uitext->y = 295;
 			uitext->w = 144;
 			uitext->h = 57;
-			if (app->menu->menuScreen == false) {
-				app->render->DrawTexture(UIText, 150, 240, uitext);
-			}
-			else if (app->scene->paused == true) {
-				app->render->DrawTexture(UIText, -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -app->render->camera.y + 320, uitext);
-
-			}
+			app->render->DrawTexture(UIText, 150, 240, uitext);
 		}
 		//Exit
 		if (id == 3)
@@ -554,15 +502,7 @@ bool GuiButton::Draw(Render* render)
 			uitext->y = 1075;
 			uitext->w = 144;
 			uitext->h = 57;
-			app->render->DrawTexture(UIText, -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -app->render->camera.y + 390, uitext);
-		}
-		if (id == 8 && app->menu->config == true)
-		{
-			uitext->x = 721;
-			uitext->y = 1254;
-			uitext->w = 406;
-			uitext->h = 64;
-			app->render->DrawTexture(UIText, 450, 625, uitext);
+			app->render->DrawTexture(UIText, -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -app->render->camera.y + 320, uitext);
 		}
 		//Exit
 		if (id == 9)
@@ -571,7 +511,7 @@ bool GuiButton::Draw(Render* render)
 			uitext->y = 627;
 			uitext->w = 78;
 			uitext->h = 51;
-			app->render->DrawTexture(UIText, -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -app->render->camera.y + 480, uitext);
+			app->render->DrawTexture(UIText, -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -app->render->camera.y + 390, uitext);
 		}
 
 		//Atack

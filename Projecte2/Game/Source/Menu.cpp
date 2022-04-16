@@ -13,7 +13,6 @@
 
 #include "Defs.h"
 #include "Log.h"
-#include "GameMenu.h"
 
 Menu_Screen::Menu_Screen() : Module()
 {
@@ -41,7 +40,6 @@ bool Menu_Screen::Start()
 	fonsMenu = app->tex->Load("Assets/textures/Assets/GameTitle.png");
 	Logo = app->tex->Load("Assets/textures/Assets/LogoProjecte.png");
 	EnterLogo = app->audio->LoadFx("Assets/audio/fx/EnterLogo.wav");
-	options = app->tex->Load("Assets/textures/UI/Pause_Menu.png");
 
 	if (app->scene->active == true)
 	{
@@ -103,6 +101,18 @@ bool Menu_Screen::Update(float dt)
 		btnMenuExit->state = GuiControlState::NORMAL;
 		btnCredits->state = GuiControlState::NORMAL;
 	}
+
+	if (config)
+	{
+		MenuConfig();
+
+		config = false;
+
+		btnConfigEx1->state = GuiControlState::NORMAL;
+		btnConfigBack->state = GuiControlState::NORMAL;
+	}
+	
+	//logo i fons de pantalla
 	{
 		if (menuScreen == false)
 		{
@@ -124,25 +134,6 @@ bool Menu_Screen::Update(float dt)
 
 		}
 	}
-	if (config)
-	{
-		MenuConfig();
-		SDL_Rect* OptionsTxt = new SDL_Rect();
-		OptionsTxt->x = 0;
-		OptionsTxt->y = 0;
-		OptionsTxt->w = 918;
-		OptionsTxt->h = 559;
-		if (menuScreen == false) {
-			app->render->DrawTexture(options, 200, 50, OptionsTxt);
-		}
-		else {
-			
-		}
-		btnConfigBack->state = GuiControlState::NORMAL;
-	}
-	
-	//logo i fons de pantalla
-
 
 	
 	return true;
@@ -167,9 +158,7 @@ void Menu_Screen::Menu()
 	btnMenuConfig = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Config", { 150, 240, 144, 57 }, this);
 	btnCredits = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 4, "Credits", { 150, 330, 144, 57 }, this);
 	btnMenuExit = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 3, "Exit", { 150, 420, 78, 51 }, this);
-	btnConfigBack = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 8, "Back to menu", { 450, 650, 418, 62 }, this);
 
-	btnConfigBack->state = GuiControlState::DISABLED;
 	btnMenuPlay->state = GuiControlState::DISABLED;
 	btnMenuConfig->state = GuiControlState::DISABLED;
 	btnCredits->state = GuiControlState::DISABLED;
@@ -178,9 +167,11 @@ void Menu_Screen::Menu()
 
 void Menu_Screen::MenuConfig()
 {
-	btnConfigBack = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 8, "Back to menu", { 450, 650, 418, 62 }, this);
+	btnConfigEx1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 7, "Ex1", { 150, 240, 150, 30 }, this);
+	btnConfigBack = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 8, "Back to menu", { 150, 285, 150, 30 }, this);
 
-	btnConfigBack->state = GuiControlState::NORMAL;
+	btnConfigEx1->state = GuiControlState::DISABLED;
+	btnConfigBack->state = GuiControlState::DISABLED;
 }
 
 bool Menu_Screen::OnGuiMouseClickEvent(GuiControl* control)
@@ -194,7 +185,7 @@ bool Menu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 				//Checks the GUI element ID
 				if (control->id == 1)
 				{
-					menuScreen = true;
+
 					Disable();
 					app->scene->Enable();
 					app->player->Enable();
@@ -215,15 +206,11 @@ bool Menu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 				{
 					LOG("Config ON");
 					config = true;
-
-					btnConfigBack->state = GuiControlState::NORMAL;
 					btnMenuPlay->state = GuiControlState::DISABLED;
 					btnMenuConfig->state = GuiControlState::DISABLED;
 					btnMenuExit->state = GuiControlState::DISABLED;
-					btnCredits->state = GuiControlState::DISABLED;
-
 				}
-				
+
 				if (control->id == 3)
 				{
 					exit = true;
@@ -239,29 +226,13 @@ bool Menu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 				{
 					LOG("Press Ex1");
 				}
-			
 
-				if (control->id == 8 && app->menu->config == true && app->menu->menuScreen == false)
+				if (control->id == 8)
 				{
 					starting = true;
-					config = false;
-					btnConfigBack->state = GuiControlState::DISABLED;
-				}
-				if (control->id == 8 && app->menu->config == true && app->scene->paused == true)
-				{
-					config = false;
-					btnConfigBack->state = GuiControlState::DISABLED;
 
-					app->menu->btnConfigBack->state = GuiControlState::DISABLED;
-					app->menu->btnMenuConfig->state = GuiControlState::NORMAL;
-					app->menu->btnCredits->state = GuiControlState::NORMAL;
-					app->gameMenu->btnResume->state = GuiControlState::NORMAL;
-					app->gameMenu->btnMenu->state = GuiControlState::NORMAL;
-					app->gameMenu->btnExit->state = GuiControlState::NORMAL;
-					app->menu->btnMenuPlay->state = GuiControlState::NORMAL;
-					app->menu->btnMenuExit->state = GuiControlState::NORMAL;
-
-					
+					btnConfigEx1->state = GuiControlState::DISABLED;
+					btnConfigBack->state = GuiControlState::DISABLED;
 				}
 				default: break;
 			}

@@ -88,7 +88,7 @@ bool Scene::Update(float dt)
 		app->audio->PlayMusic("Assets/audio/music/music_8_bit_adventure.ogg");
 		musicActive = false;
 	}
-	
+
 	{
 		// L02: DONE 3: Request Load / Save when pressing L/S
 		if (app->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN && app->BTSystem->battle == false)
@@ -163,16 +163,7 @@ bool Scene::Update(float dt)
 			app->characterMenu->exitInventory = false;
 			xCont = 0;
 		}
-		if (app->menu->config == true) {
-			SDL_Rect* OptionsTxt = new SDL_Rect();
-			OptionsTxt->x = 0;
-			OptionsTxt->y = 0;
-			OptionsTxt->w = 918;
-			OptionsTxt->h = 559;
-			app->render->DrawTexture(app->menu->options, app->player->P1.position.x - 400, app->player->P1.position.y - 250, OptionsTxt);
-			app->menu->btnConfigBack->bounds.x = app->player->P1.position.x - 120;
-			app->menu->btnConfigBack->bounds.y = app->player->P1.position.y + 325;
-		}
+
 		return true;
 	}
 }

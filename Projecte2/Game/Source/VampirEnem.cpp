@@ -13,7 +13,6 @@
 #include "Log.h"
 #include "DynArray.h"
 #include "BattleSystem.h"
-#include "Menu.h"
 #include <time.h>
 
 VampirEnem::VampirEnem():Entity (EntityType::VAMPYR)
@@ -146,7 +145,7 @@ bool VampirEnem::PostUpdate()
 	LOG("FUNCIONA?");
 	for (int i = 0; i < NUM_VAMPIRE; i++)
 	{
-		if (Vpir[i].dead == false && app->menu->config == false)
+		if (Vpir[i].dead == false) 
 		{
 		app->render->DrawTexture(Vpir[i].vampireT, Vpir[i].Pos.x, Vpir[i].Pos.y, &(currentAnimation[i]->GetCurrentFrame()));
 		}

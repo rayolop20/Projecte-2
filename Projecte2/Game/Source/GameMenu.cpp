@@ -9,7 +9,6 @@
 #include "Menu.h"
 #include "GameMenu.h"
 #include "GuiManager.h"
-#include "Menu.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -50,7 +49,7 @@ bool GameMenu_Screen::PreUpdate()
 bool GameMenu_Screen::Update(float dt)
 {
 	Menu();
-	
+
 	return true;
 }
 
@@ -67,22 +66,12 @@ bool GameMenu_Screen::PostUpdate()
 void GameMenu_Screen::Menu()
 {
 	btnResume = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 5, "Resume", { -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -app->render->camera.y + 250, 193, 51 }, this);
-	if (app->menu->menuScreen == false) {
-		app->menu->btnMenuConfig = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Config", { 150,240, 144, 57 }, this);
-	}
-	else if(app->scene->paused == true){
-		app->menu->btnMenuConfig = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Config", { -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -app->render->camera.y + 320, 144, 57 }, this);
+	btnMenu = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 6, "Menu", { -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -app->render->camera.y + 320, 160, 40 }, this);
+	btnExit = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 9, "Exit", { -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -app->render->camera.y + 390, 160, 40 }, this);
 
-	}
-	btnMenu = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 6, "Menu", { -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -app->render->camera.y + 390, 160, 40 }, this);
-	btnExit = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 9, "Exit", { -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -app->render->camera.y + 480, 160, 40 }, this);
-
-	app->menu->btnMenuConfig->state = GuiControlState::NORMAL;
 	btnResume->state = GuiControlState::NORMAL;
 	btnMenu->state = GuiControlState::NORMAL;
 	btnExit->state = GuiControlState::NORMAL;
-	
-	
 }
 
 bool GameMenu_Screen::OnGuiMouseClickEvent(GuiControl* control)
@@ -93,24 +82,10 @@ bool GameMenu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 			{
 			case GuiControlType::BUTTON:
 			{
-				if (control->id == 2) {
-					app->menu->config = true;
-					app->menu->btnConfigBack->state = GuiControlState::NORMAL;
-
-					app->menu->btnMenuPlay->state = GuiControlState::DISABLED;
-					app->menu->btnMenuConfig->state = GuiControlState::DISABLED;
-					app->menu->btnMenuExit->state = GuiControlState::DISABLED;
-					app->menu->btnCredits->state = GuiControlState::DISABLED;
-					btnResume->state = GuiControlState::DISABLED;
-					btnMenu->state = GuiControlState::DISABLED;
-					btnExit->state = GuiControlState::DISABLED;
-				}
 				if (control->id == 5)
 				{		
 				
 					app->scene->paused = false;
-					app->menu->btnMenuConfig->state = GuiControlState::DISABLED;
-
 					btnResume->state = GuiControlState::DISABLED;
 					btnMenu->state = GuiControlState::DISABLED;
 					btnExit->state = GuiControlState::DISABLED;
@@ -130,11 +105,6 @@ bool GameMenu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 					btnResume->state = GuiControlState::DISABLED;
 					btnMenu->state = GuiControlState::DISABLED;
 					btnExit->state = GuiControlState::DISABLED;
-					app->menu->btnMenuConfig->state = GuiControlState::DISABLED;
-
-					app->menu->btnMenuPlay->state = GuiControlState::DISABLED;
-					app->menu->btnMenuExit->state = GuiControlState::DISABLED;
-					app->menu->btnConfigBack->state = GuiControlState::DISABLED;
 				}
 
 				if (control->id == 9)
