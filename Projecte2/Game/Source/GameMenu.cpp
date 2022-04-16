@@ -57,7 +57,6 @@ bool GameMenu_Screen::PreUpdate()
 bool GameMenu_Screen::Update(float dt)
 {
 	Menu();
-	
 	return true;
 }
 
@@ -116,18 +115,6 @@ bool GameMenu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 			{
 			case GuiControlType::BUTTON:
 			{
-				if (control->id == 2) {
-					app->menu->config = true;
-					app->menu->btnConfigBack->state = GuiControlState::NORMAL;
-					
-					app->menu->btnMenuPlay->state = GuiControlState::DISABLED;
-					app->menu->btnMenuConfig->state = GuiControlState::DISABLED;
-					app->menu->btnMenuExit->state = GuiControlState::DISABLED;
-					app->menu->btnCredits->state = GuiControlState::DISABLED;
-					btnResume->state = GuiControlState::DISABLED;
-					btnMenu->state = GuiControlState::DISABLED;
-					btnExit->state = GuiControlState::DISABLED;
-				}
 				if (control->id == 5)
 				{		
 				
