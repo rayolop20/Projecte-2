@@ -57,19 +57,19 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(win);
 	AddModule(input);
 	AddModule(tex);
-	AddModule(audio);
+	AddModule(audio);//20  Mb
 	AddModule(guiManager);
-    AddModule(pathfinding);
+	AddModule(pathfinding); // 17Mb
 	AddModule(fonts);
-	AddModule(scene);
-	AddModule(BTSystem);
-	AddModule(map);
+	AddModule(scene);//22Mb
+	AddModule(BTSystem); //aquest junt amb el entity manager crea 306 MB
+	AddModule(map);//21 Mb
 	AddModule(entityManager);
-	AddModule(player);
-	AddModule(menu);
+	AddModule(player); //23mb
+	AddModule(menu); //(112 Mb)
 	AddModule(collisions);
-	AddModule(characterMenu);
-	AddModule(gameMenu);
+	AddModule(characterMenu); // genera memory leacks sempre k es clica la I (120mb)
+	AddModule(gameMenu); // 84 Mb de memoria
 	AddModule(dialogues);
 
 	// Render last to swap buffer

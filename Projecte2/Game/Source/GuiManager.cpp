@@ -47,6 +47,26 @@ GuiControl* GuiManager::CreateGuiControl(GuiControlType type, int id, const char
 	return control;
 }
 
+void GuiManager::DestroyGuiControl(GuiControl* entity)
+{
+	ListItem<GuiControl*>* item;
+
+	for (item = controls.start; item != NULL; item = item->next)
+	{
+		if (item->data == entity) controls.del(item);
+	}
+}
+
+void GuiManager::DestroyAllGui()
+{
+	ListItem<GuiControl*>* item;
+	for (item = controls.start; item != NULL; item = item->next)
+	{
+		controls.del(item);
+	}
+	controls.clear();
+}
+
 bool GuiManager::Update(float dt)
 {	
 	accumulatedTime += dt;

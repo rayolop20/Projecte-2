@@ -8,6 +8,13 @@
 struct SDL_Texture;
 struct SDL_Surface;
 
+struct TexturePath
+{
+	std::string path = "";
+	long index = 0;
+	int direccion;
+};
+
 class Textures : public Module
 {
 public:
@@ -34,6 +41,7 @@ public:
 
 public:
 
+	List<TexturePath> textureP;
 	List<SDL_Texture*> textures;
 };
 

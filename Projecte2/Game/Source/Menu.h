@@ -48,14 +48,18 @@ public:
 	bool musicActive = true;
 	bool FXActive = true;
 	bool playing = false;
+	bool On = false;
+	bool fps30 = true;
 
-	GuiButton* btnMenuConfig;
-	GuiButton* btnMenuPlay;
-	GuiButton* btnCredits;
-	GuiButton* btnMenuExit;
+	GuiButton* btnMenuConfig = nullptr;
+	GuiButton* btnMenuPlay = nullptr;
+	GuiButton* btnCredits = nullptr;
+	GuiButton* btnMenuExit = nullptr;
 
-	GuiButton* btnConfigEx1;
-	GuiButton* btnConfigBack;
+	GuiButton* btnConfigEx1 = nullptr;
+	GuiButton* btnConfigBack = nullptr;
+	GuiButton* btnFullscreen = nullptr;
+	GuiButton* btnFPS = nullptr;
 
 	SDL_Texture* options = nullptr;
 private:

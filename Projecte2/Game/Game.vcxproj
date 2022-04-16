@@ -135,6 +135,7 @@
     <ClInclude Include="Source\GuiManager.h" />
     <ClInclude Include="Source\GuiSlider.h" />
     <ClInclude Include="Source\Map.h" />
+    <ClInclude Include="Source\MemLeack.h" />
     <ClInclude Include="Source\Menu.h" />
     <ClInclude Include="Source\Pathfinding.h" />
     <ClInclude Include="Source\PerfTimer.h" />

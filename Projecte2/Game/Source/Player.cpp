@@ -388,6 +388,11 @@ bool Player::Update(float dt)
 	return true;
 }
 
+bool Player::CleanUp()
+{
+	return false;
+}
+
 bool Player::PostUpdate()
 {
 	//draw player
@@ -684,4 +689,3 @@ void Player::movementPlayer()
 			}
 	}
 }
-

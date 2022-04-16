@@ -40,14 +40,14 @@ public:
 
 	// Called before quitting
 	bool CleanUp();
-	GuiButton* btnResume;
-	GuiButton* btnMenu;
-	GuiButton* btnExit;
-
+	GuiControl* btnResume;
+	GuiControl* btnMenu;
+	GuiControl* btnExit;
+	bool active = false;
 private:
 
 	int clickFx = 1;	
-	bool active = false;
+
 	SDL_Texture* enter = nullptr;
 
 	// L12b: Debug pathfing

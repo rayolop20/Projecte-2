@@ -95,26 +95,27 @@ private:
 public:
 
 	// Modules
-	Window* win;
-	Input* input;
-	Render* render;
-	Textures* tex;
-	Audio* audio;
-	Scene* scene;
-	Map* map;
-	GuiManager* guiManager;
-	Player* player;
-	EntityManager* entityManager; 
-	Collisions* collisions;
-	ModuleFonts* fonts;
-	Menu_Screen* menu;
-	battleSystem* BTSystem;
-	PathFinding* pathfinding;	
-	CharacterMenu_Screen* characterMenu;
-	GameMenu_Screen* gameMenu;
-	DialogueSystem* dialogues;
+	Window* win = nullptr;
+	Input* input = nullptr;
+	Render* render = nullptr;
+	Textures* tex = nullptr;
+	Audio* audio = nullptr;
+	Scene* scene = nullptr;
+	Map* map = nullptr;
+	GuiManager* guiManager = nullptr;
+	Player* player = nullptr;
+	EntityManager* entityManager = nullptr;
+	Collisions* collisions = nullptr;
+	ModuleFonts* fonts = nullptr;
+	Menu_Screen* menu = nullptr;
+	battleSystem* BTSystem = nullptr;
+	PathFinding* pathfinding = nullptr;
+	CharacterMenu_Screen* characterMenu = nullptr;
+	GameMenu_Screen* gameMenu = nullptr;
+	DialogueSystem* dialogues = nullptr;
 
-	float dt = 16.0f;
+	float dt;
+	bool Maxfps = false;
 private:
 
 	int argc;
