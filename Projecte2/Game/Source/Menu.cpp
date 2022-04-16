@@ -154,7 +154,7 @@ bool Menu_Screen::Update(float dt)
 		Options30->y = 650;
 		Options30->w = 263;
 		Options30->h = 78;
-		app->render->DrawTexture(app->menu->options, app->player->P1.position.x - 400, app->player->P1.position.y - 250, OptionsTxt);
+		app->render->DrawTexture(app->menu->options, 215, 85, OptionsTxt);
 		app->menu->btnConfigBack->bounds.x = -app->render->camera.x + (app->win->GetWidth() / 2) - 150;
 		app->menu->btnConfigBack->bounds.y = -app->render->camera.y + 650;
 		if (app->menu->On == true) {
