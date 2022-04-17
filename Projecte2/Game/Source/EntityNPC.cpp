@@ -88,9 +88,9 @@ bool EntityNPC::Start()
 		currentAnimation[i] = &idle1;
 	}
 
-	npc[0] = CreateNPC(500, 500, TextureNPC);
-	npc[1] = CreateNPC(300, 950, TextureNPC);
-	npc[2] = CreateNPC(100, 950, TextureNPC2);
+	npc[0] = CreateNPC(1060, 1358, TextureNPC);
+	npc[1] = CreateNPC(957, 232, TextureNPC);
+	npc[2] = CreateNPC(1357, 1937, TextureNPC2);
 	KLK = app->collisions->AddCollider({ 1312, 1664, 96, 64 }, Collider::Type::KEY_SENSOR, (Module*)app->entityManager);
 	KLK2 = app->collisions->AddCollider({ 1504, 2304,64, 96 }, Collider::Type::KEY_SENSOR, (Module*)app->entityManager);
 

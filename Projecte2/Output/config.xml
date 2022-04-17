@@ -25,7 +25,7 @@
 
   <!-- L13: Create a structure in XML to store multiple entities -->
    <players>
-	<Player1 PositionX = "90" PositionY = "190" Hp = "75" mana = "100"/>
+	<Player1 PositionX = "1631" PositionY = "2263" Hp = "75" mana = "100"/>
 	<Player2 PositionX = "1780" PositionY = "2410"  Hp = "75" mana = "110"/>
 	<Player3 PositionX = "1777" PositionY = "2252" Hp = "75" mana = "110"/>
 	<Player4 PositionX = "1613" PositionY = "2410" Hp = "75" mana = "110"/>
