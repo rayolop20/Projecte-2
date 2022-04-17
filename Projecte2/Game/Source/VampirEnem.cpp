@@ -819,7 +819,7 @@ void VampirEnem::PathFindVamp(int i)
 {
 	if (app->player->godMode == false)
 	{
-		if (path == true && app->BTSystem->battle == false && app->BTSystem->Delay == true)
+		if (path == true && app->BTSystem->battle == false && app->BTSystem->Delay == true && app->scene->paused == false)
 		{
 			app->pathfinding->CreatePath(app->map->WorldToMap(Vpir[i].Pos.x, Vpir[i].Pos.y), app->map->WorldToMap(app->player->P1.position.x, app->player->P1.position.y));
 
