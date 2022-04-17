@@ -23,15 +23,15 @@ battleSystem::battleSystem() : Module()
 {
 	name.Create("battleSystem");
 
-	idle1.PushBack({ 62, 30, 85, 149 });
+	idle1.PushBack({ 62, 25, 85, 149 });
 	idle1.loop = false;
 	idle1.speed = 0.001f;
 
-	Atack_1.PushBack({ 62, 30, 85, 149 });
-	Atack_1.PushBack({ 192, 64, 85, 115 });
-	Atack_1.PushBack({ 328, 69, 128, 110 });
-	Atack_1.PushBack({ 464, 64, 85, 115 });
-	Atack_1.PushBack({ 606, 30, 85, 149 });
+	Atack_1.PushBack({ 62, 25, 85, 149 });
+	Atack_1.PushBack({ 192, 59, 86, 115 });
+	Atack_1.PushBack({ 328, 64, 128, 110 });
+	Atack_1.PushBack({ 464, 59, 86, 115 });
+	Atack_1.PushBack({ 606, 25, 85, 149 });
 	Atack_1.loop = false;
 	Atack_1.speed = 0.05f;
 }
@@ -860,6 +860,7 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 		{
 			AttackPhase();
 			AttackPhaseEnable = true;
+	
 		
 		}
 		if (AttackPhaseActive == false && AttackPhaseEnable == true) {
@@ -870,6 +871,7 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 			AttackType = 1;
 			AttackPhaseDisabled();
 			AttackPhaseEnable = false;
+			currentAnimation = &Atack_1;
 			
 
 		}
@@ -878,11 +880,13 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 			AttackType = 2;
 			AttackPhaseDisabled();
 			AttackPhaseEnable = false;
+			currentAnimation = &Atack_1;
 		}
 		if (control->id == 34 && AttackPlayer == 1 && (VampireTarget != 0 || ZombieTarget != 0 || SkeletonTarget != 0) && SpecialAttackEnable == false && app->player->P1.mana >= 60)
 		{
 			app->player->P1.mana -= 60;
 			SpecialAttackEnable = true;
+		
 		}
 		if (control->id == 34 && AttackPlayer == 2 && (VampireTarget != 0 || ZombieTarget != 0 || SkeletonTarget != 0) && SpecialAttackEnable == false && app->player->P2.mana >= 80)
 		{
