@@ -80,6 +80,7 @@ SDL_Texture* const Textures::Load(const char* path)
 	}
 	else
 	{
+
 		texture = SDL_CreateTextureFromSurface(app->render->renderer,surface);
 
 		if (texture == nullptr)

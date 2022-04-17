@@ -27,6 +27,14 @@ battleSystem::battleSystem() : Module()
 	idle1.loop = false;
 	idle1.speed = 0.001f;
 
+	idle2.PushBack({ 37, 21, 102, 150 });
+	idle2.loop = false;
+	idle2.speed = 0.001f;
+	
+	idle3.PushBack({ 1, 58, 126, 130 });
+	idle3.loop = false;
+	idle3.speed = 0.001f;
+
 	Atack_1.PushBack({ 62, 25, 85, 149 });
 	Atack_1.PushBack({ 192, 59, 86, 115 });
 	Atack_1.PushBack({ 328, 64, 128, 110 });
@@ -88,6 +96,8 @@ bool battleSystem::Start()
 	// L03: DONE: Load map
 	selectPlayer = app->tex->Load("Assets/textures/UI/ChosePlayers.png");
 	AttackTexture = app->tex->Load("Assets/textures/Soldiers/soldier_animation.png");
+	AttackTextureP2 = app->tex->Load("Assets/textures/Soldiers/soldier_french.png");
+	AttackTextureP3 = app->tex->Load("Assets/textures/Soldiers/soldier_italian.png");
 	Tutorial = app->tex->Load("Assets/textures/UI/QTETutorial.png");
 	QTE4 = app->tex->Load("Assets/textures/UI/QTE4.png");
 	PopQTE2 = app->tex->Load("Assets/textures/UI/QTE1_1.png");
@@ -103,6 +113,8 @@ bool battleSystem::Start()
 	AttackAux = 0;
 
 	currentAnimation = &idle1;
+	currentAnimation2 = &idle2;
+	currentAnimation3 = &idle3;
 
 	return true;
 }
@@ -315,6 +327,17 @@ bool battleSystem::PostUpdate()
 	if (battle == true && app->player->P1.IsAlive == true) {
 		Player1 = currentAnimation->GetCurrentFrame();
 		app->render->DrawTexture(AttackTexture, app->player->P1.position.x - 420 + 120, app->player->P1.position.y - 250, &Player1);
+		currentAnimation->Update();
+	}
+	if (battle == true && app->player->P2.IsAlive == true) {
+		Player2 = currentAnimation2->GetCurrentFrame();
+		app->render->DrawTexture(AttackTextureP2, app->player->P1.position.x - 420, app->player->P1.position.y - 220 + 130, &Player2);
+		currentAnimation->Update();
+	}
+	
+	if (battle == true && app->player->P3.IsAlive == true) {
+		Player3 = currentAnimation3->GetCurrentFrame();
+		app->render->DrawTexture(AttackTextureP3, app->player->P1.position.x - 420 + 120, app->player->P1.position.y - 220 + 260, &Player3);
 		currentAnimation->Update();
 	}
 	return ret;
@@ -860,27 +883,28 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 		{
 			AttackPhase();
 			AttackPhaseEnable = true;
-	
+		
 		
 		}
 		if (AttackPhaseActive == false && AttackPhaseEnable == true) {
 			AttackPhaseEnable = false;
 		}
+		//atack 2
 		if (control->id == 32 && (VampireTarget != 0 || ZombieTarget != 0 || SkeletonTarget != 0))
 		{
 			AttackType = 1;
 			AttackPhaseDisabled();
 			AttackPhaseEnable = false;
 			currentAnimation = &Atack_1;
-			
 
 		}
+		//atack 2
 		if (control->id == 33 && (VampireTarget != 0 || ZombieTarget != 0 || SkeletonTarget != 0))
 		{
 			AttackType = 2;
 			AttackPhaseDisabled();
 			AttackPhaseEnable = false;
-			currentAnimation = &Atack_1;
+			//currentAnimation = &Atack_1;
 		}
 		if (control->id == 34 && AttackPlayer == 1 && (VampireTarget != 0 || ZombieTarget != 0 || SkeletonTarget != 0) && SpecialAttackEnable == false && app->player->P1.mana >= 60)
 		{

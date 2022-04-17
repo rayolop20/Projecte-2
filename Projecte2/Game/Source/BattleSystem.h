@@ -153,6 +153,8 @@ public:
 	bool Skeletonbattle = false;
 
 	SDL_Texture* AttackTexture;
+	SDL_Texture* AttackTextureP2;
+	SDL_Texture* AttackTextureP3;
 	SDL_Texture* Tutorial;
 	SDL_Texture* PopQTE2 = nullptr;
 	SDL_Texture* QTE4;
@@ -164,6 +166,9 @@ public:
 private:
 
 	SDL_Rect Player1;
+	SDL_Rect Player2;
+	SDL_Rect Player3;
+	SDL_Rect Player4;
 
 	Animation idle1;
 	Animation Atack_1;
@@ -172,6 +177,8 @@ private:
 	Animation dead;
 
 	Animation* currentAnimation = nullptr;
+	Animation* currentAnimation2 = nullptr;
+	Animation* currentAnimation3 = nullptr;
 	Animation idleAnim;
 	Animation upAnim;
 	Animation downAnim;
