@@ -1,0 +1,66 @@
+"InstallScript"
+{
+	"Registry"
+	{
+		"HKEY_CLASSES_ROOT\\.ase"
+		{
+			"string"
+			{
+				"(Default)"		"AsepriteFile"
+			}
+		}
+		"HKEY_CLASSES_ROOT\\.aseprite"
+		{
+			"string"
+			{
+				"(Default)"		"AsepriteFile"
+			}
+		}
+		"HKEY_CLASSES_ROOT\\AsepriteFile"
+		{
+			"string"
+			{
+				"(Default)"		"Aseprite Sprite"
+			}
+		}
+		"HKEY_CLASSES_ROOT\\AsepriteFile\\DefaultIcon"
+		{
+			"string"
+			{
+				"(Default)"		"%INSTALLDIR%\\Aseprite.EXE,2"
+			}
+		}
+		"HKEY_CLASSES_ROOT\\AsepriteFile\\shell\\open\\command"
+		{
+			"string"
+			{
+				"(Default)"		"\"%INSTALLDIR%\\Aseprite.EXE\""
+			}
+		}
+		"HKEY_CLASSES_ROOT\\AsepriteFile\\shell\\open\\ddeexec"
+		{
+			"string"
+			{
+				"(Default)"		"[open(\"%1\")]"
+			}
+		}
+		"HKEY_CLASSES_ROOT\\AsepriteFile\\shell\\open\\ddeexec\\application"
+		{
+			"string"
+			{
+				"(Default)"		"Aseprite"
+			}
+		}
+		"HKEY_CLASSES_ROOT\\AsepriteFile\\shell\\open\\ddeexec\\topic"
+		{
+			"string"
+			{
+				"(Default)"		"system"
+			}
+		}
+	}
+}
+"kvsignatures"
+{
+	"InstallScript"		"0fb1078ecd90595979e7fcb55492332422d0328488cc800986d297701a54a00b069025fb7641937d19d7f92a408689280a75dfe6fedd351de4baaa0fc5fa5e207201130a00dea48fa491eb0bfcffa519891488cecb4abdc1d4ed0aec5c4c72dd46f2300b928787b7b190c0171e1beb700562c766fc5d9ec88211d8ca09873125"
+}
