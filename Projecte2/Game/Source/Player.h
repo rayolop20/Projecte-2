@@ -182,13 +182,13 @@ public:
 	SDL_Texture* player1S = nullptr;
 	SDL_Texture* player4S = nullptr;
 
-	Animation* currentAnim1;
+	Animation* currentAnim1 = nullptr;
 	Animation idleAnim1;
 	Animation downAnim1;
 	Animation upAnim1;
 	Animation rightAnim1;
 	Animation leftAnim1;
-	Animation* currentAnim4;
+	Animation* currentAnim4 = nullptr;
 	Animation idleAnim4;
 	Animation downAnim4;
 	Animation upAnim4;

@@ -21,7 +21,19 @@
 
 battleSystem::battleSystem() : Module()
 {
-	name.Create("scene");
+	name.Create("battleSystem");
+
+	idle1.PushBack({ 62, 30, 85, 149 });
+	idle1.loop = false;
+	idle1.speed = 0.001f;
+
+	Atack_1.PushBack({ 62, 30, 85, 149 });
+	Atack_1.PushBack({ 192, 64, 85, 115 });
+	Atack_1.PushBack({ 328, 69, 128, 110 });
+	Atack_1.PushBack({ 464, 64, 85, 115 });
+	Atack_1.PushBack({ 606, 30, 85, 149 });
+	Atack_1.loop = false;
+	Atack_1.speed = 0.05f;
 }
 
 // Destructor
@@ -65,7 +77,7 @@ bool battleSystem::Start()
 	MiniPlayerButton4 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 42, "MiniPlayerButton4", { 0, 0, 0, 0 }, this);
 	MiniPlayerButton4->state = GuiControlState::DISABLED;
 
-	selectPlayer = app->tex->Load("Assets/textures/UI/ChosePlayers.png");
+
 	//Initialize playerTurns
 	for (int i = 0; i <= 4 - alliesDead;i++) {
 		waitPlayer[i] = 0;
@@ -74,15 +86,11 @@ bool battleSystem::Start()
 		poisonCount[i] = 0;
 	}
 	// L03: DONE: Load map
-	AttackTexture = app->tex->Load("Assets/UI/CombatUI.png");
+	selectPlayer = app->tex->Load("Assets/textures/UI/ChosePlayers.png");
+	AttackTexture = app->tex->Load("Assets/textures/Soldiers/soldier_animation.png");
 	Tutorial = app->tex->Load("Assets/textures/UI/QTETutorial.png");
 	QTE4 = app->tex->Load("Assets/textures/UI/QTE4.png");
 	PopQTE2 = app->tex->Load("Assets/textures/UI/QTE1_1.png");
-
-	
-	// Load music
-	//app->audio->PlayMusic("Assets/audio/music/music_spy.ogg");
-
 	//L13: TODO 2: Declare an Item and create it using the EntityManager
 	VampirEnem* Vampir = (VampirEnem*)app->entityManager->CreateEntity(EntityType::VAMPYR, 0, { 0,0 });
 	ZombieEnem* Zombies = (ZombieEnem*)app->entityManager->CreateEntity(EntityType::ZOMBIE, 0, { 0,0 });
@@ -94,9 +102,7 @@ bool battleSystem::Start()
 	AttackPhaseActive = false;
 	AttackAux = 0;
 
-	// L14: TODO 2: Declare a GUI Button and create it using the GuiManager
-	//btn1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Test1", { (app->win->GetWidth() / 2) - 300, app->win->GetWidth() / 10, 160, 40 }, this);
-	//btn2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Test2", { (app->win->GetWidth() / 2) + 300, app->win->GetWidth() / 10, 160, 40 }, this);
+	currentAnimation = &idle1;
 
 	return true;
 }
@@ -104,6 +110,7 @@ bool battleSystem::Start()
 // Called each loop iteration
 bool battleSystem::PreUpdate()
 {
+	
 	return true;
 }
 
@@ -305,10 +312,11 @@ bool battleSystem::Update(float dt)
 bool battleSystem::PostUpdate()
 {
 	bool ret = true;
-
-	//if (app->menu->exit)
-		//ret = false;
-
+	if (battle == true && app->player->P1.IsAlive == true) {
+		Player1 = currentAnimation->GetCurrentFrame();
+		app->render->DrawTexture(AttackTexture, app->player->P1.position.x - 420 + 120, app->player->P1.position.y - 250, &Player1);
+		currentAnimation->Update();
+	}
 	return ret;
 }
 
@@ -852,6 +860,7 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 		{
 			AttackPhase();
 			AttackPhaseEnable = true;
+		
 		}
 		if (AttackPhaseActive == false && AttackPhaseEnable == true) {
 			AttackPhaseEnable = false;
@@ -861,6 +870,8 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 			AttackType = 1;
 			AttackPhaseDisabled();
 			AttackPhaseEnable = false;
+			
+
 		}
 		if (control->id == 33 && (VampireTarget != 0 || ZombieTarget != 0 || SkeletonTarget != 0))
 		{

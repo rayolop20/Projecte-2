@@ -159,8 +159,25 @@ public:
 
 	SDL_Texture* selectPlayer = nullptr;
 	SDL_Rect* Choose = new SDL_Rect();
+
+
 private:
 
+	SDL_Rect Player1;
+
+	Animation idle1;
+	Animation Atack_1;
+	Animation idle2;
+	Animation idle3;
+	Animation dead;
+
+	Animation* currentAnimation = nullptr;
+	Animation idleAnim;
+	Animation upAnim;
+	Animation downAnim;
+	Animation rightAnim;
+	Animation leftAnim;
+	Animation deadAnim;
 
 
 };
