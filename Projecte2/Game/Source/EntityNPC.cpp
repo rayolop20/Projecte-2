@@ -22,12 +22,13 @@ EntityNPC::EntityNPC() :Entity(EntityType::NPC)
 {
 	name.Create("NPC");
 
-	idle.PushBack({ 5, 6, 16, 17 });
-	idle.PushBack({ 28, 6, 12, 17 });
-	idle.PushBack({ 11, 29, 5, 16 });
-	idle.PushBack({ 28, 28, 12, 17 });
-	idle.loop = true;
-	idle.speed = 0.001f;
+	idle1.PushBack({ 39, 34, 46, 75 });
+	idle1.loop = true;
+	idle1.speed = 0.001f;
+	
+	idle2.PushBack({ 46, 38, 37, 65 });
+	idle2.loop = true;
+	idle2.speed = 0.001f;
 
 }
 
@@ -70,7 +71,8 @@ bool VampirEnem::SaveState(pugi::xml_node& data) const
 bool EntityNPC::Start()
 {
 
-	TextureNPC = app->tex->Load("Assets/textures/coins.png");
+	TextureNPC = app->tex->Load("Assets/textures/NPC/npc1.png");
+	TextureNPC2 = app->tex->Load("Assets/textures/NPC/npc2.png");
 	//coinFx = app->audio->LoadFx("Assets/audio/fx/coin.wav");
 	DialogueBox = app->tex->Load("Assets/textures/UI/TextBox.png");
 
@@ -83,12 +85,12 @@ bool EntityNPC::Start()
 
 	for (int i = 0; i < NUM_NPC; i++)
 	{
-		currentAnimation[i] = &idle;
+		currentAnimation[i] = &idle1;
 	}
 
-	npc[0] = CreateNPC(500, 500, TextureNPC);
-	npc[1] = CreateNPC(300, 1000, TextureNPC);
-	npc[2] = CreateNPC(100, 1000, TextureNPC);
+	npc[0] = CreateNPC(1060, 1358, TextureNPC);
+	npc[1] = CreateNPC(957, 232, TextureNPC);
+	npc[2] = CreateNPC(1357, 1937, TextureNPC2);
 	KLK = app->collisions->AddCollider({ 1312, 1664, 96, 64 }, Collider::Type::KEY_SENSOR, (Module*)app->entityManager);
 	KLK2 = app->collisions->AddCollider({ 1504, 2304,64, 96 }, Collider::Type::KEY_SENSOR, (Module*)app->entityManager);
 

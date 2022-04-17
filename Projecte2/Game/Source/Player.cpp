@@ -403,6 +403,9 @@ bool Player::PostUpdate()
 		player1 = currentAnim1->GetCurrentFrame();
 		player4 = currentAnim4->GetCurrentFrame();
 
+		if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN) {
+			int klk = 0;
+		}
 		app->render->DrawTexture(player1S, P1.position.x + 7, P1.position.y - 20, &player1);
 		app->render->DrawTexture(player4S, P4.position.x + 7, P4.position.y - 20, &player4);
 		currentAnim1->Update();

@@ -88,8 +88,8 @@ public:
 	Animation downAnim;
 	Animation rightAnim;
 	Animation leftAnim;
-	Animation dead;
-	Animation idle;
+	Animation deadAnim;
+
 	
 
 	float randomEnemyhp = 0.0;
