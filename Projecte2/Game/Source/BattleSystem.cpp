@@ -878,12 +878,13 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 		//Checks the GUI element ID
 		if (control->id == 31 && AttackPhaseActive == true && AttackPhaseEnable == true && VampireTarget != 0 && ZombieTarget != 0 && SkeletonTarget != 0) { //Aixo???
 			AttackPhaseDisabled2();
+		
 		}
 		if (control->id == 31 && AttackPhaseActive == false && AttackPhaseEnable == false && AttackPlayer != 0 && (VampireTarget != 0 || ZombieTarget != 0 || SkeletonTarget != 0))
 		{
 			AttackPhase();
 			AttackPhaseEnable = true;
-		
+			Atack_1.Reset();
 		
 		}
 		if (AttackPhaseActive == false && AttackPhaseEnable == true) {
