@@ -103,7 +103,7 @@ bool SkeletonEnem::Start()
 		currentAnimation[i] = &idleAnim;
 	}
 
-	Ston[0] = CreateSkeleton(/*Vpir->Pos.x, Vpir->Pos.x,*/320, 320, TextureSkeleton);
+	Ston[0] = CreateSkeleton(/*Vpir->Pos.x, Vpir->Pos.x,*/529, 1501, TextureSkeleton);
 
 	return false;
 }
