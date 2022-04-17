@@ -99,19 +99,19 @@ bool EntityNPC::Start()
 
 bool EntityNPC::Update(float dt)
 {
-	if (Dialogue2Count != 0 && app->menu->config == false) {
+	if (Dialogue2Count != 0 && app->menu->config == false && app->BTSystem->battle == false && app->player->door3active == true && app->player->door3active_ == true) {
 		KLK->pendingToDelete = true;
 		app->render->DrawTexture(door2, 1312, 1664);
 
 	}
-	else if (app->menu->config == false){
+	else if (app->menu->config == false && app->BTSystem->battle == false){
 		app->render->DrawTexture(door, 1312, 1664);
 	}
 
 	if (app->player->P2.IsAlive == true && app->player->P3.IsAlive == true && app->player->P4.IsAlive == true) {
 		KLK2->pendingToDelete = true;
 	}
-	else if(app->menu->config == false){
+	else if(app->menu->config == false && app->BTSystem->battle == false ){
 		app->render->DrawTexture(door3, 1536, 2304);
 
 	}
@@ -357,6 +357,7 @@ bool EntityNPC::Update(float dt)
 			sprintf_s(Text1, "hey, luck i found you, i have lost my wife who is a ");
 			sprintf_s(Text2, "nurse, if you help me find her, she may help you with your");
 			sprintf_s(Text3, "injuries, I do not remember where it is, but I think this key may be a clue");
+			app->player->door3active = true;
 			app->fonts->DrawTxt(250, 500, FText, Text1);
 			app->fonts->DrawTxt(250, 550, FText, Text2);
 			app->fonts->DrawTxt(250, 600, FText, Text3);

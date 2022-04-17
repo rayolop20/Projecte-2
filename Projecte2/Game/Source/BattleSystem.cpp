@@ -926,7 +926,7 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 			AttackPlayer = 2;
 			SpecialAttackEnable = false;
 		}
-		if (control->id == 41 && ChoosePlayerPhase == true && SpecialAttackEnable == false && app->input->GetKey(SDL_SCANCODE_LCTRL)==KEY_REPEAT) {//GodMode
+		if (control->id == 40 && ChoosePlayerPhase == true && SpecialAttackEnable == false && app->input->GetKey(SDL_SCANCODE_LCTRL)==KEY_REPEAT) {//GodMode
 			AttackPlayer = 2;
 			SpecialAttackEnable = false;
 			app->player->P2.IsAlive = false;
@@ -937,7 +937,7 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 			SpecialAttackEnable = false;
 			AttackPlayer = 3;
 		}
-		if (control->id == 42 && ChoosePlayerPhase == true && SpecialAttackEnable == false && app->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT) {//GodMode
+		if (control->id == 41 && ChoosePlayerPhase == true && SpecialAttackEnable == false && app->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT) {//GodMode
 			AttackPlayer = 3;
 			SpecialAttackEnable = false;
 			app->player->P3.IsAlive = false;

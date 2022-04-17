@@ -133,6 +133,8 @@ public:
 
 	bool Start();
 
+	bool door3active = false;
+	bool door3active_ = false;
 	// Called at the middle of the application loop
 	// Processes new input and handles player movement
 	bool Update(float dt);
