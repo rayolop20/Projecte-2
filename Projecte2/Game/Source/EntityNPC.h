@@ -60,12 +60,16 @@ public:
 	iPoint position;
 
 	SDL_Texture* TextureNPC = nullptr;
+	SDL_Texture* TextureNPC2 = nullptr;
+	SDL_Texture* TextureNPC3 = nullptr;
 	SDL_Texture* DialogueBox = nullptr;
 
 	NPC npc[NUM_NPC] = { nullptr };
 
 	Animation* currentAnimation[NUM_NPC] = { nullptr };
-	Animation idle;
+	Animation idle1;
+	Animation idle2;
+	Animation idle3;
 	Animation dead;
 
 	int NPCNum = NULL;

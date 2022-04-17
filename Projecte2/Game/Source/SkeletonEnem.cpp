@@ -19,13 +19,39 @@
 
 SkeletonEnem::SkeletonEnem() :Entity(EntityType::SKELETON)
 {
-	name.Create("VampirEnem");
-	idle.PushBack({ 5, 6, 16, 17 });
-	idle.PushBack({ 28, 6, 12, 17 });
-	idle.PushBack({ 11, 29, 5, 16 });
-	idle.PushBack({ 28, 28, 12, 17 });
-	idle.loop = true;
-	idle.speed = 0.001f;
+	name.Create("SkeletonEnem");
+	idleAnim.PushBack({ 47, 8, 33, 113 });
+	idleAnim.loop = true;
+	idleAnim.speed = 0.001f;
+
+
+	downAnim.PushBack({ 47, 8, 33, 113 });
+	downAnim.PushBack({ 175,8, 33, 116 });
+	downAnim.PushBack({ 303,8, 33, 113 });
+	downAnim.PushBack({ 432,8, 33, 116 });
+	downAnim.loop = true;
+	downAnim.speed = 0.1f;
+
+	leftAnim.PushBack({ 564,16, 30, 106 });
+	leftAnim.PushBack({ 691,16, 31, 105 });
+	leftAnim.PushBack({ 820,16, 30, 106 });
+	leftAnim.PushBack({ 945,16, 33, 105 });
+	leftAnim.loop = true;
+	leftAnim.speed = 0.1f;
+
+	rightAnim.PushBack({ 1069,16, 30, 106 });
+	rightAnim.PushBack({ 1197,16, 31, 105 });
+	rightAnim.PushBack({ 1325,16, 30, 106 });
+	rightAnim.PushBack({ 1453,16, 31, 105 });
+	rightAnim.loop = true;
+	rightAnim.speed = 0.1f;
+
+	upAnim.PushBack({ 1583,8, 33, 113 });
+	upAnim.PushBack({ 1711,8, 33, 116 });
+	upAnim.PushBack({ 1839,8, 33, 113 });
+	upAnim.PushBack({ 1968,8, 33, 116 });
+	upAnim.loop = true;
+	upAnim.speed = 0.1f;
 }
 
 SkeletonEnem::~SkeletonEnem()
@@ -67,7 +93,7 @@ bool VampirEnem::SaveState(pugi::xml_node& data) const
 bool SkeletonEnem::Start()
 {
 
-	TextureSkeleton = app->tex->Load("Assets/textures/Enem/zombie.png");
+	TextureSkeleton = app->tex->Load("Assets/textures/Enem/skeleton.png");
 	selectSkeleton = app->tex->Load("Assets/textures/UI/ChosePlayers.png");
 	//coinFx = app->audio->LoadFx("Assets/audio/fx/coin.wav");
 
@@ -859,19 +885,19 @@ void SkeletonEnem::PathFindVamp(int i)
 				}
 				if (Ston[i].Pos.x >= pos.x + 32 && timer3 > pathfindingtimer + enemySpeed)
 				{
-					//currentAnimation[i] = &leftAnim;
+					currentAnimation[i] = &leftAnim;
 					pathfindingtimer = timer3;
 					Ston[i].Pos.x -= 32;
 				}
 				if (Ston[i].Pos.y <= pos.y - 32 && timer3 > pathfindingtimer + enemySpeed)
 				{
-					//currentAnimation[i] = &downAnim;
+					currentAnimation[i] = &downAnim;
 					pathfindingtimer = timer3;
 					Ston[i].Pos.y += 32;
 				}
 				if (Ston[i].Pos.y >= pos.y + 32 && timer3 > pathfindingtimer + enemySpeed)
 				{
-					//currentAnimation[i] = &upAnim;
+					currentAnimation[i] = &upAnim;
 					pathfindingtimer = timer3;
 					Ston[i].Pos.y -= 32;
 				}
