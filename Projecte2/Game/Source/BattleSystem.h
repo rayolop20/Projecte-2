@@ -156,6 +156,7 @@ public:
 	SDL_Texture* AttackTextureP2;
 	SDL_Texture* AttackTextureP3;
 	SDL_Texture* AttackTextureP4;
+	SDL_Texture* battle_screen;
 	SDL_Texture* Tutorial;
 	SDL_Texture* PopQTE2 = nullptr;
 	SDL_Texture* quitCross = nullptr;

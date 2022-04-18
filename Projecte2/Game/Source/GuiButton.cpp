@@ -189,28 +189,28 @@ bool GuiButton::Draw(Render* render)
 			uitext->h = 53;
 			app->render->DrawTexture(BTLText, app->player->P1.position.x - 155, app->player->P1.position.y + 120, uitext);
 		}
-		if (id == 32 && app->BTSystem->battle == true && app->BTSystem->AttackPlayer == 2) {
-			uitext->x = 24;
-			uitext->y = 371;
-			uitext->w = 135;
-			uitext->h = 53;
-			app->render->DrawTexture(BTLText, app->player->P1.position.x - 155, app->player->P1.position.y + 170, uitext);
-		}
-		if (id == 33 && app->BTSystem->battle == true && app->BTSystem->AttackPlayer == 2) {
-			uitext->x = 24;
-			uitext->y = 426;
-			uitext->w = 135;
-			uitext->h = 53;
-			app->render->DrawTexture(BTLText, app->player->P1.position.x - 155, app->player->P1.position.y + 120, uitext);
-		}
 		if (id == 32 && app->BTSystem->battle == true && app->BTSystem->AttackPlayer == 3) {
-			uitext->x = 746;
+			uitext->x = 24;
 			uitext->y = 371;
 			uitext->w = 135;
 			uitext->h = 53;
 			app->render->DrawTexture(BTLText, app->player->P1.position.x - 155, app->player->P1.position.y + 170, uitext);
 		}
 		if (id == 33 && app->BTSystem->battle == true && app->BTSystem->AttackPlayer == 3) {
+			uitext->x = 24;
+			uitext->y = 426;
+			uitext->w = 135;
+			uitext->h = 53;
+			app->render->DrawTexture(BTLText, app->player->P1.position.x - 155, app->player->P1.position.y + 120, uitext);
+		}
+		if (id == 32 && app->BTSystem->battle == true && app->BTSystem->AttackPlayer == 2) {
+			uitext->x = 746;
+			uitext->y = 371;
+			uitext->w = 135;
+			uitext->h = 53;
+			app->render->DrawTexture(BTLText, app->player->P1.position.x - 155, app->player->P1.position.y + 170, uitext);
+		}
+		if (id == 33 && app->BTSystem->battle == true && app->BTSystem->AttackPlayer == 2) {
 			uitext->x = 746;
 			uitext->y = 426;
 			uitext->w = 135;
@@ -399,28 +399,28 @@ bool GuiButton::Draw(Render* render)
 			uitext->h = 53;
 			app->render->DrawTexture(BTLText, app->player->P1.position.x - 155, app->player->P1.position.y + 120, uitext);
 		}
-		if (id == 32 && app->BTSystem->battle == true && app->BTSystem->AttackPlayer == 2) {
-			uitext->x = 24;
-			uitext->y = 503;
-			uitext->w = 135;
-			uitext->h = 53;
-			app->render->DrawTexture(BTLText, app->player->P1.position.x - 155, app->player->P1.position.y + 170, uitext);
-		}
-		if (id == 33 && app->BTSystem->battle == true && app->BTSystem->AttackPlayer == 2) {
-			uitext->x = 24;
-			uitext->y = 559;
-			uitext->w = 135;
-			uitext->h = 53;
-			app->render->DrawTexture(BTLText, app->player->P1.position.x - 155, app->player->P1.position.y + 120, uitext);
-		}
 		if (id == 32 && app->BTSystem->battle == true && app->BTSystem->AttackPlayer == 3) {
-			uitext->x = 746;
+			uitext->x = 24;
 			uitext->y = 503;
 			uitext->w = 135;
 			uitext->h = 53;
 			app->render->DrawTexture(BTLText, app->player->P1.position.x - 155, app->player->P1.position.y + 170, uitext);
 		}
 		if (id == 33 && app->BTSystem->battle == true && app->BTSystem->AttackPlayer == 3) {
+			uitext->x = 24;
+			uitext->y = 559;
+			uitext->w = 135;
+			uitext->h = 53;
+			app->render->DrawTexture(BTLText, app->player->P1.position.x - 155, app->player->P1.position.y + 120, uitext);
+		}
+		if (id == 32 && app->BTSystem->battle == true && app->BTSystem->AttackPlayer == 2) {
+			uitext->x = 746;
+			uitext->y = 503;
+			uitext->w = 135;
+			uitext->h = 53;
+			app->render->DrawTexture(BTLText, app->player->P1.position.x - 155, app->player->P1.position.y + 170, uitext);
+		}
+		if (id == 33 && app->BTSystem->battle == true && app->BTSystem->AttackPlayer == 2) {
 			uitext->x = 746;
 			uitext->y = 559;
 			uitext->w = 135;

@@ -41,10 +41,12 @@ bool CharacterMenu_Screen::Start()
 	inventoryTex = app->tex->Load("Assets/Textures/UI/inventory.png");
 	inventoryTexBack = app->tex->Load("Assets/Textures/UI/inventory_bg.png");
 	russian = app->tex->Load("Assets/Textures/Soldiers/soldier_rusian.png");
+	american = app->tex->Load("Assets/Textures/Soldiers/soldier_american_dogmaster.png");
 	british = app->tex->Load("Assets/Textures/Soldiers/soldier_1.png");
 	french = app->tex->Load("Assets/Textures/Soldiers/soldier_french.png");
 	frenchNpc = app->tex->Load("Assets/Textures/Soldiers/soldier_french_npc.png");
 	russianNpc = app->tex->Load("Assets/Textures/Soldiers/soldier_rusian_npc.png");
+	americanNpc = app->tex->Load("Assets/Textures/Soldiers/soldier_american_dogmaster_npc.png");
 	italian = app->tex->Load("Assets/Textures/Soldiers/soldier_italian.png");
 	italianNpc = app->tex->Load("Assets/Textures/Soldiers/soldier_italian_npc.png");
 	 
@@ -74,10 +76,10 @@ bool CharacterMenu_Screen::Update(float dt)
 	}
 	else if (Charac2 && app->player->P2.IsAlive == true)
 	{
-		app->render->DrawTexture(russian, -app->render->camera.x + (app->win->GetWidth() / 2 - 460), -app->render->camera.y + (app->win->GetHeight() / 2 - 200));
+		app->render->DrawTexture(american, -app->render->camera.x + (app->win->GetWidth() / 2 - 460), -app->render->camera.y + (app->win->GetHeight() / 2 - 200));
 	}
 	else if (Charac3 && app->player->P3.IsAlive == true) {
-		//app->render->DrawTexture(american, -app->render->camera.x + (app->win->GetWidth() / 2 - 460), -app->render->camera.y + (app->win->GetHeight() / 2 - 200));
+		app->render->DrawTexture(russian, -app->render->camera.x + (app->win->GetWidth() / 2 - 460), -app->render->camera.y + (app->win->GetHeight() / 2 - 200));
 	}
 	else if (Charac4 && app->BTSystem->battle1 == true && app->player->P4.IsAlive == true)
 	{
@@ -155,9 +157,7 @@ bool CharacterMenu_Screen::Update(float dt)
 		bagSection->y = 26;
 		bagSection->w = 612;
 		bagSection->h = 479;
-		
 		app->render->DrawTexture(inventoryTex, -app->render->camera.x + (app->win->GetWidth() / 2 - 180), -app->render->camera.y + (app->win->GetHeight() / 2 - 230), bagSection);
-
 		Item1Section = { -app->render->camera.x + app->win->GetWidth() / 2 - 99, -app->render->camera.y + app->win->GetHeight() / 2 - 160, 70, 70 };
 		Item2Section = { -app->render->camera.x + app->win->GetWidth() / 2 - 4, -app->render->camera.y + app->win->GetHeight() / 2 - 160, 70, 70 };
 		Item3Section = { -app->render->camera.x + app->win->GetWidth() / 2 + 91, -app->render->camera.y + app->win->GetHeight() / 2 - 160, 70, 70 };

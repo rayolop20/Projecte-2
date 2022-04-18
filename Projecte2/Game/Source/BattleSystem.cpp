@@ -109,6 +109,7 @@ bool battleSystem::Start()
 	QTE4 = app->tex->Load("Assets/Textures/UI/qte4.png");
 	PopQTE2 = app->tex->Load("Assets/Textures/UI/qte1_1.png");
 	quitCross = app->tex->Load("Assets/Textures/UI/quit_cross.png");
+	battle_screen = app->tex->Load("Assets/Textures/UI/battle_bg.png");
 
 	//L13: TODO 2: Declare an Item and create it using the EntityManager
 	VampirEnem* Vampir = (VampirEnem*)app->entityManager->CreateEntity(EntityType::VAMPYR, 0, { 0,0 });
@@ -187,14 +188,17 @@ bool battleSystem::Update(float dt)
 		Run->bounds.y = app->player->P1.position.y + 285;
 		Run->bounds.w = 150;
 		Run->bounds.h = 61;
-		SDL_Rect battle_screen = { app->player->P1.position.x - 640 + 32,app->player->P1.position.y - 360 + 32,1280,720 };		
+		//SDL_Rect battle_screen = { app->player->P1.position.x - 640 + 32,app->player->P1.position.y - 360 + 32,1280,720 };		
+		app->render->DrawTexture(battle_screen, app->player->P1.position.x - 640 + 32, app->player->P1.position.y - 360 + 32);
 		MiniPlayerButton1->state = GuiControlState::NORMAL;
 		MiniPlayerButton2->state = GuiControlState::NORMAL;
 		MiniPlayerButton4->state = GuiControlState::NORMAL;
-		MiniPlayerButton3->state = GuiControlState::NORMAL; 
-		app->render->DrawRectangle(battle_screen, 0, 250, 250);
+		MiniPlayerButton3->state = GuiControlState::NORMAL;
 		if (app->player->P1.IsAlive == true) {
 			app->render->DrawTexture(app->characterMenu->british, app->player->P1.position.x - 420 + 120, app->player->P1.position.y - 320);
+		}
+		if (app->player->P2.IsAlive == true) {
+			app->render->DrawTexture(app->characterMenu->american, app->player->P1.position.x - 450, app->player->P1.position.y - 320 + 130);
 		}
 		if (app->player->P3.IsAlive == true) {
 			app->render->DrawTexture(app->characterMenu->russian, app->player->P1.position.x - 450 + 120, app->player->P1.position.y - 320 + 260);

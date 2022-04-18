@@ -86,15 +86,48 @@ Player::Player() : Module()
 	upAnim4.PushBack({ 1959, 7, 49, 117 });
 	upAnim4.loop = true;
 	upAnim4.speed = 0.1f;
+	
+	idleAnim4.PushBack({ 39, 7, 49, 115 });
+	idleAnim4.loop = true;
+	idleAnim4.speed = 0.001f;
+	
+	
+	idleAnim2.PushBack({ 39, 7, 49, 115 });
+	idleAnim2.loop = true;
+	idleAnim2.speed = 0.001f;
 
-	/*	idleAnim1.PushBack({ 0, 0, 28, 64});
-	idleAnim1.loop = true;
-	idleAnim1.speed = 0.001f;
+	downAnim2.PushBack({ 39, 7, 49, 115 });
+	downAnim2.PushBack({ 167, 7, 49, 117 });
+	downAnim2.PushBack({ 295, 7, 49, 115 });
+	downAnim2.PushBack({ 423, 7, 49, 117 });
+	downAnim2.loop = true;
+	downAnim2.speed = 0.1f;
 
-	downAnim1.PushBack({ 0, 0, 28, 64 });
-	downAnim1.PushBack({ 71, 0, 29, 64});
-	downAnim1.PushBack({ 143, 7, 29, 64 });
-	downAnim1.PushBack({ 215, 7, 29, 64 });*/
+	leftAnim2.PushBack({ 535, 7, 64, 114 });
+	leftAnim2.PushBack({ 663, 7, 64, 114 });
+	leftAnim2.PushBack({ 791, 7, 64, 114 });
+	leftAnim2.PushBack({ 919, 7, 64, 114 });
+	leftAnim2.loop = true;
+	leftAnim2.speed = 0.1f;
+	
+	rightAnim2.PushBack({ 1045, 7, 64, 114 });
+	rightAnim2.PushBack({ 1173, 7, 64, 114 });
+	rightAnim2.PushBack({ 1301, 7, 64, 114 });
+	rightAnim2.PushBack({ 1429, 7, 64, 114 });
+	rightAnim2.loop = true;
+	rightAnim2.speed = 0.1f;
+
+	upAnim2.PushBack({ 1575, 7, 49, 115 });
+	upAnim2.PushBack({ 1703, 7, 49, 117 });
+	upAnim2.PushBack({ 1831, 7, 49, 115 });
+	upAnim2.PushBack({ 1959, 7, 49, 117 });
+	upAnim2.loop = true;
+	upAnim2.speed = 0.1f;
+	
+	idleAnim2.PushBack({ 39, 7, 49, 115 });
+	idleAnim2.loop = true;
+	idleAnim2.speed = 0.001f;
+
 }
 
 Player::~Player()
@@ -190,11 +223,13 @@ bool Player::Start()
 	bool ret = true;
 
 	currentAnim1 = &idleAnim1;
+	currentAnim2 = &idleAnim2;
 	currentAnim4 = &idleAnim4;
 
 	//Pres E
 	player1S = app->tex->Load("Assets/Textures/Soldiers/soldier.png");
-	player4S = app->tex->Load("Assets/Textures/Soldiers/soldier_ita_.png");
+	player4S = app->tex->Load("Assets/Textures/Soldiers/soldier_ita.png");
+	player2S = app->tex->Load("Assets/Textures/Soldiers/us.png");
 	darkness = app->tex->Load("Assets/Textures/Fog/darkness.png");
 
 	P1.Pcol = app->collisions->AddCollider({ P1.position.x,P1.position.y, 64, 90 }, Collider::Type::PLAYER, this);
@@ -225,16 +260,16 @@ bool Player::Update(float dt)
 		//app->render->DrawRectangle(player1, 200, 200, 200);
 		if (P2.IsAlive == true) {
 			player2 = { P2.position.x, P2.position.y, 42, 42 };
-			app->render->DrawRectangle(player2, 100, 230, 200);
+			//app->render->DrawRectangle(player2, 100, 230, 200);
 		}
 		if (P3.IsAlive == true) {
 
 			player3 = { P3.position.x, P3.position.y, 42, 42 };
-			app->render->DrawRectangle(player3, 100, 230, 200);
+			//app->render->DrawRectangle(player3, 100, 230, 200);
 		}
 		if (P4.IsAlive == true) {
 			player4 = { P4.position.x, P4.position.y, 42, 42 };
-			app->render->DrawRectangle(player4, 100, 230, 200);
+			//app->render->DrawRectangle(player4, 100, 230, 200);
 		}
 	}
 
@@ -294,6 +329,9 @@ bool Player::Update(float dt)
 					if (P4.IsAlive == true) {
 						currentAnim4 = &rightAnim4;
 					}
+					if (P2.IsAlive == true) {
+						currentAnim2 = &rightAnim2;
+					}
 				}
 
 				if (app->input->GetKey(SDL_SCANCODE_D) == KEY_UP)
@@ -302,6 +340,9 @@ bool Player::Update(float dt)
 					currentAnim1 = &idleAnim1;
 					if (P4.IsAlive == true) {
 						currentAnim4 = &idleAnim4;
+					}
+					if (P2.IsAlive == true) {
+						currentAnim2 = &idleAnim2;
 					}
 				}
 			}
@@ -319,6 +360,9 @@ bool Player::Update(float dt)
 					if (P4.IsAlive == true) {
 						currentAnim4 = &leftAnim4;
 					}
+					if (P2.IsAlive == true) {
+						currentAnim2 = &leftAnim2;
+					}
 				}
 
 				if (app->input->GetKey(SDL_SCANCODE_A) == KEY_UP)
@@ -327,6 +371,9 @@ bool Player::Update(float dt)
 					currentAnim1 = &idleAnim1;
 					if (P4.IsAlive == true) {
 						currentAnim4 = &idleAnim4;
+					}
+					if (P2.IsAlive == true) {
+						currentAnim2 = &idleAnim2;
 					}
 				}
 			}
@@ -340,6 +387,9 @@ bool Player::Update(float dt)
 					if (P4.IsAlive == true) {
 						currentAnim4 = &upAnim4;
 					}
+					if (P2.IsAlive == true) {
+						currentAnim2 = &upAnim2;
+					}
 				}
 
 				if (app->input->GetKey(SDL_SCANCODE_W) == KEY_UP)
@@ -348,6 +398,9 @@ bool Player::Update(float dt)
 					currentAnim1 = &idleAnim1;
 					if (P4.IsAlive == true) {
 						currentAnim4 = &idleAnim4;
+					}
+					if (P2.IsAlive == true) {
+						currentAnim2 = &idleAnim2;
 					}
 				}
 			}
@@ -361,6 +414,9 @@ bool Player::Update(float dt)
 					if (P4.IsAlive == true) {
 						currentAnim4 = &downAnim4;
 					}
+					if (P2.IsAlive == true) {
+						currentAnim2 = &downAnim2;
+					}
 					
 				}
 
@@ -370,6 +426,9 @@ bool Player::Update(float dt)
 					currentAnim1 = &idleAnim1;
 					if (P4.IsAlive == true) {
 						currentAnim4 = &idleAnim4;
+					}
+					if (P2.IsAlive == true) {
+						currentAnim2 = &idleAnim2;
 					}
 				}
 			}
@@ -398,16 +457,22 @@ bool Player::PostUpdate()
 
 	if (app->BTSystem->battle == false && app->menu->config == false && app->characterMenu->inventory == false) {
 		player1 = currentAnim1->GetCurrentFrame();
+		player2 = currentAnim2->GetCurrentFrame();
 		player4 = currentAnim4->GetCurrentFrame();
 
 		if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN) {
 			int klk = 0;
 		}
-		app->render->DrawTexture(player1S, P1.position.x + 7, P1.position.y - 20, &player1);
 		if (P4.IsAlive == true && app->BTSystem->battle1 == true) {
 			app->render->DrawTexture(player4S, P4.position.x + 7, P4.position.y - 20, &player4);
 			currentAnim4->Update();
 		}
+		if (P2.IsAlive == true) {
+			app->render->DrawTexture(player2S, P2.position.x + 7, P2.position.y - 20, &player2);
+			currentAnim2->Update();
+		}
+		app->render->DrawTexture(player1S, P1.position.x + 7, P1.position.y - 20, &player1);
+
 		currentAnim1->Update();
 	}
 
@@ -618,7 +683,7 @@ void Player::movementPlayer()
 		}
 	}
 	else {
-		app->render->DrawTexture(app->characterMenu->russianNpc, 1780, 2410);
+		app->render->DrawTexture(app->characterMenu->americanNpc, 1780, 2410);
 	}
 	//Player 3
 	if (P3.Move == true)
@@ -654,6 +719,10 @@ void Player::movementPlayer()
 					P3.position.y--;
 				}
 			}
+	}
+
+	else {
+		app->render->DrawTexture(app->characterMenu->russianNpc, 1777, 2252);
 	}
 	//Player 4
 	if (P4.Move == true)

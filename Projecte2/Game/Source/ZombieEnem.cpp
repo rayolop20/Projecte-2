@@ -93,6 +93,7 @@ bool ZombieEnem::Start()
 {
 
 	TextureZombie = app->tex->Load("Assets/Textures/Enem/zombie.png");
+	zombieEnem = app->tex->Load("Assets/Textures/Enem/combat_zombie.png");
 	selectZombie = app->tex->Load("Assets/Textures/UI/choseplayers.png");
 
 
@@ -609,9 +610,8 @@ void ZombieEnem::DrawEnemies() {
 					app->render->DrawTexture(selectZombie, app->player->P1.position.x + 395, app->player->P1.position.y - 335 + 120 * i, Choose);
 				}
 				SDL_Rect Enem1 = { app->player->P1.position.x + 400, app->player->P1.position.y - 330 + 120 * i, 100, 100 };
-				app->render->DrawRectangle(Enem1, 255, 255, 255);
+				app->render->DrawTexture(zombieEnem, app->player->P1.position.x + 350, app->player->P1.position.y - 330 + 100 * i);
 			}
-
 		}
 		app->guiManager->Draw();
 	}

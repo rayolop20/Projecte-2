@@ -298,8 +298,7 @@ bool Menu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 				
 				if (control->id == 4)
 				{
-			
-			
+
 				}
 
 				if (control->id == 7)

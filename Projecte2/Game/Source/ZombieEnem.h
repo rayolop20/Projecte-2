@@ -78,6 +78,7 @@ public:
 	iPoint position;
 
 	SDL_Texture* TextureZombie = nullptr;
+	SDL_Texture* zombieEnem = nullptr;
 
 	Zombie Zbie[NUM_ZOMBIE] = { nullptr };
 

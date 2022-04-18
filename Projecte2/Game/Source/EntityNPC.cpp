@@ -114,7 +114,7 @@ bool EntityNPC::Update(float dt)
 	if (app->player->P2.IsAlive == true && app->player->P3.IsAlive == true && app->player->P4.IsAlive == true) {
 		KLK2->pendingToDelete = true;
 	}
-	else if(app->menu->config == false && app->BTSystem->battle == false ){
+	else if(app->menu->config == false && app->BTSystem->battle == false && app->BTSystem->battle1 == true){
 		app->render->DrawTexture(door3, 1536, 2304);
 
 	}

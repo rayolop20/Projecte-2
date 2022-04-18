@@ -54,7 +54,9 @@ public:
 	SDL_Texture* inventoryTex = nullptr;
 	SDL_Texture* inventoryTexBack = nullptr;
 	SDL_Texture* russian = nullptr;
+	SDL_Texture* american = nullptr;
 	SDL_Texture* russianNpc = nullptr;
+	SDL_Texture* americanNpc = nullptr;
 	SDL_Texture* british = nullptr;
 	SDL_Texture* french = nullptr;
 	SDL_Texture* frenchNpc = nullptr;
