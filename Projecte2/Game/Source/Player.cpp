@@ -193,10 +193,6 @@ bool Player::Start()
 	currentAnim4 = &idleAnim4;
 
 	//Pres E
-	player1Hp = app->tex->Load("Assets/textures/UI/hpbarplayertest.png");
-	player2Hp = app->tex->Load("Assets/textures/UI/hpbarplayertest2.png");
-	player3Hp = app->tex->Load("Assets/textures/UI/hpbarplayertest3.png");
-	player4Hp = app->tex->Load("Assets/textures/UI/hpbarplayertest4.png");
 	PE = app->tex->Load("Assets/UI/UiIcons.png");
 	player1S = app->tex->Load("Assets/textures/Soldiers/soldier.png");
 	player4S = app->tex->Load("Assets/textures/Soldiers/soldier_ita_.png");
