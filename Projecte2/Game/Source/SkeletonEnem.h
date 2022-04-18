@@ -21,10 +21,10 @@ struct Skeleton
 	bool Destroyed = false;
 	uint vCount = 0;
 	bool dead = false;
-	float hp = 55.0;
-	float damage = 1.0;
-	float speed = 17.0;
-	int numEnemies = 4;
+	float hp = 72.0;
+	float damage = 17.0;
+	float speed = 12.0;
+	int numEnemies = 3;
 	bool poisoned = false;
 	bool onFire = false;
 };

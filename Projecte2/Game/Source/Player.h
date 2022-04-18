@@ -33,12 +33,33 @@ struct playr1
 
 struct playr2
 {
-	//Russian
+	//American
 	iPoint position;
 	Collider* Player2C = nullptr;
 	bool P2Active = false;
 	bool IsAlive = false;
 	bool Move = false;
+	float hp;
+	float speed1 = 5.0;
+	float speed2 = 15.0;
+	float luck = 0.0;
+	float mana1 = 35.0;
+	float mana2 = 35.0;
+	float damage1 = 15.0;
+	float damage2 = 20.0;
+	float speed = 0.0;
+	float mana;
+	float damage = 0.0;
+};
+
+struct playr3
+{
+	//Rusian
+	iPoint position;
+	Collider* Player3C = nullptr;
+	bool P3Active = false;
+	bool Move = false;
+	bool IsAlive = false;
 	float hp;
 	float speed1 = 0.0;
 	float speed2 = 10.0;
@@ -47,27 +68,6 @@ struct playr2
 	float mana2 = 20.0;
 	float damage1 = 40.0;
 	float damage2 = 12.0;
-	float speed = 0.0;
-	float mana;
-	float damage = 0.0;
-};
-
-struct playr3
-{
-	//American
-	iPoint position;
-	Collider* Player3C = nullptr;
-	bool P3Active = false;
-	bool Move = false;
-	bool IsAlive = false;
-	float hp = 10;
-	float speed1 = 5.0;
-	float speed2 = 15.0;
-	float luck = 0.0;
-	float mana1 = 35.0;
-	float mana2 = 35.0;
-	float damage1 = 15.0;
-	float damage2 = 20.0;
 	float speed = 0.0;
 	float mana;
 	float damage = 0.0;
@@ -99,7 +99,7 @@ struct playr5
 {
 	//French
 	bool IsAlive = false;
-	float hp = 20;
+	float hp = 50;
 	float speed1 = 20.0;
 	float speed2 = 15.0;
 	float luck = 0.0;

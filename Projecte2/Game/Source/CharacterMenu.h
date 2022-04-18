@@ -50,6 +50,17 @@ public:
 	bool Charac3 = false;
 	bool Charac4 = false;
 
+
+	SDL_Texture* inventoryTex = nullptr;
+	SDL_Texture* inventoryTexBack = nullptr;
+	SDL_Texture* russian = nullptr;
+	SDL_Texture* russianNpc = nullptr;
+	SDL_Texture* british = nullptr;
+	SDL_Texture* french = nullptr;
+	SDL_Texture* frenchNpc = nullptr;
+	SDL_Texture* italian = nullptr;
+	SDL_Texture* italianNpc = nullptr;
+
 private:
 
 	int clickFx = 1;	
@@ -71,8 +82,6 @@ private:
 	SDL_Rect Item2Section;
 	SDL_Rect Item3Section;
 
-
-	SDL_Texture* inventoryTex = nullptr;
 	SDL_Texture* enter = nullptr;
 
 	// L12b: Debug pathfing

@@ -409,12 +409,11 @@ bool Player::PostUpdate()
 			int klk = 0;
 		}
 		app->render->DrawTexture(player1S, P1.position.x + 7, P1.position.y - 20, &player1);
-		if (P4.IsAlive == true) {
+		if (P4.IsAlive == true && app->BTSystem->battle1 == true) {
 			app->render->DrawTexture(player4S, P4.position.x + 7, P4.position.y - 20, &player4);
-
+			currentAnim4->Update();
 		}
 		currentAnim1->Update();
-		currentAnim4->Update();
 	}
 
 	return true;
@@ -621,9 +620,10 @@ void Player::movementPlayer()
 					P2.position.y--;
 				}
 			}
-		
 		}
-
+	}
+	else {
+		app->render->DrawTexture(app->characterMenu->russianNpc, 1780, 2410);
 	}
 	//Player 3
 	if (P3.Move == true)
@@ -705,5 +705,8 @@ void Player::movementPlayer()
 					P4.position.y--;
 				}
 			}
+	}
+	else {
+		app->render->DrawTexture(app->characterMenu->italianNpc, 1613, 2410);
 	}
 }

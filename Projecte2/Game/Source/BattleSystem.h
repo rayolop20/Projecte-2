@@ -155,6 +155,7 @@ public:
 	SDL_Texture* AttackTexture;
 	SDL_Texture* Tutorial;
 	SDL_Texture* PopQTE2 = nullptr;
+	SDL_Texture* quitCross = nullptr;
 	SDL_Texture* QTE4;
 
 	SDL_Texture* selectPlayer = nullptr;

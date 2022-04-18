@@ -21,9 +21,9 @@ struct Zombie
 	bool Destroyed = false;
 	uint vCount = 0;
 	bool dead = false;
-	float hp = 15.0;
-	float damage = 17.0;
-	float speed = 17.0;
+	float hp = 35.0;
+	float damage = 7.0;
+	float speed = 7.0;
 	int numEnemies = 4;
 	bool poisoned = false;
 	bool onFire = false;

@@ -125,7 +125,6 @@ bool ZombieEnem::Update(float dt)
 		DrawHpBars();
 		if (app->BTSystem->PlayerTurn == false) {
 			CheckEnemy();
-
 			EnemyPhase();
 		}
 	}
@@ -599,7 +598,7 @@ void ZombieEnem::SpawnEnemies() {
 }
 
 void ZombieEnem::DrawEnemies() {
-	if (app->BTSystem->Zombiebattle == true) {
+	if (app->BTSystem->Zombiebattle == true && app->BTSystem->InventoryEnable == false) {
 
 		for (int i = 1; i < Zbie[0].numEnemies + 1; i++) {
 			if (Zbie[i].dead == false) {
@@ -803,6 +802,7 @@ void ZombieEnem::CheckEnemy() {
 				app->BTSystem->Zombiebattle = false;
 				app->BTSystem->battleWin = false;
 				app->BTSystem->battle1 = false;
+				app->player->P4.hp = 10;
 				app->player->P4.revolverActive = true;
 				Zbie[0].Destroyed = true;
 				klk = true;
@@ -813,19 +813,19 @@ void ZombieEnem::CheckEnemy() {
 }
 
 void ZombieEnem::DrawHpBars() {
-	if (Zbie[1].dead == false) {
+	if (Zbie[1].dead == false && app->BTSystem->InventoryEnable == false) {
 		SDL_Rect bar1 = { app->player->P1.position.x + 380, app->player->P1.position.y - 200, -(200 * Zbie[1].hp) / 100,15 };
 		app->render->DrawRectangle(bar1, 255, 0, 0);
 	}
-	if (Zbie[2].dead == false) {
+	if (Zbie[2].dead == false && app->BTSystem->InventoryEnable == false && Zbie[0].numEnemies > 1) {
 		SDL_Rect bar2 = { app->player->P1.position.x + 380, app->player->P1.position.y - 200 + 120, -(200 * Zbie[2].hp) / 100,15 };
 		app->render->DrawRectangle(bar2, 255, 0, 0);
 	}
-	if (Zbie[3].dead == false) {
+	if (Zbie[3].dead == false && app->BTSystem->InventoryEnable == false && Zbie[0].numEnemies > 2) {
 		SDL_Rect bar3 = { app->player->P1.position.x + 380, app->player->P1.position.y - 200 + 240, -(200 * Zbie[3].hp) / 100,15 };
 		app->render->DrawRectangle(bar3, 255, 0, 0);
 	}
-	if (Zbie[4].dead == false) {
+	if (Zbie[4].dead == false && app->BTSystem->InventoryEnable == false && Zbie[0].numEnemies > 3) {
 		SDL_Rect bar4 = { app->player->P1.position.x + 380, app->player->P1.position.y - 200 + 360, -(200 * Zbie[4].hp) / 100,15 };
 		app->render->DrawRectangle(bar4, 255, 0, 0);
 	}
