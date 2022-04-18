@@ -38,7 +38,7 @@ bool CharacterMenu_Screen::Start()
 {
 	int a;
 
-	inventoryTex = app->tex->Load("Assets/textures/UI/InventoryB.png");
+	inventoryTex = app->tex->Load("Assets/textures/UI/Inventory.png");
 	inventoryTexBack = app->tex->Load("Assets/textures/UI/InventoryBg.png");
 	russian = app->tex->Load("Assets/textures/Soldiers/soldier_rusian.png");
 	british = app->tex->Load("Assets/textures/Soldiers/soldier_1.png");
