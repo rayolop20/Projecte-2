@@ -92,8 +92,8 @@ bool VampirEnem::Awake(pugi::xml_node& config)
 bool VampirEnem::Start()
 {
 
-	TextureVampire = app->tex->Load("Assets/textures/Enem/vampire.png");
-	selectVampire = app->tex->Load("Assets/textures/UI/ChosePlayers.png");
+	TextureVampire = app->tex->Load("Assets/Textures/Enem/vampire.png");
+	selectVampire = app->tex->Load("Assets/Textures/UI/choseplayers.png");
 	//coinFx = app->audio->LoadFx("Assets/audio/fx/coin.wav");
 
 

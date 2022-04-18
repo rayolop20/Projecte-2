@@ -38,15 +38,15 @@ bool CharacterMenu_Screen::Start()
 {
 	int a;
 
-	inventoryTex = app->tex->Load("Assets/textures/UI/Inventory.png");
-	inventoryTexBack = app->tex->Load("Assets/textures/UI/InventoryBg.png");
-	russian = app->tex->Load("Assets/textures/Soldiers/soldier_rusian.png");
-	british = app->tex->Load("Assets/textures/Soldiers/soldier_1.png");
-	french = app->tex->Load("Assets/textures/Soldiers/soldier_french.png");
-	frenchNpc = app->tex->Load("Assets/textures/Soldiers/soldier_french_npc.png");
-	russianNpc = app->tex->Load("Assets/textures/Soldiers/soldier_rusian_npc.png");
-	italian = app->tex->Load("Assets/textures/Soldiers/soldier_italian.png");
-	italianNpc = app->tex->Load("Assets/textures/Soldiers/soldier_italian_npc.png");
+	inventoryTex = app->tex->Load("Assets/Textures/UI/inventory.png");
+	inventoryTexBack = app->tex->Load("Assets/Textures/UI/inventory_bg.png");
+	russian = app->tex->Load("Assets/Textures/Soldiers/soldier_rusian.png");
+	british = app->tex->Load("Assets/Textures/Soldiers/soldier_1.png");
+	french = app->tex->Load("Assets/Textures/Soldiers/soldier_french.png");
+	frenchNpc = app->tex->Load("Assets/Textures/Soldiers/soldier_french_npc.png");
+	russianNpc = app->tex->Load("Assets/Textures/Soldiers/soldier_rusian_npc.png");
+	italian = app->tex->Load("Assets/Textures/Soldiers/soldier_italian.png");
+	italianNpc = app->tex->Load("Assets/Textures/Soldiers/soldier_italian_npc.png");
 	 
 
 	return true;

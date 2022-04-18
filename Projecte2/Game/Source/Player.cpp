@@ -193,10 +193,9 @@ bool Player::Start()
 	currentAnim4 = &idleAnim4;
 
 	//Pres E
-	PE = app->tex->Load("Assets/UI/UiIcons.png");
-	player1S = app->tex->Load("Assets/textures/Soldiers/soldier.png");
-	player4S = app->tex->Load("Assets/textures/Soldiers/soldier_ita_.png");
-	darkness = app->tex->Load("Assets/textures/Fog/darkness.png");
+	player1S = app->tex->Load("Assets/Textures/Soldiers/soldier.png");
+	player4S = app->tex->Load("Assets/Textures/Soldiers/soldier_ita_.png");
+	darkness = app->tex->Load("Assets/Textures/Fog/darkness.png");
 
 	P1.Pcol = app->collisions->AddCollider({ P1.position.x,P1.position.y, 64, 90 }, Collider::Type::PLAYER, this);
 

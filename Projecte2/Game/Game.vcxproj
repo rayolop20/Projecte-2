@@ -93,7 +93,6 @@
     <ClCompile Include="Source\CharacterMenu.cpp" />
     <ClCompile Include="Source\Collider.cpp" />
     <ClCompile Include="Source\Collisions.cpp" />
-    <ClCompile Include="Source\DialogueSystem.cpp" />
     <ClCompile Include="Source\EntityManager.cpp" />
     <ClCompile Include="Source\EntityNPC.cpp" />
     <ClCompile Include="Source\Fonts.cpp" />
@@ -124,7 +123,6 @@
     <ClInclude Include="Source\CharacterMenu.h" />
     <ClInclude Include="Source\Collider.h" />
     <ClInclude Include="Source\Collisions.h" />
-    <ClInclude Include="Source\DialogueSystem.h" />
     <ClInclude Include="Source\Entity.h" />
     <ClInclude Include="Source\EntityManager.h" />
     <ClInclude Include="Source\EntityNPC.h" />

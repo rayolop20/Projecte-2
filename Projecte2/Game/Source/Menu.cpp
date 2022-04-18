@@ -39,10 +39,10 @@ bool Menu_Screen::Awake()
 bool Menu_Screen::Start()
 {
 	
-	fonsMenu = app->tex->Load("Assets/textures/Assets/GameTitle.png");
-	Logo = app->tex->Load("Assets/textures/Assets/LogoProjecte.png");
+	fonsMenu = app->tex->Load("Assets/Textures/Assets/game_title.png");
+	Logo = app->tex->Load("Assets/Textures/Assets/logo_projecte.png");
 	EnterLogo = app->audio->LoadFx("Assets/audio/fx/EnterLogo.wav");
-	options = app->tex->Load("Assets/textures/UI/Pause_Menu.png");
+	options = app->tex->Load("Assets/Textures/UI/pause_menu.png");
 	btnMenuPlay = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Play", { 150, 150, 194, 52 }, this);
 	btnMenuConfig = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Config", { 150, 240, 144, 57 }, this);
 	btnCredits = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 4, "Credits", { 150, 330, 144, 57 }, this);

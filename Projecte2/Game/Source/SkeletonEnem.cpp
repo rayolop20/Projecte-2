@@ -93,8 +93,8 @@ bool VampirEnem::SaveState(pugi::xml_node& data) const
 bool SkeletonEnem::Start()
 {
 
-	TextureSkeleton = app->tex->Load("Assets/textures/Enem/skeleton.png");
-	selectSkeleton = app->tex->Load("Assets/textures/UI/ChosePlayers.png");
+	TextureSkeleton = app->tex->Load("Assets/Textures/Enem/skeleton.png");
+	selectSkeleton = app->tex->Load("Assets/Textures/UI/choseplayers.png");
 	//coinFx = app->audio->LoadFx("Assets/audio/fx/coin.wav");
 
 

@@ -100,15 +100,15 @@ bool battleSystem::Start()
 		poisonCount[i] = 0;
 	}
 	// L03: DONE: Load map
-	selectPlayer = app->tex->Load("Assets/textures/UI/ChosePlayers.png");
-	/*AttackTexture = app->tex->Load("Assets/textures/Soldiers/soldier_animation.png");
-	AttackTextureP2 = app->tex->Load("Assets/textures/Soldiers/soldier_french.png");
-	AttackTextureP3 = app->tex->Load("Assets/textures/Soldiers/soldier_italian.png");
-	AttackTextureP4 = app->tex->Load("Assets/textures/Soldiers/soldier_rusian.png");*/
-	Tutorial = app->tex->Load("Assets/textures/UI/QTETutorial.png");
-	QTE4 = app->tex->Load("Assets/textures/UI/QTE4.png");
-	PopQTE2 = app->tex->Load("Assets/textures/UI/QTE1_1.png");
-	quitCross = app->tex->Load("Assets/textures/UI/QuitCross.png");
+	selectPlayer = app->tex->Load("Assets/Textures/UI/choseplayers.png");
+	/*AttackTexture = app->tex->Load("Assets/Textures/Soldiers/soldier_animation.png");
+	AttackTextureP2 = app->tex->Load("Assets/Textures/Soldiers/soldier_french.png");
+	AttackTextureP3 = app->tex->Load("Assets/Textures/Soldiers/soldier_italian.png");
+	AttackTextureP4 = app->tex->Load("Assets/Textures/Soldiers/soldier_rusian.png");*/
+	Tutorial = app->tex->Load("Assets/Textures/UI/qte_tutorial.png");
+	QTE4 = app->tex->Load("Assets/Textures/UI/qte4.png");
+	PopQTE2 = app->tex->Load("Assets/Textures/UI/qte1_1.png");
+	quitCross = app->tex->Load("Assets/Textures/UI/quit_cross.png");
 
 	//L13: TODO 2: Declare an Item and create it using the EntityManager
 	VampirEnem* Vampir = (VampirEnem*)app->entityManager->CreateEntity(EntityType::VAMPYR, 0, { 0,0 });

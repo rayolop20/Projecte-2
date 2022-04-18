@@ -92,8 +92,8 @@ bool VampirEnem::SaveState(pugi::xml_node& data) const
 bool ZombieEnem::Start()
 {
 
-	TextureZombie = app->tex->Load("Assets/textures/Enem/zombie.png");
-	selectZombie = app->tex->Load("Assets/textures/UI/ChosePlayers.png");
+	TextureZombie = app->tex->Load("Assets/Textures/Enem/zombie.png");
+	selectZombie = app->tex->Load("Assets/Textures/UI/choseplayers.png");
 	//coinFx = app->audio->LoadFx("Assets/audio/fx/coin.wav");
 
 

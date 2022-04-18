@@ -72,17 +72,17 @@ bool VampirEnem::SaveState(pugi::xml_node& data) const
 bool EntityNPC::Start()
 {
 
-	TextureNPC = app->tex->Load("Assets/textures/NPC/npc1.png");
-	TextureNPC2 = app->tex->Load("Assets/textures/NPC/npc2.png");
+	TextureNPC = app->tex->Load("Assets/Textures/NPC/npc1.png");
+	TextureNPC2 = app->tex->Load("Assets/Textures/NPC/npc2.png");
 	//coinFx = app->audio->LoadFx("Assets/audio/fx/coin.wav");
-	DialogueBox = app->tex->Load("Assets/textures/UI/TextBox.png");
+	DialogueBox = app->tex->Load("Assets/Textures/UI/text_box.png");
 
 	//text
 	char lookupTable[] = { "! @,_./0123456789$;< ?abcdefghijklmnopqrstuvwxyz" };
 	FText = app->fonts->Load("Assets/Textures/Fonts/fonts.png", lookupTable, 1);
-	door = app->tex->Load("Assets/textures/Assets/door.png");
-	door2 = app->tex->Load("Assets/textures/Assets/door2.png");
-	door3 = app->tex->Load("Assets/textures/Assets/door3.png");
+	door = app->tex->Load("Assets/Textures/Assets/door.png");
+	door2 = app->tex->Load("Assets/Textures/Assets/door2.png");
+	door3 = app->tex->Load("Assets/Textures/Assets/door3.png");
 
 	for (int i = 0; i < NUM_NPC; i++)
 	{

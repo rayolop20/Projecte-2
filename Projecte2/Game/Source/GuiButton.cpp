@@ -18,11 +18,11 @@ GuiButton::GuiButton(uint32 id, SDL_Rect bounds, const char* text) : GuiControl(
 	canClick = true;
 	drawBasic = false;
 
-	UIText = app->tex->Load("Assets/textures/UI/MainMenu.png");
-	BTLText = app->tex->Load("Assets/textures/UI/CombatUI.png");
+	UIText = app->tex->Load("Assets/Textures/UI/main_menu.png");
+	BTLText = app->tex->Load("Assets/Textures/UI/combatui.png");
 	clickFx = app->audio->LoadFx("Assets/audio/fx/Click.wav");
 
-	battleRussian = app->tex->Load("Assets/textures/Soldiers/soldier_italian.png");
+	battleRussian = app->tex->Load("Assets/Textures/Soldiers/soldier_italian.png");
 }
 
 GuiButton::~GuiButton()
