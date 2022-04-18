@@ -27,7 +27,7 @@ battleSystem::battleSystem() : Module()
 	idle1.PushBack({ 62, 25, 85, 149 });
 	idle1.loop = false;
 	idle1.speed = 0.001f;
-
+	//
 	idle2.PushBack({ 37, 21, 102, 150 });
 	idle2.loop = false;
 	idle2.speed = 0.001f;
