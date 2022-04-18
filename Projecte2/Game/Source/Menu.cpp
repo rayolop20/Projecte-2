@@ -41,7 +41,7 @@ bool Menu_Screen::Start()
 	
 	fonsMenu = app->tex->Load("Assets/Textures/Assets/game_title.png");
 	Logo = app->tex->Load("Assets/Textures/Assets/logo_projecte.png");
-	EnterLogo = app->audio->LoadFx("Assets/audio/fx/EnterLogo.wav");
+	EnterLogo = app->audio->LoadFx("Assets/Audio/Fx/enter_logo.wav");
 	options = app->tex->Load("Assets/Textures/UI/pause_menu.png");
 	btnMenuPlay = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Play", { 150, 150, 194, 52 }, this);
 	btnMenuConfig = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Config", { 150, 240, 144, 57 }, this);
@@ -99,7 +99,7 @@ bool Menu_Screen::Update(float dt)
 	//music
 	if (musicActive == true && menuScreen == false)
 	{
-		app->audio->PlayMusic("Assets/audio/music/music_retro_forest.ogg");
+		app->audio->PlayMusic("Assets/Audio/Music/music_retro_forest.ogg");
 		musicActive = false;
 	}
 

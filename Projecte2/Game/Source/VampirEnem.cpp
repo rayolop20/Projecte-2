@@ -94,7 +94,6 @@ bool VampirEnem::Start()
 
 	TextureVampire = app->tex->Load("Assets/Textures/Enem/vampire.png");
 	selectVampire = app->tex->Load("Assets/Textures/UI/choseplayers.png");
-	//coinFx = app->audio->LoadFx("Assets/audio/fx/coin.wav");
 
 
 	for (int i = 0; i < NUM_VAMPIRE; i++)

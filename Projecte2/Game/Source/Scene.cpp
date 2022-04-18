@@ -51,7 +51,7 @@ bool Scene::Start()
 		RELEASE_ARRAY(data);
 	};
 	app->map->DColisions();
-	pathTex = app->tex->Load("Assets/maps/path2.png");
+	pathTex = app->tex->Load("Assets/Maps/path2.png");
 
 	return true;
 }
@@ -73,7 +73,7 @@ bool Scene::Update(float dt)
 	
 	if (musicActive == true)
 	{
-		app->audio->PlayMusic("Assets/audio/music/music_8_bit_adventure.ogg");
+		app->audio->PlayMusic("Assets/Audio/Music/music_8_bit_adventure.ogg");
 		musicActive = false;
 	}
 	

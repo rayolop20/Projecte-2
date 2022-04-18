@@ -74,7 +74,6 @@ bool EntityNPC::Start()
 
 	TextureNPC = app->tex->Load("Assets/Textures/NPC/npc1.png");
 	TextureNPC2 = app->tex->Load("Assets/Textures/NPC/npc2.png");
-	//coinFx = app->audio->LoadFx("Assets/audio/fx/coin.wav");
 	DialogueBox = app->tex->Load("Assets/Textures/UI/text_box.png");
 
 	//text

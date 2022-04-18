@@ -95,7 +95,6 @@ bool SkeletonEnem::Start()
 
 	TextureSkeleton = app->tex->Load("Assets/Textures/Enem/skeleton.png");
 	selectSkeleton = app->tex->Load("Assets/Textures/UI/choseplayers.png");
-	//coinFx = app->audio->LoadFx("Assets/audio/fx/coin.wav");
 
 
 	for (int i = 0; i < NUM_SKELETON; i++)

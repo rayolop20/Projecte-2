@@ -94,7 +94,6 @@ bool ZombieEnem::Start()
 
 	TextureZombie = app->tex->Load("Assets/Textures/Enem/zombie.png");
 	selectZombie = app->tex->Load("Assets/Textures/UI/choseplayers.png");
-	//coinFx = app->audio->LoadFx("Assets/audio/fx/coin.wav");
 
 
 	for (int i = 0; i < NUM_ZOMBIE; i++)
