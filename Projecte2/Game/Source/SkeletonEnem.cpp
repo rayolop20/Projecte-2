@@ -127,7 +127,6 @@ bool SkeletonEnem::Update(float dt)
 		DrawHpBars();
 		if (app->BTSystem->PlayerTurn == false) {
 			CheckEnemy();
-
 			EnemyPhase();
 		}
 	}
@@ -164,7 +163,8 @@ bool SkeletonEnem::Update(float dt)
 	{
 		Ston[i].colliderSK->SetPos(Ston[i].Pos.x, Ston[i].Pos.y);
 		Ston[i].colliderS->SetPos(Ston[i].Pos.x - 84, Ston[i].Pos.y - 84);
-	}if (app->BTSystem->battle == true && app->player->P1.IsAlive == true && app->BTSystem->Skeletonbattle == true) {
+	}
+	if (app->BTSystem->battle == true && app->player->P1.IsAlive == true && app->BTSystem->Skeletonbattle == true) {
 		if (app->BTSystem->SpawnedEnemies == false) {
 			SpawnEnemies();
 		}
@@ -173,8 +173,8 @@ bool SkeletonEnem::Update(float dt)
 		Combat();
 		DrawHpBars();
 		if (app->BTSystem->PlayerTurn == false) {
-			EnemyPhase();
 			CheckEnemy();
+			EnemyPhase();
 		}
 	}
 	else if (app->BTSystem->battleAux == true) {
@@ -602,7 +602,7 @@ void SkeletonEnem::SpawnEnemies() {
 }
 
 void SkeletonEnem::DrawEnemies() {
-	if (app->BTSystem->Skeletonbattle == true) {
+	if (app->BTSystem->Skeletonbattle == true && app->BTSystem->InventoryEnable == false) {
 
 		for (int i = 1; i < Ston[0].numEnemies + 1; i++) {
 			if (Ston[i].dead == false) {
@@ -816,19 +816,19 @@ void SkeletonEnem::CheckEnemy() {
 }
 
 void SkeletonEnem::DrawHpBars() {
-	if (Ston[1].dead == false) {
+	if (Ston[1].dead == false && app->BTSystem->InventoryEnable == false) {
 		SDL_Rect bar1 = { app->player->P1.position.x + 380, app->player->P1.position.y - 200, -(200 * Ston[1].hp) / 100,15 };
 		app->render->DrawRectangle(bar1, 255, 0, 0);
 	}
-	if (Ston[2].dead == false) {
+	if (Ston[2].dead == false && app->BTSystem->InventoryEnable == false && Ston[0].numEnemies > 1) {
 		SDL_Rect bar2 = { app->player->P1.position.x + 380, app->player->P1.position.y - 200 + 120, -(200 * Ston[2].hp) / 100,15 };
 		app->render->DrawRectangle(bar2, 255, 0, 0);
 	}
-	if (Ston[3].dead == false) {
+	if (Ston[3].dead == false && app->BTSystem->InventoryEnable == false && Ston[0].numEnemies > 2) {
 		SDL_Rect bar3 = { app->player->P1.position.x + 380, app->player->P1.position.y - 200 + 240, -(200 * Ston[3].hp) / 100,15 };
 		app->render->DrawRectangle(bar3, 255, 0, 0);
 	}
-	if (Ston[4].dead == false) {
+	if (Ston[4].dead == false && app->BTSystem->InventoryEnable == false && Ston[0].numEnemies > 3) {
 		SDL_Rect bar4 = { app->player->P1.position.x + 380, app->player->P1.position.y - 200 + 360, -(200 * Ston[4].hp) / 100,15 };
 		app->render->DrawRectangle(bar4, 255, 0, 0);
 	}

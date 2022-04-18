@@ -22,7 +22,7 @@ GuiButton::GuiButton(uint32 id, SDL_Rect bounds, const char* text) : GuiControl(
 	BTLText = app->tex->Load("Assets/textures/UI/CombatUI.png");
 	clickFx = app->audio->LoadFx("Assets/audio/fx/Click.wav");
 
-
+	battleRussian = app->tex->Load("Assets/textures/Soldiers/soldier_italian.png");
 }
 
 GuiButton::~GuiButton()

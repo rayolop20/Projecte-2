@@ -193,10 +193,6 @@ bool Player::Start()
 	currentAnim4 = &idleAnim4;
 
 	//Pres E
-	player1Hp = app->tex->Load("Assets/textures/UI/hpbarplayertest.png");
-	player2Hp = app->tex->Load("Assets/textures/UI/hpbarplayertest2.png");
-	player3Hp = app->tex->Load("Assets/textures/UI/hpbarplayertest3.png");
-	player4Hp = app->tex->Load("Assets/textures/UI/hpbarplayertest4.png");
 	PE = app->tex->Load("Assets/UI/UiIcons.png");
 	player1S = app->tex->Load("Assets/textures/Soldiers/soldier.png");
 	player4S = app->tex->Load("Assets/textures/Soldiers/soldier_ita_.png");
@@ -228,15 +224,19 @@ bool Player::Update(float dt)
 	{
 		//player1 = { P1.position.x,P1.position.y, 64, 64 };
 		//app->render->DrawRectangle(player1, 200, 200, 200);
-	
-		player2 = { P2.position.x, P2.position.y, 42, 42 };
-		app->render->DrawRectangle(player2, 100, 230, 200);
-		
-		player3 = { P3.position.x, P3.position.y, 42, 42 };
-		app->render->DrawRectangle(player3, 100, 230, 200);
+		if (P2.IsAlive == true) {
+			player2 = { P2.position.x, P2.position.y, 42, 42 };
+			app->render->DrawRectangle(player2, 100, 230, 200);
+		}
+		if (P3.IsAlive == true) {
 
-		player4 = { P4.position.x, P4.position.y, 42, 42 };
-		app->render->DrawRectangle(player4, 100, 230, 200);
+			player3 = { P3.position.x, P3.position.y, 42, 42 };
+			app->render->DrawRectangle(player3, 100, 230, 200);
+		}
+		if (P4.IsAlive == true) {
+			player4 = { P4.position.x, P4.position.y, 42, 42 };
+			app->render->DrawRectangle(player4, 100, 230, 200);
+		}
 	}
 
 
@@ -379,12 +379,10 @@ bool Player::Update(float dt)
 
 
 	P1.Pcol->SetPos(P1.position.x, P1.position.y);
-
 	P2.Player2C->SetPos(P2.position.x - 21, P2.position.y - 21);
-
 	P3.Player3C->SetPos(P3.position.x - 21, P3.position.y - 21);
-
 	P4.Player4C->SetPos(P4.position.x - 21, P4.position.y - 21);
+	
 
 	return true;
 }
@@ -407,9 +405,11 @@ bool Player::PostUpdate()
 			int klk = 0;
 		}
 		app->render->DrawTexture(player1S, P1.position.x + 7, P1.position.y - 20, &player1);
-		app->render->DrawTexture(player4S, P4.position.x + 7, P4.position.y - 20, &player4);
+		if (P4.IsAlive == true && app->BTSystem->battle1 == true) {
+			app->render->DrawTexture(player4S, P4.position.x + 7, P4.position.y - 20, &player4);
+			currentAnim4->Update();
+		}
 		currentAnim1->Update();
-		currentAnim4->Update();
 	}
 
 	return true;
@@ -468,6 +468,9 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 				if (c1->type == Collider::Type::PLAYER && (c2->type == Collider::Type::WALLH || c2->type == Collider::Type::KEY_SENSOR))
 				{
 
+					if (c2->type == Collider::Type::KEY_SENSOR && door3active == true) {
+						door3active_ = true;
+					}
 					if (c1->rect.x < c2->rect.x && c1->rect.x + 64 > c2->rect.x && P1.moveXA == true && block1_ == false && block2_ == true)//Esquerra
 					{
 						P1.position.x = c2->rect.x - 64;
@@ -613,9 +616,10 @@ void Player::movementPlayer()
 					P2.position.y--;
 				}
 			}
-		
 		}
-
+	}
+	else {
+		app->render->DrawTexture(app->characterMenu->russianNpc, 1780, 2410);
 	}
 	//Player 3
 	if (P3.Move == true)
@@ -697,5 +701,8 @@ void Player::movementPlayer()
 					P4.position.y--;
 				}
 			}
+	}
+	else {
+		app->render->DrawTexture(app->characterMenu->italianNpc, 1613, 2410);
 	}
 }

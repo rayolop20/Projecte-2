@@ -14,6 +14,7 @@
 #include "Collisions.h"
 #include "BattleSystem.h"
 #include "Scene.h"
+#include "CharacterMenu.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -101,6 +102,8 @@ bool battleSystem::Start()
 	Tutorial = app->tex->Load("Assets/textures/UI/QTETutorial.png");
 	QTE4 = app->tex->Load("Assets/textures/UI/QTE4.png");
 	PopQTE2 = app->tex->Load("Assets/textures/UI/QTE1_1.png");
+	quitCross = app->tex->Load("Assets/textures/UI/QuitCross.png");
+
 	//L13: TODO 2: Declare an Item and create it using the EntityManager
 	VampirEnem* Vampir = (VampirEnem*)app->entityManager->CreateEntity(EntityType::VAMPYR, 0, { 0,0 });
 	ZombieEnem* Zombies = (ZombieEnem*)app->entityManager->CreateEntity(EntityType::ZOMBIE, 0, { 0,0 });
@@ -183,12 +186,27 @@ bool battleSystem::Update(float dt)
 		MiniPlayerButton4->state = GuiControlState::NORMAL;
 		MiniPlayerButton3->state = GuiControlState::NORMAL; 
 		app->render->DrawRectangle(battle_screen, 0, 250, 250);
+		if (app->player->P1.IsAlive == true) {
+			app->render->DrawTexture(app->characterMenu->british, app->player->P1.position.x - 420 + 120, app->player->P1.position.y - 320);
+		}
+		if (app->player->P3.IsAlive == true) {
+			app->render->DrawTexture(app->characterMenu->russian, app->player->P1.position.x - 450 + 120, app->player->P1.position.y - 320 + 260);
+		}
+		if (battle1 == true && app->player->P4.IsAlive == true) {
+			app->render->DrawTexture(app->characterMenu->italian, app->player->P1.position.x - 450, app->player->P1.position.y - 320 + 390);
+		}
+		if (app->player->P4.IsAlive == true && battle1 == false) {
+			app->render->DrawTexture(app->characterMenu->french, app->player->P1.position.x - 450, app->player->P1.position.y - 320 + 390);
+		}
+
 		DrawHpBars();
 		if (PlayerTurn == true) {
 			Attack->state = GuiControlState::NORMAL;
 			SpecialAttack->state = GuiControlState::NORMAL;
 			Inventory->state = GuiControlState::NORMAL;
-			Run->state = GuiControlState::NORMAL;
+			if (battle1 == false) {
+				Run->state = GuiControlState::NORMAL;
+			}
 			if (ChoosePlayerPhase == true) {
 				ChoosePlayer();
 			}
@@ -262,20 +280,34 @@ bool battleSystem::Update(float dt)
 		Attack->state = GuiControlState::NORMAL;
 		SpecialAttack->state = GuiControlState::NORMAL;
 		Inventory->state = GuiControlState::NORMAL;
-		Run->state = GuiControlState::NORMAL;
+		if (battle1 == false) {
+			Run->state = GuiControlState::NORMAL;
+		}
 	}
 	
 	//Draw Entities
 	//L13 
+	//L13 
 	app->entityManager->Draw();
 
 	if (InventoryEnable) {
+
 		if (invenCont == 0)
 		{
 			InventoryButtons();
 			invenCont = 1;
 		}
 		InventoryPhase();
+		SDL_Rect* bagSection = new SDL_Rect();
+		bagSection->x = 13;
+		bagSection->y = 26;
+		bagSection->w = 612;
+		bagSection->h = 479;
+		app->render->DrawTexture(app->characterMenu->inventoryTexBack, -app->render->camera.x, -app->render->camera.y);
+		app->render->DrawTexture(app->characterMenu->inventoryTex, -app->render->camera.x + (app->win->GetWidth() / 2 - 180), -app->render->camera.y + (app->win->GetHeight() / 2 - 230), bagSection);
+
+		app->render->DrawTexture(quitCross, app->player->P1.position.x + 550, app->player->P1.position.y - 290);
+
 	}
 	if (!InventoryEnable && invenCont == 1)
 	{
@@ -398,11 +430,6 @@ void battleSystem::InventoryButtons()
 }
 
 void battleSystem::InventoryPhase() {
-	SDL_Rect Inventory_ = { app->player->P1.position.x - 640 + 32 + 50,app->player->P1.position.y - 360 + 32 + 25,1280 - 100,720 - 50};
-	app->render->DrawRectangle(Inventory_, 0,250,0);
-
-	SDL_Rect ItemsRect = { -app->render->camera.x + (app->win->GetWidth() / 2 - 300), -app->render->camera.y + (app->win->GetHeight() / 2 - 200), 600, 400 };
-	app->render->DrawRectangle(ItemsRect, 250, 0, 0);
 
 	Item1->state = GuiControlState::NORMAL;
 	Item2->state = GuiControlState::NORMAL;
@@ -411,8 +438,15 @@ void battleSystem::InventoryPhase() {
 
 	if (choosingPlayer)
 	{
-		SDL_Rect characterRect = { -app->render->camera.x + (app->win->GetWidth() / 2 - 200), -app->render->camera.y + (app->win->GetHeight() / 2 - 100), 400, 200 };
-		app->render->DrawRectangle(characterRect, 0, 0, 250);
+		
+
+		SDL_Rect* bagSection = new SDL_Rect();
+		bagSection->x = 13;
+		bagSection->y = 26;
+		bagSection->w = 612;
+		bagSection->h = 479;
+
+		app->render->DrawTexture(app->characterMenu->inventoryTex, -app->render->camera.x + (app->win->GetWidth() / 2 - 180), -app->render->camera.y + (app->win->GetHeight() / 2 - 230), bagSection);
 
 		Ch1->state = GuiControlState::NORMAL;
 		Ch2->state = GuiControlState::NORMAL;
@@ -436,7 +470,6 @@ void battleSystem::InventoryPhase() {
 		Item3->state = GuiControlState::NORMAL;
 		Item4->state = GuiControlState::NORMAL;
 	}
-
 	MiniPlayerButton1->state = GuiControlState::DISABLED;
 	MiniPlayerButton2->state = GuiControlState::DISABLED;
 	MiniPlayerButton3->state = GuiControlState::DISABLED;
@@ -837,28 +870,28 @@ void battleSystem::ChoosePlayer()
 }
 
 void battleSystem::DrawHpBars() {
-	if (app->player->P1.IsAlive == true) {
+	if (app->player->P1.IsAlive == true && app->BTSystem->InventoryEnable == false) {
 		app->render->DrawTexture(app->player->player1Hp, app->player->P1.position.x - 190, app->player->P1.position.y - 225);
 		SDL_Rect bar1 = { app->player->P1.position.x - 180, app->player->P1.position.y - 220, (200 * app->player->P1.hp) / 100,15 };
 		app->render->DrawRectangle(bar1, 255, 0, 0);
 		SDL_Rect bar1_ = { app->player->P1.position.x - 180, app->player->P1.position.y - 190, (200 * app->player->P1.mana) / 100,15 };
 		app->render->DrawRectangle(bar1_, 0, 0, 255);
 	}
-	if (app->player->P2.IsAlive == true) {
+	if (app->player->P2.IsAlive == true && app->BTSystem->InventoryEnable == false) {
 		app->render->DrawTexture(app->player->player2Hp, app->player->P1.position.x - 310, app->player->P1.position.y - 225 + 130);
 		SDL_Rect bar2 = { app->player->P1.position.x - 300, app->player->P1.position.y - 220 + 130, (200 * app->player->P2.hp) / 100,15 };
 		app->render->DrawRectangle(bar2, 255, 0, 0);
 		SDL_Rect bar2_ = { app->player->P1.position.x - 300, app->player->P1.position.y - 190 + 130, (200 * app->player->P2.mana) / 100,15 };
 		app->render->DrawRectangle(bar2_, 0, 0, 255);
 	}
-	if (app->player->P3.IsAlive == true) {
+	if (app->player->P3.IsAlive == true && app->BTSystem->InventoryEnable == false) {
 		app->render->DrawTexture(app->player->player3Hp, app->player->P1.position.x - 190, app->player->P1.position.y - 225 + 260);
 		SDL_Rect bar3 = { app->player->P1.position.x - 180, app->player->P1.position.y - 220 + 260, (200 * app->player->P3.hp) / 100,15 };
 		app->render->DrawRectangle(bar3, 255, 0, 0);
 		SDL_Rect bar3_ = { app->player->P1.position.x - 180, app->player->P1.position.y - 190 + 260, (200 * app->player->P3.mana) / 100,15 };
 		app->render->DrawRectangle(bar3_, 0, 0, 255);
 	}
-	if (app->player->P4.IsAlive == true) {
+	if (app->player->P4.IsAlive == true && app->BTSystem->InventoryEnable == false) {
 		app->render->DrawTexture(app->player->player4Hp, app->player->P1.position.x - 310, app->player->P1.position.y - 225 + 390);
 		SDL_Rect bar4 = { app->player->P1.position.x - 300, app->player->P1.position.y - 220 + 390, (200 * app->player->P4.hp) / 100,15 };
 		app->render->DrawRectangle(bar4, 255, 0, 0);
@@ -966,7 +999,7 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 			AttackPlayer = 2;
 			SpecialAttackEnable = false;
 		}
-		if (control->id == 41 && ChoosePlayerPhase == true && SpecialAttackEnable == false && app->input->GetKey(SDL_SCANCODE_LCTRL)==KEY_REPEAT) {//GodMode
+		if (control->id == 40 && ChoosePlayerPhase == true && SpecialAttackEnable == false && app->input->GetKey(SDL_SCANCODE_LCTRL)==KEY_REPEAT) {//GodMode
 			AttackPlayer = 2;
 			SpecialAttackEnable = false;
 			app->player->P2.IsAlive = false;
@@ -977,7 +1010,7 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 			SpecialAttackEnable = false;
 			AttackPlayer = 3;
 		}
-		if (control->id == 42 && ChoosePlayerPhase == true && SpecialAttackEnable == false && app->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT) {//GodMode
+		if (control->id == 41 && ChoosePlayerPhase == true && SpecialAttackEnable == false && app->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT) {//GodMode
 			AttackPlayer = 3;
 			SpecialAttackEnable = false;
 			app->player->P3.IsAlive = false;

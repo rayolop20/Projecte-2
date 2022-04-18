@@ -8,6 +8,7 @@
 #include "Scene.h"
 #include "Menu.h"
 #include "CharacterMenu.h"
+#include "BattleSystem.h"
 #include "GuiManager.h"
 
 #include "Defs.h"
@@ -38,6 +39,15 @@ bool CharacterMenu_Screen::Start()
 	int a;
 
 	inventoryTex = app->tex->Load("Assets/textures/UI/InventoryB.png");
+	inventoryTexBack = app->tex->Load("Assets/textures/UI/InventoryBg.png");
+	russian = app->tex->Load("Assets/textures/Soldiers/soldier_rusian.png");
+	british = app->tex->Load("Assets/textures/Soldiers/soldier_1.png");
+	french = app->tex->Load("Assets/textures/Soldiers/soldier_french.png");
+	frenchNpc = app->tex->Load("Assets/textures/Soldiers/soldier_french_npc.png");
+	russianNpc = app->tex->Load("Assets/textures/Soldiers/soldier_rusian_npc.png");
+	italian = app->tex->Load("Assets/textures/Soldiers/soldier_italian.png");
+	italianNpc = app->tex->Load("Assets/textures/Soldiers/soldier_italian_npc.png");
+	 
 
 	return true;
 }
@@ -53,26 +63,29 @@ bool CharacterMenu_Screen::PreUpdate()
 bool CharacterMenu_Screen::Update(float dt)
 {
 	menu = { -app->render->camera.x + (app->win->GetWidth() / 2 - 500), -app->render->camera.y + (app->win->GetHeight() / 2 - 300), 1000, 600 };
-	app->render->DrawRectangle(menu, 0, 250, 0);
+	//app->render->DrawRectangle(menu, 0, 250, 0);
+	app->render->DrawTexture(app->characterMenu->inventoryTexBack, -app->render->camera.x, -app->render->camera.y);
+
 	if (Charac1)
 	{
 		Ch1 = { -app->render->camera.x + (app->win->GetWidth() / 2 - 460), -app->render->camera.y + (app->win->GetHeight() / 2 - 200), 180, 280 };
-		app->render->DrawRectangle(Ch1, 0, 0, 250);
+		app->render->DrawTexture(british, -app->render->camera.x + (app->win->GetWidth() / 2 - 460), -app->render->camera.y + (app->win->GetHeight() / 2 - 200));
+
 	}
-	else if (Charac2)
+	else if (Charac2 && app->player->P2.IsAlive == true)
 	{
-		Ch2 = { -app->render->camera.x + (app->win->GetWidth() / 2 - 460), -app->render->camera.y + (app->win->GetHeight() / 2 - 200), 180, 280 };
-		app->render->DrawRectangle(Ch2, 250, 0, 250);
+		app->render->DrawTexture(russian, -app->render->camera.x + (app->win->GetWidth() / 2 - 460), -app->render->camera.y + (app->win->GetHeight() / 2 - 200));
 	}
-	else if (Charac3)
-	{
-		Ch3 = { -app->render->camera.x + (app->win->GetWidth() / 2 - 460), -app->render->camera.y + (app->win->GetHeight() / 2 - 200), 180, 280 };
-		app->render->DrawRectangle(Ch3, 250, 250, 0);
+	else if (Charac3 && app->player->P3.IsAlive == true) {
+		//app->render->DrawTexture(american, -app->render->camera.x + (app->win->GetWidth() / 2 - 460), -app->render->camera.y + (app->win->GetHeight() / 2 - 200));
 	}
-	else if (Charac4)
+	else if (Charac4 && app->BTSystem->battle1 == true && app->player->P4.IsAlive == true)
 	{
-		Ch4 = { -app->render->camera.x + (app->win->GetWidth() / 2 - 460), -app->render->camera.y + (app->win->GetHeight() / 2 - 200), 180, 280 };
-		app->render->DrawRectangle(Ch4, 0, 250, 250);
+		app->render->DrawTexture(italian, -app->render->camera.x + (app->win->GetWidth() / 2 - 460), -app->render->camera.y + (app->win->GetHeight() / 2 - 200));
+	}
+	else if (Charac4 && app->BTSystem->battle1 == false && app->player->P4.IsAlive == true)
+	{
+		app->render->DrawTexture(french, -app->render->camera.x + (app->win->GetWidth() / 2 - 460), -app->render->camera.y + (app->win->GetHeight() / 2 - 200));
 	}
 
 	itemMenu = { -app->render->camera.x + (app->win->GetWidth() / 2 - 40), -app->render->camera.y + (app->win->GetHeight() / 2 - 170), 300, 280 };
@@ -102,7 +115,6 @@ bool CharacterMenu_Screen::Update(float dt)
 	int mouseX, mouseY;
 	app->input->GetMousePosition(mouseX, mouseY);
 
-	app->guiManager->Draw();
 
 	if (app->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN && blockExit || app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN && blockExit)
 	{
@@ -111,6 +123,7 @@ bool CharacterMenu_Screen::Update(float dt)
 
 	if (app->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN && app->scene->xCont == 1 && !blockExit || app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN && app->scene->xCont == 1 && !blockExit)
 	{
+
 		Character1->state = GuiControlState::DISABLED;
 		Character2->state = GuiControlState::DISABLED;
 		Character3->state = GuiControlState::DISABLED;
@@ -126,18 +139,36 @@ bool CharacterMenu_Screen::Update(float dt)
 
 	if (inventory)
 	{
+
 		app->scene->xCont = 1;
 
 		Ch1Section = { -app->render->camera.x + app->win->GetWidth() / 2 - 445, -app->render->camera.y + app->win->GetHeight() / 2 + 100, 60, 60 };
 		Ch2Section = { -app->render->camera.x + app->win->GetWidth() / 2 - 355, -app->render->camera.y + app->win->GetHeight() / 2 + 100, 60, 60 };
 		Ch3Section = { -app->render->camera.x + app->win->GetWidth() / 2 - 445, -app->render->camera.y + app->win->GetHeight() / 2 + 180, 60, 60 };
 		Ch4Section = { -app->render->camera.x + app->win->GetWidth() / 2 - 355, -app->render->camera.y + app->win->GetHeight() / 2 + 180, 60, 60 };
-
 		app->render->DrawRectangle(Ch1Section, 250, 0, 0);
 		app->render->DrawRectangle(Ch2Section, 250, 0, 0);
 		app->render->DrawRectangle(Ch3Section, 250, 0, 0);
 		app->render->DrawRectangle(Ch4Section, 250, 0, 0);
+		SDL_Rect* bagSection = new SDL_Rect();
+		bagSection->x = 13;
+		bagSection->y = 26;
+		bagSection->w = 612;
+		bagSection->h = 479;
+		
+		app->render->DrawTexture(inventoryTex, -app->render->camera.x + (app->win->GetWidth() / 2 - 180), -app->render->camera.y + (app->win->GetHeight() / 2 - 230), bagSection);
+
+		Item1Section = { -app->render->camera.x + app->win->GetWidth() / 2 - 99, -app->render->camera.y + app->win->GetHeight() / 2 - 160, 70, 70 };
+		Item2Section = { -app->render->camera.x + app->win->GetWidth() / 2 - 4, -app->render->camera.y + app->win->GetHeight() / 2 - 160, 70, 70 };
+		Item3Section = { -app->render->camera.x + app->win->GetWidth() / 2 + 91, -app->render->camera.y + app->win->GetHeight() / 2 - 160, 70, 70 };
+
+		app->render->DrawRectangle(Item1Section, 250, 0, 0);
+		app->render->DrawRectangle(Item2Section, 250, 0, 0);
+		app->render->DrawRectangle(Item3Section, 250, 0, 0);
 	}
+	app->guiManager->Draw();
+	
+
 
 	if (init) init = false;
 	
@@ -152,21 +183,7 @@ bool CharacterMenu_Screen::PostUpdate()
 
 	if (inventory)
 	{
-		SDL_Rect* bagSection = new SDL_Rect();
-		bagSection->x = 13;
-		bagSection->y = 26;
-		bagSection->w = 612;
-		bagSection->h = 479;
-
-		app->render->DrawTexture(inventoryTex, -app->render->camera.x + (app->win->GetWidth() / 2 - 180), -app->render->camera.y + (app->win->GetHeight() / 2 - 230), bagSection);
-
-		Item1Section = { -app->render->camera.x + app->win->GetWidth() / 2 - 99, -app->render->camera.y + app->win->GetHeight() / 2 - 160, 70, 70 };
-		Item2Section = { -app->render->camera.x + app->win->GetWidth() / 2 - 4, -app->render->camera.y + app->win->GetHeight() / 2 - 160, 70, 70 };
-		Item3Section = { -app->render->camera.x + app->win->GetWidth() / 2 + 91, -app->render->camera.y + app->win->GetHeight() / 2 - 160, 70, 70 };
-
-		app->render->DrawRectangle(Item1Section, 250, 0, 0);
-		app->render->DrawRectangle(Item2Section, 250, 0, 0);
-		app->render->DrawRectangle(Item3Section, 250, 0, 0);
+		
 	}
 
 	int mouseX, mouseY;
@@ -258,7 +275,6 @@ bool CharacterMenu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 bool CharacterMenu_Screen::CleanUp()
 {
 		LOG("Freeing scene");
-		app->tex->UnLoad(inventoryTex);
 		return true;
 }
 

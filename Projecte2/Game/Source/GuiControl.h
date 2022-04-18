@@ -86,6 +86,7 @@ public:
 public:
 	SDL_Texture* UIText = nullptr;
 	SDL_Texture* BTLText = nullptr;
+	SDL_Texture* battleRussian = nullptr;
 	SDL_Rect* uitext = new SDL_Rect();
 
 	int clickFx = 1;
