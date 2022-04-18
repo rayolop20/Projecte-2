@@ -155,6 +155,7 @@ public:
 	SDL_Texture* AttackTexture;
 	SDL_Texture* AttackTextureP2;
 	SDL_Texture* AttackTextureP3;
+	SDL_Texture* AttackTextureP4;
 	SDL_Texture* Tutorial;
 	SDL_Texture* PopQTE2 = nullptr;
 	SDL_Texture* quitCross = nullptr;
@@ -175,11 +176,13 @@ private:
 	Animation Atack_1;
 	Animation idle2;
 	Animation idle3;
+	Animation idle4;
 	Animation dead;
 
 	Animation* currentAnimation = nullptr;
 	Animation* currentAnimation2 = nullptr;
 	Animation* currentAnimation3 = nullptr;
+	Animation* currentAnimation4 = nullptr;
 	Animation idleAnim;
 	Animation upAnim;
 	Animation downAnim;

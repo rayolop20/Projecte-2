@@ -36,6 +36,10 @@ battleSystem::battleSystem() : Module()
 	idle3.loop = false;
 	idle3.speed = 0.001f;
 
+	idle4.PushBack({ 14, 8, 141, 182 });
+	idle4.loop = false;
+	idle4.speed = 0.001f;
+
 	Atack_1.PushBack({ 62, 25, 85, 149 });
 	Atack_1.PushBack({ 192, 59, 86, 115 });
 	Atack_1.PushBack({ 328, 64, 128, 110 });
@@ -99,6 +103,7 @@ bool battleSystem::Start()
 	AttackTexture = app->tex->Load("Assets/textures/Soldiers/soldier_animation.png");
 	AttackTextureP2 = app->tex->Load("Assets/textures/Soldiers/soldier_french.png");
 	AttackTextureP3 = app->tex->Load("Assets/textures/Soldiers/soldier_italian.png");
+	AttackTextureP4 = app->tex->Load("Assets/textures/Soldiers/soldier_rusian.png");
 	Tutorial = app->tex->Load("Assets/textures/UI/QTETutorial.png");
 	QTE4 = app->tex->Load("Assets/textures/UI/QTE4.png");
 	PopQTE2 = app->tex->Load("Assets/textures/UI/QTE1_1.png");
@@ -118,6 +123,7 @@ bool battleSystem::Start()
 	currentAnimation = &idle1;
 	currentAnimation2 = &idle2;
 	currentAnimation3 = &idle3;
+	currentAnimation4 = &idle4;
 
 	return true;
 }
@@ -370,6 +376,12 @@ bool battleSystem::PostUpdate()
 	if (battle == true && app->player->P3.IsAlive == true) {
 		Player3 = currentAnimation3->GetCurrentFrame();
 		app->render->DrawTexture(AttackTextureP3, app->player->P1.position.x - 420 + 120, app->player->P1.position.y - 220 + 260, &Player3);
+		currentAnimation->Update();
+	}
+	
+	if (battle == true && app->player->P1.IsAlive == true) {
+		Player4 = currentAnimation4->GetCurrentFrame();
+		app->render->DrawTexture(AttackTextureP4, app->player->P1.position.x - 420 + 120, app->player->P1.position.y - 220 + 260, &Player4);
 		currentAnimation->Update();
 	}
 	return ret;
