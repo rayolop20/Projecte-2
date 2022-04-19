@@ -75,6 +75,7 @@ public:
 	void PathFindVamp(int i);
 
 	SDL_Texture* selectVampire = nullptr;
+	SDL_Texture* vampireEnem = nullptr;
 	SDL_Rect* Choose = new SDL_Rect();
 
 public:

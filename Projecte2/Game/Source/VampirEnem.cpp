@@ -94,7 +94,7 @@ bool VampirEnem::Start()
 
 	TextureVampire = app->tex->Load("Assets/Textures/Enem/vampire.png");
 	selectVampire = app->tex->Load("Assets/Textures/UI/choseplayers.png");
-
+	vampireEnem = app->tex->Load("Assets/Textures/Enem/characters_vampire.png");
 
 	for (int i = 0; i < NUM_VAMPIRE; i++)
 	{
@@ -568,8 +568,8 @@ void VampirEnem::DrawEnemies() {
 					Choose->h = 110;
 					app->render->DrawTexture(selectVampire, app->player->P1.position.x + 395, app->player->P1.position.y - 335 + 120 * i, Choose);
 				}
-				SDL_Rect Enem1 = { app->player->P1.position.x + 400, app->player->P1.position.y - 330 + 120 * i, 100, 100 };
-				app->render->DrawRectangle(Enem1, 255, 255, 255);
+				app->render->DrawTexture(vampireEnem, app->player->P1.position.x + 360, app->player->P1.position.y - 330 + 110 * i);
+
 			}
 
 		}

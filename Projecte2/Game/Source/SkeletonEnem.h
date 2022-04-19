@@ -73,6 +73,7 @@ public:
 	void PathFindVamp(int i);
 
 	SDL_Texture* selectSkeleton = nullptr;
+	SDL_Texture* skeletonEnem = nullptr;
 	SDL_Rect* Choose = new SDL_Rect();
 
 public:

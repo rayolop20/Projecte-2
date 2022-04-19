@@ -95,7 +95,7 @@ bool SkeletonEnem::Start()
 
 	TextureSkeleton = app->tex->Load("Assets/Textures/Enem/skeleton.png");
 	selectSkeleton = app->tex->Load("Assets/Textures/UI/choseplayers.png");
-
+	skeletonEnem = app->tex->Load("Assets/Textures/Enem/characters_skeleton.png");
 
 	for (int i = 0; i < NUM_SKELETON; i++)
 	{
@@ -595,8 +595,8 @@ void SkeletonEnem::DrawEnemies() {
 					Choose->h = 110;
 					app->render->DrawTexture(selectSkeleton, app->player->P1.position.x + 395, app->player->P1.position.y - 335 + 120 * i, Choose);
 				}
-				SDL_Rect Enem1 = { app->player->P1.position.x + 400, app->player->P1.position.y - 330 + 120 * i, 100, 100 };
-				app->render->DrawRectangle(Enem1, 255, 255, 255);
+				app->render->DrawTexture(skeletonEnem, app->player->P1.position.x + 360, app->player->P1.position.y - 330 + 110 * i);
+
 			}
 
 		}
