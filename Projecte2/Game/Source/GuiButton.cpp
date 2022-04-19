@@ -351,7 +351,7 @@ bool GuiButton::Draw(Render* render)
 		}
 		if (id == 8 && app->menu->config == true && app->menu->menuScreen == false)
 		{
-			uitext->x = 721;
+			uitext->x = 720;
 			uitext->y = 1254;
 			uitext->w = 406;
 			uitext->h = 64;
@@ -359,7 +359,7 @@ bool GuiButton::Draw(Render* render)
 		}
 		if (id == 8 && app->menu->config == true && app->menu->menuScreen == true)
 		{
-			uitext->x = 721;
+			uitext->x = 720;
 			uitext->y = 1254;
 			uitext->w = 406;
 			uitext->h = 64;
