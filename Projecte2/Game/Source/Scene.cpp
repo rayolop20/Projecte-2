@@ -193,12 +193,12 @@ bool Scene::Update(float dt)
 				SDL_SetWindowFullscreen(app->win->window, SDL_WINDOW_MAXIMIZED);
 			}
 			if (app->menu->fps30 == true) {
-				app->render->DrawTexture(app->menu->options, -app->render->camera.x + (app->win->GetWidth() / 2) + 190, -app->render->camera.y + 495, Options30);
+				app->render->DrawTexture(app->menu->options, -app->render->camera.x + (app->win->GetWidth() / 2) + 190, -app->render->camera.y + 495, Options60);
 				//app->dt = 32.0f;
 				app->Maxfps = false;
 			}
 			if (app->menu->fps30 == false) {
-				app->render->DrawTexture(app->menu->options, -app->render->camera.x + (app->win->GetWidth() / 2) + 190, -app->render->camera.y + 495, Options60);
+				app->render->DrawTexture(app->menu->options, -app->render->camera.x + (app->win->GetWidth() / 2) + 190, -app->render->camera.y + 495, Options30);
 				//Desactivar 60fps
 				//app->dt = 16.0f;
 				app->Maxfps = true;
