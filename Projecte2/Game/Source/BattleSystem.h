@@ -161,6 +161,8 @@ public:
 	SDL_Texture* PopQTE2 = nullptr;
 	SDL_Texture* quitCross = nullptr;
 	SDL_Texture* QTE4;
+	SDL_Texture* loose;
+
 
 	SDL_Texture* selectPlayer = nullptr;
 	SDL_Rect* Choose = new SDL_Rect();

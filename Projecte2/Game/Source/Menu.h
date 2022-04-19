@@ -29,6 +29,8 @@ public:
 	// Called each loop iteration
 	bool Update(float dt);
 
+	void CreditPhase();
+
 	// Called before all Updates
 	bool PostUpdate();
 
@@ -50,6 +52,7 @@ public:
 	bool playing = false;
 	bool On = false;
 	bool fps30 = true;
+	bool credits = false;
 
 	GuiButton* btnMenuConfig = nullptr;
 	GuiButton* btnMenuPlay = nullptr;
@@ -64,6 +67,11 @@ public:
 	GuiSlider* Volume = nullptr;
 
 	SDL_Texture* options = nullptr;
+	SDL_Texture* creditsTexture = nullptr;
+
+	float timerCredits = 0;
+	float timerCreditsaux = 0;
+	int timerCreditCount = 0;
 private:
 
 	int EnterLogo = 1;

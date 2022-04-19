@@ -15,6 +15,7 @@
 #include "BattleSystem.h"
 #include "Scene.h"
 #include "CharacterMenu.h"
+#include "Menu.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -110,6 +111,7 @@ bool battleSystem::Start()
 	PopQTE2 = app->tex->Load("Assets/Textures/UI/qte1_1.png");
 	quitCross = app->tex->Load("Assets/Textures/UI/quit_cross.png");
 	battle_screen = app->tex->Load("Assets/Textures/UI/battle_bg.png");
+	loose = app->tex->Load("Assets/Textures/Assets/pantalla_derrota.png");
 
 	//L13: TODO 2: Declare an Item and create it using the EntityManager
 	VampirEnem* Vampir = (VampirEnem*)app->entityManager->CreateEntity(EntityType::VAMPYR, 0, { 0,0 });
@@ -360,7 +362,14 @@ bool battleSystem::Update(float dt)
 	CheckAllies();
 	MaxHp();
 	MaxMana();
-
+	if (app->player->P1.IsAlive == false) {
+		app->player->P1.position.x = -2000;
+		app->player->P1.position.y = -2000;
+		app->render->DrawTexture(loose, app->player->P1.position.x - 640 + 32, app->player->P1.position.y - 360 + 32);
+		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) {
+			return false;
+		}
+	}
 	return true;
 }
 

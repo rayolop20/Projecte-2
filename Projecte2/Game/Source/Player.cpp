@@ -244,7 +244,7 @@ bool Player::Start()
 
 bool Player::Update(float dt)
 {	
-	if (app->BTSystem->battle == false && app->menu->config == false) {
+	if (app->BTSystem->battle == false && app->menu->config == false && P1.IsAlive == true) {
 		app->render->DrawTexture(darkness, P1.position.x - 608, P1.position.y - 360 + 32);
 	}
 	//imputs
@@ -317,7 +317,7 @@ bool Player::Update(float dt)
 			}
 			//left
 			{
-				if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && P1.moveXD == false && app->BTSystem->battle == false)
+				if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && P1.moveXD == false && app->BTSystem->battle == false && P1.IsAlive == true)
 				{
 					P1.position.x += 3;
 					P1.moveXA = true;
@@ -334,7 +334,7 @@ bool Player::Update(float dt)
 					}
 				}
 
-				if (app->input->GetKey(SDL_SCANCODE_D) == KEY_UP)
+				if (app->input->GetKey(SDL_SCANCODE_D) == KEY_UP && P1.IsAlive == true)
 				{
 					P1.moveXA = false;
 					currentAnim1 = &idleAnim1;
@@ -348,7 +348,7 @@ bool Player::Update(float dt)
 			}
 			//right
 			{
-				if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && P1.moveXA == false && app->BTSystem->battle == false)
+				if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && P1.moveXA == false && app->BTSystem->battle == false && P1.IsAlive == true)
 				{
 					P1.position.x -= 3;
 					P1.moveXD = true;
@@ -365,7 +365,7 @@ bool Player::Update(float dt)
 					}
 				}
 
-				if (app->input->GetKey(SDL_SCANCODE_A) == KEY_UP)
+				if (app->input->GetKey(SDL_SCANCODE_A) == KEY_UP && P1.IsAlive == true)
 				{
 					P1.moveXD = false;
 					currentAnim1 = &idleAnim1;
@@ -379,7 +379,7 @@ bool Player::Update(float dt)
 			}
 			//up
 			{
-				if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT && P1.moveYW == false && app->BTSystem->battle == false)
+				if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT && P1.moveYW == false && app->BTSystem->battle == false && P1.IsAlive == true)
 				{
 					P1.position.y -= 3;
 					P1.moveYS = true;
@@ -392,7 +392,7 @@ bool Player::Update(float dt)
 					}
 				}
 
-				if (app->input->GetKey(SDL_SCANCODE_W) == KEY_UP)
+				if (app->input->GetKey(SDL_SCANCODE_W) == KEY_UP && P1.IsAlive == true)
 				{
 					P1.moveYS = false;
 					currentAnim1 = &idleAnim1;
@@ -406,7 +406,7 @@ bool Player::Update(float dt)
 			}
 			//down
 			{
-				if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT && P1.moveYS == false && app->BTSystem->battle == false)
+				if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT && P1.moveYS == false && app->BTSystem->battle == false && P1.IsAlive == true)
 				{
 					P1.position.y += 3;
 					P1.moveYW = true;
@@ -420,7 +420,7 @@ bool Player::Update(float dt)
 					
 				}
 
-				if (app->input->GetKey(SDL_SCANCODE_S) == KEY_UP)
+				if (app->input->GetKey(SDL_SCANCODE_S) == KEY_UP && P1.IsAlive == true)
 				{
 					P1.moveYW = false;
 					currentAnim1 = &idleAnim1;
@@ -471,9 +471,11 @@ bool Player::PostUpdate()
 			app->render->DrawTexture(player2S, P2.position.x + 7, P2.position.y - 20, &player2);
 			currentAnim2->Update();
 		}
-		app->render->DrawTexture(player1S, P1.position.x + 7, P1.position.y - 20, &player1);
+		if (P1.IsAlive == true) {
+			app->render->DrawTexture(player1S, P1.position.x + 7, P1.position.y - 20, &player1);
+			currentAnim1->Update();
+		}
 
-		currentAnim1->Update();
 	}
 
 	return true;

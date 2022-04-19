@@ -40,6 +40,7 @@ bool Menu_Screen::Start()
 {
 	
 	fonsMenu = app->tex->Load("Assets/Textures/Assets/game_title.png");
+	creditsTexture = app->tex->Load("Assets/Textures/UI/credits.png");
 	Logo = app->tex->Load("Assets/Textures/Assets/logo_projecte.png");
 	EnterLogo = app->audio->LoadFx("Assets/Audio/Fx/enter_logo.wav");
 	options = app->tex->Load("Assets/Textures/UI/pause_menu.png");
@@ -50,7 +51,7 @@ bool Menu_Screen::Start()
 	btnConfigBack = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 8, "Back to menu", { 450, 625, 418, 62 }, this);
 	btnFullscreen = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 81, "Fullscreen", { 0, 0, 263, 78 }, this);
 	btnFPS = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 82, "FPS", { 0, 0, 263, 78 }, this);
-	
+
 	Volume = (GuiSlider*)app->guiManager->CreateGuiControl(GuiControlType::SLIDER, 83, "Volumen", { 585, 170, 460, 30 }, this);
 	Volume->maxValue = app->audio->maxMusicValue;
 	Volume->minValue = 0;
@@ -92,7 +93,7 @@ bool Menu_Screen::PreUpdate()
 // Called each loop iteration
 bool Menu_Screen::Update(float dt)
 {
-
+	timerCredits = SDL_GetTicks() / 10;
 	int mouseX, mouseY;
 	app->input->GetMousePosition(mouseX, mouseY);
 
@@ -115,12 +116,12 @@ bool Menu_Screen::Update(float dt)
 	}
 	else
 	{
-		app->render->DrawTexture(Logo, 0, 0);
-		if (FXActive == true)
-		{
-			app->audio->PlayFx(EnterLogo);
-			FXActive = false;
-		}
+	app->render->DrawTexture(Logo, 0, 0);
+	if (FXActive == true)
+	{
+		app->audio->PlayFx(EnterLogo);
+		FXActive = false;
+	}
 	}
 	if (!app->scene->paused && starting)
 	{
@@ -133,9 +134,9 @@ bool Menu_Screen::Update(float dt)
 		btnMenuExit->state = GuiControlState::NORMAL;
 		btnCredits->state = GuiControlState::NORMAL;
 	}
-	
+
 	if (app->menu->config == true) {
-		
+
 		SDL_Rect* OptionsTxt = new SDL_Rect();
 		OptionsTxt->x = 0;
 		OptionsTxt->y = 0;
@@ -162,7 +163,7 @@ bool Menu_Screen::Update(float dt)
 		Options30->w = 263;
 		Options30->h = 78;
 
-		
+
 		app->render->DrawTexture(app->menu->options, 215, 85, OptionsTxt);
 		app->menu->btnConfigBack->bounds.x = -app->render->camera.x + (app->win->GetWidth() / 2) - 150;
 		app->menu->btnConfigBack->bounds.y = -app->render->camera.y + 650;
@@ -178,7 +179,7 @@ bool Menu_Screen::Update(float dt)
 		}
 		if (app->menu->fps30 == true) {
 			app->render->DrawTexture(app->menu->options, -app->render->camera.x + (app->win->GetWidth() / 2) + 190, -app->render->camera.y + 495, Options60);
-			
+
 			//app->dt = 32.0f;
 			app->Maxfps = false;
 		}
@@ -200,9 +201,23 @@ bool Menu_Screen::Update(float dt)
 	}
 	//logo i fons de pantalla
 
+	if (credits == true) {
+		CreditPhase();
+	}
 
-	
 	return true;
+}
+
+void Menu_Screen::CreditPhase() {
+	if (timerCreditCount == 0) {
+		timerCreditsaux = timerCredits;
+		timerCreditCount = 1;
+	}
+	app->render->DrawTexture(creditsTexture, 0, -(timerCredits - timerCreditsaux));
+	if ((timerCredits - timerCreditsaux) > 4000 || app->input->GetKey(SDL_SCANCODE_RETURN)==KEY_DOWN || app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+		credits = false;
+		timerCreditCount = 0;
+	}
 }
 
 // Called each loop iteration
@@ -252,7 +267,7 @@ bool Menu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 			case GuiControlType::BUTTON:
 			{
 				//Checks the GUI element ID
-				if (control->id == 1)
+				if (control->id == 1 && credits == false)
 				{
 					playing = true;
 					menuScreen = true;
@@ -270,7 +285,7 @@ bool Menu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 					//CleanUp();
 				}
 
-				if (control->id == 2 && playing == false)
+				if (control->id == 2 && playing == false && credits == false)
 				{
 					LOG("Config ON");
 					config = true;
@@ -280,7 +295,7 @@ bool Menu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 					btnMenuExit->state = GuiControlState::DISABLED;
 					btnCredits->state = GuiControlState::DISABLED;
 				}
-				if (control->id == 2 && playing == true)
+				if (control->id == 2 && playing == true && credits == false)
 				{
 					LOG("Config ON");
 					config = true;
@@ -291,17 +306,17 @@ bool Menu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 					app->gameMenu->btnExit->state = GuiControlState::DISABLED;
 				}
 				
-				if (control->id == 3)
+				if (control->id == 3 && credits == false)
 				{
 					exit = true;
 				}
 				
-				if (control->id == 4)
+				if (control->id == 4 && credits == false)
 				{
-
+					credits = true;
 				}
 
-				if (control->id == 7)
+				if (control->id == 7 && credits == false)
 				{
 					LOG("Press Ex1");
 				}

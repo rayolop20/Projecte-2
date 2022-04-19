@@ -210,6 +210,7 @@ bool Scene::Update(float dt)
 			app->menu->btnFPS->state = GuiControlState::NORMAL;
 
 		}
+		
 		return true;
 	}
 }
