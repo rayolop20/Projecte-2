@@ -572,14 +572,14 @@ void SkeletonEnem::SpawnEnemies() {
 			randomEnemyhp = (rand() % 10) + 1;
 			randomEnemySpeed = (rand() % 6) + 1;
 			randomEnemyDamage = (rand() % 6) + 1;
-			if (klk == true) {
+			if (randomstats == true) {
 				Ston[i].hp += randomEnemyhp;
 				Ston[i].speed += randomEnemySpeed;
 				Ston[i].damage += randomEnemyDamage;
 			}
 		}
 	}
-	klk = false;
+	randomstats = false;
 	app->BTSystem->SpawnedEnemies = true;
 }
 
@@ -790,7 +790,7 @@ void SkeletonEnem::CheckEnemy() {
 				app->BTSystem->battle1 = false;
 				app->player->P4.revolverActive = true;
 				Ston[0].Destroyed = true;
-				klk = true;
+				randomstats = true;
 			}
 		}
 		app->BTSystem->CombatDeaths = 0;

@@ -8,21 +8,20 @@
 	<pathfinding />
 	<:anonymous />
 	<scene />
-	<:anonymous />
+	<battleSystem />
 	<map />
-	<entitymanager />
 	<players>
-		<Player1 x="90" y="496" Hp="0" mana ="0"/>
-		<Player2 x="1780" y="2410" Hp="0" mana ="0"/>
-		<Player3 x="1777" y="2252" Hp="0" mana ="0"/>
-		<Player4 x="1613" y="2410" Hp="0" mana ="0"/>
+		<Player1 x="1303" y="2308" Hp="75" mana="0" />
+		<Player2 x="1312" y="2305" Hp="40" mana="0" />
+		<Player3 x="1344" y="2305" Hp="45" mana="0" />
+		<Player4 x="1376" y="2305" Hp="15" mana="0" />
 	</players>
+	<entitymanager />
 	<Menu />
 	<:anonymous />
 	<CharacterMenu />
 	<GameMenu />
-	<:anonymous />
 	<renderer>
-		<camera x="518" y="-168" />
+		<camera x="-695" y="-1980" />
 	</renderer>
 </save_state>

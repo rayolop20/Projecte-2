@@ -100,7 +100,7 @@ public:
 	bool pathfindingaux = true;
 
 	int ZombieNum = NULL;
-	bool klk = true;
+	bool randomstats = true;
 
 
 

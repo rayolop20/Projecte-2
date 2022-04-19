@@ -228,8 +228,13 @@ void App::FinishUpdate()
 		averageFps = (averageFps + framesPerSecond) / 2;
 	}
 
-	
+	float averageFps = float(frameCount) / startupTime.ReadSec();
+	uint32 lastFrameMs = frameTime.Read();
 
+	static char title[256];
+	sprintf_s(title, 256, "Av.FPS: %.2f Last Frame Ms: %02u Last dt: %.3f Time since startup: %.3f Frame Count: %I64u ",
+		averageFps, lastFrameMs, dt, secondsSinceStartup, frameCount);
+	app->win->SetTitle(title);
 	// L08: TODO 2: Use SDL_Delay to make sure you get your capped framerate
 
 	// L08: TODO 3: Measure accurately the amount of time SDL_Delay() actually waits compared to what was expected

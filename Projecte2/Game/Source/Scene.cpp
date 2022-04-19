@@ -70,7 +70,8 @@ bool Scene::PreUpdate()
 // Called each loop iteration
 bool Scene::Update(float dt)
 {
-	
+
+
 	if (musicActive == true)
 	{
 		app->audio->PlayMusic("Assets/Audio/Music/music_8_bit_adventure.ogg");
@@ -79,10 +80,10 @@ bool Scene::Update(float dt)
 	
 	{
 		// L02: DONE 3: Request Load / Save when pressing L/S
-		if (app->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN && app->BTSystem->battle == false)
+		if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN && app->BTSystem->battle == false)
 			app->LoadGameRequest();
 
-		if (app->input->GetKey(SDL_SCANCODE_O) == KEY_DOWN && app->BTSystem->battle == false)
+		if (app->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN && app->BTSystem->battle == false)
 			app->SaveGameRequest();
 
 		if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN) {

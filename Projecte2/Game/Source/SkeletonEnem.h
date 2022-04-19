@@ -103,7 +103,7 @@ public:
 	bool pathfindingaux = true;
 	//int WhichSkeleton = 0; 
 	int SkeletonNum = NULL; 
-	bool klk = true;
+	bool randomstats = true;
 
 };
 

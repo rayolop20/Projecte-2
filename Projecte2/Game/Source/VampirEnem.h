@@ -103,7 +103,7 @@ public:
 	bool pathfindingaux = true;
 	int WhichVampire = 0;
 	int VampireNum = NULL;
-	bool klk = true;
+	bool randomstats = true;
 
 };
 

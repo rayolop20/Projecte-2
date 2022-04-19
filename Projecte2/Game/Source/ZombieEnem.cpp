@@ -571,13 +571,13 @@ void ZombieEnem::SpawnEnemies() {
 			randomEnemyhp = (rand() % 10) + 1;
 			randomEnemySpeed = (rand() % 6) + 1;
 			randomEnemyDamage = (rand() % 6) + 1;
-			if (klk == true) {
+			if (randomstats == true) {
 				Zbie[i].hp += randomEnemyhp;
 				Zbie[i].speed += randomEnemySpeed;
 				Zbie[i].damage += randomEnemyDamage;
 			}
 		}	}
-	klk = false;
+	randomstats = false;
 	app->BTSystem->SpawnedEnemies = true;
 }
 
@@ -788,7 +788,7 @@ void ZombieEnem::CheckEnemy() {
 				app->player->P4.hp = 10;
 				app->player->P4.revolverActive = true;
 				Zbie[0].Destroyed = true;
-				klk = true;
+				randomstats = true;
 			}
 		}
 		app->BTSystem->CombatDeaths = 0;

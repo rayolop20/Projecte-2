@@ -114,7 +114,7 @@ public:
 	GameMenu_Screen* gameMenu = nullptr;
 	DialogueSystem* dialogues = nullptr;
 
-	float dt;
+	float dt = 16.0f;
 	bool Maxfps = false;
 private:
 

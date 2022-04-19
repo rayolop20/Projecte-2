@@ -459,10 +459,6 @@ bool Player::PostUpdate()
 		player1 = currentAnim1->GetCurrentFrame();
 		player2 = currentAnim2->GetCurrentFrame();
 		player4 = currentAnim4->GetCurrentFrame();
-
-		if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN) {
-			int klk = 0;
-		}
 		if (P4.IsAlive == true && app->BTSystem->battle1 == true) {
 			app->render->DrawTexture(player4S, P4.position.x + 7, P4.position.y - 20, &player4);
 			currentAnim4->Update();

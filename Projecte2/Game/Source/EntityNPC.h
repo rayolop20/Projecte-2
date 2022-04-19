@@ -73,7 +73,6 @@ public:
 	Animation dead;
 
 	int NPCNum = NULL;
-	bool klk = true;
 	bool Dialogue1 = false;
 	bool Dialogue2 = false;
 	bool Dialogue3 = false;
@@ -87,8 +86,8 @@ public:
 	SDL_Texture* door = nullptr;
 	SDL_Texture* door2 = nullptr;
 	SDL_Texture* door3 = nullptr;
-	Collider* KLK;
-	Collider* KLK2;
+	Collider* porta_1;
+	Collider* porta_2;
 
 	float timerNPC = 0.0;
 	float timerNPC2 = 0.0;

@@ -92,8 +92,8 @@ bool EntityNPC::Start()
 		npc[1] = CreateNPC(957, 232, TextureNPC);
 		npc[2] = CreateNPC(1357, 1937, TextureNPC2);
 	
-	KLK = app->collisions->AddCollider({ 1312, 1664, 96, 64 }, Collider::Type::KEY_SENSOR, (Module*)app->entityManager);
-	KLK2 = app->collisions->AddCollider({ 1504, 2304,64, 96 }, Collider::Type::KEY_SENSOR, (Module*)app->entityManager);
+	porta_1 = app->collisions->AddCollider({ 1312, 1664, 96, 64 }, Collider::Type::KEY_SENSOR, (Module*)app->entityManager);
+	porta_2 = app->collisions->AddCollider({ 1504, 2304,64, 96 }, Collider::Type::KEY_SENSOR, (Module*)app->entityManager);
 
 	return false;
 }
@@ -104,7 +104,7 @@ bool EntityNPC::Update(float dt)
 		app->render->DrawTexture(app->characterMenu->frenchNpc, 1060 - 32, 1358 - 32);
 	}
 	if (Dialogue2Count != 0 && app->menu->config == false && app->BTSystem->battle == false && app->player->door3active == true && app->player->door3active_ == true) {
-		KLK->pendingToDelete = true;
+		porta_1->pendingToDelete = true;
 		app->render->DrawTexture(door2, 1312, 1664);
 	}
 	else if (app->menu->config == false && app->BTSystem->battle == false){
@@ -112,7 +112,7 @@ bool EntityNPC::Update(float dt)
 	}
 
 	if (app->player->P2.IsAlive == true && app->player->P3.IsAlive == true && app->player->P4.IsAlive == true) {
-		KLK2->pendingToDelete = true;
+		porta_2->pendingToDelete = true;
 	}
 	else if(app->menu->config == false && app->BTSystem->battle == false && app->BTSystem->battle1 == true){
 		app->render->DrawTexture(door3, 1536, 2304);
@@ -480,15 +480,7 @@ void EntityNPC::OnCollision(Collider* c1, Collider* c2)
 
 	for (uint i = 0; i < NUM_NPC; ++i)
 	{
-		if (npc[i].colliderNPC == c1 && !npc[i].Destroyed)
-		{
-			if (c2->type == Collider::Type::PLAYER)
-			{
-				//Vpir[0].Destroyed = true;
-				LOG("Polla");
-			}
-		}
-		else if (npc[i].colliderSNPC == c1 && !npc[i].Destroyed)
+		if (npc[i].colliderSNPC == c1 && !npc[i].Destroyed)
 		{
 			if (c2->type == Collider::Type::PLAYER && app->input->GetKey(SDL_SCANCODE_E)==KEY_DOWN && Dialogue1 == false && Dialogue2 == false && Dialogue3 == false)
 			{
@@ -514,8 +506,6 @@ void EntityNPC::OnCollision(Collider* c1, Collider* c2)
 						Dialogue3Count = 1;
 					}
 				}
-
-				LOG("Polla");
 			}
 		}
 	}
