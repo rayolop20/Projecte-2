@@ -25,10 +25,10 @@
 
   <!-- L13: Create a structure in XML to store multiple entities -->
    <players>
-	<Player1 PositionX = "1631" PositionY = "2263" Hp = "75" mana = "0"/>
-	<Player2 PositionX = "1780" PositionY = "2410"  Hp = "40" mana = "0"/>
-	<Player3 PositionX = "1777" PositionY = "2252" Hp = "45" mana = "0"/>
-	<Player4 PositionX = "1613" PositionY = "2410" Hp = "15" mana = "0"/>
+	<Player1 PositionX = "1631" PositionY = "2263" Hp = "75" mana = "0" IsAlive = "true"/>
+	<Player2 PositionX = "1780" PositionY = "2410"  Hp = "40" mana = "0" IsAlive = "false"/>
+	<Player3 PositionX = "1777" PositionY = "2252" Hp = "45" mana = "0" IsAlive = "false"/>
+	<Player4 PositionX = "1613" PositionY = "2410" Hp = "15" mana = "0" IsAlive = "false"/>
   </players>
  <Vampire>
 	<Position PositionX = "800" PositionY = "800"/>

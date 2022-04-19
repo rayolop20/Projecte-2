@@ -16,7 +16,7 @@ struct playr1
 	bool moveXD = false, moveXA = false, moveYW = false, moveYS = false;
 	bool key = false;
 	bool medkit = false;
-	bool IsAlive = true;
+	bool IsAlive;
 	float hp;
 	float speed1 = 15.0;
 	float speed2 = 5.0;

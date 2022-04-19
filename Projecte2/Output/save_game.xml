@@ -8,10 +8,10 @@
 	<scene />
 	<renderer>
 		<camera x="0" y="0" />
-		<Player1 x="0" y="0" Hp="0" mana ="0"/>
-		<Player2 x="0" y="0" Hp="0" mana ="0"/>
-		<Player3 x="0" y="0" Hp="0" mana ="0"/>
-		<Player4 x="0" y="0" Hp="0" mana ="0"/>
+		<Player1 x="0" y="0" Hp="0" mana ="0" IsAlive = "true"/>
+		<Player2 x="0" y="0" Hp="0" mana ="0" IsAlive = "false"/>
+		<Player3 x="0" y="0" Hp="0" mana ="0" IsAlive = "false"/>
+		<Player4 x="0" y="0" Hp="0" mana ="0" IsAlive = "false"/>
 		<Vampire x="0" y="0"/>
 	</renderer>
 </game_state>
