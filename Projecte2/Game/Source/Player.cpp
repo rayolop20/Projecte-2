@@ -164,7 +164,6 @@ bool Player::LoadState(pugi::xml_node& data)
 	P4.IsAlive = data.child("Player4").attribute("IsAlive").as_bool();
 
 
-
 	return false;
 }
 
@@ -186,7 +185,6 @@ bool Player::SaveState(pugi::xml_node& data) const
 	Pyr2.append_attribute("Hp") = app->player->P2.hp;
 	Pyr2.append_attribute("mana") = app->player->P2.mana;
 	Pyr2.append_attribute("IsAlive") = app->player->P2.IsAlive;
-
 	//p3
 	Pyr3.append_attribute("x") = app->player->P3.position.x;
 	Pyr3.append_attribute("y") = app->player->P3.position.y;
@@ -665,7 +663,7 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 void Player::movementPlayer()
 {
 	//Player 2
-	if (P2.Move == true && P2.IsAlive == true)
+	if (P2.Move == true)
 	{
 		if (P2.IsAlive == true)
 		{
@@ -696,11 +694,11 @@ void Player::movementPlayer()
 			}
 		}
 	}
-	else if(app->menu->config == false && P2.IsAlive == false){
+	else if(app->menu->config == false){
 		app->render->DrawTexture(app->characterMenu->americanNpc, 1780, 2410);
 	}
 	//Player 3
-	if (P3.Move == true && P3.IsAlive == true)
+	if (P3.Move == true)
 	{
 		if (P2.IsAlive == true)
 		{
@@ -735,11 +733,11 @@ void Player::movementPlayer()
 			}
 	}
 
-	else if (app->menu->config == false && P3.IsAlive == false) {
+	else if (app->menu->config == false) {
 		app->render->DrawTexture(app->characterMenu->russianNpc, 1777, 2252);
 	}
 	//Player 4
-	if (P4.Move == true && P4.IsAlive == true)
+	if (P4.Move == true)
 	{
 		if (P2.IsAlive == true && P3.IsAlive == false)
 		{
@@ -784,7 +782,7 @@ void Player::movementPlayer()
 				}
 			}
 	}
-	else if (app->menu->config == false && P4.IsAlive == false) {
+	else if (app->menu->config == false) {
 		app->render->DrawTexture(app->characterMenu->italianNpc, 1613, 2410);
 	}
 }
