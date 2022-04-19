@@ -157,11 +157,6 @@ bool ZombieEnem::Update(float dt)
 			Zbie[i].colliderZ->pendingToDelete = true;
 		}
 	}
-	for (int i = 0; i < 1; i++)
-	{
-		Zbie[i].colliderZ->SetPos(Zbie[i].Pos.x, Zbie[i].Pos.y);
-		Zbie[i].colliderS->SetPos(Zbie[i].Pos.x - 84, Zbie[i].Pos.y - 84);
-	}
 	timer3 = SDL_GetTicks() / 10;
 
 	/*if (app->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN)
@@ -190,7 +185,7 @@ bool ZombieEnem::Update(float dt)
 	for (int i = 0; i < 1; i++)
 	{
 		Zbie[i].colliderZ->SetPos(Zbie[i].Pos.x, Zbie[i].Pos.y);
-		Zbie[i].colliderS->SetPos(Zbie[i].Pos.x - 84, Zbie[i].Pos.y - 84);
+		Zbie[i].colliderS->SetPos(Zbie[i].Pos.x - 168, Zbie[i].Pos.y - 168);
 	}
 	return true;
 }
@@ -890,7 +885,7 @@ Zombie ZombieEnem::CreateZombie(int x, int y, SDL_Texture* t)
 	Zombie Zombies;
 
 	Zombies.colliderZ = app->collisions->AddCollider({ x, y, 32, 32 }, Collider::Type::ZOMBIE, (Module*)app->entityManager);
-	Zombies.colliderS = app->collisions->AddCollider({ x, y, 200, 200 }, Collider::Type::SENSOR, (Module*)app->entityManager);
+	Zombies.colliderS = app->collisions->AddCollider({ x, y, 400, 400 }, Collider::Type::SENSOR, (Module*)app->entityManager);
 	Zombies.zombieT = t;
 	Zombies.Pos.x = x;
 	Zombies.Pos.y = y;
