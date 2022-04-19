@@ -87,11 +87,6 @@ Player::Player() : Module()
 	upAnim4.loop = true;
 	upAnim4.speed = 0.1f;
 	
-	idleAnim4.PushBack({ 39, 7, 49, 115 });
-	idleAnim4.loop = true;
-	idleAnim4.speed = 0.001f;
-	
-	
 	idleAnim2.PushBack({ 39, 7, 49, 115 });
 	idleAnim2.loop = true;
 	idleAnim2.speed = 0.001f;
@@ -124,10 +119,6 @@ Player::Player() : Module()
 	upAnim2.loop = true;
 	upAnim2.speed = 0.1f;
 	
-	idleAnim2.PushBack({ 39, 7, 49, 115 });
-	idleAnim2.loop = true;
-	idleAnim2.speed = 0.001f;
-	
 	idleAnim3.PushBack({ 39, 7, 49, 115 });
 	idleAnim3.loop = true;
 	idleAnim3.speed = 0.001f;
@@ -159,11 +150,6 @@ Player::Player() : Module()
 	upAnim3.PushBack({ 1959, 7, 49, 117 });
 	upAnim3.loop = true;
 	upAnim3.speed = 0.1f;
-	
-	idleAnim3.PushBack({ 39, 7, 49, 115 });
-	idleAnim3.loop = true;
-	idleAnim3.speed = 0.001f;
-
 }
 
 Player::~Player()
