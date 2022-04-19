@@ -65,8 +65,14 @@ entering an infinite time loop.
  
 
 ## Features:
-In this game is a turn base rpg where you will have to be careful with every decision you make because that can cause your death and the death of your allies.
-You will have various weapons, objects and skills that you can use to defend yourself against the monsters that live there.
-At the same time you will also have different loot scattered around the map with which you can improve your allies and then be able to beat the game.
+In this game is a turn base rpg where you will have to be careful
+with every decision you make because that can cause your death and
+the death of your allies.
+
+You will have various weapons, objects and skills that you can use 
+to defend yourself against the monsters that live there.
+
+At the same time you will also have different loot scattered 
+around the map with which you can improve your allies and then be able to beat the game.
 
 
