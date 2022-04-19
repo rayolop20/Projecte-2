@@ -454,7 +454,6 @@ bool Player::PostUpdate()
 {
 	//draw player
 	
-
 	if (app->BTSystem->battle == false && app->menu->config == false && app->characterMenu->inventory == false) {
 		player1 = currentAnim1->GetCurrentFrame();
 		player2 = currentAnim2->GetCurrentFrame();
@@ -680,7 +679,7 @@ void Player::movementPlayer()
 			}
 		}
 	}
-	else {
+	else if(app->menu->config == false){
 		app->render->DrawTexture(app->characterMenu->americanNpc, 1780, 2410);
 	}
 	//Player 3
@@ -719,7 +718,7 @@ void Player::movementPlayer()
 			}
 	}
 
-	else {
+	else if (app->menu->config == false) {
 		app->render->DrawTexture(app->characterMenu->russianNpc, 1777, 2252);
 	}
 	//Player 4
@@ -768,7 +767,7 @@ void Player::movementPlayer()
 				}
 			}
 	}
-	else {
+	else if (app->menu->config == false) {
 		app->render->DrawTexture(app->characterMenu->italianNpc, 1613, 2410);
 	}
 }
