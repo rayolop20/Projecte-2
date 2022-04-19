@@ -161,7 +161,7 @@ bool SkeletonEnem::Update(float dt)
 	for (int i = 0; i < 1; i++)
 	{
 		Ston[i].colliderSK->SetPos(Ston[i].Pos.x, Ston[i].Pos.y);
-		Ston[i].colliderS->SetPos(Ston[i].Pos.x - 84, Ston[i].Pos.y - 84);
+		Ston[i].colliderS->SetPos(Ston[i].Pos.x - 168, Ston[i].Pos.y - 168);
 	}
 	timer3 = SDL_GetTicks() / 10;
 
@@ -893,7 +893,7 @@ Skeleton SkeletonEnem::CreateSkeleton(int x, int y, SDL_Texture* t)
 	Skeleton Skeletons;
 
 	Skeletons.colliderSK = app->collisions->AddCollider({ x, y, 32, 32 }, Collider::Type::SKELETON, (Module*)app->entityManager);
-	Skeletons.colliderS = app->collisions->AddCollider({ x, y, 200, 200 }, Collider::Type::SENSOR, (Module*)app->entityManager);
+	Skeletons.colliderS = app->collisions->AddCollider({ x, y, 400, 400 }, Collider::Type::SENSOR, (Module*)app->entityManager);
 	Skeletons.skeletonT = t;
 	Skeletons.Pos.x = x;
 	Skeletons.Pos.y = y;
