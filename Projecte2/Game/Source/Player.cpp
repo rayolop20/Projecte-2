@@ -778,7 +778,7 @@ void Player::movementPlayer()
 				}
 				if (P4.position.y >= pos.y)
 				{
-					P4.position.y--;
+					P4.position.y--;//
 				}
 			}
 	}
