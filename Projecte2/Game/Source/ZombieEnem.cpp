@@ -102,7 +102,7 @@ bool ZombieEnem::Start()
 		currentAnimation[i] = &idleAnim;
 	}
 
-	Zbie[0] = CreateZombie(/*Vpir->Pos.x, Vpir->Pos.x,*/967, 2341, TextureZombie);
+	Zbie[0] = CreateZombie(/*Vpir->Pos.x, Vpir->Pos.x,*/960, 2336, TextureZombie);
 
 	return false;
 }
