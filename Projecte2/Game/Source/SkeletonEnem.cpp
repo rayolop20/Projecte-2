@@ -163,23 +163,6 @@ bool SkeletonEnem::Update(float dt)
 		Ston[i].colliderSK->SetPos(Ston[i].Pos.x, Ston[i].Pos.y);
 		Ston[i].colliderS->SetPos(Ston[i].Pos.x - 84, Ston[i].Pos.y - 84);
 	}
-	if (app->BTSystem->battle == true && app->player->P1.IsAlive == true && app->BTSystem->Skeletonbattle == true) {
-		if (app->BTSystem->SpawnedEnemies == false) {
-			SpawnEnemies();
-		}
-		DrawEnemies();
-		ChooseEnemy();
-		Combat();
-		DrawHpBars();
-		if (app->BTSystem->PlayerTurn == false) {
-			CheckEnemy();
-			EnemyPhase();
-		}
-	}
-	else if (app->BTSystem->battleAux == true) {
-		app->BTSystem->battleAux = false;
-		Ston[0].Destroyed = true;
-	}
 	timer3 = SDL_GetTicks() / 10;
 
 	/*if (app->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN)

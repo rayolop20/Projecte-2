@@ -161,22 +161,6 @@ bool ZombieEnem::Update(float dt)
 	{
 		Zbie[i].colliderZ->SetPos(Zbie[i].Pos.x, Zbie[i].Pos.y);
 		Zbie[i].colliderS->SetPos(Zbie[i].Pos.x - 84, Zbie[i].Pos.y - 84);
-	}if (app->BTSystem->battle == true && app->player->P1.IsAlive == true && app->BTSystem->Zombiebattle == true) {
-		if (app->BTSystem->SpawnedEnemies == false) {
-			SpawnEnemies();
-		}
-		DrawEnemies();
-		ChooseEnemy();
-		Combat();
-		DrawHpBars();
-		if (app->BTSystem->PlayerTurn == false) {
-			EnemyPhase();
-			CheckEnemy();
-		}
-	}
-	else if (app->BTSystem->battleAux == true) {
-		app->BTSystem->battleAux = false;
-		Zbie[0].Destroyed = true;
 	}
 	timer3 = SDL_GetTicks() / 10;
 

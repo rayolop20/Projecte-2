@@ -1008,7 +1008,7 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 		}
 		if (control->id == 38) {
 			QTE2->state = GuiControlState::DISABLED;
-			AttackAux += 8;
+			AttackAux += 16;
 		}
 		if (control->id == 39 && ChoosePlayerPhase == true && SpecialAttackEnable == false && waitPlayer[0] == 0) {
 			AttackPlayer = 1;
