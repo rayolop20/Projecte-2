@@ -184,6 +184,7 @@ public:
 	SDL_Texture* player1S = nullptr;
 	SDL_Texture* player4S = nullptr;
 	SDL_Texture* player2S = nullptr;
+	SDL_Texture* player3S = nullptr;
 
 	Animation* currentAnim1 = nullptr;
 	Animation idleAnim1;
@@ -191,18 +192,27 @@ public:
 	Animation upAnim1;
 	Animation rightAnim1;
 	Animation leftAnim1;
+
 	Animation* currentAnim4 = nullptr;
 	Animation idleAnim4;
 	Animation downAnim4;
 	Animation upAnim4;
 	Animation rightAnim4;
 	Animation leftAnim4;
+
 	Animation* currentAnim2 = nullptr;
 	Animation idleAnim2;
 	Animation downAnim2;
 	Animation upAnim2;
 	Animation rightAnim2;
 	Animation leftAnim2;
+
+	Animation* currentAnim3 = nullptr;
+	Animation idleAnim3;
+	Animation downAnim3;
+	Animation upAnim3;
+	Animation rightAnim3;
+	Animation leftAnim3;
 	int OrdenPlayers = 0;
 
 	iPoint resetPlayerPos;
