@@ -119,35 +119,35 @@ Player::Player() : Module()
 	upAnim2.loop = true;
 	upAnim2.speed = 0.1f;
 	
-	idleAnim3.PushBack({ 39, 7, 49, 115 });
+	idleAnim3.PushBack({ 40, 4, 42, 116 });
 	idleAnim3.loop = true;
 	idleAnim3.speed = 0.001f;
 
-	downAnim3.PushBack({ 39, 7, 49, 115 });
-	downAnim3.PushBack({ 167, 7, 49, 117 });
-	downAnim3.PushBack({ 295, 7, 49, 115 });
-	downAnim3.PushBack({ 423, 7, 49, 117 });
+	downAnim3.PushBack({ 40, 4, 42, 116 });
+	downAnim3.PushBack({ 168, 4, 42, 118 });
+	downAnim3.PushBack({ 296, 4, 42, 116 });
+	downAnim3.PushBack({ 424, 4, 42, 118 });
 	downAnim3.loop = true;
 	downAnim3.speed = 0.1f;
 
-	leftAnim3.PushBack({ 535, 7, 64, 114 });
-	leftAnim3.PushBack({ 663, 7, 64, 114 });
-	leftAnim3.PushBack({ 791, 7, 64, 114 });
-	leftAnim3.PushBack({ 919, 7, 64, 114 });
+	leftAnim3.PushBack({ 563, 4, 29, 117 });
+	leftAnim3.PushBack({ 691, 4, 29, 116 });
+	leftAnim3.PushBack({ 819, 4, 29, 117 });
+	leftAnim3.PushBack({ 944, 4, 32, 116 });
 	leftAnim3.loop = true;
 	leftAnim3.speed = 0.1f;
 	
-	rightAnim3.PushBack({ 1045, 7, 64, 114 });
-	rightAnim3.PushBack({ 1173, 7, 64, 114 });
-	rightAnim3.PushBack({ 1301, 7, 64, 114 });
-	rightAnim3.PushBack({ 1429, 7, 64, 114 });
+	rightAnim3.PushBack({ 1069, 4, 29, 117 });
+	rightAnim3.PushBack({ 1197, 4, 29, 116 });
+	rightAnim3.PushBack({ 1325, 4, 29, 117 });
+	rightAnim3.PushBack({ 1453, 4, 32, 116 });
 	rightAnim3.loop = true;
 	rightAnim3.speed = 0.1f;
 
-	upAnim3.PushBack({ 1575, 7, 49, 115 });
-	upAnim3.PushBack({ 1703, 7, 49, 117 });
-	upAnim3.PushBack({ 1831, 7, 49, 115 });
-	upAnim3.PushBack({ 1959, 7, 49, 117 });
+	upAnim3.PushBack({ 1576, 4, 42, 116 });
+	upAnim3.PushBack({ 1704, 4, 42, 117 });
+	upAnim3.PushBack({ 1831, 4, 42, 118 });
+	upAnim3.PushBack({ 1960, 4, 42, 118 });
 	upAnim3.loop = true;
 	upAnim3.speed = 0.1f;
 }
@@ -270,7 +270,7 @@ bool Player::Start()
 	player1S = app->tex->Load("Assets/Textures/Soldiers/soldier.png");
 	player4S = app->tex->Load("Assets/Textures/Soldiers/soldier_ita.png");
 	player2S = app->tex->Load("Assets/Textures/Soldiers/us.png");
-	player3S = app->tex->Load("Assets/Textures/Soldiers/");
+	player3S = app->tex->Load("Assets/Textures/Soldiers/rus.png");
 	darkness = app->tex->Load("Assets/Textures/Fog/darkness.png");
 
 	P1.Pcol = app->collisions->AddCollider({ P1.position.x,P1.position.y, 64, 90 }, Collider::Type::PLAYER, this);
@@ -542,7 +542,7 @@ bool Player::PostUpdate()
 		}
 		
 		if (P3.IsAlive == true) {
-			app->render->DrawTexture(player3S, P1.position.x + 7, P1.position.y - 20, &player1);
+			app->render->DrawTexture(player3S, P3.position.x + 7, P3.position.y - 20, &player3);
 			currentAnim3->Update();
 		}
 

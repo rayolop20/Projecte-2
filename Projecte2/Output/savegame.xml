@@ -11,10 +11,10 @@
 	<battleSystem />
 	<map />
 	<players>
-		<Player1 x="1328" y="2376" Hp="75" mana="0" IsAlive="true" />
-		<Player2 x="1343" y="2369" Hp="40" mana="0" IsAlive="true" />
-		<Player3 x="1344" y="2369" Hp="45" mana="0" IsAlive="true" />
-		<Player4 x="1376" y="2369" Hp="15" mana="0" IsAlive="true" />
+		<Player1 x="1643" y="2237" Hp="75" mana="0" IsAlive="true" />
+		<Player2 x="1780" y="2410" Hp="40" mana="0" IsAlive="false" />
+		<Player3 x="1664" y="2246" Hp="45" mana="0" IsAlive="true" />
+		<Player4 x="1613" y="2410" Hp="15" mana="0" IsAlive="false" />
 	</players>
 	<entitymanager />
 	<Menu />
@@ -22,6 +22,6 @@
 	<CharacterMenu />
 	<GameMenu />
 	<renderer>
-		<camera x="-720" y="-2048" />
+		<camera x="-1035" y="-1912" />
 	</renderer>
 </save_state>
