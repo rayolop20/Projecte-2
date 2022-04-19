@@ -87,11 +87,6 @@ Player::Player() : Module()
 	upAnim4.loop = true;
 	upAnim4.speed = 0.1f;
 	
-	idleAnim4.PushBack({ 39, 7, 49, 115 });
-	idleAnim4.loop = true;
-	idleAnim4.speed = 0.001f;
-	
-	
 	idleAnim2.PushBack({ 39, 7, 49, 115 });
 	idleAnim2.loop = true;
 	idleAnim2.speed = 0.001f;
@@ -124,10 +119,37 @@ Player::Player() : Module()
 	upAnim2.loop = true;
 	upAnim2.speed = 0.1f;
 	
-	idleAnim2.PushBack({ 39, 7, 49, 115 });
-	idleAnim2.loop = true;
-	idleAnim2.speed = 0.001f;
+	idleAnim3.PushBack({ 39, 7, 49, 115 });
+	idleAnim3.loop = true;
+	idleAnim3.speed = 0.001f;
 
+	downAnim3.PushBack({ 39, 7, 49, 115 });
+	downAnim3.PushBack({ 167, 7, 49, 117 });
+	downAnim3.PushBack({ 295, 7, 49, 115 });
+	downAnim3.PushBack({ 423, 7, 49, 117 });
+	downAnim3.loop = true;
+	downAnim3.speed = 0.1f;
+
+	leftAnim3.PushBack({ 535, 7, 64, 114 });
+	leftAnim3.PushBack({ 663, 7, 64, 114 });
+	leftAnim3.PushBack({ 791, 7, 64, 114 });
+	leftAnim3.PushBack({ 919, 7, 64, 114 });
+	leftAnim3.loop = true;
+	leftAnim3.speed = 0.1f;
+	
+	rightAnim3.PushBack({ 1045, 7, 64, 114 });
+	rightAnim3.PushBack({ 1173, 7, 64, 114 });
+	rightAnim3.PushBack({ 1301, 7, 64, 114 });
+	rightAnim3.PushBack({ 1429, 7, 64, 114 });
+	rightAnim3.loop = true;
+	rightAnim3.speed = 0.1f;
+
+	upAnim3.PushBack({ 1575, 7, 49, 115 });
+	upAnim3.PushBack({ 1703, 7, 49, 117 });
+	upAnim3.PushBack({ 1831, 7, 49, 115 });
+	upAnim3.PushBack({ 1959, 7, 49, 117 });
+	upAnim3.loop = true;
+	upAnim3.speed = 0.1f;
 }
 
 Player::~Player()
@@ -164,6 +186,7 @@ bool Player::LoadState(pugi::xml_node& data)
 	P4.IsAlive = data.child("Player4").attribute("IsAlive").as_bool();
 
 
+
 	return false;
 }
 
@@ -185,6 +208,7 @@ bool Player::SaveState(pugi::xml_node& data) const
 	Pyr2.append_attribute("Hp") = app->player->P2.hp;
 	Pyr2.append_attribute("mana") = app->player->P2.mana;
 	Pyr2.append_attribute("IsAlive") = app->player->P2.IsAlive;
+
 	//p3
 	Pyr3.append_attribute("x") = app->player->P3.position.x;
 	Pyr3.append_attribute("y") = app->player->P3.position.y;
@@ -240,11 +264,13 @@ bool Player::Start()
 	currentAnim1 = &idleAnim1;
 	currentAnim2 = &idleAnim2;
 	currentAnim4 = &idleAnim4;
+	currentAnim3 = &idleAnim3;
 
 	//Pres E
 	player1S = app->tex->Load("Assets/Textures/Soldiers/soldier.png");
 	player4S = app->tex->Load("Assets/Textures/Soldiers/soldier_ita.png");
 	player2S = app->tex->Load("Assets/Textures/Soldiers/us.png");
+	player3S = app->tex->Load("Assets/Textures/Soldiers/");
 	darkness = app->tex->Load("Assets/Textures/Fog/darkness.png");
 
 	P1.Pcol = app->collisions->AddCollider({ P1.position.x,P1.position.y, 64, 90 }, Collider::Type::PLAYER, this);
@@ -347,6 +373,10 @@ bool Player::Update(float dt)
 					if (P2.IsAlive == true) {
 						currentAnim2 = &rightAnim2;
 					}
+					
+					if (P3.IsAlive == true) {
+						currentAnim3 = &rightAnim3;
+					}
 				}
 
 				if (app->input->GetKey(SDL_SCANCODE_D) == KEY_UP && P1.IsAlive == true)
@@ -358,6 +388,10 @@ bool Player::Update(float dt)
 					}
 					if (P2.IsAlive == true) {
 						currentAnim2 = &idleAnim2;
+					}
+					
+					if (P3.IsAlive == true) {
+						currentAnim3 = &idleAnim3;
 					}
 				}
 			}
@@ -378,6 +412,10 @@ bool Player::Update(float dt)
 					if (P2.IsAlive == true) {
 						currentAnim2 = &leftAnim2;
 					}
+					
+					if (P3.IsAlive == true) {
+						currentAnim3 = &leftAnim3;
+					}
 				}
 
 				if (app->input->GetKey(SDL_SCANCODE_A) == KEY_UP && P1.IsAlive == true)
@@ -388,7 +426,7 @@ bool Player::Update(float dt)
 						currentAnim4 = &idleAnim4;
 					}
 					if (P2.IsAlive == true) {
-						currentAnim2 = &idleAnim2;
+						currentAnim3 = &idleAnim3;
 					}
 				}
 			}
@@ -405,6 +443,10 @@ bool Player::Update(float dt)
 					if (P2.IsAlive == true) {
 						currentAnim2 = &upAnim2;
 					}
+					
+					if (P3.IsAlive == true) {
+						currentAnim3 = &upAnim3;
+					}
 				}
 
 				if (app->input->GetKey(SDL_SCANCODE_W) == KEY_UP && P1.IsAlive == true)
@@ -416,6 +458,10 @@ bool Player::Update(float dt)
 					}
 					if (P2.IsAlive == true) {
 						currentAnim2 = &idleAnim2;
+					}
+					
+					if (P3.IsAlive == true) {
+						currentAnim3 = &idleAnim3;
 					}
 				}
 			}
@@ -433,6 +479,10 @@ bool Player::Update(float dt)
 						currentAnim2 = &downAnim2;
 					}
 					
+					if (P3.IsAlive == true) {
+						currentAnim3 = &downAnim3;
+					}
+					
 				}
 
 				if (app->input->GetKey(SDL_SCANCODE_S) == KEY_UP && P1.IsAlive == true)
@@ -444,6 +494,10 @@ bool Player::Update(float dt)
 					}
 					if (P2.IsAlive == true) {
 						currentAnim2 = &idleAnim2;
+					}
+					
+					if (P3.IsAlive == true) {
+						currentAnim3 = &idleAnim3;
 					}
 				}
 			}
@@ -473,6 +527,7 @@ bool Player::PostUpdate()
 		player1 = currentAnim1->GetCurrentFrame();
 		player2 = currentAnim2->GetCurrentFrame();
 		player4 = currentAnim4->GetCurrentFrame();
+		player3 = currentAnim3->GetCurrentFrame();
 		if (P4.IsAlive == true && app->BTSystem->battle1 == true) {
 			app->render->DrawTexture(player4S, P4.position.x + 7, P4.position.y - 20, &player4);
 			currentAnim4->Update();
@@ -484,6 +539,11 @@ bool Player::PostUpdate()
 		if (P1.IsAlive == true) {
 			app->render->DrawTexture(player1S, P1.position.x + 7, P1.position.y - 20, &player1);
 			currentAnim1->Update();
+		}
+		
+		if (P3.IsAlive == true) {
+			app->render->DrawTexture(player3S, P1.position.x + 7, P1.position.y - 20, &player1);
+			currentAnim3->Update();
 		}
 
 	}
@@ -663,7 +723,7 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 void Player::movementPlayer()
 {
 	//Player 2
-	if (P2.Move == true)
+	if (P2.Move == true && P2.IsAlive == true)
 	{
 		if (P2.IsAlive == true)
 		{
@@ -694,11 +754,11 @@ void Player::movementPlayer()
 			}
 		}
 	}
-	else if(app->menu->config == false){
+	else if(app->menu->config == false && P2.IsAlive == false){
 		app->render->DrawTexture(app->characterMenu->americanNpc, 1780, 2410);
 	}
 	//Player 3
-	if (P3.Move == true)
+	if (P3.Move == true && P3.IsAlive == true)
 	{
 		if (P2.IsAlive == true)
 		{
@@ -733,11 +793,11 @@ void Player::movementPlayer()
 			}
 	}
 
-	else if (app->menu->config == false) {
+	else if (app->menu->config == false && P3.IsAlive == false) {
 		app->render->DrawTexture(app->characterMenu->russianNpc, 1777, 2252);
 	}
 	//Player 4
-	if (P4.Move == true)
+	if (P4.Move == true && P4.IsAlive == true)
 	{
 		if (P2.IsAlive == true && P3.IsAlive == false)
 		{
@@ -782,7 +842,7 @@ void Player::movementPlayer()
 				}
 			}
 	}
-	else if (app->menu->config == false) {
+	else if (app->menu->config == false && P4.IsAlive == false) {
 		app->render->DrawTexture(app->characterMenu->italianNpc, 1613, 2410);
 	}
 }
