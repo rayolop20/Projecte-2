@@ -44,7 +44,7 @@ entering an infinite time loop.
 
  -I key: Inventory
 
- -E key: Accept 
+ -E key: Interact 
 
  -Space key: Pass Text
 
