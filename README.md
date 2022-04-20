@@ -61,7 +61,7 @@ entering an infinite time loop.
  -F10 Key: God Mode
 ## Controls(on fight)
 
- -Right Click: Choose player, Enemy and Battle menu
+ -Left Click: Choose player, Enemy and Battle menu
  
 
 ## Features:
