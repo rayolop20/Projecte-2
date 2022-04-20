@@ -42,7 +42,7 @@ entering an infinite time loop.
  
  -S key: Move Down 
 
- -I key: Inventary
+ -I key: Inventory
 
  -E key: Accept 
 
