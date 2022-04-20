@@ -50,7 +50,7 @@ entering an infinite time loop.
 
  -ESC key: Open Option Menu
 
- -Right Click: All Menus
+ -Left Click: All Menus
 
  -F1 Key: Load Game
 
