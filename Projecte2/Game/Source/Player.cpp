@@ -269,6 +269,7 @@ bool Player::Start()
 	//Pres E
 	player1S = app->tex->Load("Assets/Textures/Soldiers/soldier.png");
 	player4S = app->tex->Load("Assets/Textures/Soldiers/soldier_ita.png");
+	player5S = app->tex->Load("Assets/Textures/Soldiers/french.png");
 	player2S = app->tex->Load("Assets/Textures/Soldiers/us.png");
 	player3S = app->tex->Load("Assets/Textures/Soldiers/rus.png");
 	darkness = app->tex->Load("Assets/Textures/Fog/darkness.png");
@@ -425,8 +426,11 @@ bool Player::Update(float dt)
 					if (P4.IsAlive == true) {
 						currentAnim4 = &idleAnim4;
 					}
-					if (P2.IsAlive == true) {
+					if (P3.IsAlive == true) {
 						currentAnim3 = &idleAnim3;
+					}
+					if (P2.IsAlive == true) {
+						currentAnim2 = &idleAnim3;
 					}
 				}
 			}
@@ -530,6 +534,10 @@ bool Player::PostUpdate()
 		player3 = currentAnim3->GetCurrentFrame();
 		if (P4.IsAlive == true && app->BTSystem->battle1 == true) {
 			app->render->DrawTexture(player4S, P4.position.x + 7, P4.position.y - 20, &player4);
+			currentAnim4->Update();
+		}
+		if(P4.IsAlive == true && app->BTSystem->battle1 == false){
+			app->render->DrawTexture(player5S, P4.position.x + 7, P4.position.y - 20, &player4);
 			currentAnim4->Update();
 		}
 		if (P2.IsAlive == true) {
@@ -842,7 +850,7 @@ void Player::movementPlayer()
 				}
 			}
 	}
-	else if (app->menu->config == false && P4.IsAlive == false) {
+	else if (app->menu->config == false && P4.IsAlive == false && app->BTSystem->battle1 == true && P4.hp >0) {
 		app->render->DrawTexture(app->characterMenu->italianNpc, 1613, 2410);
 	}
 }

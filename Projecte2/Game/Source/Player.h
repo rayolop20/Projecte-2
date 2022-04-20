@@ -183,6 +183,7 @@ public:
 
 	SDL_Texture* player1S = nullptr;
 	SDL_Texture* player4S = nullptr;
+	SDL_Texture* player5S = nullptr;
 	SDL_Texture* player2S = nullptr;
 	SDL_Texture* player3S = nullptr;
 

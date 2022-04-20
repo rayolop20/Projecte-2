@@ -191,7 +191,7 @@ bool SkeletonEnem::Update(float dt)
 	for (int i = 0; i < 1; i++)
 	{
 		Ston[i].colliderSK->SetPos(Ston[i].Pos.x, Ston[i].Pos.y);
-		Ston[i].colliderS->SetPos(Ston[i].Pos.x - 84, Ston[i].Pos.y - 84);
+		Ston[i].colliderS->SetPos(Ston[i].Pos.x - 168, Ston[i].Pos.y - 168);
 	}
 	return true;
 }
