@@ -116,7 +116,6 @@ bool SkeletonEnem::Update(float dt)
 	//app->win->SetTitle(title);
 
 	if (app->BTSystem->battle == true && app->player->P1.IsAlive == true && app->BTSystem->Skeletonbattle == true) {
-		LOG("");
 		if (app->BTSystem->SpawnedEnemies == false) {
 			SpawnEnemies();
 		}
@@ -826,6 +825,8 @@ void SkeletonEnem::OnCollision(Collider* c1, Collider* c2)
 		
 			if (c2->type == Collider::Type::PLAYER)
 			{
+				app->BTSystem->Vampirebattle = false;
+
 				app->BTSystem->Skeletonbattle = true;
 				//Vpir[0].Destroyed = true;
 			}

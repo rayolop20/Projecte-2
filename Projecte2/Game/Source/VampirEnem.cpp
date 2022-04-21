@@ -786,6 +786,7 @@ void VampirEnem::OnCollision(Collider* c1, Collider* c2)
 		{
 			if (c2->type == Collider::Type::PLAYER)
 			{
+				app->BTSystem->Skeletonbattle = false;
 				app->BTSystem->Vampirebattle = true;
 			}
 		}

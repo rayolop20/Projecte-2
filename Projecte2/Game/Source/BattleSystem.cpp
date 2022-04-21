@@ -464,8 +464,6 @@ void battleSystem::InventoryPhase() {
 
 	if (choosingPlayer)
 	{
-		
-
 		SDL_Rect* bagSection = new SDL_Rect();
 		bagSection->x = 13;
 		bagSection->y = 26;
@@ -1003,6 +1001,8 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 			timer1_ = timer1;
 		}
 		if (control->id == 37) {
+			AttackPhaseEnable = false;
+			AttackPhaseActive = false;
 			InventoryEnable = false;
 			CloseInventory->state = GuiControlState::DISABLED;
 		}
