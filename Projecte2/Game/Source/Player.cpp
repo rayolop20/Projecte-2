@@ -305,7 +305,6 @@ bool Player::Update(float dt)
 			//app->render->DrawRectangle(player2, 100, 230, 200);
 		}
 		if (P3.IsAlive == true) {
-
 			player3 = { P3.position.x, P3.position.y, 42, 42 };
 			//app->render->DrawRectangle(player3, 100, 230, 200);
 		}
@@ -441,31 +440,32 @@ bool Player::Update(float dt)
 					P1.position.y -= 3;
 					P1.moveYS = true;
 					currentAnim1 = &upAnim1;
-					if (P4.IsAlive == true) {
-						currentAnim4 = &upAnim4;
-					}
 					if (P2.IsAlive == true) {
 						currentAnim2 = &upAnim2;
 					}
-					
 					if (P3.IsAlive == true) {
 						currentAnim3 = &upAnim3;
 					}
+					if (P4.IsAlive == true) {
+						currentAnim4 = &upAnim4;
+					}
+					
+					
+
 				}
 
 				if (app->input->GetKey(SDL_SCANCODE_W) == KEY_UP && P1.IsAlive == true)
 				{
 					P1.moveYS = false;
-					currentAnim1 = &idleAnim1;
-					if (P4.IsAlive == true) {
-						currentAnim4 = &idleAnim4;
-					}
+					currentAnim1 = &upAnim1;
 					if (P2.IsAlive == true) {
-						currentAnim2 = &idleAnim2;
+						currentAnim2 = &upAnim2;
 					}
-					
 					if (P3.IsAlive == true) {
-						currentAnim3 = &idleAnim3;
+						currentAnim3 = &upAnim3;
+					}
+					if (P4.IsAlive == true) {
+						currentAnim4 = &upAnim4;
 					}
 				}
 			}
@@ -475,17 +475,18 @@ bool Player::Update(float dt)
 				{
 					P1.position.y += 3;
 					P1.moveYW = true;
-					currentAnim1 = &downAnim1;
 					if (P4.IsAlive == true) {
 						currentAnim4 = &downAnim4;
+					}
+					if (P3.IsAlive == true) {
+						currentAnim3 = &downAnim3;
 					}
 					if (P2.IsAlive == true) {
 						currentAnim2 = &downAnim2;
 					}
+					currentAnim1 = &downAnim1;
+
 					
-					if (P3.IsAlive == true) {
-						currentAnim3 = &downAnim3;
-					}
 					
 				}
 
@@ -494,15 +495,16 @@ bool Player::Update(float dt)
 					P1.moveYW = false;
 					currentAnim1 = &idleAnim1;
 					if (P4.IsAlive == true) {
-						currentAnim4 = &idleAnim4;
+						currentAnim4 = &downAnim4;
+					}
+					if (P3.IsAlive == true) {
+						currentAnim3 = &downAnim3;
 					}
 					if (P2.IsAlive == true) {
-						currentAnim2 = &idleAnim2;
+						currentAnim2 = &downAnim2;
 					}
-					
-					if (P3.IsAlive == true) {
-						currentAnim3 = &idleAnim3;
-					}
+					currentAnim1 = &downAnim1;
+
 				}
 			}
 		}
@@ -532,28 +534,52 @@ bool Player::PostUpdate()
 		player2 = currentAnim2->GetCurrentFrame();
 		player4 = currentAnim4->GetCurrentFrame();
 		player3 = currentAnim3->GetCurrentFrame();
-		if (P4.IsAlive == true && app->BTSystem->battle1 == true) {
-			app->render->DrawTexture(player4S, P4.position.x + 7, P4.position.y - 20, &player4);
-			currentAnim4->Update();
+		if (P1.moveYS == false) {
+			if (P4.IsAlive == true && app->BTSystem->battle1 == true) {
+				app->render->DrawTexture(player4S, P4.position.x + 7, P4.position.y - 20, &player4);
+				currentAnim4->Update();
+			}
+			if (P4.IsAlive == true && app->BTSystem->battle1 == false) {
+				app->render->DrawTexture(player5S, P4.position.x + 7, P4.position.y - 20, &player4);
+				currentAnim4->Update();
+			}
+			if (P3.IsAlive == true) {
+				app->render->DrawTexture(player3S, P3.position.x + 7, P3.position.y - 20, &player3);
+				currentAnim3->Update();
+			}
+			if (P2.IsAlive == true) {
+				app->render->DrawTexture(player2S, P2.position.x + 7, P2.position.y - 20, &player2);
+				currentAnim2->Update();
+			}
+			if (P1.IsAlive == true) {
+				app->render->DrawTexture(player1S, P1.position.x + 7, P1.position.y - 20, &player1);
+				currentAnim1->Update();
+			}
 		}
-		if(P4.IsAlive == true && app->BTSystem->battle1 == false){
-			app->render->DrawTexture(player5S, P4.position.x + 7, P4.position.y - 20, &player4);
-			currentAnim4->Update();
-		}
-		if (P2.IsAlive == true) {
-			app->render->DrawTexture(player2S, P2.position.x + 7, P2.position.y - 20, &player2);
-			currentAnim2->Update();
-		}
-		if (P1.IsAlive == true) {
-			app->render->DrawTexture(player1S, P1.position.x + 7, P1.position.y - 20, &player1);
-			currentAnim1->Update();
-		}
-		
-		if (P3.IsAlive == true) {
-			app->render->DrawTexture(player3S, P3.position.x + 7, P3.position.y - 20, &player3);
-			currentAnim3->Update();
+		else {
+			if (P1.IsAlive == true) {
+				app->render->DrawTexture(player1S, P1.position.x + 7, P1.position.y - 20, &player1);
+				currentAnim1->Update();
+			}
+			if (P2.IsAlive == true) {
+				app->render->DrawTexture(player2S, P2.position.x + 7, P2.position.y - 20, &player2);
+				currentAnim2->Update();
+			}
+			if (P3.IsAlive == true) {
+				app->render->DrawTexture(player3S, P3.position.x + 7, P3.position.y - 20, &player3);
+				currentAnim3->Update();
+			}
+			if (P4.IsAlive == true && app->BTSystem->battle1 == true) {
+				app->render->DrawTexture(player4S, P4.position.x + 7, P4.position.y - 20, &player4);
+				currentAnim4->Update();
+			}
+			if (P4.IsAlive == true && app->BTSystem->battle1 == false) {
+				app->render->DrawTexture(player5S, P4.position.x + 7, P4.position.y - 20, &player4);
+				currentAnim4->Update();
+			}
 		}
 
+		
 	}
 
 	return true;
