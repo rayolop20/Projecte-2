@@ -63,6 +63,20 @@ public:
 	SDL_Texture* italian = nullptr;
 	SDL_Texture* italianNpc = nullptr;
 
+	int increaseDmg = 2;
+	int increaseSpeed = 2;
+	int increaseMana = 2;
+	int healing = 2;
+	GuiButton* Character1;
+	GuiButton* Character2;
+	GuiButton* Character3;
+	GuiButton* Character4;
+
+	GuiButton* Item1;
+	GuiButton* Item2;
+	GuiButton* Item3;
+	GuiButton* Item6;
+
 private:
 
 	int clickFx = 1;	
@@ -83,20 +97,14 @@ private:
 	SDL_Rect Item1Section;
 	SDL_Rect Item2Section;
 	SDL_Rect Item3Section;
+	SDL_Rect Item4Section;
 
 	SDL_Texture* enter = nullptr;
 
 	// L12b: Debug pathfing
 	iPoint origin;
 
-	GuiButton* Character1;
-	GuiButton* Character2;
-	GuiButton* Character3;
-	GuiButton* Character4;
-
-	GuiButton* Item1;
-	GuiButton* Item2;
-	GuiButton* Item3;
+	
 
 };
 

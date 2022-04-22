@@ -84,11 +84,6 @@ public:
 	bool AttackPhaseEnable = false;
 	bool battleWin = NULL;
 
-	bool increaseDmg = false;
-	bool increaseSpeed = false;
-	bool increaseLuck = false;
-	bool healing = false;
-
 	bool choosingPlayer = false;
 
 	int POSQTE2Y = 0;

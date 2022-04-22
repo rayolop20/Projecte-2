@@ -167,7 +167,7 @@ bool GuiButton::Draw(Render* render)
 		}
 		
 		//Atack
-		if (id == 31 && app->BTSystem->battle == true)
+		if (id == 31 && app->BTSystem->battle == true && app->BTSystem->InventoryEnable == false)
 		{
 			uitext->x = 26;
 			uitext->y = 2;
@@ -273,6 +273,10 @@ bool GuiButton::Draw(Render* render)
 			uitext->w = 152;
 			uitext->h = 59;
 			app->render->DrawTexture(BTLText, app->player->P1.position.x + 15, app->player->P1.position.y + 285, uitext);
+		}
+		if (id == 37 && app->BTSystem->battle == true && app->BTSystem->InventoryEnable == true)
+		{
+			app->render->DrawTexture(app->BTSystem->quitCross, app->player->P1.position.x + 550, app->player->P1.position.y - 290);
 		}
 		else
 		{

@@ -67,8 +67,9 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(entityManager);
 	AddModule(menu); //(112 Mb)
 	AddModule(collisions);
-	AddModule(characterMenu); // genera memory leacks sempre k es clica la I (120mb)
 	AddModule(gameMenu); // 84 Mb de memoria
+
+	AddModule(characterMenu); // genera memory leacks sempre k es clica la I (120mb)
 
 	// Render last to swap buffer
 	AddModule(render);

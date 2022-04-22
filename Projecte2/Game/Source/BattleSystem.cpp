@@ -934,18 +934,18 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 	{
 	case GuiControlType::BUTTON:
 	{
-		
+
 		//Checks the GUI element ID
-		if (control->id == 31 && AttackPhaseActive == true && AttackPhaseEnable == true && VampireTarget != 0 && ZombieTarget != 0 && SkeletonTarget != 0) { //Aixo???
+		if (control->id == 31 && AttackPhaseActive == true && AttackPhaseEnable == true && VampireTarget != 0 && ZombieTarget != 0 && SkeletonTarget != 0 && InventoryEnable == false) { //Aixo???
 			AttackPhaseDisabled2();
-		
+
 		}
-		if (control->id == 31 && AttackPhaseActive == false && AttackPhaseEnable == false && AttackPlayer != 0 && (VampireTarget != 0 || ZombieTarget != 0 || SkeletonTarget != 0))
+		if (control->id == 31 && AttackPhaseActive == false && AttackPhaseEnable == false && AttackPlayer != 0 && (VampireTarget != 0 || ZombieTarget != 0 || SkeletonTarget != 0) && InventoryEnable == false)
 		{
 			AttackPhase();
 			AttackPhaseEnable = true;
 			//Atack_1.Reset();
-		
+
 		}
 		if (AttackPhaseActive == false && AttackPhaseEnable == true) {
 			AttackPhaseEnable = false;
@@ -971,7 +971,7 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 		{
 			app->player->P1.mana -= 60;
 			SpecialAttackEnable = true;
-		
+
 		}
 		if (control->id == 34 && AttackPlayer == 2 && (VampireTarget != 0 || ZombieTarget != 0 || SkeletonTarget != 0) && SpecialAttackEnable == false && app->player->P2.mana >= 80)
 		{
@@ -1006,6 +1006,18 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 			AttackPhaseEnable = false;
 			AttackPhaseActive = false;
 			InventoryEnable = false;
+			app->characterMenu->Character1->state = GuiControlState::DISABLED;
+			app->characterMenu->Character2->state = GuiControlState::DISABLED;
+			app->characterMenu->Character3->state = GuiControlState::DISABLED;
+			app->characterMenu->Character4->state = GuiControlState::DISABLED;
+
+			Item1->state = GuiControlState::DISABLED;
+			Item2->state = GuiControlState::DISABLED;
+			Item3->state = GuiControlState::DISABLED;
+			app->BTSystem->CloseInventory->state = GuiControlState::DISABLED;
+
+			app->characterMenu->exitInventory = true;
+			app->characterMenu->inventory = false;
 			CloseInventory->state = GuiControlState::DISABLED;
 		}
 		if (control->id == 38) {
@@ -1015,7 +1027,7 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 		if (control->id == 39 && ChoosePlayerPhase == true && SpecialAttackEnable == false && waitPlayer[0] == 0) {
 			AttackPlayer = 1;
 			SpecialAttackEnable = false;
-			
+
 		}
 		if (control->id == 39 && ChoosePlayerPhase == true && SpecialAttackEnable == false && app->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT) {//GodMode
 			AttackPlayer = 1;
@@ -1027,7 +1039,7 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 			AttackPlayer = 2;
 			SpecialAttackEnable = false;
 		}
-		if (control->id == 40 && ChoosePlayerPhase == true && SpecialAttackEnable == false && app->input->GetKey(SDL_SCANCODE_LCTRL)==KEY_REPEAT) {//GodMode
+		if (control->id == 40 && ChoosePlayerPhase == true && SpecialAttackEnable == false && app->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT) {//GodMode
 			AttackPlayer = 2;
 			SpecialAttackEnable = false;
 			app->player->P2.IsAlive = false;
@@ -1056,153 +1068,7 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 			app->player->P4.hp = 0;
 
 		}
-		//Ch1
-		if (control->id == 57) {
-			
-			choosingPlayer = false;
-			InventoryEnable = false;
-
-			if (increaseDmg)
-			{
-				app->player->P1.damage += 10;
-				increaseDmg = false;
-			}
-			if (increaseLuck)
-			{
-				app->player->P1.luck += 10;
-				increaseLuck = false;
-			}
-			if (increaseSpeed)
-			{
-				app->player->P1.speed += 10;
-				increaseSpeed = false;
-			}
-			if (healing)
-			{
-				for (int i = 0; i < 10; i++)
-				{
-					app->player->P1.hp++;
-				}
-				if (app->player->P1.hp >= 75.0) app->player->P1.hp = 75.0;
-				healing = false;
-			}
-		}
-		//Ch2
-		if (control->id == 58) {
-			
-			choosingPlayer = false;
-			InventoryEnable = false;
-
-			if (increaseDmg)
-			{
-				app->player->P2.damage += 10;
-				increaseDmg = false;
-			}
-			if (increaseLuck)
-			{
-				app->player->P2.luck += 10;
-				increaseLuck = false;
-			}
-			if (increaseSpeed)
-			{
-				app->player->P2.speed += 10;
-				increaseSpeed = false;
-			}
-			if (healing)
-			{
-				for (int i = 0; i < 10; i++)
-				{
-					app->player->P2.hp++;
-				}
-				if (app->player->P2.hp >= 45.0) app->player->P2.hp = 45.0;
-				healing = false;
-			}
-		}
-		//Ch3
-		if (control->id == 59) {
-			
-			choosingPlayer = false;
-			InventoryEnable = false;
-
-			if (increaseDmg)
-			{
-				app->player->P3.damage += 10;
-				increaseDmg = false;
-			}
-			if (increaseLuck)
-			{
-				app->player->P3.luck += 10;
-				increaseLuck = false;
-			}
-			if (increaseSpeed)
-			{
-				app->player->P3.speed += 10;
-				increaseSpeed = false;
-			}
-			if (healing)
-			{
-				for (int i = 0; i < 10; i++)
-				{
-					app->player->P3.hp++;
-				}
-				if (app->player->P3.hp >= 40.0) app->player->P3.hp = 40.0;
-				healing = false;
-			}
-		}
-		//Ch4
-		if (control->id == 60) {
-			
-			choosingPlayer = false;
-			InventoryEnable = false;
-
-			if (increaseDmg)
-			{
-				app->player->P4.damage += 10;
-				increaseDmg = false;
-			}
-			if (increaseLuck)
-			{
-				app->player->P4.luck += 10;
-				increaseLuck = false;
-			}
-			if (increaseSpeed)
-			{
-				app->player->P4.speed += 10;
-				increaseSpeed = false;
-			}
-			if (healing)
-			{
-				for (int i = 0; i < 10; i++)
-				{
-					app->player->P4.hp++;
-				}
-				if (app->player->P4.hp >= 50.0) app->player->P4.hp = 50.0;
-				healing = false;
-			}
-		}
-		if (control->id == 61) {
-			
-			choosingPlayer = true;
-			increaseDmg = true;
-		}
-		if (control->id == 62) {
-			
-			choosingPlayer = true;
-			increaseLuck = true;
-		}
-		if (control->id == 63) {
-			
-			choosingPlayer = true;
-			increaseSpeed = true;
-		}
-		if (control->id == 64) {
-			
-			choosingPlayer = true;
-			healing = true;
-		}
 	}
-
-	default: break;
 	}
 	
 	return false;

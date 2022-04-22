@@ -131,7 +131,7 @@ bool Scene::Update(float dt)
 		//	btnExit->Update(dt);
 		//}
 
-		if (app->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN && !cMenu && xCont ==  0 && app->BTSystem->battle == false)
+		if (app->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN && !cMenu && xCont ==  0 && app->BTSystem->battle == false || app->BTSystem->InventoryEnable)
 		{
 			cMenu = true;
 			paused = true;
