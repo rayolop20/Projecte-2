@@ -119,7 +119,7 @@ bool CharacterMenu_Screen::Update(float dt)
 	app->input->GetMousePosition(mouseX, mouseY);
 
 
-	if ( app->BTSystem->InventoryEnable == false && app->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN && blockExit  && blockExit || app->BTSystem->InventoryEnable)
+	if (app->BTSystem->InventoryEnable == false && app->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN && blockExit || app->BTSystem->InventoryEnable)
 	{
 		app->BTSystem->AttackPhaseEnable = false;
 		app->BTSystem->AttackPhaseActive = false;
@@ -149,7 +149,6 @@ bool CharacterMenu_Screen::Update(float dt)
 	{
 
 		app->scene->xCont = 1;
-
 		Ch1Section = { -app->render->camera.x + app->win->GetWidth() / 2 - 445, -app->render->camera.y + app->win->GetHeight() / 2 + 100, 60, 60 };
 		Ch2Section = { -app->render->camera.x + app->win->GetWidth() / 2 - 355, -app->render->camera.y + app->win->GetHeight() / 2 + 100, 60, 60 };
 		Ch3Section = { -app->render->camera.x + app->win->GetWidth() / 2 - 445, -app->render->camera.y + app->win->GetHeight() / 2 + 180, 60, 60 };
@@ -283,22 +282,22 @@ bool CharacterMenu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 				if (control->id == 54 && increaseDmg > 0)
 				{
 					if (Charac1 == true) {
-						app->player->P1.damage = 10;
+						app->player->P1.damage += 10;
 						increaseDmg -= 1;
 
 					}
 					if (Charac2 == true && app->player->P2.IsAlive == true) {
-						app->player->P2.damage = 10;
+						app->player->P2.damage += 10;
 						increaseDmg -= 1;
 
 					}
 					if (Charac3 == true && app->player->P3.IsAlive == true) {
-						app->player->P3.damage = 10;
+						app->player->P3.damage += 10;
 						increaseDmg -= 1;
 
 					}
 					if (Charac4 == true && app->player->P4.IsAlive == true) {
-						app->player->P4.damage = 10;
+						app->player->P4.damage += 10;
 						increaseDmg -= 1;
 
 					}

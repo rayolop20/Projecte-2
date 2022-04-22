@@ -1001,6 +1001,10 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 			Skeletonbattle = false;
 			timer1 = SDL_GetTicks() / 1000;
 			timer1_ = timer1;
+			app->player->P1.damage = 0;
+			app->player->P2.damage = 0;
+			app->player->P3.damage = 0;
+			app->player->P4.damage = 0;
 		}
 		if (control->id == 37) {
 			AttackPhaseEnable = false;

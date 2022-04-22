@@ -790,6 +790,11 @@ void SkeletonEnem::CheckEnemy() {
 				app->player->P4.revolverActive = true;
 				Ston[0].Destroyed = true;
 				randomstats = true;
+				app->player->P1.damage = 0;
+				app->player->P2.damage = 0;
+				app->player->P3.damage = 0;
+				app->player->P4.damage = 0;
+
 			}
 		}
 		app->BTSystem->CombatDeaths = 0;

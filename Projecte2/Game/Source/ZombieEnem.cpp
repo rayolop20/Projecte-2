@@ -780,10 +780,13 @@ void ZombieEnem::CheckEnemy() {
 				app->BTSystem->Zombiebattle = false;
 				app->BTSystem->battleWin = false;
 				app->BTSystem->battle1 = false;
-				app->player->P4.hp = 10;
 				app->player->P4.revolverActive = true;
 				Zbie[0].Destroyed = true;
 				randomstats = true;
+				app->player->P1.damage = 0;
+				app->player->P2.damage = 0;
+				app->player->P3.damage = 0;
+				app->player->P4.damage = 0;
 			}
 		}
 		app->BTSystem->CombatDeaths = 0;
