@@ -169,7 +169,7 @@ bool CharacterMenu_Screen::Update(float dt)
 		Item1Pos = { -app->render->camera.x + app->win->GetWidth() / 2 - 99, -app->render->camera.y + app->win->GetHeight() / 2 - 160, 70, 70 };
 		Item2Pos = { -app->render->camera.x + app->win->GetWidth() / 2 - 4, -app->render->camera.y + app->win->GetHeight() / 2 - 160, 70, 70 };
 		Item3Pos = { -app->render->camera.x + app->win->GetWidth() / 2 + 91, -app->render->camera.y + app->win->GetHeight() / 2 - 160, 70, 70 };
-		Item4Pos = { -app->render->camera.x + app->win->GetWidth() / 2 + 186, -app->render->camera.y + app->win->GetHeight() / 2 - 160, 70, 70 };
+		Item4Pos = { -app->render->camera.x + app->win->GetWidth() / 2 + 186, -app->render->camera.y + app->win->GetHeight() / 2 + 190 - 160, 70, 70 };
 
 		if (app->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 		{
@@ -231,6 +231,9 @@ bool CharacterMenu_Screen::Update(float dt)
 		if (app->player->door3active == true) {
 			Item6->state = GuiControlState::NORMAL;
 			app->render->DrawRectangle(Item4Pos, 220, 220, 220);
+		}
+		else {
+			Item6->state = GuiControlState::DISABLED;
 		}
 		
 	}
