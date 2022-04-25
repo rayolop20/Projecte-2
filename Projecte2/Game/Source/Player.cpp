@@ -276,11 +276,11 @@ bool Player::Start()
 
 	P1.Pcol = app->collisions->AddCollider({ P1.position.x,P1.position.y, 64, 90 }, Collider::Type::PLAYER, this);
 
-	P2.Player2C = app->collisions->AddCollider({ P2.position.x, P2.position.y, 90, 90 }, Collider::Type::SENSOR_PLAYER2, this);
+	app->collisions->AddCollider({ P2.position.x, P2.position.y, 90, 90 }, Collider::Type::SENSOR_PLAYER2, this);
 
-	P3.Player3C = app->collisions->AddCollider({ P3.position.x, P3.position.y, 90, 90 }, Collider::Type::SENSOR_PLAYER3, this);
+	app->collisions->AddCollider({ P3.position.x, P3.position.y, 90, 90 }, Collider::Type::SENSOR_PLAYER3, this);
 
-	P4.Player4C = app->collisions->AddCollider({ P3.position.x, P3.position.y, 90, 90 }, Collider::Type::SENSOR_PLAYER4, this);
+	app->collisions->AddCollider({ P4.position.x, P4.position.y, 90, 90 }, Collider::Type::SENSOR_PLAYER4, this);
 	return ret;
 }
 
@@ -512,10 +512,7 @@ bool Player::Update(float dt)
 
 
 	P1.Pcol->SetPos(P1.position.x, P1.position.y);
-	P2.Player2C->SetPos(P2.position.x - 21, P2.position.y - 21);
-	P3.Player3C->SetPos(P3.position.x - 21, P3.position.y - 21);
-	P4.Player4C->SetPos(P4.position.x - 21, P4.position.y - 21);
-	
+
 
 	return true;
 }

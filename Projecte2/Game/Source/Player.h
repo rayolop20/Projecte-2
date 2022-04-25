@@ -35,7 +35,6 @@ struct playr2
 {
 	//American
 	iPoint position;
-	Collider* Player2C = nullptr;
 	bool P2Active = false;
 	bool IsAlive = false;
 	bool Move = false;
@@ -56,7 +55,7 @@ struct playr3
 {
 	//Rusian
 	iPoint position;
-	Collider* Player3C = nullptr;
+
 	bool P3Active = false;
 	bool Move = false;
 	bool IsAlive = false;
@@ -77,7 +76,6 @@ struct playr4
 {
 	//Italian
 	iPoint position;
-	Collider* Player4C = nullptr;
 	bool P4Active = false;
 	bool Move = false;
 	bool IsAlive = false;
