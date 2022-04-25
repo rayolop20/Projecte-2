@@ -50,6 +50,9 @@ public:
 	bool Charac3 = false;
 	bool Charac4 = false;
 
+	bool item1state = false;
+	bool item2state = true;
+	bool item3state = false;
 
 	SDL_Texture* inventoryTex = nullptr;
 	SDL_Texture* inventoryTexBack = nullptr;
@@ -81,6 +84,7 @@ private:
 
 	int clickFx = 1;	
 	int buttonCont = 0;
+	int FText = -1;
 
 	SDL_Rect menu;
 	SDL_Rect itemMenu;
@@ -94,17 +98,23 @@ private:
 	SDL_Rect Ch3Section;
 	SDL_Rect Ch4Section;
 
-	SDL_Rect Item1Section;
-	SDL_Rect Item2Section;
-	SDL_Rect Item3Section;
-	SDL_Rect Item4Section;
+	SDL_Rect Item1Pos;
+	SDL_Rect Item2Pos;
+	SDL_Rect Item3Pos;
+	SDL_Rect Item4Pos;
+
+	SDL_Rect Item1Rect;
+	SDL_Rect Item2Rect;
+	SDL_Rect Item3Rect;
 
 	SDL_Texture* enter = nullptr;
 
 	// L12b: Debug pathfing
 	iPoint origin;
 
-	
+	char HP[150] = { "\0" };
+	char Damage[150] = { "\0" };
+	char Mana[150] = { "\0" };
 
 };
 

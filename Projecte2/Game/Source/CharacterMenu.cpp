@@ -10,6 +10,7 @@
 #include "CharacterMenu.h"
 #include "BattleSystem.h"
 #include "GuiManager.h"
+#include "Fonts.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -50,6 +51,8 @@ bool CharacterMenu_Screen::Start()
 	italian = app->tex->Load("Assets/Textures/Soldiers/soldier_italian.png");
 	italianNpc = app->tex->Load("Assets/Textures/Soldiers/soldier_italian_npc.png");
 	 
+	char lookupTable[] = { "! @,_./0123456789$;< ?abcdefghijklmnopqrstuvwxyz" };
+	FText = app->fonts->Load("Assets/Textures/Fonts/fonts.png", lookupTable, 1);
 
 	return true;
 }
@@ -149,10 +152,10 @@ bool CharacterMenu_Screen::Update(float dt)
 	{
 
 		app->scene->xCont = 1;
-		Ch1Section = { -app->render->camera.x + app->win->GetWidth() / 2 - 445, -app->render->camera.y + app->win->GetHeight() / 2 + 100, 60, 60 };
-		Ch2Section = { -app->render->camera.x + app->win->GetWidth() / 2 - 355, -app->render->camera.y + app->win->GetHeight() / 2 + 100, 60, 60 };
-		Ch3Section = { -app->render->camera.x + app->win->GetWidth() / 2 - 445, -app->render->camera.y + app->win->GetHeight() / 2 + 180, 60, 60 };
-		Ch4Section = { -app->render->camera.x + app->win->GetWidth() / 2 - 355, -app->render->camera.y + app->win->GetHeight() / 2 + 180, 60, 60 };
+		Ch1Section = { -app->render->camera.x + app->win->GetWidth() / 2 - 265, -app->render->camera.y + app->win->GetHeight() / 2 - 200, 60, 60 };
+		Ch2Section = { -app->render->camera.x + app->win->GetWidth() / 2 - 265, -app->render->camera.y + app->win->GetHeight() / 2 - 100, 60, 60 };
+		Ch3Section = { -app->render->camera.x + app->win->GetWidth() / 2 - 265, -app->render->camera.y + app->win->GetHeight() / 2		, 60, 60 };
+		Ch4Section = { -app->render->camera.x + app->win->GetWidth() / 2 - 265, -app->render->camera.y + app->win->GetHeight() / 2 + 100, 60, 60 };
 		app->render->DrawRectangle(Ch1Section, 250, 0, 0);
 		app->render->DrawRectangle(Ch2Section, 250, 0, 0);
 		app->render->DrawRectangle(Ch3Section, 250, 0, 0);
@@ -163,41 +166,87 @@ bool CharacterMenu_Screen::Update(float dt)
 		bagSection->w = 612;
 		bagSection->h = 479;
 		app->render->DrawTexture(inventoryTex, -app->render->camera.x + (app->win->GetWidth() / 2 - 180), -app->render->camera.y + (app->win->GetHeight() / 2 - 230), bagSection);
-		Item1Section = { -app->render->camera.x + app->win->GetWidth() / 2 - 99, -app->render->camera.y + app->win->GetHeight() / 2 - 160, 70, 70 };
-		Item2Section = { -app->render->camera.x + app->win->GetWidth() / 2 - 4, -app->render->camera.y + app->win->GetHeight() / 2 - 160, 70, 70 };
-		Item3Section = { -app->render->camera.x + app->win->GetWidth() / 2 + 91, -app->render->camera.y + app->win->GetHeight() / 2 - 160, 70, 70 };
-		Item4Section = { -app->render->camera.x + app->win->GetWidth() / 2 + 91 + 95, -app->render->camera.y + app->win->GetHeight() / 2 - 160 + 95 + 95, 70, 70 };
+		Item1Pos = { -app->render->camera.x + app->win->GetWidth() / 2 - 99, -app->render->camera.y + app->win->GetHeight() / 2 - 160, 70, 70 };
+		Item2Pos = { -app->render->camera.x + app->win->GetWidth() / 2 - 4, -app->render->camera.y + app->win->GetHeight() / 2 - 160, 70, 70 };
+		Item3Pos = { -app->render->camera.x + app->win->GetWidth() / 2 + 91, -app->render->camera.y + app->win->GetHeight() / 2 - 160, 70, 70 };
+		Item4Pos = { -app->render->camera.x + app->win->GetWidth() / 2 + 186, -app->render->camera.y + app->win->GetHeight() / 2 - 160, 70, 70 };
 
+		if (app->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
+		{
+			item1state = true;
+		}
+		if (app->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
+		{
+			item2state = true;
+		}
+		if (app->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
+		{
+			item3state = true;
+		}
+		if (app->input->GetKey(SDL_SCANCODE_4) == KEY_DOWN)
+		{
+			app->player->door3active = true;
+		}
 
-		if (increaseDmg > 0) {
-			app->render->DrawRectangle(Item1Section, 250, 0, 0);
+		if (increaseDmg > 0 && item1state) {
+			Item1Rect = Item1Pos;
+			app->render->DrawRectangle(Item1Rect, 250, 0, 0);
 		}
 		else {
-			app->render->DrawRectangle(Item1Section, 220, 220, 220);
-
+			//app->render->DrawRectangle(Item1Rect, 220, 220, 220);
+			item1state = false;
 		}
-		if (healing > 0) {
-			app->render->DrawRectangle(Item2Section, 250, 0, 0);
+		if (healing > 0 && !item1state && item2state) {
+			Item2Rect = Item1Pos;
+			app->render->DrawRectangle(Item2Rect, 0, 250, 0);
 		}
-		else {
-			app->render->DrawRectangle(Item2Section, 220, 220, 220);
-
-		}
-		if (increaseMana > 0) {
-			app->render->DrawRectangle(Item3Section, 250, 0, 0);
+		else if (healing > 0 && item1state && item2state) {
+			Item2Rect = Item2Pos;
+			app->render->DrawRectangle(Item2Rect, 0, 250, 0);
 		}
 		else {
-			app->render->DrawRectangle(Item3Section, 220, 220, 220);
+			//app->render->DrawRectangle(Item2Rect, 220, 220, 220);
+			item2state = false;
+		}
+		if (increaseMana > 0 && !item1state && !item2state && item3state) {
+			Item3Rect = Item1Pos;
+			app->render->DrawRectangle(Item3Rect, 0, 0, 250);
+		}
+		else if (increaseMana > 0 && !item1state && item2state && item3state) {
+			Item3Rect = Item2Pos;
+			app->render->DrawRectangle(Item3Rect, 0, 0, 250);
+		}
+		else if (increaseMana > 0 && item1state && !item2state && item3state) {
+			Item3Rect = Item2Pos;
+			app->render->DrawRectangle(Item3Rect, 0, 0, 250);
+		}
+		else if (increaseMana > 0 && item1state && item2state && item3state) {
+			Item3Rect = Item3Pos;
+			app->render->DrawRectangle(Item3Rect, 0, 0, 250);
+		}
+		else {
+			//app->render->DrawRectangle(Item3Rect, 220, 220, 220);
+			item3state = false;
 		}
 		if (app->player->door3active == true) {
 			Item6->state = GuiControlState::NORMAL;
-			app->render->DrawRectangle(Item4Section, 220, 220, 220);
+			app->render->DrawRectangle(Item4Pos, 220, 220, 220);
 		}
 		
 	}
 	app->guiManager->Draw();
 	
+	if (Charac1)
+	{
+		sprintf_s(HP, "hp %.2f", app->player->P1.hp);
+		app->fonts->DrawTxt(10, 10, FText, HP);
 
+		sprintf_s(Damage, "damage %.2f", app->player->P1.damage);
+		app->fonts->DrawTxt(10, 40, FText, Damage);
+
+		sprintf_s(Mana, "mana %.2f", app->player->P1.mana);
+		app->fonts->DrawTxt(10, 70, FText, Mana);
+	}
 
 	if (init) init = false;
 	
@@ -217,10 +266,10 @@ bool CharacterMenu_Screen::PostUpdate()
 
 void CharacterMenu_Screen::Menu()
 {
-	Character1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 50, "Ch1", { -app->render->camera.x + app->win->GetWidth() / 2 - 445, -app->render->camera.y + app->win->GetHeight() / 2 + 100, 60, 60 }, this);
-	Character2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 51, "Ch2", { -app->render->camera.x + app->win->GetWidth() / 2 - 355, -app->render->camera.y + app->win->GetHeight() / 2 + 100, 60, 60 }, this);
-	Character3 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 52, "Ch3", { -app->render->camera.x + app->win->GetWidth() / 2 - 445, -app->render->camera.y + app->win->GetHeight() / 2 + 180, 60, 60 }, this);
-	Character4 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 53, "Ch4", { -app->render->camera.x + app->win->GetWidth() / 2 - 355, -app->render->camera.y + app->win->GetHeight() / 2 + 180, 60, 60 }, this);
+	Character1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 50, "Ch1", { -app->render->camera.x + app->win->GetWidth() / 2 - 265, -app->render->camera.y + app->win->GetHeight() / 2 - 200, 60, 60 }, this);
+	Character2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 51, "Ch2", { -app->render->camera.x + app->win->GetWidth() / 2 - 265, -app->render->camera.y + app->win->GetHeight() / 2 - 100, 60, 60 }, this);
+	Character3 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 52, "Ch3", { -app->render->camera.x + app->win->GetWidth() / 2 - 265, -app->render->camera.y + app->win->GetHeight() / 2		 , 60, 60 }, this);
+	Character4 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 53, "Ch4", { -app->render->camera.x + app->win->GetWidth() / 2 - 265, -app->render->camera.y + app->win->GetHeight() / 2 + 100, 60, 60 }, this);
 
 	Item1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 54, "Boots1", { -app->render->camera.x + app->win->GetWidth() / 2 - 99, -app->render->camera.y + app->win->GetHeight() / 2 - 160, 70, 70 }, this);
 	Item2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 55, "Boots2", { -app->render->camera.x + app->win->GetWidth() / 2 - 4, -app->render->camera.y + app->win->GetHeight() / 2 - 160, 70, 70 }, this);
@@ -246,7 +295,7 @@ bool CharacterMenu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 			{
 			case GuiControlType::BUTTON:
 			{
-				//Item type
+				//Characters
 				if (control->id == 50)
 				{		
 					Charac1 = true;
@@ -278,8 +327,9 @@ bool CharacterMenu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 					Charac3 = false;
 					Charac4 = true;
 				}
-				//characters
-				if (control->id == 54 && increaseDmg > 0)
+				//Items
+				//------------------1st grid pos----------------------
+				if (control->id == 54 && increaseDmg > 0 && item1state)
 				{
 					if (Charac1 == true) {
 						app->player->P1.damage += 10;
@@ -303,7 +353,52 @@ bool CharacterMenu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 					}
 					buttonCont = 0;
 				}
-				if (control->id == 55 && healing > 0)
+				else if (control->id == 54 && healing > 0 && !item1state && item2state)
+				{
+					if (Charac1 == true) {
+						app->player->P1.hp += 10;
+						healing -= 1;
+
+					}
+					if (Charac2 == true && app->player->P2.IsAlive == true) {
+						app->player->P2.hp += 10;
+						healing -= 1;
+
+					}
+					if (Charac3 == true && app->player->P3.IsAlive == true) {
+						app->player->P3.hp += 10;
+						healing -= 1;
+
+					}
+					if (Charac4 == true && app->player->P4.IsAlive == true) {
+						app->player->P4.hp += 10;
+						healing -= 1;
+
+					}
+					buttonCont = 0;
+				}
+				else if (control->id == 54 && increaseMana > 0 && !item1state && !item2state && item3state)
+				{
+					if (Charac1 == true) {
+						app->player->P1.mana += 10;
+						increaseMana -= 1;
+					}
+					if (Charac2 == true && app->player->P2.IsAlive == true) {
+						app->player->P2.mana += 10;
+						increaseMana -= 1;
+					}
+					if (Charac3 == true && app->player->P3.IsAlive == true) {
+						increaseMana -= 1;
+						app->player->P3.mana += 10;
+					}
+					if (Charac4 == true && app->player->P4.IsAlive == true) {
+						app->player->P4.mana += 10;
+						increaseMana -= 1;
+					}
+					buttonCont = 0;
+				}
+				//------------------2nd grid pos----------------------
+				if (control->id == 55 && healing > 0 && item1state && item2state)
 				{
 					if (Charac1 == true) {
 						app->player->P1.hp += 10;
@@ -328,7 +423,29 @@ bool CharacterMenu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 
 					buttonCont = 0;
 				}
-				if (control->id == 56 && increaseMana > 0)
+				else if (control->id == 55 && increaseMana > 0 && item1state && !item2state && item3state || control->id == 55 && increaseMana > 0 && !item1state && item2state && item3state)
+				{
+					if (Charac1 == true) {
+						app->player->P1.mana += 10;
+						increaseMana -= 1;
+					}
+					if (Charac2 == true && app->player->P2.IsAlive == true) {
+						app->player->P2.mana += 10;
+						increaseMana -= 1;
+					}
+					if (Charac3 == true && app->player->P3.IsAlive == true) {
+						increaseMana -= 1;
+						app->player->P3.mana += 10;
+					}
+					if (Charac4 == true && app->player->P4.IsAlive == true) {
+						app->player->P4.mana += 10;
+						increaseMana -= 1;
+					}
+					buttonCont = 0;
+				}
+
+				//------------------3rd grid pos----------------------
+				if (control->id == 56 && increaseMana > 0 && item1state && item2state && item3state)
 				{
 					if (Charac1 == true) {
 						app->player->P1.mana += 10;
