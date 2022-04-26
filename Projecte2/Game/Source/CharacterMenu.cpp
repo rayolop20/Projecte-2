@@ -142,6 +142,8 @@ bool CharacterMenu_Screen::Update(float dt)
 		Item1->state = GuiControlState::DISABLED;
 		Item2->state = GuiControlState::DISABLED;
 		Item3->state = GuiControlState::DISABLED;
+		Item4->state = GuiControlState::DISABLED;
+		Item5->state = GuiControlState::DISABLED;
 		app->BTSystem->CloseInventory->state = GuiControlState::DISABLED;
 
 		exitInventory = true;
@@ -166,10 +168,14 @@ bool CharacterMenu_Screen::Update(float dt)
 		bagSection->w = 612;
 		bagSection->h = 479;
 		app->render->DrawTexture(inventoryTex, -app->render->camera.x + (app->win->GetWidth() / 2 - 180), -app->render->camera.y + (app->win->GetHeight() / 2 - 230), bagSection);
+		//first row
 		Item1Pos = { -app->render->camera.x + app->win->GetWidth() / 2 - 99, -app->render->camera.y + app->win->GetHeight() / 2 - 160, 70, 70 };
 		Item2Pos = { -app->render->camera.x + app->win->GetWidth() / 2 - 4, -app->render->camera.y + app->win->GetHeight() / 2 - 160, 70, 70 };
 		Item3Pos = { -app->render->camera.x + app->win->GetWidth() / 2 + 91, -app->render->camera.y + app->win->GetHeight() / 2 - 160, 70, 70 };
-		Item4Pos = { -app->render->camera.x + app->win->GetWidth() / 2 + 186, -app->render->camera.y + app->win->GetHeight() / 2 + 190 - 160, 70, 70 };
+		Item4Pos = { -app->render->camera.x + app->win->GetWidth() / 2 + 186, -app->render->camera.y + app->win->GetHeight() / 2 - 160, 70, 70 };
+		Item5Pos = { -app->render->camera.x + app->win->GetWidth() / 2 + 281, -app->render->camera.y + app->win->GetHeight() / 2 - 160, 70, 70 };
+		//second row
+		Item6Pos = { -app->render->camera.x + app->win->GetWidth() / 2 - 99, -app->render->camera.y + app->win->GetHeight() / 2 - 64, 70, 70 };
 
 		if (app->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 		{
@@ -185,7 +191,19 @@ bool CharacterMenu_Screen::Update(float dt)
 		}
 		if (app->input->GetKey(SDL_SCANCODE_4) == KEY_DOWN)
 		{
+			item4state = true;
+		}
+		if (app->input->GetKey(SDL_SCANCODE_5) == KEY_DOWN)
+		{
+			item5state = true;
+		}
+		if (app->input->GetKey(SDL_SCANCODE_6) == KEY_DOWN)
+		{
 			app->player->door3active = true;
+		}
+		if (app->player->door3active == true) {
+			Item6->state = GuiControlState::NORMAL;
+			item6state = true;
 		}
 
 		if (increaseDmg > 0 && item1state) {
@@ -196,6 +214,8 @@ bool CharacterMenu_Screen::Update(float dt)
 			//app->render->DrawRectangle(Item1Rect, 220, 220, 220);
 			item1state = false;
 		}
+
+
 		if (healing > 0 && !item1state && item2state) {
 			Item2Rect = Item1Pos;
 			app->render->DrawRectangle(Item2Rect, 0, 250, 0);
@@ -208,6 +228,8 @@ bool CharacterMenu_Screen::Update(float dt)
 			//app->render->DrawRectangle(Item2Rect, 220, 220, 220);
 			item2state = false;
 		}
+
+
 		if (increaseMana > 0 && !item1state && !item2state && item3state) {
 			Item3Rect = Item1Pos;
 			app->render->DrawRectangle(Item3Rect, 0, 0, 250);
@@ -228,20 +250,306 @@ bool CharacterMenu_Screen::Update(float dt)
 			//app->render->DrawRectangle(Item3Rect, 220, 220, 220);
 			item3state = false;
 		}
-		if (app->player->door3active == true) {
-			Item6->state = GuiControlState::NORMAL;
-			app->render->DrawRectangle(Item4Pos, 220, 220, 220);
+		
+
+		if (!item1state && !item2state && !item3state && item4state)
+		{
+			Item4Rect = Item1Pos;
+			app->render->DrawRectangle(Item4Rect, 0, 250, 250);
+		}
+		else if (item1state && !item2state && !item3state && item4state)
+		{
+			Item4Rect = Item2Pos;
+			app->render->DrawRectangle(Item4Rect, 0, 250, 250);
+		}
+		else if (!item1state && item2state && !item3state && item4state)
+		{
+			Item4Rect = Item2Pos;
+			app->render->DrawRectangle(Item4Rect, 0, 250, 250);
+		}
+		else if (!item1state && !item2state && item3state && item4state)
+		{
+			Item4Rect = Item2Pos;
+			app->render->DrawRectangle(Item4Rect, 0, 250, 250);
+		}
+		else if (item1state && item2state && !item3state && item4state)
+		{
+			Item4Rect = Item3Pos;
+			app->render->DrawRectangle(Item4Rect, 0, 250, 250);
+		}
+		else if (item1state && !item2state && item3state && item4state)
+		{
+			Item4Rect = Item3Pos;
+			app->render->DrawRectangle(Item4Rect, 0, 250, 250);
+		}
+		else if (!item1state && item2state && item3state && item4state)
+		{
+			Item4Rect = Item3Pos;
+			app->render->DrawRectangle(Item4Rect, 0, 250, 250);
+		}
+		else if (item1state && item2state && item3state && item4state)
+		{
+			Item4Rect = Item4Pos;
+			app->render->DrawRectangle(Item4Rect, 0, 250, 250);
+		}
+		else
+		{
+			item4state = false;
 		}
 		else {
 			Item6->state = GuiControlState::DISABLED;
 		}
 		
+
+		if (!item1state && !item2state && !item3state && !item4state && item5state)
+		{
+			Item5Rect = Item1Pos;
+			app->render->DrawRectangle(Item5Rect, 250, 0, 250);
+		}
+		else if (item1state && !item2state && !item3state && !item4state && item5state)
+		{
+			Item5Rect = Item2Pos;
+			app->render->DrawRectangle(Item5Rect, 250, 0, 250);
+		}
+		else if (!item1state && item2state && !item3state && !item4state && item5state)
+		{
+			Item5Rect = Item2Pos;
+			app->render->DrawRectangle(Item5Rect, 250, 0, 250);
+		}
+		else if (!item1state && !item2state && item3state && !item4state && item5state)
+		{
+			Item5Rect = Item2Pos;
+			app->render->DrawRectangle(Item5Rect, 250, 0, 250);
+		}
+		else if (!item1state && !item2state && !item3state && item4state && item5state)
+		{
+			Item5Rect = Item2Pos;
+			app->render->DrawRectangle(Item5Rect, 250, 0, 250);
+		}
+		else if (item1state && item2state && !item3state && !item4state && item5state)
+		{
+			Item5Rect = Item3Pos;
+			app->render->DrawRectangle(Item5Rect, 250, 0, 250);
+		}
+		else if (item1state && !item2state && item3state && !item4state && item5state)
+		{
+			Item5Rect = Item3Pos;
+			app->render->DrawRectangle(Item5Rect, 250, 0, 250);
+		}
+		else if (item1state && !item2state && !item3state && item4state && item5state)
+		{
+			Item5Rect = Item3Pos;
+			app->render->DrawRectangle(Item5Rect, 250, 0, 250);
+		}
+		else if (!item1state && item2state && item3state && !item4state && item5state)
+		{
+			Item5Rect = Item3Pos;
+			app->render->DrawRectangle(Item5Rect, 250, 0, 250);
+		}
+		else if (!item1state && item2state && !item3state && item4state && item5state)
+		{
+			Item5Rect = Item3Pos;
+			app->render->DrawRectangle(Item5Rect, 250, 0, 250);
+		}
+		else if (!item1state && !item2state && item3state && item4state && item5state)
+		{
+			Item5Rect = Item3Pos;
+			app->render->DrawRectangle(Item5Rect, 250, 0, 250);
+		}
+		else if (item1state && !item2state && item3state && item4state && item5state)
+		{
+			Item5Rect = Item4Pos;
+			app->render->DrawRectangle(Item5Rect, 250, 0, 250);
+		}
+		else if (item1state && item2state && !item3state && item4state && item5state)
+		{
+			Item5Rect = Item4Pos;
+			app->render->DrawRectangle(Item5Rect, 250, 0, 250);
+		}
+		else if (item1state && item2state && item3state && !item4state && item5state)
+		{
+			Item5Rect = Item4Pos;
+			app->render->DrawRectangle(Item5Rect, 250, 0, 250);
+		}
+		else if (!item1state && item2state && item3state && item4state && item5state)
+		{
+			Item5Rect = Item4Pos;
+			app->render->DrawRectangle(Item5Rect, 250, 0, 250);
+		}
+		else if (item1state && item2state && item3state && item4state && item5state)
+		{
+			Item5Rect = Item5Pos;
+			app->render->DrawRectangle(Item5Rect, 250, 0, 250);
+		}
+		else
+		{
+			item5state = false;
+		}
+
+
+		if (!item1state && !item2state && !item3state && !item4state && !item5state && item6state)
+		{
+			Item6Rect = Item1Pos;
+			app->render->DrawRectangle(Item6Rect, 250, 250, 0);
+		}
+		else if (item1state && !item2state && !item3state && !item4state && !item5state && item6state)
+		{
+			Item6Rect = Item2Pos;
+			app->render->DrawRectangle(Item6Rect, 250, 250, 0);
+		}
+		else if (!item1state && item2state && !item3state && !item4state && !item5state && item6state)
+		{
+			Item6Rect = Item2Pos;
+			app->render->DrawRectangle(Item6Rect, 250, 250, 0);
+		}
+		else if (!item1state && !item2state && item3state && !item4state && !item5state && item6state)
+		{
+			Item6Rect = Item2Pos;
+			app->render->DrawRectangle(Item6Rect, 250, 250, 0);
+		}
+		else if (!item1state && !item2state && !item3state && item4state && !item5state && item6state)
+		{
+			Item6Rect = Item2Pos;
+			app->render->DrawRectangle(Item6Rect, 250, 250, 0);
+		}
+		else if (!item1state && !item2state && !item3state && !item4state && item5state && item6state)
+		{
+			Item6Rect = Item2Pos;
+			app->render->DrawRectangle(Item6Rect, 250, 250, 0);
+		}
+
+
+		else if (item1state && item2state && !item3state && !item4state && !item5state && item6state)
+		{
+			Item6Rect = Item3Pos;
+			app->render->DrawRectangle(Item6Rect, 250, 250, 0);
+		}
+		else if (item1state && !item2state && item3state && !item4state && !item5state && item6state)
+		{
+			Item6Rect = Item3Pos;
+			app->render->DrawRectangle(Item6Rect, 250, 250, 0);
+		}
+		else if (item1state && !item2state && !item3state && item4state && !item5state && item6state)
+		{
+			Item6Rect = Item3Pos;
+			app->render->DrawRectangle(Item6Rect, 250, 250, 0);
+		}
+		else if (item1state && !item2state && !item3state && !item4state && item5state && item6state)
+		{
+			Item6Rect = Item3Pos;
+			app->render->DrawRectangle(Item6Rect, 250, 250, 0);
+		}
+		else if (!item1state && item2state && !item3state && !item4state && item5state && item6state)
+		{
+			Item6Rect = Item3Pos;
+			app->render->DrawRectangle(Item6Rect, 250, 250, 0);
+		}
+		else if (!item1state && item2state && !item3state && item4state && !item5state && item6state)
+		{
+			Item6Rect = Item3Pos;
+			app->render->DrawRectangle(Item6Rect, 250, 250, 0);
+		}
+		else if (!item1state && item2state && item3state && !item4state && !item5state && item6state)
+		{
+			Item6Rect = Item3Pos;
+			app->render->DrawRectangle(Item6Rect, 250, 250, 0);
+		}
+		else if (!item1state && !item2state && item3state && item4state && !item5state && item6state)
+		{
+			Item6Rect = Item3Pos;
+			app->render->DrawRectangle(Item6Rect, 250, 250, 0);
+		}
+		else if (!item1state && !item2state && item3state && !item4state && item5state && item6state)
+		{
+			Item6Rect = Item3Pos;
+			app->render->DrawRectangle(Item6Rect, 250, 250, 0);
+		}
+		else if (!item1state && !item2state && !item3state && item4state && item5state && item6state)
+		{
+			Item6Rect = Item3Pos;
+			app->render->DrawRectangle(Item6Rect, 250, 250, 0);
+		}
+		else if (item1state && item2state && item3state && !item4state && !item5state && item6state)
+		{
+			Item6Rect = Item4Pos;
+			app->render->DrawRectangle(Item6Rect, 250, 250, 0);
+		}
+		else if (item1state && item2state && !item3state && item4state && !item5state && item6state)
+		{
+			Item6Rect = Item4Pos;
+			app->render->DrawRectangle(Item6Rect, 250, 250, 0);
+		}
+		else if (item1state && item2state && !item3state && !item4state && item5state && item6state)
+		{
+			Item6Rect = Item4Pos;
+			app->render->DrawRectangle(Item6Rect, 250, 250, 0);
+		}
+		else if (item1state && !item2state && item3state && item4state && !item5state && item6state)
+		{
+			Item6Rect = Item4Pos;
+			app->render->DrawRectangle(Item6Rect, 250, 250, 0);
+		}
+		else if (item1state && !item2state && item3state && !item4state && item5state && item6state)
+		{
+			Item6Rect = Item4Pos;
+			app->render->DrawRectangle(Item6Rect, 250, 250, 0);
+		}
+		else if (!item1state && item2state && item3state && !item4state && item5state && item6state)
+		{
+			Item6Rect = Item4Pos;
+			app->render->DrawRectangle(Item6Rect, 250, 250, 0);
+		}
+		else if (!item1state && item2state && item3state && item4state && !item5state && item6state)
+		{
+			Item6Rect = Item4Pos;
+			app->render->DrawRectangle(Item6Rect, 250, 250, 0);
+		}
+		else if (!item1state && !item2state && item3state && item4state && item5state && item6state)
+		{
+			Item6Rect = Item4Pos;
+			app->render->DrawRectangle(Item6Rect, 250, 250, 0);
+		}
+		else if (item1state && item2state && item3state && item4state && !item5state && item6state)
+		{
+			Item6Rect = Item5Pos;
+			app->render->DrawRectangle(Item6Rect, 250, 250, 0);
+		}
+		else if (item1state && item2state && item3state && !item4state && item5state && item6state)
+		{
+			Item6Rect = Item5Pos;
+			app->render->DrawRectangle(Item6Rect, 250, 250, 0);
+		}
+		else if (item1state && item2state && !item3state && item4state && item5state && item6state)
+		{
+			Item6Rect = Item5Pos;
+			app->render->DrawRectangle(Item6Rect, 250, 250, 0);
+		}
+		else if (item1state && !item2state && item3state && item4state && item5state && item6state)
+		{
+			Item6Rect = Item5Pos;
+			app->render->DrawRectangle(Item6Rect, 250, 250, 0);
+		}
+		else if (!item1state && item2state && item3state && item4state && item5state && item6state)
+		{
+			Item6Rect = Item5Pos;
+			app->render->DrawRectangle(Item6Rect, 250, 250, 0);
+		}
+		else if (item1state && item2state && item3state && item4state && item5state && item6state)
+		{
+			Item6Rect = Item6Pos;
+			app->render->DrawRectangle(Item6Rect, 250, 250, 0);
+		}
+		else 
+		{
+			item6state = false;
+		}
+
 	}
 	app->guiManager->Draw();
 	
 	if (Charac1)
 	{
-		sprintf_s(HP, "hp %.2f", app->player->P1.hp);
+		sprintf_s(HP, "hp %.2f / %.2f", app->player->P1.hp, app->BTSystem->p1MaxHP);
 		app->fonts->DrawTxt(10, 10, FText, HP);
 
 		sprintf_s(Damage, "damage %.2f", app->player->P1.damage);
@@ -249,6 +557,21 @@ bool CharacterMenu_Screen::Update(float dt)
 
 		sprintf_s(Mana, "mana %.2f", app->player->P1.mana);
 		app->fonts->DrawTxt(10, 70, FText, Mana);
+	}
+	if (typingTxt)
+	{
+		sprintf_s(adviceTxt, "���try to use this item in a fight to run away!!!");
+		app->fonts->DrawTxt(370, 620, FText, adviceTxt);
+		if (TxtCont < 2)
+		{
+			TxtCont++;
+		}
+	}
+
+	if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_UP && typingTxt && TxtCont == 2)
+	{
+		typingTxt = false;
+		TxtCont = 0;
 	}
 
 	if (init) init = false;
@@ -274,10 +597,12 @@ void CharacterMenu_Screen::Menu()
 	Character3 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 52, "Ch3", { -app->render->camera.x + app->win->GetWidth() / 2 - 265, -app->render->camera.y + app->win->GetHeight() / 2		 , 60, 60 }, this);
 	Character4 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 53, "Ch4", { -app->render->camera.x + app->win->GetWidth() / 2 - 265, -app->render->camera.y + app->win->GetHeight() / 2 + 100, 60, 60 }, this);
 
-	Item1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 54, "Boots1", { -app->render->camera.x + app->win->GetWidth() / 2 - 99, -app->render->camera.y + app->win->GetHeight() / 2 - 160, 70, 70 }, this);
-	Item2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 55, "Boots2", { -app->render->camera.x + app->win->GetWidth() / 2 - 4, -app->render->camera.y + app->win->GetHeight() / 2 - 160, 70, 70 }, this);
-	Item3 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 56, "Boots3", { -app->render->camera.x + app->win->GetWidth() / 2 + 91, -app->render->camera.y + app->win->GetHeight() / 2 - 160, 70, 70 }, this);
-	Item6 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 59, "Key", { -app->render->camera.x + app->win->GetWidth() / 2 + 91 + 95, -app->render->camera.y + app->win->GetHeight() / 2 - 160 + 95 + 95, 70, 70 }, this);
+	Item1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 54, "item1", { -app->render->camera.x + app->win->GetWidth() / 2 - 99, -app->render->camera.y + app->win->GetHeight() / 2 - 160, 70, 70 }, this);
+	Item2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 55, "item2", { -app->render->camera.x + app->win->GetWidth() / 2 - 4, -app->render->camera.y + app->win->GetHeight() / 2 - 160, 70, 70 }, this);
+	Item3 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 56, "item3", { -app->render->camera.x + app->win->GetWidth() / 2 + 91, -app->render->camera.y + app->win->GetHeight() / 2 - 160, 70, 70 }, this);
+	Item4 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 57, "item3", { -app->render->camera.x + app->win->GetWidth() / 2 + 186, -app->render->camera.y + app->win->GetHeight() / 2 - 160, 70, 70 }, this);
+	Item5 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 58, "item3", { -app->render->camera.x + app->win->GetWidth() / 2 + 281, -app->render->camera.y + app->win->GetHeight() / 2 - 160, 70, 70 }, this);
+	Item6 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 59, "Key", { -app->render->camera.x + app->win->GetWidth() / 2 - 99, -app->render->camera.y + app->win->GetHeight() / 2 - 100 + 95 + 95, 70, 70 }, this);
 
 	Character1->state = GuiControlState::NORMAL;
 	Character2->state = GuiControlState::NORMAL;
@@ -287,6 +612,8 @@ void CharacterMenu_Screen::Menu()
 	Item1->state = GuiControlState::NORMAL;
 	Item2->state = GuiControlState::NORMAL;
 	Item3->state = GuiControlState::NORMAL;
+	Item4->state = GuiControlState::NORMAL;
+	Item5->state = GuiControlState::NORMAL;
 	Item6->state = GuiControlState::DISABLED;
 }
 
@@ -398,6 +725,32 @@ bool CharacterMenu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 						app->player->P4.mana += 10;
 						increaseMana -= 1;
 					}
+					buttonCont = 0;
+				}
+				else if (control->id == 54 && increaseHP > 0 && !item1state && !item2state && !item3state && item4state)
+				{
+					if (Charac1 == true) {
+						app->BTSystem->p1MaxHP += 20;
+						app->player->P1.hp += 100;
+					}
+					if (Charac2 == true && app->player->P2.IsAlive == true) {
+						app->BTSystem->p2MaxHP += 20;
+						app->player->P2.hp += 100;					
+					}
+					if (Charac3 == true && app->player->P3.IsAlive == true) {
+						app->BTSystem->p3MaxHP += 20;
+						app->player->P3.hp += 100;					
+					}
+					if (Charac4 == true && app->player->P4.IsAlive == true) {
+						app->BTSystem->p4MaxHP += 20;
+						app->player->P4.hp += 100;					
+					}
+					buttonCont = 0;
+				}
+				else if (control->id == 54 && !item1state && !item2state && !item3state && !item4state && item5state)
+				{
+					typingTxt = true;					
+
 					buttonCont = 0;
 				}
 				//------------------2nd grid pos----------------------

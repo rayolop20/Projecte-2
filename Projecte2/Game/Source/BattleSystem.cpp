@@ -1127,17 +1127,17 @@ void battleSystem::CheckAllies() {
 }
 
 void battleSystem::MaxHp() {
-	if (app->player->P1.hp > 75) {
-		app->player->P1.hp = 75;
+	if (app->player->P1.hp > p1MaxHP) {
+		app->player->P1.hp = p1MaxHP;
 	}
-	if (app->player->P2.hp > 40) {
-		app->player->P2.hp = 40;
+	if (app->player->P2.hp > p2MaxHP) {
+		app->player->P2.hp = p2MaxHP;
 	}
-	if (app->player->P3.hp > 45) {
-		app->player->P3.hp = 45;
+	if (app->player->P3.hp > p3MaxHP) {
+		app->player->P3.hp = p3MaxHP;
 	}
-	if (app->player->P4.hp > 50) {
-		app->player->P4.hp = 50;
+	if (app->player->P4.hp > p4MaxHP) {
+		app->player->P4.hp = p4MaxHP;
 	}
 }
 

@@ -51,8 +51,13 @@ public:
 	bool Charac4 = false;
 
 	bool item1state = false;
-	bool item2state = true;
+	bool item2state = false;
 	bool item3state = false;
+	bool item4state = false;
+	bool item5state = true;
+	bool item6state = false;
+
+	bool typingTxt = false;
 
 	SDL_Texture* inventoryTex = nullptr;
 	SDL_Texture* inventoryTexBack = nullptr;
@@ -70,6 +75,8 @@ public:
 	int increaseSpeed = 2;
 	int increaseMana = 2;
 	int healing = 2;
+	int increaseHP = 2;
+
 	GuiButton* Character1;
 	GuiButton* Character2;
 	GuiButton* Character3;
@@ -78,6 +85,8 @@ public:
 	GuiButton* Item1;
 	GuiButton* Item2;
 	GuiButton* Item3;
+	GuiButton* Item4;
+	GuiButton* Item5;
 	GuiButton* Item6;
 
 private:
@@ -85,6 +94,7 @@ private:
 	int clickFx = 1;	
 	int buttonCont = 0;
 	int FText = -1;
+	int TxtCont = 0;
 
 	SDL_Rect menu;
 	SDL_Rect itemMenu;
@@ -102,10 +112,15 @@ private:
 	SDL_Rect Item2Pos;
 	SDL_Rect Item3Pos;
 	SDL_Rect Item4Pos;
+	SDL_Rect Item5Pos;
+	SDL_Rect Item6Pos;
 
 	SDL_Rect Item1Rect;
 	SDL_Rect Item2Rect;
 	SDL_Rect Item3Rect;
+	SDL_Rect Item4Rect;
+	SDL_Rect Item5Rect;
+	SDL_Rect Item6Rect;
 
 	SDL_Texture* enter = nullptr;
 
@@ -115,6 +130,7 @@ private:
 	char HP[150] = { "\0" };
 	char Damage[150] = { "\0" };
 	char Mana[150] = { "\0" };
+	char adviceTxt[150] = { "\0" };
 
 };
 
