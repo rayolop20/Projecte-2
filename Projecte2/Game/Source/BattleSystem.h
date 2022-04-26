@@ -117,6 +117,11 @@ public:
 	float AttackAux;
 	int randomAttack = 0;
 
+	float p1MaxHP = 75;
+	float p2MaxHP = 40;
+	float p3MaxHP = 45;
+	float p4MaxHP = 50;
+
 	bool randomAux = true;
 
 	bool PlayerTurn = true; 
