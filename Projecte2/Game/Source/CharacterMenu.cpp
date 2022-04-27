@@ -179,19 +179,19 @@ bool CharacterMenu_Screen::Update(float dt)
 
 		if (app->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 		{
-			item1state = true;
+			increaseDmg = 2;
 		}
 		if (app->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
 		{
-			item2state = true;
+			healing = 2;
 		}
 		if (app->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
 		{
-			item3state = true;
+			increaseMana = 2;
 		}
 		if (app->input->GetKey(SDL_SCANCODE_4) == KEY_DOWN)
 		{
-			item4state = true;
+			increaseHP = 2;
 		}
 		if (app->input->GetKey(SDL_SCANCODE_5) == KEY_DOWN)
 		{
@@ -206,52 +206,52 @@ bool CharacterMenu_Screen::Update(float dt)
 			item6state = true;
 		}
 
-		if (increaseDmg > 0 && item1state) {
+		if (increaseDmg > 0) item1state = true;
+		else item1state = false;
+
+		if (healing > 0) item2state = true;
+		else item2state = false;
+		
+		if (increaseMana > 0) item3state = true;
+		else item3state = false;
+
+		if (increaseHP > 0)	item4state = true;
+		else item4state = false;
+
+		if (item1state) {
 			Item1Rect = Item1Pos;
 			app->render->DrawRectangle(Item1Rect, 250, 0, 0);
 		}
-		else {
-			//app->render->DrawRectangle(Item1Rect, 220, 220, 220);
-			item1state = false;
-		}
 
 
-		if (healing > 0 && !item1state && item2state) {
+		if (!item1state && item2state) {
 			Item2Rect = Item1Pos;
 			app->render->DrawRectangle(Item2Rect, 0, 250, 0);
 		}
-		else if (healing > 0 && item1state && item2state) {
+		else if (item1state && item2state) {
 			Item2Rect = Item2Pos;
 			app->render->DrawRectangle(Item2Rect, 0, 250, 0);
 		}
-		else {
-			//app->render->DrawRectangle(Item2Rect, 220, 220, 220);
-			item2state = false;
-		}
 
 
-		if (increaseMana > 0 && !item1state && !item2state && item3state) {
+		if (!item1state && !item2state && item3state) {
 			Item3Rect = Item1Pos;
 			app->render->DrawRectangle(Item3Rect, 0, 0, 250);
 		}
-		else if (increaseMana > 0 && !item1state && item2state && item3state) {
+		else if (!item1state && item2state && item3state) {
 			Item3Rect = Item2Pos;
 			app->render->DrawRectangle(Item3Rect, 0, 0, 250);
 		}
-		else if (increaseMana > 0 && item1state && !item2state && item3state) {
+		else if (item1state && !item2state && item3state) {
 			Item3Rect = Item2Pos;
 			app->render->DrawRectangle(Item3Rect, 0, 0, 250);
 		}
-		else if (increaseMana > 0 && item1state && item2state && item3state) {
+		else if (item1state && item2state && item3state) {
 			Item3Rect = Item3Pos;
 			app->render->DrawRectangle(Item3Rect, 0, 0, 250);
 		}
-		else {
-			//app->render->DrawRectangle(Item3Rect, 220, 220, 220);
-			item3state = false;
-		}
-		
 
+		
 		if (!item1state && !item2state && !item3state && item4state)
 		{
 			Item4Rect = Item1Pos;
@@ -291,13 +291,6 @@ bool CharacterMenu_Screen::Update(float dt)
 		{
 			Item4Rect = Item4Pos;
 			app->render->DrawRectangle(Item4Rect, 0, 250, 250);
-		}
-		else
-		{
-			item4state = false;
-		}
-		else {
-			Item6->state = GuiControlState::DISABLED;
 		}
 		
 
@@ -417,8 +410,6 @@ bool CharacterMenu_Screen::Update(float dt)
 			Item6Rect = Item2Pos;
 			app->render->DrawRectangle(Item6Rect, 250, 250, 0);
 		}
-
-
 		else if (item1state && item2state && !item3state && !item4state && !item5state && item6state)
 		{
 			Item6Rect = Item3Pos;
@@ -542,6 +533,7 @@ bool CharacterMenu_Screen::Update(float dt)
 		else 
 		{
 			item6state = false;
+			Item6->state = GuiControlState::DISABLED;
 		}
 
 	}
@@ -560,8 +552,8 @@ bool CharacterMenu_Screen::Update(float dt)
 	}
 	if (typingTxt)
 	{
-		sprintf_s(adviceTxt, "���try to use this item in a fight to run away!!!");
-		app->fonts->DrawTxt(370, 620, FText, adviceTxt);
+		sprintf_s(adviceTxt, "try to use this item in a fight to run away");
+		app->fonts->DrawTxt(390, 620, FText, adviceTxt);
 		if (TxtCont < 2)
 		{
 			TxtCont++;
@@ -732,18 +724,22 @@ bool CharacterMenu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 					if (Charac1 == true) {
 						app->BTSystem->p1MaxHP += 20;
 						app->player->P1.hp += 100;
+						increaseHP--;
 					}
 					if (Charac2 == true && app->player->P2.IsAlive == true) {
 						app->BTSystem->p2MaxHP += 20;
-						app->player->P2.hp += 100;					
+						app->player->P2.hp += 100;		
+						increaseHP--;
 					}
 					if (Charac3 == true && app->player->P3.IsAlive == true) {
 						app->BTSystem->p3MaxHP += 20;
-						app->player->P3.hp += 100;					
+						app->player->P3.hp += 100;		
+						increaseHP--;
 					}
 					if (Charac4 == true && app->player->P4.IsAlive == true) {
 						app->BTSystem->p4MaxHP += 20;
-						app->player->P4.hp += 100;					
+						app->player->P4.hp += 100;			
+						increaseHP--;
 					}
 					buttonCont = 0;
 				}
@@ -799,6 +795,36 @@ bool CharacterMenu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 					}
 					buttonCont = 0;
 				}
+				else if (control->id == 55 && increaseHP > 0 && item1state && !item2state && !item3state && item4state || control->id == 55 && increaseHP > 0 && !item1state && item2state && !item3state && item4state || control->id == 55 && increaseHP > 0 && !item1state && !item2state && item3state && item4state)
+				{				
+					if (Charac1 == true) {
+						app->BTSystem->p1MaxHP += 20;
+						app->player->P1.hp += 100;
+						increaseHP--;
+					}
+					if (Charac2 == true && app->player->P2.IsAlive == true) {
+						app->BTSystem->p2MaxHP += 20;
+						app->player->P2.hp += 100;
+						increaseHP--;
+					}
+					if (Charac3 == true && app->player->P3.IsAlive == true) {
+						app->BTSystem->p3MaxHP += 20;
+						app->player->P3.hp += 100;
+						increaseHP--;
+					}
+					if (Charac4 == true && app->player->P4.IsAlive == true) {
+						app->BTSystem->p4MaxHP += 20;
+						app->player->P4.hp += 100;
+						increaseHP--;
+					}
+					buttonCont = 0;
+				}
+				else if (control->id == 55 && item1state && !item2state && !item3state && !item4state && item5state || control->id == 55 && increaseHP > 0 && !item1state && item2state && !item3state && !item4state && item5state ||	control->id == 55 && increaseHP > 0 && !item1state && !item2state && item3state && !item4state && item5state ||	control->id == 55 && increaseHP > 0 && !item1state && !item2state && !item3state && item4state && item5state)
+				{
+					typingTxt = true;
+
+					buttonCont = 0;
+				}
 
 				//------------------3rd grid pos----------------------
 				if (control->id == 56 && increaseMana > 0 && item1state && item2state && item3state)
@@ -818,6 +844,76 @@ bool CharacterMenu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 						app->player->P4.mana += 10;
 						increaseMana -= 1;
 					}
+					buttonCont = 0;
+				}
+				else if (control->id == 56 && increaseHP > 0 && !item1state && item2state && item3state && item4state || control->id == 56 && increaseHP > 0 && item1state && !item2state && item3state && item4state ||	control->id == 56 && increaseHP > 0 && item1state && item2state && !item3state && item4state)
+				{
+					if (Charac1 == true) {
+						app->BTSystem->p1MaxHP += 20;
+						app->player->P1.hp += 100;
+						increaseHP--;
+					}
+					if (Charac2 == true && app->player->P2.IsAlive == true) {
+						app->BTSystem->p2MaxHP += 20;
+						app->player->P2.hp += 100;
+						increaseHP--;
+					}
+					if (Charac3 == true && app->player->P3.IsAlive == true) {
+						app->BTSystem->p3MaxHP += 20;
+						app->player->P3.hp += 100;
+						increaseHP--;
+					}
+					if (Charac4 == true && app->player->P4.IsAlive == true) {
+						app->BTSystem->p4MaxHP += 20;
+						app->player->P4.hp += 100;
+						increaseHP--;
+					}
+					buttonCont = 0;
+				}
+				else if (control->id == 56 && increaseHP > 0 && item1state && item2state && !item3state && !item4state && item5state|| control->id == 56 && increaseHP > 0 && item1state && !item2state && item3state && !item4state && item5state || control->id == 56 && increaseHP > 0 && item1state && !item2state && !item3state && item4state && item5state || control->id == 56 && increaseHP > 0 && !item1state && item2state && !item3state && item4state && item5state || control->id == 56 && increaseHP > 0 && !item1state && item2state && item3state && !item4state && item5state || control->id == 56 && increaseHP > 0 && !item1state && !item2state && item3state && item4state && item5state)
+				{
+					typingTxt = true;
+
+					buttonCont = 0;
+				}
+
+				//------------------4th grid pos----------------------
+				if (control->id == 57 && increaseHP > 0 && item1state && item2state && item3state && item4state)
+				{
+					if (Charac1 == true) {
+						app->BTSystem->p1MaxHP += 20;
+						app->player->P1.hp += 100;
+						increaseHP--;
+					}
+					if (Charac2 == true && app->player->P2.IsAlive == true) {
+						app->BTSystem->p2MaxHP += 20;
+						app->player->P2.hp += 100;
+						increaseHP--;
+					}
+					if (Charac3 == true && app->player->P3.IsAlive == true) {
+						app->BTSystem->p3MaxHP += 20;
+						app->player->P3.hp += 100;
+						increaseHP--;
+					}
+					if (Charac4 == true && app->player->P4.IsAlive == true) {
+						app->BTSystem->p4MaxHP += 20;
+						app->player->P4.hp += 100;
+						increaseHP--;
+					}
+					buttonCont = 0;
+				}
+				else if (control->id == 57 && !item1state && item2state && item3state && item4state && item5state || control->id == 57 && item1state && !item2state && item3state && item4state && item5state || control->id == 57 && item1state && item2state && !item3state && item4state && item5state || control->id == 57 && item1state && item2state && item3state && !item4state && item5state)
+				{
+					typingTxt = true;
+
+					buttonCont = 0;
+				}
+
+				//------------------5th grid pos----------------------
+				if (control->id == 58 && item1state && item2state && item3state && item4state  && item5state)
+				{
+					typingTxt = true;
+
 					buttonCont = 0;
 				}
 				default: break;
