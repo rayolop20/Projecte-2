@@ -17,6 +17,7 @@
 #include "Menu.h"
 #include "CharacterMenu.h"
 #include "GameMenu.h"
+#include "StatsMenu.h"
 
 
 #include "Defs.h"
@@ -50,6 +51,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	fonts = new ModuleFonts();
 	characterMenu = new CharacterMenu_Screen();
 	gameMenu = new GameMenu_Screen();
+	statsMenu = new StatsMenu_Screen();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -68,6 +70,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(menu); //(112 Mb)
 	AddModule(collisions);
 	AddModule(gameMenu); // 84 Mb de memoria
+	AddModule(statsMenu);
 
 	AddModule(characterMenu); // genera memory leacks sempre k es clica la I (120mb)
 
