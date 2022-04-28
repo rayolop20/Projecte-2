@@ -91,6 +91,9 @@ bool battleSystem::Start()
 	MiniPlayerButton3->state = GuiControlState::DISABLED;
 	MiniPlayerButton4 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 42, "MiniPlayerButton4", { 0, 0, 0, 0 }, this);
 	MiniPlayerButton4->state = GuiControlState::DISABLED;
+	StatsMenu = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 65, "StatsMenu", { 0, 0, 0, 0 }, this);
+	StatsMenu->state = GuiControlState::DISABLED;
+
 
 
 	//Initialize playerTurns
@@ -1066,6 +1069,13 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 			AttackPlayer = 4;
 		}
 		if (control->id == 42 && ChoosePlayerPhase == true && SpecialAttackEnable == false && app->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT) {//GodMode
+			AttackPlayer = 4;
+			SpecialAttackEnable = false;
+			app->player->P4.IsAlive = false;
+			app->player->P4.hp = 0;
+
+		}
+		if (control->id == 65 && ChoosePlayerPhase == true && SpecialAttackEnable == false && app->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT) {//GodMode
 			AttackPlayer = 4;
 			SpecialAttackEnable = false;
 			app->player->P4.IsAlive = false;

@@ -39,6 +39,8 @@ public:
 
 	void MenuConfig();
 
+	void ShowStats(int a);
+
 	// Called before quitting
 	bool CleanUp();
 	GuiControl* btnResume;

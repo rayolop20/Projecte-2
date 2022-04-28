@@ -160,6 +160,10 @@ bool StatsMenu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 	}
 }
 
+void StatsMenu_Screen::ShowStats(int a)
+{
+}
+
 bool StatsMenu_Screen::CleanUp()
 {
 

@@ -47,6 +47,7 @@ public:
 	GuiButton* Inventory;
 	GuiButton* Run;
 	GuiButton* CloseInventory;
+	GuiButton* StatsMenu;
 	GuiButton* QTE2;
 	GuiButton* MiniPlayerButton1;
 	GuiButton* MiniPlayerButton2;
