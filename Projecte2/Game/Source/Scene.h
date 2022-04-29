@@ -107,10 +107,10 @@ public:
 	bool End0 = true;
 	bool End1 = true;
 	bool End2 = true;
-	bool End3 = false;
-	bool End4 = false;
-	bool End5 = false;
-	bool End6 = false;
+	bool End3 = true;
+	bool End4 = true;
+	bool End5 = true;
+	bool End6 = true;
 
 	int phase = 0;
 	int maxPhase = 0;

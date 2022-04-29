@@ -291,6 +291,15 @@ bool Scene::Update(float dt)
 			if (phase == 2 && maxPhase == 2 && End2 == true) {
 				Three();
 			}
+			if (phase == 3 && maxPhase == 3 && End3 == true) {
+				Four();
+			}
+			if (phase == 4 && maxPhase == 4 && End4 == true) {
+				Five();
+			}
+			if (phase == 5 && maxPhase == 5 && End5 == true) {
+				Six();
+			}
 			
 
 		}
@@ -363,8 +372,87 @@ void Scene::Three() {
 		app->render->DrawRectangle({ Simon[thirdSimon].Pos.x, Simon[thirdSimon].Pos.y,32,32 }, 255, 0, 0);
 	}
 	else {
-		phase = 0;
+		phase = 1;
 		End2 = false;
+		End1 = false;
+		app->scene->timerphase2 = app->scene->timerphase2_;
+
+	}
+}
+void Scene::Four() {
+	if (timerphase2_ < timerphase2 + 1) {
+		app->render->DrawRectangle({ Simon[firstSimon].Pos.x, Simon[firstSimon].Pos.y,32,32 }, 0, 255, 0);
+	}
+	if (timerphase2_ < timerphase2 + 2) {
+		app->render->DrawRectangle({ Simon[secondSimon].Pos.x, Simon[secondSimon].Pos.y,32,32 }, 0, 0, 255);
+	}
+	if (timerphase2_ < timerphase2 + 3) {
+		app->render->DrawRectangle({ Simon[thirdSimon].Pos.x, Simon[thirdSimon].Pos.y,32,32 }, 255, 0, 0);
+	}
+	if (timerphase2_ < timerphase2 + 4) {
+		app->render->DrawRectangle({ Simon[fourthSimon].Pos.x, Simon[fourthSimon].Pos.y,32,32 }, 108, 70, 117);
+	}
+	else {
+		phase = 1;
+		End3 = false;
+		End2 = false;
+		End1 = false;
+		app->scene->timerphase2 = app->scene->timerphase2_;
+
+	}
+}
+void Scene::Five() {
+	if (timerphase2_ < timerphase2 + 1) {
+		app->render->DrawRectangle({ Simon[firstSimon].Pos.x, Simon[firstSimon].Pos.y,32,32 }, 0, 255, 0);
+	}
+	if (timerphase2_ < timerphase2 + 2) {
+		app->render->DrawRectangle({ Simon[secondSimon].Pos.x, Simon[secondSimon].Pos.y,32,32 }, 0, 0, 255);
+	}
+	if (timerphase2_ < timerphase2 + 3) {
+		app->render->DrawRectangle({ Simon[thirdSimon].Pos.x, Simon[thirdSimon].Pos.y,32,32 }, 255, 0, 0);
+	}
+	if (timerphase2_ < timerphase2 + 4) {
+		app->render->DrawRectangle({ Simon[fourthSimon].Pos.x, Simon[fourthSimon].Pos.y,32,32 }, 108, 70, 117);
+	}
+	if (timerphase2_ < timerphase2 + 5) {
+		app->render->DrawRectangle({ Simon[fifthSimon].Pos.x, Simon[fifthSimon].Pos.y,32,32 }, 255, 255, 0);
+	}
+	else {
+		phase = 1;
+		End4 = false;
+		End3 = false;
+		End2 = false;
+		End1 = false;
+		app->scene->timerphase2 = app->scene->timerphase2_;
+
+	}
+}
+void Scene::Six() {
+	if (timerphase2_ < timerphase2 + 1) {
+		app->render->DrawRectangle({ Simon[firstSimon].Pos.x, Simon[firstSimon].Pos.y,32,32 }, 0, 255, 0);
+	}
+	if (timerphase2_ < timerphase2 + 2) {
+		app->render->DrawRectangle({ Simon[secondSimon].Pos.x, Simon[secondSimon].Pos.y,32,32 }, 0, 0, 255);
+	}
+	if (timerphase2_ < timerphase2 + 3) {
+		app->render->DrawRectangle({ Simon[thirdSimon].Pos.x, Simon[thirdSimon].Pos.y,32,32 }, 255, 0, 0);
+	}
+	if (timerphase2_ < timerphase2 + 4) {
+		app->render->DrawRectangle({ Simon[fourthSimon].Pos.x, Simon[fourthSimon].Pos.y,32,32 }, 108, 70, 117);
+	}
+	if (timerphase2_ < timerphase2 + 5) {
+		app->render->DrawRectangle({ Simon[fifthSimon].Pos.x, Simon[fifthSimon].Pos.y,32,32 }, 255, 255, 0);
+	}
+	if (timerphase2_ < timerphase2 + 6) {
+		app->render->DrawRectangle({ Simon[sixthSimon].Pos.x, Simon[sixthSimon].Pos.y,32,32 }, 255, 128, 0);
+	}
+	else {
+		phase = 1;
+		End5 = false;
+		End4 = false;
+		End3 = false;
+		End2 = false;
+		End1 = false;
 		app->scene->timerphase2 = app->scene->timerphase2_;
 
 	}
