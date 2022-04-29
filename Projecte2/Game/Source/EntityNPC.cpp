@@ -106,6 +106,8 @@ bool EntityNPC::Update(float dt)
 	if (Dialogue2Count != 0 && app->menu->config == false && app->BTSystem->battle == false && app->player->door3active == true && app->player->door3active_ == true) {
 		porta_1->pendingToDelete = true;
 		app->render->DrawTexture(door2, 1312, 1664);
+		app->characterMenu->item6state = false;
+
 	}
 	else if (app->menu->config == false && app->BTSystem->battle == false){
 		app->render->DrawTexture(door, 1312, 1664);
@@ -360,6 +362,8 @@ bool EntityNPC::Update(float dt)
 			sprintf_s(Text3, "injuries, i do not remember where it is, but I think this");
 			sprintf_s(Text4, " key may be a clue");
 			app->player->door3active = true;
+			app->characterMenu->Item6->state = GuiControlState::NORMAL;
+			app->characterMenu->item6state = true;
 			app->fonts->DrawTxt(250, 502, FText, Text1);
 			app->fonts->DrawTxt(250, 542, FText, Text2);
 			app->fonts->DrawTxt(250, 582, FText, Text3);

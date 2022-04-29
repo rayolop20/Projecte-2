@@ -50,8 +50,18 @@ bool Scene::Start()
 
 		RELEASE_ARRAY(data);
 	};
+	door = app->tex->Load("Assets/Textures/Assets/door.png");
 	app->map->DColisions();
 	pathTex = app->tex->Load("Assets/Maps/path2.png");
+	if (puzzle1Active == true) {
+		//Wall1 = app->collisions->AddCollider({ 608+32,2176+32,32,32 }, Collider::Type::WALLH);
+		Wall1 = app->collisions->AddCollider({ 608,2176+32,32,32 }, Collider::Type::WALLV,this);
+		Wall2 = app->collisions->AddCollider({ 640,2176+32,32,32 }, Collider::Type::WALLV,this);
+		Wall3 = app->collisions->AddCollider({ 608+64,2176+32,32,32 }, Collider::Type::WALLV,this);
+		Wall4 = app->collisions->AddCollider({ 608,2112-64,32,32 }, Collider::Type::WALLV,this);
+		Wall5 = app->collisions->AddCollider({ 640,2112-64,32,32 }, Collider::Type::WALLV,this);
+		Wall6 = app->collisions->AddCollider({ 608+64,2112-64,32,32 }, Collider::Type::WALLV,this);
+	}
 
 	return true;
 }
@@ -70,7 +80,9 @@ bool Scene::PreUpdate()
 // Called each loop iteration
 bool Scene::Update(float dt)
 {
-
+	pressurePlateTimer1_ = SDL_GetTicks() / 1000;
+	pressurePlateTimer2_ = SDL_GetTicks() / 1000;
+	pressurePlateTimer3_ = SDL_GetTicks() / 1000;
 
 	if (musicActive == true)
 	{
@@ -212,6 +224,33 @@ bool Scene::Update(float dt)
 
 		}
 		
+
+		if (puzzle1Active == true) {
+			Plate1 = app->collisions->AddCollider({ 64,2432,64,64 }, Collider::Type::PRESSURE_PLATE1);
+			Plate2 = app->collisions->AddCollider({ 192,2016,64,64 }, Collider::Type::PRESSURE_PLATE2);
+			Plate3 = app->collisions->AddCollider({ 800,2240,64,64 }, Collider::Type::PRESSURE_PLATE3);
+			app->render->DrawTexture(door, 608, 2112);
+			if (pressurePlate1 == false && pressurePlateTimer1_ > pressurePlateTimer1 + 7) {
+				pressurePlate1 = true;
+			}
+			if (pressurePlate2 == false && pressurePlateTimer2_ > pressurePlateTimer2 + 5) {
+				pressurePlate2 = true;
+			}
+			if (pressurePlate3 == false && pressurePlateTimer3_ > pressurePlateTimer3 + 0.5) {
+				pressurePlate3 = true;
+			}
+			if (pressurePlate1 == false && pressurePlate2 == false && pressurePlate3 == false) {
+				puzzle1Active = false;
+			}
+		}
+		else {
+			Wall1->pendingToDelete = true;
+			Wall2->pendingToDelete = true;
+			Wall3->pendingToDelete = true;
+			Wall4->pendingToDelete = true;
+			Wall5->pendingToDelete = true;
+			Wall6->pendingToDelete = true;
+		}
 		return true;
 	}
 }
@@ -231,7 +270,6 @@ bool Scene::PostUpdate()
 bool Scene::CleanUp()
 {
 	LOG("Freeing scene");
-
 	return true;
 }
 

@@ -742,11 +742,24 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 
 				}
 
+				if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::PRESSURE_PLATE1 && app->scene->pressurePlate1 == true)
+				{
+					app->scene->pressurePlate1 = false;
+					app->scene->pressurePlateTimer1 = app->scene->pressurePlateTimer1_;
+				}
+				if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::PRESSURE_PLATE2 && app->scene->pressurePlate2 == true)
+				{
+					app->scene->pressurePlate2 = false;
+					app->scene->pressurePlateTimer2 = app->scene->pressurePlateTimer2_;
+				}
+				if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::PRESSURE_PLATE3 && app->scene->pressurePlate3 == true)
+				{
+					app->scene->pressurePlate3 = false;
+					app->scene->pressurePlateTimer3 = app->scene->pressurePlateTimer3_;
+				}
 			}
 		}
-
 	}
-
 }
 
 

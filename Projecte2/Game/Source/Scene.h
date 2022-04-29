@@ -44,6 +44,32 @@ public:
 	bool cMenu = false;
 	bool musicActive = true;
 
+	bool puzzle1Active = true;
+	bool pressurePlate1 = true;
+	bool pressurePlate2 = true;
+	bool pressurePlate3 = true;
+	
+	int pressurePlateTimer1 = 0;
+	int pressurePlateTimer2 = 0;
+	int pressurePlateTimer3 = 0;
+	int pressurePlateTimer1_ = 0;
+	int pressurePlateTimer2_ = 0;
+	int pressurePlateTimer3_ = 0;
+	
+	Collider* Plate1;
+	Collider* Plate2;
+	Collider* Plate3;
+	
+	Collider* Wall1;
+	Collider* Wall2;
+	Collider* Wall3;
+	Collider* Wall4;
+	Collider* Wall5;
+	Collider* Wall6;
+
+	SDL_Texture* door = nullptr;
+
+
 	int xCont = 0;
 private:
 

@@ -201,10 +201,6 @@ bool CharacterMenu_Screen::Update(float dt)
 		{
 			app->player->door3active = true;
 		}
-		if (app->player->door3active == true) {
-			Item6->state = GuiControlState::NORMAL;
-			item6state = true;
-		}
 
 		if (increaseDmg > 0) item1state = true;
 		else item1state = false;
