@@ -104,6 +104,14 @@ public:
 	int fifthSimon = 0;
 	int sixthSimon = 0;
 
+	bool End0 = true;
+	bool End1 = true;
+	bool End2 = true;
+	bool End3 = false;
+	bool End4 = false;
+	bool End5 = false;
+	bool End6 = false;
+
 	int phase = 0;
 	int maxPhase = 0;
 
