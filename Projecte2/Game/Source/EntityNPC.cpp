@@ -88,7 +88,7 @@ bool EntityNPC::Start()
 		currentAnimation[i] = &idle1;
 	}
 
-		npc[0] = CreateNPC(1060, 1358, app->characterMenu->frenchNpc);
+		npc[0] = CreateNPC(1050, 1364, app->characterMenu->frenchNpc);
 		npc[1] = CreateNPC(957, 232, TextureNPC);
 		npc[2] = CreateNPC(1357, 1937, TextureNPC2);
 	

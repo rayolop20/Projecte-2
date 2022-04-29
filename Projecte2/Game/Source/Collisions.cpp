@@ -32,6 +32,12 @@ Collisions::Collisions() : Module()
 	matrix[Collider::Type::PLAYER][Collider::Type::PRESSURE_PLATE1] = true;
 	matrix[Collider::Type::PLAYER][Collider::Type::PRESSURE_PLATE2] = true;
 	matrix[Collider::Type::PLAYER][Collider::Type::PRESSURE_PLATE3] = true;
+	matrix[Collider::Type::PLAYER][Collider::Type::SIMON1] = true;
+	matrix[Collider::Type::PLAYER][Collider::Type::SIMON2] = true;
+	matrix[Collider::Type::PLAYER][Collider::Type::SIMON3] = true;
+	matrix[Collider::Type::PLAYER][Collider::Type::SIMON4] = true;
+	matrix[Collider::Type::PLAYER][Collider::Type::SIMON5] = true;
+	matrix[Collider::Type::PLAYER][Collider::Type::SIMON6] = true;
 
 	matrix[Collider::Type::PLAYER][Collider::Type::KEY_SENSOR] = true;
 	matrix[Collider::Type::KEY_SENSOR][Collider::Type::PLAYER] = true;
@@ -228,6 +234,25 @@ void Collisions::DebugDraw()
 				app->render->DrawRectangle(colliders[i]->rect, 0, 255, 0, alpha);
 				break;
 			}
+		case Collider::Type::SIMON1: // Blue
+			app->render->DrawRectangle(colliders[i]->rect, 255, 255, 255, alpha);
+			break;
+		case Collider::Type::SIMON2: // Blue
+			app->render->DrawRectangle(colliders[i]->rect, 255, 255, 255, alpha);
+			break;
+		case Collider::Type::SIMON3: // Blue
+			app->render->DrawRectangle(colliders[i]->rect, 255, 255, 255, alpha);
+			break;
+		case Collider::Type::SIMON4: // Blue
+			app->render->DrawRectangle(colliders[i]->rect, 255, 255, 255, alpha);
+			break;
+		case Collider::Type::SIMON5: // Blue
+			app->render->DrawRectangle(colliders[i]->rect, 255, 255, 255, alpha);
+			break;
+		case Collider::Type::SIMON6: // Blue
+			app->render->DrawRectangle(colliders[i]->rect, 255, 255, 255, alpha);
+			break;
+
 		case Collider::Type::SENSOR_PLAYER2: // Blue
 			app->render->DrawRectangle(colliders[i]->rect, 0, 0, 255, alpha);
 			break;
@@ -273,6 +298,8 @@ Collider* Collisions::AddCollider(SDL_Rect rect, Collider::Type type, Module* li
 
 	return ret;
 }
+
+
 
 void Collisions::RemoveCollider(Collider* collider)
 {

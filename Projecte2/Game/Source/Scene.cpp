@@ -18,6 +18,7 @@
 #include "BattleSystem.h"
 #include "Defs.h"
 #include "Log.h"
+#include <time.h>
 
 Scene::Scene() : Module()
 {
@@ -62,7 +63,11 @@ bool Scene::Start()
 		Wall5 = app->collisions->AddCollider({ 640,2112-64,32,32 }, Collider::Type::WALLV,this);
 		Wall6 = app->collisions->AddCollider({ 608+64,2112-64,32,32 }, Collider::Type::WALLV,this);
 	}
-
+	if (puzzle2Active == true) {
+		Wall16 = app->collisions->AddCollider({ 1216,832,32,32 }, Collider::Type::WALLV, this);
+		Wall17 = app->collisions->AddCollider({ 1248,832,32,32 }, Collider::Type::WALLV, this);
+		Wall18 = app->collisions->AddCollider({ 1280,832,32,32 }, Collider::Type::WALLV, this);
+	}
 	return true;
 }
 
@@ -83,6 +88,9 @@ bool Scene::Update(float dt)
 	pressurePlateTimer1_ = SDL_GetTicks() / 1000;
 	pressurePlateTimer2_ = SDL_GetTicks() / 1000;
 	pressurePlateTimer3_ = SDL_GetTicks() / 1000;
+
+	timerphase1_ = SDL_GetTicks() / 1000;
+	timerphase2_ = SDL_GetTicks() / 1000;
 
 	if (musicActive == true)
 	{
@@ -251,10 +259,86 @@ bool Scene::Update(float dt)
 			Wall5->pendingToDelete = true;
 			Wall6->pendingToDelete = true;
 		}
+		if (puzzle2Active == true) {
+			Simon[1] = CreateSimonSays(1166, 850, 1);
+			Simon[1].colliderS = app->collisions->AddCollider({ 1166, 850, 32, 32 }, Collider::Type::SIMON1);
+
+			Simon[2] = CreateSimonSays(1345, 850, 2);
+			Simon[2].colliderS = app->collisions->AddCollider({ 1345, 850, 32, 32 }, Collider::Type::SIMON2);
+
+			Simon[3] = CreateSimonSays(1392, 1034, 3);
+			Simon[3].colliderS = app->collisions->AddCollider({ 1392, 1034, 32, 32 }, Collider::Type::SIMON3);
+
+			Simon[4] = CreateSimonSays(1105, 1034, 4);
+			Simon[4].colliderS = app->collisions->AddCollider({ 1105, 1034, 32, 32 }, Collider::Type::SIMON4);
+
+			Simon[5] = CreateSimonSays(1392, 1205, 5);
+			Simon[5].colliderS = app->collisions->AddCollider({ 1392, 1205, 32, 32 }, Collider::Type::SIMON5);
+
+			Simon[6] = CreateSimonSays(1105, 1205, 6);
+			Simon[6].colliderS = app->collisions->AddCollider({ 1105, 1205, 32, 32 }, Collider::Type::SIMON6);
+
+			
+			if (prepared == false) {
+				PrepareSimon();
+			}
+			if (phase == 0 && maxPhase == 0) {
+				One();
+			}
+			if (phase == 1 && maxPhase == 1) {
+				Two();
+			}
+			if (phase == 2) {
+				int klk = 0;
+			}
+
+		}
+		else {
+			Wall16->pendingToDelete = true;
+			Wall17->pendingToDelete = true;
+			Wall18->pendingToDelete = true;
+		}
 		return true;
 	}
 }
 
+S Scene::CreateSimonSays(int x, int y, int order)
+{
+	S Simon[7];
+
+	Simon[order].Pos.x = x;
+	Simon[order].Pos.y = y;
+	Simon[order].num = order;
+		return Simon[order];
+}
+
+void Scene::PrepareSimon() {
+	srand(time(NULL));
+	firstSimon = rand() % 6 + 1;
+	secondSimon = rand() % 6 + 1;
+	thirdSimon = rand() % 6 + 1;
+	fourthSimon = rand() % 6 + 1;
+	fifthSimon = rand() % 6 + 1;
+	sixthSimon = rand() % 6 + 1;
+	prepared = true;
+}
+
+void Scene::One() {
+	for (int i = 1; i < 7; i++) {
+		if (Simon[i].num == firstSimon) {
+			app->render->DrawRectangle({ Simon[i].Pos.x, Simon[i].Pos.y,32,32 }, 0, 255, 0);
+		}
+	}
+}
+
+void Scene::Two() {
+	if (timerphase2_ < timerphase2 + 2) {
+		app->render->DrawRectangle({ Simon[firstSimon].Pos.x, Simon[firstSimon].Pos.y,32,32 }, 0, 255, 0);
+	}
+	if (timerphase2_ < timerphase2 + 4) {
+		app->render->DrawRectangle({ Simon[secondSimon].Pos.x, Simon[secondSimon].Pos.y,32,32 }, 0, 0, 255);
+	}
+}
 // Called each loop iteration
 bool Scene::PostUpdate()
 {
