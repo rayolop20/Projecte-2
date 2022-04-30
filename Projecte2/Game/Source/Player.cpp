@@ -739,14 +739,325 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 					{
 						P4.P4Active = true;
 					}
+				}
+				if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::PRESSURE_PLATE1 && app->scene->pressurePlate1 == true)
+				{
+					app->scene->pressurePlate1 = false;
+					app->scene->pressurePlateTimer1 = app->scene->pressurePlateTimer1_;
+				}
+				if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::PRESSURE_PLATE2 && app->scene->pressurePlate2 == true)
+				{
+					app->scene->pressurePlate2 = false;
+					app->scene->pressurePlateTimer2 = app->scene->pressurePlateTimer2_;
+				}
+				if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::PRESSURE_PLATE3 && app->scene->pressurePlate3 == true)
+				{
+					app->scene->pressurePlate3 = false;
+					app->scene->pressurePlateTimer3 = app->scene->pressurePlateTimer3_;
+				}
+				if (app->scene->phase == 5 && app->scene->maxPhase >= 5 && app->scene->End5 == false && app->scene->timerphase2_ > app->scene->timerphase2 + 1) {
+					app->scene->timerphase2 = app->scene->timerphase2_;
+					if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::SIMON1 && app->scene->sixthSimon == 1)
+					{
+						app->scene->phase = 6;
+					}
+					if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::SIMON2 && app->scene->sixthSimon == 2)
+					{
+						app->scene->phase = 6;
+					}
+					if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::SIMON3 && app->scene->sixthSimon == 3)
+					{
+						app->scene->phase = 6;
+					}
+					if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::SIMON4 && app->scene->sixthSimon == 4)
+					{
+						app->scene->phase = 6;
+					}
+					if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::SIMON5 && app->scene->sixthSimon == 5)
+					{
+						app->scene->phase = 6;
+					}
+					if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::SIMON6 && app->scene->sixthSimon == 6)
+					{
+						app->scene->phase = 6;
+					}
+					if (app->scene->phase == 5) {
+						app->scene->End2 = true;
+						app->scene->End1 = true;
+						app->scene->End3 = true;
+						app->scene->End4 = true;
+						app->scene->End5 = true;
+						app->scene->End6 = true;
+						app->scene->phase = 0;
+						app->scene->prepared = false;
+						app->scene->maxPhase = 0;
+					}
+				}
+				if (app->scene->phase == 4 && app->scene->maxPhase >= 4 && app->scene->End4 == false && app->scene->timerphase2_ > app->scene->timerphase2 + 1) {
+					app->scene->timerphase2 = app->scene->timerphase2_;
+					if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::SIMON1 && app->scene->fifthSimon == 1)
+					{
+						app->scene->End4 = true;
+						app->scene->phase = 5;
+						app->scene->maxPhase = 5;
+					}
+					if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::SIMON2 && app->scene->fifthSimon == 2)
+					{
+						app->scene->End4 = true;
+						app->scene->phase = 5;
+						app->scene->maxPhase = 5;
 
+					}
+					if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::SIMON3 && app->scene->fifthSimon == 3)
+					{
+						app->scene->End4 = true;
+						app->scene->phase = 5;
+						app->scene->maxPhase = 5;
+
+					}
+					if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::SIMON4 && app->scene->fifthSimon == 4)
+					{
+						app->scene->End4 = true;
+						app->scene->phase = 5;
+						app->scene->maxPhase = 5;
+
+					}
+					if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::SIMON5 && app->scene->fifthSimon == 5)
+					{
+						app->scene->End4 = true;
+						app->scene->phase = 5;
+						app->scene->maxPhase = 5;
+					}
+					if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::SIMON6 && app->scene->fifthSimon == 6)
+					{
+						app->scene->End4 = true;
+						app->scene->phase = 5;
+						app->scene->maxPhase = 5;
+					}
+					if (app->scene->phase == 4) {
+						app->scene->End2 = true;
+						app->scene->End1 = true;
+						app->scene->End3 = true;
+						app->scene->End4 = true;
+						app->scene->End5 = true;
+						app->scene->End6 = true;
+						app->scene->phase = 0;
+						app->scene->prepared = false;
+						app->scene->maxPhase = 0;
+					}
+				}
+				if (app->scene->phase == 3 && app->scene->maxPhase >= 3 && app->scene->End3 == false && app->scene->timerphase2_ > app->scene->timerphase2 + 1) {
+					app->scene->timerphase2 = app->scene->timerphase2_;
+					if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::SIMON1 && app->scene->fourthSimon == 1)
+					{
+						app->scene->End3 = true;
+						app->scene->phase = 4;
+						app->scene->maxPhase = 4;
+					}
+					if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::SIMON2 && app->scene->fourthSimon == 2)
+					{
+						app->scene->End3 = true;
+						app->scene->maxPhase = 4;
+						app->scene->phase = 4;
+
+					}
+					if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::SIMON3 && app->scene->fourthSimon == 3)
+					{
+						app->scene->End3 = true;
+						app->scene->maxPhase = 4;
+						app->scene->phase = 4;
+
+					}
+					if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::SIMON4 && app->scene->fourthSimon == 4)
+					{
+						app->scene->End3 = true;
+						app->scene->maxPhase = 4;
+						app->scene->phase = 4;
+
+					}
+					if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::SIMON5 && app->scene->fourthSimon == 5)
+					{
+						app->scene->End3 = true;
+						app->scene->maxPhase = 4;
+						app->scene->phase = 4;
+					}
+					if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::SIMON6 && app->scene->fourthSimon == 6)
+					{
+						app->scene->End3 = true;
+						app->scene->maxPhase = 4;
+						app->scene->phase = 4;
+					}
+					if (app->scene->phase == 3) {
+						app->scene->End2 = true;
+						app->scene->End1 = true;
+						app->scene->End3 = true;
+						app->scene->End4 = true;
+						app->scene->End5 = true;
+						app->scene->End6 = true;
+						app->scene->phase = 0;
+						app->scene->prepared = false;
+						app->scene->maxPhase = 0;
+					}
+				}
+				if (app->scene->phase == 2 && app->scene->maxPhase >= 2 && app->scene->End2 == false && app->scene->timerphase2_ > app->scene->timerphase2 + 1) {
+					app->scene->timerphase2 = app->scene->timerphase2_;
+					if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::SIMON1 && app->scene->thirdSimon == 1)
+					{
+						app->scene->End2 = true;
+						app->scene->phase = 3;
+						app->scene->maxPhase = 3;
+					}
+					if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::SIMON2 && app->scene->thirdSimon == 2)
+					{
+						app->scene->End2 = true;
+						app->scene->maxPhase = 3;
+						app->scene->phase = 3;
+
+					}
+					if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::SIMON3 && app->scene->thirdSimon == 3)
+					{
+						app->scene->End2 = true;
+						app->scene->maxPhase = 3;
+						app->scene->phase = 3;
+
+					}
+					if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::SIMON4 && app->scene->thirdSimon == 4)
+					{
+						app->scene->End2 = true;
+						app->scene->maxPhase = 3;
+						app->scene->phase = 3;
+
+					}
+					if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::SIMON5 && app->scene->thirdSimon == 5)
+					{
+						app->scene->End2 = true;
+						app->scene->maxPhase = 3;
+						app->scene->phase = 3;
+					}
+					if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::SIMON6 && app->scene->thirdSimon == 6)
+					{
+						app->scene->End2 = true;
+						app->scene->maxPhase = 3;
+						app->scene->phase = 3;
+					}
+					if (app->scene->phase == 2) {
+						app->scene->End2 = true;
+						app->scene->End1 = true;
+						app->scene->End3 = true;
+						app->scene->End4 = true;
+						app->scene->End5 = true;
+						app->scene->End6 = true;
+						app->scene->phase = 0;
+						app->scene->prepared = false;
+						app->scene->maxPhase = 0;
+					}
 				}
 
+				if (app->scene->phase == 1 && app->scene->maxPhase >= 1 && app->scene->End1 == false && app->scene->timerphase2_ > app->scene->timerphase2 + 1) {
+					app->scene->timerphase2 = app->scene->timerphase2_;
+					if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::SIMON1 && app->scene->secondSimon == 1)
+					{
+						app->scene->End1 = true;
+						app->scene->phase = 2;
+						app->scene->maxPhase = 2;
+					}
+					if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::SIMON2 && app->scene->secondSimon == 2)
+					{
+						app->scene->End1 = true;
+						app->scene->maxPhase = 2;
+						app->scene->phase = 2;
+
+					}
+					if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::SIMON3 && app->scene->secondSimon == 3)
+					{
+						app->scene->End1 = true;
+						app->scene->maxPhase = 2;
+						app->scene->phase = 2;
+
+					}
+					if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::SIMON4 && app->scene->secondSimon == 4)
+					{
+						app->scene->End1 = true;
+						app->scene->maxPhase = 2;
+						app->scene->phase = 2;
+
+					}
+					if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::SIMON5 && app->scene->secondSimon == 5)
+					{
+						app->scene->End1 = true;
+						app->scene->maxPhase = 2;
+						app->scene->phase = 2;
+					}
+					if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::SIMON6 && app->scene->secondSimon == 6)
+					{
+						app->scene->End1 = true;
+						app->scene->maxPhase = 2;
+						app->scene->phase = 2;
+					}
+					if (app->scene->phase == 1) {
+						app->scene->End2 = true;
+						app->scene->End1 = true;
+						app->scene->End3 = true;
+						app->scene->End4 = true;
+						app->scene->End5 = true;
+						app->scene->End6 = true;
+						app->scene->phase = 0;
+						app->scene->prepared = false;
+						app->scene->maxPhase = 0;
+					}
+				}
+				if (app->scene->phase == 0) {
+					app->scene->timerphase2 = app->scene->timerphase2_;
+					if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::SIMON1 && app->scene->firstSimon == 1)
+					{
+						app->scene->maxPhase = 1;
+						app->scene->phase = 1;
+					}
+					if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::SIMON2 && app->scene->firstSimon == 2)
+					{
+						app->scene->maxPhase = 1;
+						app->scene->phase = 1;
+
+					}
+					if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::SIMON3 && app->scene->firstSimon == 3)
+					{
+						app->scene->maxPhase = 1;
+						app->scene->phase = 1;
+
+					}
+					if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::SIMON4 && app->scene->firstSimon == 4)
+					{
+						app->scene->maxPhase = 1;
+						app->scene->phase = 1;
+
+					}
+					if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::SIMON5 && app->scene->firstSimon == 5)
+					{
+						app->scene->phase = 1;
+						app->scene->maxPhase = 1;
+					}
+					if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::SIMON6 && app->scene->firstSimon == 6)
+					{
+						app->scene->phase = 1;
+						app->scene->maxPhase = 1;
+					}
+					if (app->scene->phase == 0) {
+						app->scene->End2 = true;
+						app->scene->End1 = true;
+						app->scene->End3 = true;
+						app->scene->End4 = true;
+						app->scene->End5 = true;
+						app->scene->End6 = true;
+						app->scene->phase = 0;
+						app->scene->prepared = false;
+						app->scene->maxPhase = 0;
+					}
+				}
+				
+				
 			}
 		}
-
 	}
-
 }
 
 

@@ -96,7 +96,6 @@ public:
 	float timerNPC3 = 0.0;
 	float timerNPC3_ = 0.0;
 
-
 	char Text1[150] = { "\0" };
 	char Text2[150] = { "\0" };
 	char Text3[150] = { "\0" };
