@@ -300,6 +300,9 @@ bool Scene::Update(float dt)
 			if (phase == 5 && maxPhase == 5 && End5 == true) {
 				Six();
 			}
+			if (phase == 6) {
+				puzzle2Active = false;
+			}
 			
 
 		}

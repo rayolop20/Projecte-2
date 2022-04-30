@@ -759,27 +759,27 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 					app->scene->timerphase2 = app->scene->timerphase2_;
 					if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::SIMON1 && app->scene->sixthSimon == 1)
 					{
-						int klk = 0;
+						app->scene->phase = 6;
 					}
 					if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::SIMON2 && app->scene->sixthSimon == 2)
 					{
-						int klk = 0;
+						app->scene->phase = 6;
 					}
 					if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::SIMON3 && app->scene->sixthSimon == 3)
 					{
-						int klk = 0;
+						app->scene->phase = 6;
 					}
 					if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::SIMON4 && app->scene->sixthSimon == 4)
 					{
-						int klk = 0;
+						app->scene->phase = 6;
 					}
 					if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::SIMON5 && app->scene->sixthSimon == 5)
 					{
-						int klk = 0;
+						app->scene->phase = 6;
 					}
 					if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::SIMON6 && app->scene->sixthSimon == 6)
 					{
-						int klk = 0;
+						app->scene->phase = 6;
 					}
 					if (app->scene->phase == 5) {
 						app->scene->End2 = true;
