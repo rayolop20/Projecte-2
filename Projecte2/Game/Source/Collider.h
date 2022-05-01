@@ -29,6 +29,10 @@ struct Collider
 		SIMON4,
 		SIMON5,
 		SIMON6,
+		TORCH1,
+		TORCH2,
+		TORCH3,
+		TORCH4,
 		//Sensors
 		SENSOR,
 		SENSOR_PLAYER2,

@@ -286,7 +286,7 @@ bool Player::Start()
 
 bool Player::Update(float dt)
 {	
-	if (app->BTSystem->battle == false && app->menu->config == false && P1.IsAlive == true) {
+	if (app->BTSystem->battle == false && app->menu->config == false && P1.IsAlive == true && app->scene->puzzle3Active == true) {
 		app->render->DrawTexture(darkness, P1.position.x - 608, P1.position.y - 360 + 32);
 	}
 	//imputs
@@ -1053,7 +1053,37 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 						app->scene->maxPhase = 0;
 					}
 				}
-				
+				if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::TORCH1 && app->scene->puzzle3Active == true && app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
+				{
+					if (app->scene->torchCount1 == 5) {
+						app->scene->torchCount1 = 0;
+					}
+					app->scene->torchCount1++;
+				}
+				if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::TORCH2 && app->scene->puzzle3Active == true && app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
+				{
+					if (app->scene->torchCount2 == 5) {
+						app->scene->torchCount2 = 0;
+					}
+					app->scene->torchCount2++;
+					
+				}
+				if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::TORCH3 && app->scene->puzzle3Active == true && app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
+				{
+					if (app->scene->torchCount3 == 5) {
+						app->scene->torchCount3 = 0;
+					}
+					app->scene->torchCount3++;
+					
+				}
+				if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::TORCH4 && app->scene->puzzle3Active == true && app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
+				{
+					if (app->scene->torchCount4 == 5) {
+						app->scene->torchCount4 = 0;
+					}
+					app->scene->torchCount4++;
+					
+				}
 				
 			}
 		}

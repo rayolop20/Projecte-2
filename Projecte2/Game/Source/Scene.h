@@ -37,6 +37,13 @@ public:
 	// Called each loop iteration
 	bool Update(float dt);
 
+	void CheckPuzzle3();
+
+	void Drawtorch1();
+	void Drawtorch2();
+	void Drawtorch3();
+	void Drawtorch4();
+
 	S CreateSimonSays(int x, int y, int num);
 
 	void PrepareSimon();
@@ -65,6 +72,7 @@ public:
 
 	bool puzzle1Active = true;
 	bool puzzle2Active = true;
+	bool puzzle3Active = true;
 
 	bool pressurePlate1 = true;
 	bool pressurePlate2 = true;
@@ -77,10 +85,19 @@ public:
 	int pressurePlateTimer2_ = 0;
 	int pressurePlateTimer3_ = 0;
 	
+	int torchCount1 = 0;
+	int torchCount2 = 0;
+	int torchCount3 = 0;
+	int torchCount4 = 0;
+
 	Collider* Plate1;
 	Collider* Plate2;
 	Collider* Plate3;
-	Collider* Plate4;
+
+	Collider* Torch1;
+	Collider* Torch2;
+	Collider* Torch3;
+	Collider* Torch4;
 
 	
 	Collider* Wall1;

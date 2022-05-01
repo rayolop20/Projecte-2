@@ -38,6 +38,10 @@ Collisions::Collisions() : Module()
 	matrix[Collider::Type::PLAYER][Collider::Type::SIMON4] = true;
 	matrix[Collider::Type::PLAYER][Collider::Type::SIMON5] = true;
 	matrix[Collider::Type::PLAYER][Collider::Type::SIMON6] = true;
+	matrix[Collider::Type::PLAYER][Collider::Type::TORCH1] = true;
+	matrix[Collider::Type::PLAYER][Collider::Type::TORCH2] = true;
+	matrix[Collider::Type::PLAYER][Collider::Type::TORCH3] = true;
+	matrix[Collider::Type::PLAYER][Collider::Type::TORCH4] = true;
 
 	matrix[Collider::Type::PLAYER][Collider::Type::KEY_SENSOR] = true;
 	matrix[Collider::Type::KEY_SENSOR][Collider::Type::PLAYER] = true;

@@ -231,7 +231,6 @@ bool Scene::Update(float dt)
 			app->menu->btnFPS->state = GuiControlState::NORMAL;
 
 		}
-		
 
 		if (puzzle1Active == true) {
 			Plate1 = app->collisions->AddCollider({ 64,2432,64,64 }, Collider::Type::PRESSURE_PLATE1);
@@ -311,7 +310,108 @@ bool Scene::Update(float dt)
 			Wall17->pendingToDelete = true;
 			Wall18->pendingToDelete = true;
 		}
+		if (puzzle3Active == true) {
+			Torch1 = app->collisions->AddCollider({ 1733,2000,50,50 }, Collider::Type::TORCH1);
+			Torch2 = app->collisions->AddCollider({ 1658,1100,50,50 }, Collider::Type::TORCH2);
+			Torch3 = app->collisions->AddCollider({ 65,1447,50,50 }, Collider::Type::TORCH3);
+			Torch4 = app->collisions->AddCollider({ 572,1855,50,50 }, Collider::Type::TORCH4);
+			Drawtorch1();
+			Drawtorch2();
+			Drawtorch3();
+			Drawtorch4();
+			CheckPuzzle3();
+		}
+		else {
+			app->render->DrawRectangle({ 1733,2000,50,50 }, 255, 255, 255);
+			app->render->DrawRectangle({ 1658,1100,50,50 }, 255, 255, 255);
+			app->render->DrawRectangle({ 65,1447,50,50 }, 255, 255, 255);
+			app->render->DrawRectangle({ 572,1855,50,50 }, 255, 255, 255);
+		}
 		return true;
+	}
+}
+
+void Scene::CheckPuzzle3() {
+	if (torchCount1 == 3 && torchCount2 == 1 && torchCount3 == 5 && torchCount4 == 2) {
+		puzzle3Active = false;
+	}
+}
+void Scene::Drawtorch1() {
+	if (torchCount1 == 0) {
+		app->render->DrawRectangle({ 1733,2000,50,50 }, 255, 255, 255);
+	}
+	if (torchCount1 == 1) {
+		app->render->DrawRectangle({ 1733,2000,50,50 }, 0, 0, 0);
+	}
+	if (torchCount1 == 2) {
+		app->render->DrawRectangle({ 1733,2000,50,50 }, 255, 0, 0);
+	}
+	if (torchCount1 == 3) {
+		app->render->DrawRectangle({ 1733,2000,50,50 }, 0, 255, 0);
+	}
+	if (torchCount1 == 4) {
+		app->render->DrawRectangle({ 1733,2000,50,50 }, 0, 0, 255);
+	}
+	if (torchCount1 == 5) {
+		app->render->DrawRectangle({ 1733,2000,50,50 }, 255, 0, 255);
+	}
+}
+void Scene::Drawtorch2() {
+	if (torchCount2 == 0) {
+		app->render->DrawRectangle({ 1658,1100,50,50 }, 255, 255, 255);
+	}
+	if (torchCount2 == 1) {
+		app->render->DrawRectangle({ 1658,1100,50,50 }, 0, 0, 0);
+	}
+	if (torchCount2 == 2) {
+		app->render->DrawRectangle({ 1658,1100,50,50 }, 255, 0, 0);
+	}
+	if (torchCount2 == 3) {
+		app->render->DrawRectangle({ 1658,1100,50,50 }, 0, 255, 0);
+	}
+	if (torchCount2 == 4) {
+		app->render->DrawRectangle({ 1658,1100,50,50 }, 0, 0, 255);
+	}
+	if (torchCount2 == 5) {
+		app->render->DrawRectangle({ 1658,1100,50,50 }, 255, 0, 255);
+	}
+}void Scene::Drawtorch3() {
+	if (torchCount3 == 0) {
+		app->render->DrawRectangle({ 65,1447,50,50 }, 255, 255, 255);
+	}
+	if (torchCount3 == 1) {
+		app->render->DrawRectangle({ 65,1447,50,50 }, 0, 0, 0);
+	}
+	if (torchCount3 == 2) {
+		app->render->DrawRectangle({ 65,1447,50,50 }, 255, 0, 0);
+	}
+	if (torchCount3 == 3) {
+		app->render->DrawRectangle({ 65,1447,50,50 }, 0, 255, 0);
+	}
+	if (torchCount3 == 4) {
+		app->render->DrawRectangle({ 65,1447,50,50 }, 0, 0, 255);
+	}
+	if (torchCount3== 5) {
+		app->render->DrawRectangle({ 65,1447,50,50 }, 255, 0, 255);
+	}
+}void Scene::Drawtorch4() {
+	if (torchCount4 == 0) {
+		app->render->DrawRectangle({ 572,1855,50,50 }, 255, 255, 255);
+	}
+	if (torchCount4 == 1) {
+		app->render->DrawRectangle({ 572,1855,50,50 }, 0, 0, 0);
+	}
+	if (torchCount4 == 2) {
+		app->render->DrawRectangle({ 572,1855,50,50 }, 255, 0, 0);
+	}
+	if (torchCount4 == 3) {
+		app->render->DrawRectangle({ 572,1855,50,50 }, 0, 255, 0);
+	}
+	if (torchCount4 == 4) {
+		app->render->DrawRectangle({ 572,1855,50,50 }, 0, 0, 255);
+	}
+	if (torchCount4 == 5) {
+		app->render->DrawRectangle({ 572,1855,50,50 }, 255, 0, 255);
 	}
 }
 
