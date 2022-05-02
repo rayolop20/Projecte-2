@@ -187,8 +187,8 @@ bool battleSystem::Update(float dt)
 		Inventory->bounds.y = app->player->P1.position.y + 285;
 		Inventory->bounds.w = 150;
 		Inventory->bounds.h = 61;
-		StatsMenu->bounds.x = app->player->P1.position.x + 15;
-		StatsMenu->bounds.y = app->player->P1.position.y + 210;
+		StatsMenu->bounds.x = app->player->P1.position.x;
+		StatsMenu->bounds.y = app->player->P1.position.y;
 		StatsMenu->bounds.w = 150;
 		StatsMenu->bounds.h = 61;
 		CloseInventory->bounds.x = app->player->P1.position.x + 550;
