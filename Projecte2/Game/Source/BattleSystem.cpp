@@ -91,6 +91,11 @@ bool battleSystem::Start()
 	MiniPlayerButton3->state = GuiControlState::DISABLED;
 	MiniPlayerButton4 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 42, "MiniPlayerButton4", { 0, 0, 0, 0 }, this);
 	MiniPlayerButton4->state = GuiControlState::DISABLED;
+	StatsMenu = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 65, "StatsMenu", { 0, 0, 0, 0 }, this);
+	StatsMenu->state = GuiControlState::DISABLED;
+	CloseStatsMenu = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 66, "CloseStatsMenu", { 0, 0, 0, 0 }, this);
+	CloseStatsMenu->state = GuiControlState::DISABLED;
+
 
 
 	//Initialize playerTurns
@@ -182,6 +187,10 @@ bool battleSystem::Update(float dt)
 		Inventory->bounds.y = app->player->P1.position.y + 285;
 		Inventory->bounds.w = 150;
 		Inventory->bounds.h = 61;
+		StatsMenu->bounds.x = app->player->P1.position.x;
+		StatsMenu->bounds.y = app->player->P1.position.y;
+		StatsMenu->bounds.w = 150;
+		StatsMenu->bounds.h = 61;
 		CloseInventory->bounds.x = app->player->P1.position.x + 550;
 		CloseInventory->bounds.y = app->player->P1.position.y - 290;
 		CloseInventory->bounds.w = 50;
@@ -217,6 +226,7 @@ bool battleSystem::Update(float dt)
 			Attack->state = GuiControlState::NORMAL;
 			SpecialAttack->state = GuiControlState::NORMAL;
 			Inventory->state = GuiControlState::NORMAL;
+			StatsMenu->state = GuiControlState::NORMAL;
 			if (battle1 == false) {
 				Run->state = GuiControlState::NORMAL;
 			}
@@ -236,6 +246,7 @@ bool battleSystem::Update(float dt)
 		Attack2->state = GuiControlState::DISABLED;
 		SpecialAttack->state = GuiControlState::DISABLED;
 		Inventory->state = GuiControlState::DISABLED;
+		StatsMenu->state = GuiControlState::DISABLED;
 		Run->state = GuiControlState::DISABLED;
 		MiniPlayerButton1->state = GuiControlState::DISABLED;
 		MiniPlayerButton2->state = GuiControlState::DISABLED;
@@ -256,6 +267,8 @@ bool battleSystem::Update(float dt)
 		SpecialAttack->bounds.h = 0;
 		Inventory->bounds.w = 0;
 		Inventory->bounds.h = 0;
+		StatsMenu->bounds.h = 0;
+		StatsMenu->bounds.h = 0;
 		Attack->bounds.w = 0;
 		Attack->bounds.h = 0;
 		Attack1->bounds.w = 0;
@@ -288,12 +301,14 @@ bool battleSystem::Update(float dt)
 		Attack2->state = GuiControlState::DISABLED;
 		SpecialAttack->state = GuiControlState::DISABLED;
 		Inventory->state = GuiControlState::DISABLED;
+		StatsMenu->state = GuiControlState::DISABLED;
 		Run->state = GuiControlState::DISABLED;
 	}
 	if (SpecialAttackEnable == false && battle == true) {
 		Attack->state = GuiControlState::NORMAL;
 		SpecialAttack->state = GuiControlState::NORMAL;
 		Inventory->state = GuiControlState::NORMAL;
+		StatsMenu->state = GuiControlState::NORMAL;
 		if (battle1 == false) {
 			Run->state = GuiControlState::NORMAL;
 		}
@@ -504,6 +519,7 @@ void battleSystem::InventoryPhase() {
 	Attack2->state = GuiControlState::DISABLED;
 	SpecialAttack->state = GuiControlState::DISABLED;
 	Inventory->state = GuiControlState::DISABLED;
+	StatsMenu->state = GuiControlState::DISABLED;
 	Run->state = GuiControlState::DISABLED;
 }
 
@@ -1072,6 +1088,10 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 			app->player->P4.IsAlive = false;
 			app->player->P4.hp = 0;
 
+		}
+		if (control->id == 65) {
+			StatsEnable = true;
+			CloseStatsMenu->state = GuiControlState::NORMAL;
 		}
 	}
 	}

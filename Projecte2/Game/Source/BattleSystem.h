@@ -47,6 +47,8 @@ public:
 	GuiButton* Inventory;
 	GuiButton* Run;
 	GuiButton* CloseInventory;
+	GuiButton* StatsMenu;
+	GuiButton* CloseStatsMenu;
 	GuiButton* QTE2;
 	GuiButton* MiniPlayerButton1;
 	GuiButton* MiniPlayerButton2;
@@ -137,6 +139,7 @@ public:
 
 	bool SpecialAttackEnable = false;
 	bool InventoryEnable = false;
+	bool StatsEnable = false;
 	int* waitPlayer = new int(4 - alliesDead);
 	int* poisonCount = new int(4 - CombatDeaths);
 	int onFireCount;
