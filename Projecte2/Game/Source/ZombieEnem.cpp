@@ -103,6 +103,7 @@ bool ZombieEnem::Start()
 	}
 
 	Zbie[0] = CreateZombie(/*Vpir->Pos.x, Vpir->Pos.x,*/960, 2336, TextureZombie);
+	Zbie[10] = CreateZombie(/*Vpir->Pos.x, Vpir->Pos.x,*/1060, 2336, TextureZombie);
 
 	return false;
 }
@@ -130,7 +131,7 @@ bool ZombieEnem::Update(float dt)
 	}
 	else if (app->BTSystem->battleAux == true) {
 		app->BTSystem->battleAux = false;
-		Zbie[0].Destroyed = true;
+		Zbie[WhichZombie].Destroyed = true;
 	}
 	timer3 = SDL_GetTicks() / 10;
 
@@ -182,7 +183,7 @@ bool ZombieEnem::Update(float dt)
 			Zbie[i].colliderS->pendingToDelete = true;
 		}
 	}
-	for (int i = 0; i < 1; i++)
+	for (int i = 0; i < 11; i+=10)
 	{
 		Zbie[i].colliderZ->SetPos(Zbie[i].Pos.x, Zbie[i].Pos.y);
 		Zbie[i].colliderS->SetPos(Zbie[i].Pos.x - 168, Zbie[i].Pos.y - 168);
@@ -485,7 +486,7 @@ void ZombieEnem::Combat() {
 			}
 		}
 		if (app->BTSystem->AttackPlayer == 2 && app->BTSystem->SpecialAttackEnable == false && app->BTSystem->SpeacialAttackEnd == true) {
-			Zbie[0].onFire = true;
+			Zbie[WhichZombie].onFire = true;
 			Zbie[1].onFire = true;
 			Zbie[2].onFire = true;
 			Zbie[3].onFire = true;
@@ -561,7 +562,7 @@ void ZombieEnem::Combat() {
 void ZombieEnem::SpawnEnemies() {
 	if (app->BTSystem->Zombiebattle == true) {
 		srand(time(NULL));
-		for (int i = 1; i < Zbie[0].numEnemies + 1; i++) {
+		for (int i = 1; i < Zbie[WhichZombie].numEnemies + 1; i++) {
 			Zbie[i].dead = false;
 			randomEnemyhp = (rand() % 10) + 1;
 			randomEnemySpeed = (rand() % 6) + 1;
@@ -579,7 +580,7 @@ void ZombieEnem::SpawnEnemies() {
 void ZombieEnem::DrawEnemies() {
 	if (app->BTSystem->Zombiebattle == true && app->BTSystem->InventoryEnable == false) {
 
-		for (int i = 1; i < Zbie[0].numEnemies + 1; i++) {
+		for (int i = 1; i < Zbie[WhichZombie].numEnemies + 1; i++) {
 			if (Zbie[i].dead == false) {
 				if (app->BTSystem->ZombieTarget == i) {
 					Choose->x = 4;
@@ -604,7 +605,7 @@ void ZombieEnem::ChooseEnemy() {
 
 	buttons = SDL_GetMouseState(&x, &y);
 
-	for (int i = 1; i < Zbie[0].numEnemies + 1; i++) {
+	for (int i = 1; i < Zbie[WhichZombie].numEnemies + 1; i++) {
 		/*if (Vpir[i].dead == false && x >= 772 && x <= 772 + 50 && y >= 18 + 60*i && y <= 18 + 60 * i + 50 && app->input->GetMouseButtonDown(1) == KEY_DOWN && app->BTSystem->AttackPlayer != 0 && app->BTSystem->PlayerTurn == true) {
 			app->BTSystem->ZombieTarget = i;
 			//SDL_Rect Enem1 = { app->player->P1.position.x + 400, app->player->P1.position.y - 330 + 120 * i, 100, 100 };
@@ -615,7 +616,7 @@ void ZombieEnem::ChooseEnemy() {
 			//SDL_Rect Enem1 = { app->player->P1.position.x + 500, app->player->P1.position.y - 330 + 120 * i, 100, 100 };
 		}
 	}
-	for (int i = 1; i < Zbie[0].numEnemies + 1; i++) {//
+	for (int i = 1; i < Zbie[WhichZombie].numEnemies + 1; i++) {//
 		if (Zbie[i].dead == false && x > 1005 && x < 1110 && y > -5 + 120 * i && y < 115 + 120 * i + 100 && app->input->GetMouseButtonDown(1) == KEY_DOWN && app->BTSystem->PlayerTurn == true && app->BTSystem->SpecialAttackEnable == false && app->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT && app->player->godMode == true) {
 			//app->BTSystem->ZombieTarget = i;
 			Zbie[i].hp = 0;
@@ -647,7 +648,7 @@ void ZombieEnem::EnemyPhase() {
 
 			}
 		}
-		for (int i = 1; i < Zbie[0].numEnemies + 1; i++) {
+		for (int i = 1; i < Zbie[WhichZombie].numEnemies + 1; i++) {
 			if (Zbie[i].dead == false && app->BTSystem->PlayerTurn == false) {
 				do {
 					srand(time(NULL));
@@ -758,35 +759,42 @@ void ZombieEnem::CheckEnemy() {
 			if (Zbie[i].onFire == true && app->BTSystem->SpecialAttackEnable == false) {
 				Zbie[i].hp -= 10;
 			}
-			if (app->BTSystem->onFireCount != 0 && Zbie[0].onFire == true) {
+			if (app->BTSystem->onFireCount != 0 && Zbie[WhichZombie].onFire == true) {
 				app->BTSystem->onFireCount++;
 			}
 			if (app->BTSystem->onFireCount >= 3) {
 				app->BTSystem->onFireCount = 0;
-				Zbie[0].onFire = false;
+				Zbie[WhichZombie].onFire = false;
 				Zbie[1].onFire = false;
 				Zbie[2].onFire = false;
 				Zbie[3].onFire = false;
 				Zbie[4].onFire = false;
 			}
 		}
-		for (int i = 1; i < Zbie[0].numEnemies + 1; i++) {
+		for (int i = 1; i < Zbie[WhichZombie].numEnemies + 1; i++) {
 			if (Zbie[i].hp <= 0) {
 				Zbie[i].dead = true;
 				app->BTSystem->CombatDeaths += 1;
 			}
-			if (app->BTSystem->CombatDeaths == Zbie[0].numEnemies) {
+			if (app->BTSystem->CombatDeaths == Zbie[WhichZombie].numEnemies) {
+
 				app->BTSystem->battle = false;
 				app->BTSystem->Zombiebattle = false;
 				app->BTSystem->battleWin = false;
 				app->BTSystem->battle1 = false;
 				app->player->P4.revolverActive = true;
-				Zbie[0].Destroyed = true;
+				Zbie[WhichZombie].Destroyed = true;
 				randomstats = true;
 				app->player->P1.damage = 0;
 				app->player->P2.damage = 0;
 				app->player->P3.damage = 0;
 				app->player->P4.damage = 0;
+				for (int i = 0; i < Zbie[WhichZombie].numEnemies + 1; i++) {
+					Zbie[i].hp = Zbie[i].basehp;
+					Zbie[i].speed = Zbie[i].basespeed;
+					Zbie[i].damage = Zbie[i].basedamage;
+				}
+				
 			}
 		}
 		app->BTSystem->CombatDeaths = 0;
@@ -800,15 +808,15 @@ void ZombieEnem::DrawHpBars() {
 			SDL_Rect bar1 = { app->player->P1.position.x + 380, app->player->P1.position.y - 200, -(200 * Zbie[1].hp) / 100,15 };
 			app->render->DrawRectangle(bar1, 255, 0, 0);
 		}
-		if (Zbie[2].dead == false && app->BTSystem->InventoryEnable == false && Zbie[0].numEnemies > 1) {
+		if (Zbie[2].dead == false && app->BTSystem->InventoryEnable == false && Zbie[WhichZombie].numEnemies > 1) {
 			SDL_Rect bar2 = { app->player->P1.position.x + 380, app->player->P1.position.y - 200 + 120, -(200 * Zbie[2].hp) / 100,15 };
 			app->render->DrawRectangle(bar2, 255, 0, 0);
 		}
-		if (Zbie[3].dead == false && app->BTSystem->InventoryEnable == false && Zbie[0].numEnemies > 2) {
+		if (Zbie[3].dead == false && app->BTSystem->InventoryEnable == false && Zbie[WhichZombie].numEnemies > 2) {
 			SDL_Rect bar3 = { app->player->P1.position.x + 380, app->player->P1.position.y - 200 + 240, -(200 * Zbie[3].hp) / 100,15 };
 			app->render->DrawRectangle(bar3, 255, 0, 0);
 		}
-		if (Zbie[4].dead == false && app->BTSystem->InventoryEnable == false && Zbie[0].numEnemies > 3) {
+		if (Zbie[4].dead == false && app->BTSystem->InventoryEnable == false && Zbie[WhichZombie].numEnemies > 3) {
 			SDL_Rect bar4 = { app->player->P1.position.x + 380, app->player->P1.position.y - 200 + 360, -(200 * Zbie[4].hp) / 100,15 };
 			app->render->DrawRectangle(bar4, 255, 0, 0);
 		}
@@ -832,6 +840,20 @@ void ZombieEnem::OnCollision(Collider* c1, Collider* c2)
 		{
 			if (c2->type == Collider::Type::PLAYER)
 			{
+				switch (i)
+				{
+				case 0:
+					WhichZombie = i;
+					Zbie[0].numEnemies = 2;
+					break;
+				case 10:
+					WhichZombie = i;
+					Zbie[10].numEnemies = 4;
+
+					break;
+				default:
+					break;
+				}
 				if (pathfindingaux == true) {
 					pathfindingtimer = timer3;
 					pathfindingaux = false;

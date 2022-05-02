@@ -24,6 +24,9 @@ struct Zombie
 	float hp = 35.0;
 	float damage = 7.0;
 	float speed = 7.0;
+	float basehp = 35.0;
+	float basedamage = 7.0;
+	float basespeed = 7.0;
 	int numEnemies = 4;
 	bool poisoned = false;
 	bool onFire = false;
@@ -101,6 +104,7 @@ public:
 
 	int ZombieNum = NULL;
 	bool randomstats = true;
+	int WhichZombie = NULL;
 
 
 
