@@ -259,6 +259,8 @@ bool Scene::Update(float dt)
 			Wall6->pendingToDelete = true;
 		}
 		if (puzzle2Active == true) {
+			app->render->DrawTexture(door, 1216, 832 - 96);
+
 			Simon[1] = CreateSimonSays(1166, 850, 1);
 			Simon[1].colliderS = app->collisions->AddCollider({ 1166, 850, 32, 32 }, Collider::Type::SIMON1);
 
