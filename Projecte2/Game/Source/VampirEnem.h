@@ -24,6 +24,9 @@ struct Vampire
 	float hp = 85.0;
 	float damage = 17.0;
 	float speed = 17.0;
+	float basehp = 85.0;
+	float basedamage = 17.0;
+	float basespeed = 17.0;
 	int numEnemies = 2;
 	bool poisoned = false;
 	bool onFire = false;
@@ -101,9 +104,9 @@ public:
 	float enemySpeed = 20;//Velocitat inversa, 0 es velocitat maxima i valor més gran, velocitat més lenta.
 	float pathfindingtimer = 0;
 	bool pathfindingaux = true;
-	int WhichVampire = 0;
 	int VampireNum = NULL;
 	bool randomstats = true;
+	int WhichVampire = NULL;
 
 };
 

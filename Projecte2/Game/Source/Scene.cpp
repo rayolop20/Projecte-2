@@ -18,6 +18,7 @@
 #include "BattleSystem.h"
 #include "Defs.h"
 #include "Log.h"
+#include <time.h>
 
 Scene::Scene() : Module()
 {
@@ -50,9 +51,23 @@ bool Scene::Start()
 
 		RELEASE_ARRAY(data);
 	};
+	door = app->tex->Load("Assets/Textures/Assets/door.png");
 	app->map->DColisions();
 	pathTex = app->tex->Load("Assets/Maps/path2.png");
-
+	if (puzzle1Active == true) {
+		//Wall1 = app->collisions->AddCollider({ 608+32,2176+32,32,32 }, Collider::Type::WALLH);
+		Wall1 = app->collisions->AddCollider({ 608,2176+32,32,32 }, Collider::Type::WALLV,this);
+		Wall2 = app->collisions->AddCollider({ 640,2176+32,32,32 }, Collider::Type::WALLV,this);
+		Wall3 = app->collisions->AddCollider({ 608+64,2176+32,32,32 }, Collider::Type::WALLV,this);
+		Wall4 = app->collisions->AddCollider({ 608,2112-64,32,32 }, Collider::Type::WALLV,this);
+		Wall5 = app->collisions->AddCollider({ 640,2112-64,32,32 }, Collider::Type::WALLV,this);
+		Wall6 = app->collisions->AddCollider({ 608+64,2112-64,32,32 }, Collider::Type::WALLV,this);
+	}
+	if (puzzle2Active == true) {
+		Wall16 = app->collisions->AddCollider({ 1216,832,32,32 }, Collider::Type::WALLV, this);
+		Wall17 = app->collisions->AddCollider({ 1248,832,32,32 }, Collider::Type::WALLV, this);
+		Wall18 = app->collisions->AddCollider({ 1280,832,32,32 }, Collider::Type::WALLV, this);
+	}
 	return true;
 }
 
@@ -70,7 +85,12 @@ bool Scene::PreUpdate()
 // Called each loop iteration
 bool Scene::Update(float dt)
 {
+	pressurePlateTimer1_ = SDL_GetTicks() / 1000;
+	pressurePlateTimer2_ = SDL_GetTicks() / 1000;
+	pressurePlateTimer3_ = SDL_GetTicks() / 1000;
 
+	timerphase1_ = SDL_GetTicks() / 1000;
+	timerphase2_ = SDL_GetTicks() / 1000;
 
 	if (musicActive == true)
 	{
@@ -211,11 +231,337 @@ bool Scene::Update(float dt)
 			app->menu->btnFPS->state = GuiControlState::NORMAL;
 
 		}
-		
+
+		if (puzzle1Active == true) {
+			Plate1 = app->collisions->AddCollider({ 64,2432,64,64 }, Collider::Type::PRESSURE_PLATE1);
+			Plate2 = app->collisions->AddCollider({ 192,2016,64,64 }, Collider::Type::PRESSURE_PLATE2);
+			Plate3 = app->collisions->AddCollider({ 800,2240,64,64 }, Collider::Type::PRESSURE_PLATE3);
+			app->render->DrawTexture(door, 608, 2112);
+			if (pressurePlate1 == false && pressurePlateTimer1_ > pressurePlateTimer1 + 7) {
+				pressurePlate1 = true;
+			}
+			if (pressurePlate2 == false && pressurePlateTimer2_ > pressurePlateTimer2 + 5) {
+				pressurePlate2 = true;
+			}
+			if (pressurePlate3 == false && pressurePlateTimer3_ > pressurePlateTimer3 + 0.5) {
+				pressurePlate3 = true;
+			}
+			if (pressurePlate1 == false && pressurePlate2 == false && pressurePlate3 == false) {
+				puzzle1Active = false;
+			}
+		}
+		else {
+			Wall1->pendingToDelete = true;
+			Wall2->pendingToDelete = true;
+			Wall3->pendingToDelete = true;
+			Wall4->pendingToDelete = true;
+			Wall5->pendingToDelete = true;
+			Wall6->pendingToDelete = true;
+		}
+		if (puzzle2Active == true) {
+			app->render->DrawTexture(door, 1216, 832 - 96);
+
+			Simon[1] = CreateSimonSays(1166, 850, 1);
+			Simon[1].colliderS = app->collisions->AddCollider({ 1166, 850, 32, 32 }, Collider::Type::SIMON1);
+
+			Simon[2] = CreateSimonSays(1345, 850, 2);
+			Simon[2].colliderS = app->collisions->AddCollider({ 1345, 850, 32, 32 }, Collider::Type::SIMON2);
+
+			Simon[3] = CreateSimonSays(1392, 1034, 3);
+			Simon[3].colliderS = app->collisions->AddCollider({ 1392, 1034, 32, 32 }, Collider::Type::SIMON3);
+
+			Simon[4] = CreateSimonSays(1105, 1034, 4);
+			Simon[4].colliderS = app->collisions->AddCollider({ 1105, 1034, 32, 32 }, Collider::Type::SIMON4);
+
+			Simon[5] = CreateSimonSays(1392, 1205, 5);
+			Simon[5].colliderS = app->collisions->AddCollider({ 1392, 1205, 32, 32 }, Collider::Type::SIMON5);
+
+			Simon[6] = CreateSimonSays(1105, 1205, 6);
+			Simon[6].colliderS = app->collisions->AddCollider({ 1105, 1205, 32, 32 }, Collider::Type::SIMON6);
+
+			
+			if (prepared == false) {
+				PrepareSimon();
+			}
+			if (phase == 0 && maxPhase == 0) {
+				One();
+			}
+			if (phase == 1 && maxPhase == 1 && End1 == true) {
+				Two();
+			}
+			if (phase == 2 && maxPhase == 2 && End2 == true) {
+				Three();
+			}
+			if (phase == 3 && maxPhase == 3 && End3 == true) {
+				Four();
+			}
+			if (phase == 4 && maxPhase == 4 && End4 == true) {
+				Five();
+			}
+			if (phase == 5 && maxPhase == 5 && End5 == true) {
+				Six();
+			}
+			if (phase == 6) {
+				puzzle2Active = false;
+			}
+			
+
+		}
+		else {
+			Wall16->pendingToDelete = true;
+			Wall17->pendingToDelete = true;
+			Wall18->pendingToDelete = true;
+		}
+		if (puzzle3Active == true  ) {
+			Torch1 = app->collisions->AddCollider({ 1733,2000,50,50 }, Collider::Type::TORCH1);
+			Torch2 = app->collisions->AddCollider({ 1658,1100,50,50 }, Collider::Type::TORCH2);
+			Torch3 = app->collisions->AddCollider({ 65,1447,50,50 }, Collider::Type::TORCH3);
+			Torch4 = app->collisions->AddCollider({ 572,1855,50,50 }, Collider::Type::TORCH4);
+			Drawtorch1();
+			Drawtorch2();
+			Drawtorch3();
+			Drawtorch4();
+			CheckPuzzle3();
+		}
+		else {
+			app->render->DrawRectangle({ 1733,2000,50,50 }, 255, 255, 255);
+			app->render->DrawRectangle({ 1658,1100,50,50 }, 255, 255, 255);
+			app->render->DrawRectangle({ 65,1447,50,50 }, 255, 255, 255);
+			app->render->DrawRectangle({ 572,1855,50,50 }, 255, 255, 255);
+		}
 		return true;
 	}
 }
 
+void Scene::CheckPuzzle3() {
+	if (torchCount1 == 3 && torchCount2 == 1 && torchCount3 == 5 && torchCount4 == 2) {
+		puzzle3Active = false;
+	}
+}
+void Scene::Drawtorch1() {
+	if (torchCount1 == 0) {
+		app->render->DrawRectangle({ 1733,2000,50,50 }, 255, 255, 255);
+	}
+	if (torchCount1 == 1) {
+		app->render->DrawRectangle({ 1733,2000,50,50 }, 0, 0, 0);
+	}
+	if (torchCount1 == 2) {
+		app->render->DrawRectangle({ 1733,2000,50,50 }, 255, 0, 0);
+	}
+	if (torchCount1 == 3) {
+		app->render->DrawRectangle({ 1733,2000,50,50 }, 0, 255, 0);
+	}
+	if (torchCount1 == 4) {
+		app->render->DrawRectangle({ 1733,2000,50,50 }, 0, 0, 255);
+	}
+	if (torchCount1 == 5) {
+		app->render->DrawRectangle({ 1733,2000,50,50 }, 255, 0, 255);
+	}
+}
+void Scene::Drawtorch2() {
+	if (torchCount2 == 0) {
+		app->render->DrawRectangle({ 1658,1100,50,50 }, 255, 255, 255);
+	}
+	if (torchCount2 == 1) {
+		app->render->DrawRectangle({ 1658,1100,50,50 }, 0, 0, 0);
+	}
+	if (torchCount2 == 2) {
+		app->render->DrawRectangle({ 1658,1100,50,50 }, 255, 0, 0);
+	}
+	if (torchCount2 == 3) {
+		app->render->DrawRectangle({ 1658,1100,50,50 }, 0, 255, 0);
+	}
+	if (torchCount2 == 4) {
+		app->render->DrawRectangle({ 1658,1100,50,50 }, 0, 0, 255);
+	}
+	if (torchCount2 == 5) {
+		app->render->DrawRectangle({ 1658,1100,50,50 }, 255, 0, 255);
+	}
+}void Scene::Drawtorch3() {
+	if (torchCount3 == 0) {
+		app->render->DrawRectangle({ 65,1447,50,50 }, 255, 255, 255);
+	}
+	if (torchCount3 == 1) {
+		app->render->DrawRectangle({ 65,1447,50,50 }, 0, 0, 0);
+	}
+	if (torchCount3 == 2) {
+		app->render->DrawRectangle({ 65,1447,50,50 }, 255, 0, 0);
+	}
+	if (torchCount3 == 3) {
+		app->render->DrawRectangle({ 65,1447,50,50 }, 0, 255, 0);
+	}
+	if (torchCount3 == 4) {
+		app->render->DrawRectangle({ 65,1447,50,50 }, 0, 0, 255);
+	}
+	if (torchCount3== 5) {
+		app->render->DrawRectangle({ 65,1447,50,50 }, 255, 0, 255);
+	}
+}void Scene::Drawtorch4() {
+	if (torchCount4 == 0) {
+		app->render->DrawRectangle({ 572,1855,50,50 }, 255, 255, 255);
+	}
+	if (torchCount4 == 1) {
+		app->render->DrawRectangle({ 572,1855,50,50 }, 0, 0, 0);
+	}
+	if (torchCount4 == 2) {
+		app->render->DrawRectangle({ 572,1855,50,50 }, 255, 0, 0);
+	}
+	if (torchCount4 == 3) {
+		app->render->DrawRectangle({ 572,1855,50,50 }, 0, 255, 0);
+	}
+	if (torchCount4 == 4) {
+		app->render->DrawRectangle({ 572,1855,50,50 }, 0, 0, 255);
+	}
+	if (torchCount4 == 5) {
+		app->render->DrawRectangle({ 572,1855,50,50 }, 255, 0, 255);
+	}
+}
+
+S Scene::CreateSimonSays(int x, int y, int order)
+{
+	S Simon[7];
+
+	Simon[order].Pos.x = x;
+	Simon[order].Pos.y = y;
+	Simon[order].num = order;
+		return Simon[order];
+}
+
+void Scene::PrepareSimon() {
+	srand(time(NULL));
+	firstSimon = rand() % 6 + 1;
+	do {
+		secondSimon = rand() % 6 + 1;
+	} while (secondSimon == firstSimon);
+	do {
+		thirdSimon = rand() % 6 + 1;
+	} while (thirdSimon == firstSimon || thirdSimon == secondSimon);
+	do {
+		fourthSimon = rand() % 6 + 1;
+	} while (fourthSimon == firstSimon || fourthSimon == secondSimon || fourthSimon == thirdSimon);
+	do {
+		fifthSimon = rand() % 6 + 1;
+	} while (fifthSimon == firstSimon || fifthSimon == secondSimon || fifthSimon == thirdSimon || fifthSimon == fourthSimon);
+	do {
+		sixthSimon = rand() % 6 + 1;
+	} while (sixthSimon == firstSimon || sixthSimon == secondSimon || sixthSimon == thirdSimon || sixthSimon == fourthSimon || sixthSimon == fifthSimon);
+	prepared = true;
+}
+
+void Scene::One() {
+	app->render->DrawRectangle({ Simon[firstSimon].Pos.x, Simon[firstSimon].Pos.y,32,32 }, 0, 255, 0);
+}
+
+void Scene::Two() {
+	if (timerphase2_ < timerphase2 + 1) {
+		app->render->DrawRectangle({ Simon[firstSimon].Pos.x, Simon[firstSimon].Pos.y,32,32 }, 0, 255, 0);
+	}
+	if (timerphase2_ < timerphase2 + 2) {
+		app->render->DrawRectangle({ Simon[secondSimon].Pos.x, Simon[secondSimon].Pos.y,32,32 }, 0, 0, 255);
+	}
+	else {
+		phase = 0;
+		End1 = false;
+		app->scene->timerphase2 = app->scene->timerphase2_;
+	}
+}
+
+void Scene::Three() {
+	if (timerphase2_ < timerphase2 + 1) {
+		app->render->DrawRectangle({ Simon[firstSimon].Pos.x, Simon[firstSimon].Pos.y,32,32 }, 0, 255, 0);
+	}
+	if (timerphase2_ < timerphase2 + 2) {
+		app->render->DrawRectangle({ Simon[secondSimon].Pos.x, Simon[secondSimon].Pos.y,32,32 }, 0, 0, 255);
+	}
+	if (timerphase2_ < timerphase2 + 3) {
+		app->render->DrawRectangle({ Simon[thirdSimon].Pos.x, Simon[thirdSimon].Pos.y,32,32 }, 255, 0, 0);
+	}
+	else {
+		phase = 1;
+		End2 = false;
+		End1 = false;
+		app->scene->timerphase2 = app->scene->timerphase2_;
+
+	}
+}
+void Scene::Four() {
+	if (timerphase2_ < timerphase2 + 1) {
+		app->render->DrawRectangle({ Simon[firstSimon].Pos.x, Simon[firstSimon].Pos.y,32,32 }, 0, 255, 0);
+	}
+	if (timerphase2_ < timerphase2 + 2) {
+		app->render->DrawRectangle({ Simon[secondSimon].Pos.x, Simon[secondSimon].Pos.y,32,32 }, 0, 0, 255);
+	}
+	if (timerphase2_ < timerphase2 + 3) {
+		app->render->DrawRectangle({ Simon[thirdSimon].Pos.x, Simon[thirdSimon].Pos.y,32,32 }, 255, 0, 0);
+	}
+	if (timerphase2_ < timerphase2 + 4) {
+		app->render->DrawRectangle({ Simon[fourthSimon].Pos.x, Simon[fourthSimon].Pos.y,32,32 }, 108, 70, 117);
+	}
+	else {
+		phase = 1;
+		End3 = false;
+		End2 = false;
+		End1 = false;
+		app->scene->timerphase2 = app->scene->timerphase2_;
+
+	}
+}
+void Scene::Five() {
+	if (timerphase2_ < timerphase2 + 1) {
+		app->render->DrawRectangle({ Simon[firstSimon].Pos.x, Simon[firstSimon].Pos.y,32,32 }, 0, 255, 0);
+	}
+	if (timerphase2_ < timerphase2 + 2) {
+		app->render->DrawRectangle({ Simon[secondSimon].Pos.x, Simon[secondSimon].Pos.y,32,32 }, 0, 0, 255);
+	}
+	if (timerphase2_ < timerphase2 + 3) {
+		app->render->DrawRectangle({ Simon[thirdSimon].Pos.x, Simon[thirdSimon].Pos.y,32,32 }, 255, 0, 0);
+	}
+	if (timerphase2_ < timerphase2 + 4) {
+		app->render->DrawRectangle({ Simon[fourthSimon].Pos.x, Simon[fourthSimon].Pos.y,32,32 }, 108, 70, 117);
+	}
+	if (timerphase2_ < timerphase2 + 5) {
+		app->render->DrawRectangle({ Simon[fifthSimon].Pos.x, Simon[fifthSimon].Pos.y,32,32 }, 255, 255, 0);
+	}
+	else {
+		phase = 1;
+		End4 = false;
+		End3 = false;
+		End2 = false;
+		End1 = false;
+		app->scene->timerphase2 = app->scene->timerphase2_;
+
+	}
+}
+void Scene::Six() {
+	if (timerphase2_ < timerphase2 + 1) {
+		app->render->DrawRectangle({ Simon[firstSimon].Pos.x, Simon[firstSimon].Pos.y,32,32 }, 0, 255, 0);
+	}
+	if (timerphase2_ < timerphase2 + 2) {
+		app->render->DrawRectangle({ Simon[secondSimon].Pos.x, Simon[secondSimon].Pos.y,32,32 }, 0, 0, 255);
+	}
+	if (timerphase2_ < timerphase2 + 3) {
+		app->render->DrawRectangle({ Simon[thirdSimon].Pos.x, Simon[thirdSimon].Pos.y,32,32 }, 255, 0, 0);
+	}
+	if (timerphase2_ < timerphase2 + 4) {
+		app->render->DrawRectangle({ Simon[fourthSimon].Pos.x, Simon[fourthSimon].Pos.y,32,32 }, 108, 70, 117);
+	}
+	if (timerphase2_ < timerphase2 + 5) {
+		app->render->DrawRectangle({ Simon[fifthSimon].Pos.x, Simon[fifthSimon].Pos.y,32,32 }, 255, 255, 0);
+	}
+	if (timerphase2_ < timerphase2 + 6) {
+		app->render->DrawRectangle({ Simon[sixthSimon].Pos.x, Simon[sixthSimon].Pos.y,32,32 }, 255, 128, 0);
+	}
+	else {
+		phase = 1;
+		End5 = false;
+		End4 = false;
+		End3 = false;
+		End2 = false;
+		End1 = false;
+		app->scene->timerphase2 = app->scene->timerphase2_;
+
+	}
+}
 // Called each loop iteration
 bool Scene::PostUpdate()
 {
@@ -231,7 +577,6 @@ bool Scene::PostUpdate()
 bool Scene::CleanUp()
 {
 	LOG("Freeing scene");
-
 	return true;
 }
 

@@ -246,6 +246,7 @@ bool battleSystem::Update(float dt)
 		MiniPlayerButton4->state = GuiControlState::DISABLED;
 	}
 	else {
+		SpawnedEnemies = false;
 		MiniPlayerButton1->bounds.w = 0;
 		MiniPlayerButton1->bounds.h = 0;
 		MiniPlayerButton2->bounds.w = 0;
