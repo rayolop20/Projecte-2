@@ -187,10 +187,10 @@ bool battleSystem::Update(float dt)
 		Inventory->bounds.y = app->player->P1.position.y + 285;
 		Inventory->bounds.w = 150;
 		Inventory->bounds.h = 61;
-		StatsMenu->bounds.x = app->player->P1.position.x;
-		StatsMenu->bounds.y = app->player->P1.position.y;
-		StatsMenu->bounds.w = 150;
-		StatsMenu->bounds.h = 61;
+		StatsMenu->bounds.x = app->player->P1.position.x - 500;
+		StatsMenu->bounds.y = app->player->P1.position.y - 300;
+		StatsMenu->bounds.w = 78;
+		StatsMenu->bounds.h = 56;
 		CloseInventory->bounds.x = app->player->P1.position.x + 550;
 		CloseInventory->bounds.y = app->player->P1.position.y - 290;
 		CloseInventory->bounds.w = 50;
@@ -1089,7 +1089,8 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 			app->player->P4.hp = 0;
 
 		}
-		if (control->id == 65) {
+		if (control->id == 65)
+		{
 			StatsEnable = true;
 			CloseStatsMenu->state = GuiControlState::NORMAL;
 		}
