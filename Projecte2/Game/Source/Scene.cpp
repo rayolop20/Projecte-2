@@ -312,7 +312,7 @@ bool Scene::Update(float dt)
 			Wall17->pendingToDelete = true;
 			Wall18->pendingToDelete = true;
 		}
-		if (puzzle3Active == true) {
+		if (puzzle3Active == true  ) {
 			Torch1 = app->collisions->AddCollider({ 1733,2000,50,50 }, Collider::Type::TORCH1);
 			Torch2 = app->collisions->AddCollider({ 1658,1100,50,50 }, Collider::Type::TORCH2);
 			Torch3 = app->collisions->AddCollider({ 65,1447,50,50 }, Collider::Type::TORCH3);

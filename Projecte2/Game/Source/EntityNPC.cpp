@@ -91,6 +91,7 @@ bool EntityNPC::Start()
 		npc[0] = CreateNPC(1050, 1364, app->characterMenu->frenchNpc);
 		npc[1] = CreateNPC(957, 232, TextureNPC);
 		npc[2] = CreateNPC(1357, 1937, TextureNPC2);
+		npc[3] = CreateNPC(1357, 1500, TextureNPC4);
 	
 	porta_1 = app->collisions->AddCollider({ 1312, 1664, 96, 64 }, Collider::Type::KEY_SENSOR, (Module*)app->entityManager);
 	porta_2 = app->collisions->AddCollider({ 1504, 2304,64, 96 }, Collider::Type::KEY_SENSOR, (Module*)app->entityManager);
@@ -136,11 +137,12 @@ bool EntityNPC::Update(float dt)
 			npc[i].colliderNPC->pendingToDelete = true;
 		}
 	}
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < 4; i++)
 	{
 		npc[i].colliderNPC->SetPos(npc[i].Pos.x, npc[i].Pos.y);
 		npc[i].colliderSNPC->SetPos(npc[i].Pos.x - 32, npc[i].Pos.y - 32);
 	}
+	//dialogue 1
 	if (Dialogue1 == true) {
 		app->scene->paused = true;
 		if (Dialogue1Count == 1) {
@@ -352,6 +354,7 @@ bool EntityNPC::Update(float dt)
 		}
 
 	}
+	//dialogue 2
 	if (Dialogue2 == true) {
 		app->scene->paused = true;
 
@@ -420,6 +423,7 @@ bool EntityNPC::Update(float dt)
 			}
 		}
 	}
+	//dialogue 3
 	if (Dialogue3 == true) {
 		app->scene->paused = true;
 
@@ -460,6 +464,12 @@ bool EntityNPC::Update(float dt)
 			}
 		}
 	}
+	//dialogue 4
+	if (Dialogue4 == true)
+	{
+		app->scene->Quest3active = true;
+	}
+
 	return true;
 }
 
@@ -508,6 +518,13 @@ void EntityNPC::OnCollision(Collider* c1, Collider* c2)
 					Dialogue3 = true;
 					if (Dialogue3Count == 0) {
 						Dialogue3Count = 1;
+					}
+				}
+				
+				if (i == 3) {
+					Dialogue4 = true;
+					if (Dialogue4Count == 0) {
+						Dialogue4Count = 1;
 					}
 				}
 			}

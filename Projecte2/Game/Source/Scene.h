@@ -77,6 +77,8 @@ public:
 	bool pressurePlate1 = true;
 	bool pressurePlate2 = true;
 	bool pressurePlate3 = true;
+
+	bool Quest3active = false;
 	
 	int pressurePlateTimer1 = 0;
 	int pressurePlateTimer2 = 0;

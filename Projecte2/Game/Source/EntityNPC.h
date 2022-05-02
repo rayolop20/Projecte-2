@@ -62,6 +62,7 @@ public:
 	SDL_Texture* TextureNPC = nullptr;
 	SDL_Texture* TextureNPC2 = nullptr;
 	SDL_Texture* TextureNPC3 = nullptr;
+	SDL_Texture* TextureNPC4 = nullptr;
 	SDL_Texture* DialogueBox = nullptr;
 
 	NPC npc[NUM_NPC] = { nullptr };
@@ -76,9 +77,11 @@ public:
 	bool Dialogue1 = false;
 	bool Dialogue2 = false;
 	bool Dialogue3 = false;
+	bool Dialogue4 = false;
 	int Dialogue1Count = 0;
 	int Dialogue2Count = 0;
 	int Dialogue3Count = 0;
+	int Dialogue4Count = 0;
 	int Dialogue1BranchYes = 0;
 	int Dialogue1BranchNo = 0;
 	int FText = -1;
