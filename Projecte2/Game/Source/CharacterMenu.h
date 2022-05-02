@@ -56,6 +56,7 @@ public:
 	bool item4state = false;
 	bool item5state = true;
 	bool item6state = false;
+	bool item7state = false;
 
 	bool typingTxt = false;
 
@@ -76,6 +77,7 @@ public:
 	int increaseMana = 2;
 	int healing = 2;
 	int increaseHP = 2;
+	bool skeletonHead = false;
 
 	GuiButton* Character1;
 	GuiButton* Character2;
@@ -88,6 +90,7 @@ public:
 	GuiButton* Item4;
 	GuiButton* Item5;
 	GuiButton* Item6;
+	GuiButton* Item7;
 
 private:
 
@@ -114,6 +117,7 @@ private:
 	SDL_Rect Item4Pos;
 	SDL_Rect Item5Pos;
 	SDL_Rect Item6Pos;
+	SDL_Rect Item7Pos;
 
 	SDL_Rect Item1Rect;
 	SDL_Rect Item2Rect;
@@ -121,15 +125,25 @@ private:
 	SDL_Rect Item4Rect;
 	SDL_Rect Item5Rect;
 	SDL_Rect Item6Rect;
+	SDL_Rect Item7Rect;
 
 	SDL_Texture* enter = nullptr;
 
 	// L12b: Debug pathfing
 	iPoint origin;
 
-	char HP[150] = { "\0" };
-	char Damage[150] = { "\0" };
-	char Mana[150] = { "\0" };
+	char HP1[150] = { "\0" };
+	char Damage1[150] = { "\0" };
+	char Mana1[150] = { "\0" };
+	char HP2[150] = { "\0" };
+	char Damage2[150] = { "\0" };
+	char Mana2[150] = { "\0" };
+	char HP3[150] = { "\0" };
+	char Damage3[150] = { "\0" };
+	char Mana3[150] = { "\0" };
+	char HP4[150] = { "\0" };
+	char Damage4[150] = { "\0" };
+	char Mana4[150] = { "\0" };
 	char adviceTxt[150] = { "\0" };
 
 };

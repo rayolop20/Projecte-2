@@ -24,6 +24,9 @@ struct Skeleton
 	float hp = 72.0;
 	float damage = 17.0;
 	float speed = 12.0;
+	float basehp = 72.0;
+	float basedamage = 17.0;
+	float basespeed = 12.0;
 	int numEnemies = 3;
 	bool poisoned = false;
 	bool onFire = false;
@@ -101,7 +104,7 @@ public:
 	float enemySpeed = 20;//Velocitat inversa, 0 es velocitat maxima i valor més gran, velocitat més lenta.
 	float pathfindingtimer = 0;
 	bool pathfindingaux = true;
-	//int WhichSkeleton = 0; 
+	int WhichSkeleton = NULL; 
 	int SkeletonNum = NULL; 
 	bool randomstats = true;
 

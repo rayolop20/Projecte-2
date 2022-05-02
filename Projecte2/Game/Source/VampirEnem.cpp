@@ -62,8 +62,8 @@ VampirEnem::~VampirEnem()
 /*
 bool VampirEnem::LoadState(pugi::xml_node& data)
 {
-	Vpir[0].Pos.x = data.child("Vampire").attribute("x").as_int();
-	Vpir[0].Pos.y = data.child("Vampire").attribute("y").as_int();
+	Vpir[WhichVampire].Pos.x = data.child("Vampire").attribute("x").as_int();
+	Vpir[WhichVampire].Pos.y = data.child("Vampire").attribute("y").as_int();
 	return false;
 }
 
@@ -71,8 +71,8 @@ bool VampirEnem::SaveState(pugi::xml_node& data) const
 {
 	pugi::xml_node VPyr = data.append_child("Vampire");
 
-	VPyr.append_attribute("x") = Vpir[0].Pos.x;
-	VPyr.append_attribute("y") = Vpir[0].Pos.y;
+	VPyr.append_attribute("x") = Vpir[WhichVampire].Pos.x;
+	VPyr.append_attribute("y") = Vpir[WhichVampire].Pos.y;
 	return false;
 }
 
@@ -82,8 +82,8 @@ bool VampirEnem::Awake(pugi::xml_node& config)
 	bool ret = true;
 	AwakeEnable = false;
 
-	Vpir[0].Pos.x = config.child("Position").attribute("PositionX").as_int();
-	Vpir[0].Pos.y = config.child("Position").attribute("PositionY").as_int();
+	Vpir[WhichVampire].Pos.x = config.child("Position").attribute("PositionX").as_int();
+	Vpir[WhichVampire].Pos.y = config.child("Position").attribute("PositionY").as_int();
 
 
 	return ret;
@@ -102,6 +102,7 @@ bool VampirEnem::Start()
 	}
 
 	Vpir[0] = CreateVampire(/*Vpir->Pos.x, Vpir->Pos.x,*/1248,448, TextureVampire);
+	Vpir[10] = CreateVampire(/*Vpir->Pos.x, Vpir->Pos.x,*/1696,1536, TextureVampire);
 
 	return false;
 }
@@ -123,7 +124,7 @@ bool VampirEnem::Update(float dt)
 	}
 	else if (app->BTSystem->battleAux == true) {
 		app->BTSystem->battleAux = false;
-		Vpir[0].Destroyed = true;
+		Vpir[WhichVampire].Destroyed = true;
 	}
 	timer3 = SDL_GetTicks() / 10;
 
@@ -150,7 +151,7 @@ bool VampirEnem::Update(float dt)
 			Vpir[i].colliderV->pendingToDelete = true;
 		}
 	}
-	for (int i = 0; i < 1; i++)
+	for (int i = 0; i < 11; i+= 10)
 	{
 		Vpir[i].colliderV->SetPos(Vpir[i].Pos.x, Vpir[i].Pos.y);
 		Vpir[i].colliderS->SetPos(Vpir[i].Pos.x - 168, Vpir[i].Pos.y - 168);
@@ -456,7 +457,7 @@ void VampirEnem::Combat() {
 			}
 		}
 		if (app->BTSystem->AttackPlayer == 2 && app->BTSystem->SpecialAttackEnable == false && app->BTSystem->SpeacialAttackEnd == true) {
-			Vpir[0].onFire = true;
+			Vpir[WhichVampire].onFire = true;
 			Vpir[1].onFire = true;
 			Vpir[2].onFire = true;
 			Vpir[3].onFire = true;
@@ -534,7 +535,7 @@ void VampirEnem::SpawnEnemies() {
 	if (app->BTSystem->Vampirebattle == true) {
 		srand(time(NULL));
 
-		for (int i = 1; i < Vpir[0].numEnemies + 1; i++) {
+		for (int i = 1; i < Vpir[WhichVampire].numEnemies + 1; i++) {
 			Vpir[i].dead = false;
 			randomEnemyhp = (rand() % 10) + 1;
 			randomEnemySpeed = (rand() % 6) + 1;
@@ -553,7 +554,7 @@ void VampirEnem::SpawnEnemies() {
 
 void VampirEnem::DrawEnemies() {
 	if (app->BTSystem->Vampirebattle == true && app->BTSystem->InventoryEnable == false) {
-		for (int i = 1; i < Vpir[0].numEnemies + 1; i++) {
+		for (int i = 1; i < Vpir[WhichVampire].numEnemies + 1; i++) {
 			if (Vpir[i].dead == false) {
 				if (app->BTSystem->VampireTarget == i) {
 					Choose->x = 4;
@@ -579,7 +580,7 @@ void VampirEnem::ChooseEnemy() {
 
 		buttons = SDL_GetMouseState(&x, &y);
 
-		for (int i = 1; i < Vpir[0].numEnemies + 1; i++) {
+		for (int i = 1; i < Vpir[WhichVampire].numEnemies + 1; i++) {
 			/*if (Vpir[i].dead == false && x >= 772 && x <= 772 + 50 && y >= 18 + 60*i && y <= 18 + 60 * i + 50 && app->input->GetMouseButtonDown(1) == KEY_DOWN && app->BTSystem->AttackPlayer != 0 && app->BTSystem->PlayerTurn == true) {
 				app->BTSystem->VampireTarget = i;
 				//SDL_Rect Enem1 = { app->player->P1.position.x + 400, app->player->P1.position.y - 330 + 120 * i, 100, 100 };
@@ -590,7 +591,7 @@ void VampirEnem::ChooseEnemy() {
 				//SDL_Rect Enem1 = { app->player->P1.position.x + 500, app->player->P1.position.y - 330 + 120 * i, 100, 100 };
 			}
 		}
-		for (int i = 1; i < Vpir[0].numEnemies + 1; i++) {//
+		for (int i = 1; i < Vpir[WhichVampire].numEnemies + 1; i++) {//
 			if (Vpir[i].dead == false && x > 1005 && x < 1110 && y > -5 + 120 * i && y < 115 + 120 * i + 100 && app->input->GetMouseButtonDown(1) == KEY_DOWN && app->BTSystem->PlayerTurn == true && app->BTSystem->SpecialAttackEnable == false && app->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT && app->player->godMode == true) {
 				//app->BTSystem->VampireTarget = i;
 				Vpir[i].hp = 0;
@@ -621,7 +622,7 @@ void VampirEnem::EnemyPhase() {
 
 			}
 		}
-		for (int i = 1; i < Vpir[0].numEnemies + 1; i++) {
+		for (int i = 1; i < Vpir[WhichVampire].numEnemies + 1; i++) {
 			if (Vpir[i].dead == false && app->BTSystem->PlayerTurn == false) {
 				do {
 					srand(time(NULL));
@@ -727,35 +728,40 @@ void VampirEnem::CheckEnemy() {
 			if (Vpir[i].onFire == true && app->BTSystem->SpecialAttackEnable == false) {
 				Vpir[i].hp -= 10;
 			}
-			if (app->BTSystem->onFireCount != 0 && Vpir[0].onFire == true) {
+			if (app->BTSystem->onFireCount != 0 && Vpir[WhichVampire].onFire == true) {
 				app->BTSystem->onFireCount++;
 			}
 			if (app->BTSystem->onFireCount >= 3) {
 				app->BTSystem->onFireCount = 0;
-				Vpir[0].onFire = false;
+				Vpir[WhichVampire].onFire = false;
 				Vpir[1].onFire = false;
 				Vpir[2].onFire = false;
 				Vpir[3].onFire = false;
 				Vpir[4].onFire = false;
 			}
 		}
-		for (int i = 1; i < Vpir[0].numEnemies + 1; i++) {
+		for (int i = 1; i < Vpir[WhichVampire].numEnemies + 1; i++) {
 			if (Vpir[i].hp <= 0) {
 				Vpir[i].dead = true;
 				app->BTSystem->CombatDeaths += 1;
 			}
-			if (app->BTSystem->CombatDeaths == Vpir[0].numEnemies) {
+			if (app->BTSystem->CombatDeaths == Vpir[WhichVampire].numEnemies) {
 				app->BTSystem->battle = false;
 				app->BTSystem->Vampirebattle = false;
 				app->BTSystem->battleWin = false;
 				app->BTSystem->battle1 = false;
 				app->player->P4.revolverActive = true;
-				Vpir[0].Destroyed = true;
+				Vpir[WhichVampire].Destroyed = true;
 				randomstats = true;
 				app->player->P1.damage = 0;
 				app->player->P2.damage = 0;
 				app->player->P3.damage = 0;
 				app->player->P4.damage = 0;
+				for (int i = 0; i < Vpir[WhichVampire].numEnemies + 1; i++) {
+					Vpir[i].hp = Vpir[i].basehp;
+					Vpir[i].speed = Vpir[i].basespeed;
+					Vpir[i].damage = Vpir[i].basedamage;
+				}
 			}
 		}
 		app->BTSystem->CombatDeaths = 0;
@@ -768,15 +774,15 @@ void VampirEnem::DrawHpBars() {
 			SDL_Rect bar1 = { app->player->P1.position.x + 380, app->player->P1.position.y - 200, -(200 * Vpir[1].hp) / 100,15 };
 			app->render->DrawRectangle(bar1, 255, 0, 0);
 		}
-		if (Vpir[2].dead == false && app->BTSystem->InventoryEnable == false && Vpir[0].numEnemies > 1) {
+		if (Vpir[2].dead == false && app->BTSystem->InventoryEnable == false && Vpir[WhichVampire].numEnemies > 1) {
 			SDL_Rect bar2 = { app->player->P1.position.x + 380, app->player->P1.position.y - 200 + 120, -(200 * Vpir[2].hp) / 100,15 };
 			app->render->DrawRectangle(bar2, 255, 0, 0);
 		}
-		if (Vpir[3].dead == false && app->BTSystem->InventoryEnable == false && Vpir[0].numEnemies > 2) {
+		if (Vpir[3].dead == false && app->BTSystem->InventoryEnable == false && Vpir[WhichVampire].numEnemies > 2) {
 			SDL_Rect bar3 = { app->player->P1.position.x + 380, app->player->P1.position.y - 200 + 240, -(200 * Vpir[3].hp) / 100,15 };
 			app->render->DrawRectangle(bar3, 255, 0, 0);
 		}
-		if (Vpir[4].dead == false && app->BTSystem->InventoryEnable == false && Vpir[0].numEnemies > 3) {
+		if (Vpir[4].dead == false && app->BTSystem->InventoryEnable == false && Vpir[WhichVampire].numEnemies > 3) {
 			SDL_Rect bar4 = { app->player->P1.position.x + 380, app->player->P1.position.y - 200 + 360, -(200 * Vpir[4].hp) / 100,15 };
 			app->render->DrawRectangle(bar4, 255, 0, 0);
 		}
@@ -800,6 +806,20 @@ void VampirEnem::OnCollision(Collider* c1, Collider* c2)
 		{
 			if (c2->type == Collider::Type::PLAYER)
 			{
+				switch (i)
+				{
+				case 0:
+					WhichVampire = i;
+					Vpir[0].numEnemies = 2;
+					break;
+				case 10:
+					WhichVampire = i;
+					Vpir[10].numEnemies = 3;
+
+					break;
+				default:
+					break;
+				}
 				if (pathfindingaux == true) {
 					pathfindingtimer = timer3;
 					pathfindingaux = false;

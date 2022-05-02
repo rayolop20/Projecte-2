@@ -45,8 +45,8 @@ bool VampirEnem::Awake(pugi::xml_node& config)
 	bool ret = true;
 
 
-	Vpir[0].Pos.x = config.child("Position").attribute("PositionX").as_int();
-	Vpir[0].Pos.y = config.child("Position").attribute("PositionY").as_int();
+	Vpir[WhichVampire].Pos.x = config.child("Position").attribute("PositionX").as_int();
+	Vpir[WhichVampire].Pos.y = config.child("Position").attribute("PositionY").as_int();
 
 
 	return false;
@@ -55,8 +55,8 @@ bool VampirEnem::Awake(pugi::xml_node& config)
 
 bool VampirEnem::LoadState(pugi::xml_node& data)
 {
-	Vpir[0].Pos.x = data.child("Vampire").attribute("x").as_int();
-	Vpir[0].Pos.y = data.child("Vampire").attribute("y").as_int();
+	Vpir[WhichVampire].Pos.x = data.child("Vampire").attribute("x").as_int();
+	Vpir[WhichVampire].Pos.y = data.child("Vampire").attribute("y").as_int();
 	return false;
 }
 
@@ -64,8 +64,8 @@ bool VampirEnem::SaveState(pugi::xml_node& data) const
 {
 	pugi::xml_node VPyr = data.append_child("Vampire");
 
-	VPyr.append_attribute("x") = Vpir[0].Pos.x;
-	VPyr.append_attribute("y") = Vpir[0].Pos.y;
+	VPyr.append_attribute("x") = Vpir[WhichVampire].Pos.x;
+	VPyr.append_attribute("y") = Vpir[WhichVampire].Pos.y;
 	return false;
 }
 */
@@ -91,6 +91,8 @@ bool EntityNPC::Start()
 		npc[0] = CreateNPC(1050, 1364, app->characterMenu->frenchNpc);
 		npc[1] = CreateNPC(957, 232, TextureNPC);
 		npc[2] = CreateNPC(1357, 1937, TextureNPC2);
+		npc[3] = CreateNPC(1357, 1500, TextureNPC4);
+		npc[4] = CreateNPC(1657, 1500, TextureNPC5);
 	
 	porta_1 = app->collisions->AddCollider({ 1312, 1664, 96, 64 }, Collider::Type::KEY_SENSOR, (Module*)app->entityManager);
 	porta_2 = app->collisions->AddCollider({ 1504, 2304,64, 96 }, Collider::Type::KEY_SENSOR, (Module*)app->entityManager);
@@ -136,11 +138,12 @@ bool EntityNPC::Update(float dt)
 			npc[i].colliderNPC->pendingToDelete = true;
 		}
 	}
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < 5; i++)
 	{
 		npc[i].colliderNPC->SetPos(npc[i].Pos.x, npc[i].Pos.y);
 		npc[i].colliderSNPC->SetPos(npc[i].Pos.x - 32, npc[i].Pos.y - 32);
 	}
+	//dialogue 1
 	if (Dialogue1 == true) {
 		app->scene->paused = true;
 		if (Dialogue1Count == 1) {
@@ -352,6 +355,7 @@ bool EntityNPC::Update(float dt)
 		}
 
 	}
+	//dialogue 2
 	if (Dialogue2 == true) {
 		app->scene->paused = true;
 
@@ -420,6 +424,7 @@ bool EntityNPC::Update(float dt)
 			}
 		}
 	}
+	//dialogue 3
 	if (Dialogue3 == true) {
 		app->scene->paused = true;
 
@@ -460,6 +465,48 @@ bool EntityNPC::Update(float dt)
 			}
 		}
 	}
+	//dialogue 4
+	if (Dialogue4 == true)
+	{
+		app->scene->Quest3active = true;
+	}
+	//dialogue 5
+	if (Dialogue5 == true)
+	{
+		app->scene->paused = true;
+
+		if (app->characterMenu->skeletonHead == false) {
+			app->render->DrawTexture(DialogueBox, app->player->P1.position.x - 360, app->player->P1.position.y + 160);
+			sprintf_s(Text1, "Only the chosen one can obtain this...");
+			sprintf_s(Text2, "if u are the Chosen one u know what i need");
+			app->fonts->DrawTxt(250, 502, FText, Text1);
+			app->fonts->DrawTxt(250, 542, FText, Text2);
+			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+				Dialogue5 = false;
+				app->scene->paused = false;
+			}
+		}
+		
+		if (app->characterMenu->skeletonHead == true && FinishQ5 == false) {
+			app->render->DrawTexture(DialogueBox, app->player->P1.position.x - 360, app->player->P1.position.y + 160);
+			sprintf_s(Text1, "oooh u are the Chosen one, can u give me the head?");
+			sprintf_s(Text2, "Give The head?");
+			sprintf_s(Text2, "Give   y                dont give    n");
+			app->fonts->DrawTxt(250, 502, FText, Text1);
+			app->fonts->DrawTxt(250, 542, FText, Text2);
+			if (app->input->GetKey(SDL_SCANCODE_N) == KEY_DOWN) {
+				Dialogue5 = false;
+				app->scene->paused = false;
+			}
+			if (app->input->GetKey(SDL_SCANCODE_Y) == KEY_DOWN) {
+				Dialogue5 = false;
+				app->scene->paused = false;
+				FinishQ5 = true;
+				//afegir suma variables personatge
+			}
+		}
+	}
+
 	return true;
 }
 
@@ -508,6 +555,20 @@ void EntityNPC::OnCollision(Collider* c1, Collider* c2)
 					Dialogue3 = true;
 					if (Dialogue3Count == 0) {
 						Dialogue3Count = 1;
+					}
+				}
+				
+				if (i == 3) {
+					Dialogue4 = true;
+					if (Dialogue4Count == 0) {
+						Dialogue4Count = 1;
+					}
+				}
+				
+				if (i == 4) {
+					Dialogue5 = true;
+					if (Dialogue5Count == 0) {
+						Dialogue5Count = 1;
 					}
 				}
 			}
