@@ -65,8 +65,8 @@ bool VampirEnem::Awake(pugi::xml_node& config)
 	bool ret = true;
 
 
-	Vpir[0].Pos.x = config.child("Position").attribute("PositionX").as_int();
-	Vpir[0].Pos.y = config.child("Position").attribute("PositionY").as_int();
+	Vpir[WhichVampire].Pos.x = config.child("Position").attribute("PositionX").as_int();
+	Vpir[WhichVampire].Pos.y = config.child("Position").attribute("PositionY").as_int();
 
 
 	return false;
@@ -75,8 +75,8 @@ bool VampirEnem::Awake(pugi::xml_node& config)
 
 bool VampirEnem::LoadState(pugi::xml_node& data)
 {
-	Vpir[0].Pos.x = data.child("Vampire").attribute("x").as_int();
-	Vpir[0].Pos.y = data.child("Vampire").attribute("y").as_int();
+	Vpir[WhichVampire].Pos.x = data.child("Vampire").attribute("x").as_int();
+	Vpir[WhichVampire].Pos.y = data.child("Vampire").attribute("y").as_int();
 	return false;
 }
 
@@ -84,8 +84,8 @@ bool VampirEnem::SaveState(pugi::xml_node& data) const
 {
 	pugi::xml_node VPyr = data.append_child("Vampire");
 
-	VPyr.append_attribute("x") = Vpir[0].Pos.x;
-	VPyr.append_attribute("y") = Vpir[0].Pos.y;
+	VPyr.append_attribute("x") = Vpir[WhichVampire].Pos.x;
+	VPyr.append_attribute("y") = Vpir[WhichVampire].Pos.y;
 	return false;
 }
 */
@@ -103,7 +103,8 @@ bool ZombieEnem::Start()
 	}
 
 	Zbie[0] = CreateZombie(/*Vpir->Pos.x, Vpir->Pos.x,*/960, 2336, TextureZombie);
-	Zbie[10] = CreateZombie(/*Vpir->Pos.x, Vpir->Pos.x,*/1060, 2336, TextureZombie);
+	Zbie[10] = CreateZombie(/*Vpir->Pos.x, Vpir->Pos.x,*/960, 1920, TextureZombie);
+	Zbie[20] = CreateZombie(/*Vpir->Pos.x, Vpir->Pos.x,*/928, 704, TextureZombie);
 
 	return false;
 }
@@ -183,7 +184,7 @@ bool ZombieEnem::Update(float dt)
 			Zbie[i].colliderS->pendingToDelete = true;
 		}
 	}
-	for (int i = 0; i < 11; i+=10)
+	for (int i = 0; i < 21; i+=10)
 	{
 		Zbie[i].colliderZ->SetPos(Zbie[i].Pos.x, Zbie[i].Pos.y);
 		Zbie[i].colliderS->SetPos(Zbie[i].Pos.x - 168, Zbie[i].Pos.y - 168);
@@ -833,7 +834,7 @@ void ZombieEnem::OnCollision(Collider* c1, Collider* c2)
 			if (c2->type == Collider::Type::PLAYER)
 			{
 				app->BTSystem->Zombiebattle = true;
-				//Vpir[0].Destroyed = true;
+				//Vpir[WhichVampire].Destroyed = true;
 			}
 		}
 		else if (Zbie[i].colliderS == c1 && !Zbie[i].Destroyed)
@@ -844,12 +845,15 @@ void ZombieEnem::OnCollision(Collider* c1, Collider* c2)
 				{
 				case 0:
 					WhichZombie = i;
-					Zbie[0].numEnemies = 2;
+					Zbie[0].numEnemies = 3;
 					break;
 				case 10:
 					WhichZombie = i;
-					Zbie[10].numEnemies = 4;
-
+					Zbie[10].numEnemies = 1;
+					break;
+				case 20:
+					WhichZombie = i;
+					Zbie[20].numEnemies = 4;
 					break;
 				default:
 					break;

@@ -45,8 +45,8 @@ bool VampirEnem::Awake(pugi::xml_node& config)
 	bool ret = true;
 
 
-	Vpir[0].Pos.x = config.child("Position").attribute("PositionX").as_int();
-	Vpir[0].Pos.y = config.child("Position").attribute("PositionY").as_int();
+	Vpir[WhichVampire].Pos.x = config.child("Position").attribute("PositionX").as_int();
+	Vpir[WhichVampire].Pos.y = config.child("Position").attribute("PositionY").as_int();
 
 
 	return false;
@@ -55,8 +55,8 @@ bool VampirEnem::Awake(pugi::xml_node& config)
 
 bool VampirEnem::LoadState(pugi::xml_node& data)
 {
-	Vpir[0].Pos.x = data.child("Vampire").attribute("x").as_int();
-	Vpir[0].Pos.y = data.child("Vampire").attribute("y").as_int();
+	Vpir[WhichVampire].Pos.x = data.child("Vampire").attribute("x").as_int();
+	Vpir[WhichVampire].Pos.y = data.child("Vampire").attribute("y").as_int();
 	return false;
 }
 
@@ -64,8 +64,8 @@ bool VampirEnem::SaveState(pugi::xml_node& data) const
 {
 	pugi::xml_node VPyr = data.append_child("Vampire");
 
-	VPyr.append_attribute("x") = Vpir[0].Pos.x;
-	VPyr.append_attribute("y") = Vpir[0].Pos.y;
+	VPyr.append_attribute("x") = Vpir[WhichVampire].Pos.x;
+	VPyr.append_attribute("y") = Vpir[WhichVampire].Pos.y;
 	return false;
 }
 */
