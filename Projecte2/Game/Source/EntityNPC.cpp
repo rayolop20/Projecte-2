@@ -245,17 +245,16 @@ bool EntityNPC::Update(float dt)
 				Dialogue1 = false;
 				app->scene->paused = false;
 				Dialogue1Count++;
+				Dialogue1BranchNo++;
 				timerNPC_ = timerNPC;
 			}
 		}
-
 		if (Dialogue1BranchNo == 4) {
-
+			app->render->DrawTexture(DialogueBox, app->player->P1.position.x - 360, app->player->P1.position.y + 160);
 			sprintf_s(Text1, "have you changed your mind?");
 			sprintf_s(Text2, "add to the team    y                dont add    n");
 			app->fonts->DrawTxt(300, 502, FText, Text1);
 			app->fonts->DrawTxt(300, 542, FText, Text2);
-			app->render->DrawTexture(DialogueBox, app->player->P1.position.x - 360, app->player->P1.position.y + 160);
 			if (app->input->GetKey(SDL_SCANCODE_Y) == KEY_DOWN && timerNPC > timerNPC_ + 2) {
 				Dialogue1BranchYes++;
 				Dialogue1Count++;
