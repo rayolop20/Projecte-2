@@ -392,6 +392,26 @@ bool battleSystem::Update(float dt)
 bool battleSystem::PostUpdate()
 {
 	bool ret = true;
+
+	if (battleTransition && app->player->P1.IsAlive && transitionRep == 1)
+	{
+		if (curtainCont <= (app->win->GetWidth() / 2))
+		{			
+			Curtain1 = { -app->render->camera.x - curtainCont, -app->render->camera.y, app->win->GetWidth() / 2, app->win->GetHeight() };
+			Curtain2 = { -app->render->camera.x + app->win->GetWidth() / 2 + curtainCont, -app->render->camera.y, app->win->GetWidth() / 2, app->win->GetHeight() };
+
+			app->render->DrawRectangle(Curtain1, 10, 10, 10);
+			app->render->DrawRectangle(Curtain2, 10, 10, 10);
+			curtainCont+=10;
+		}
+		else
+		{
+			battleTransition = false;
+			curtainCont = 0;
+			transitionRep--;
+		}
+	}
+
 	/*if (battle == true && app->player->P1.IsAlive == true) {
 		Player1 = currentAnimation->GetCurrentFrame();
 		app->render->DrawTexture(AttackTexture, app->player->P1.position.x - 420 + 120, app->player->P1.position.y - 250, &Player1);
@@ -1012,6 +1032,7 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 		}
 		if (control->id == 36 && battle == true) {
 			battle = false;
+			transitionRep = 1;
 			Delay = false;
 			Zombiebattle = false;
 			Vampirebattle = false;
@@ -1143,6 +1164,7 @@ void battleSystem::CheckAllies() {
 		if (alliesDead == 4) {
 			battle = false;
 			battleWin = false;
+			transitionRep = 1;
 		}
 		alliesDead = 0;
 }

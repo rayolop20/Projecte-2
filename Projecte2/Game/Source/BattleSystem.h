@@ -85,6 +85,7 @@ public:
 	bool AttackPhaseActive;
 	bool AttackPhaseEnable = false;
 	bool battleWin = NULL;
+	bool battleTransition = false;
 
 	bool choosingPlayer = false;
 
@@ -178,6 +179,9 @@ private:
 	SDL_Rect Player3;
 	SDL_Rect Player4;
 
+	SDL_Rect Curtain1;
+	SDL_Rect Curtain2;
+
 	Animation idle1;
 	Animation Atack_1;
 	Animation idle2;
@@ -196,7 +200,8 @@ private:
 	Animation leftAnim;
 	Animation deadAnim;
 
-
+	int curtainCont = 0;
+	int transitionRep = 1;
 };
 
 #endif // __BATTLESYSTEM_H__
