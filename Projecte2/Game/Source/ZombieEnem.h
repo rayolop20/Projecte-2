@@ -93,6 +93,11 @@ public:
 	Animation leftAnim;
 	Animation dead;
 
+
+	
+
+
+
 	float randomEnemyhp = 0.0;
 	float randomEnemySpeed = 0.0;
 	float randomEnemyDamage = 0.0;

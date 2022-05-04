@@ -88,6 +88,7 @@ public:
 	bool battleTransition = false;
 
 	bool choosingPlayer = false;
+	bool puta = false;
 
 	int POSQTE2Y = 0;
 	int POSQTE2X = 0;
@@ -171,6 +172,11 @@ public:
 	SDL_Texture* selectPlayer = nullptr;
 	SDL_Rect* Choose = new SDL_Rect();
 
+	Animation* currentAttack1 = nullptr;
+	SDL_Texture* player1A = nullptr;
+	SDL_Rect player1AR;
+	Animation AttackAnim1;
+	Animation idleAttack1;
 
 private:
 

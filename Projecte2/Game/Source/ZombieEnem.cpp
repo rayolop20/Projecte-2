@@ -24,6 +24,9 @@ ZombieEnem::ZombieEnem() :Entity(EntityType::ZOMBIE)
 	idleAnim.loop = true;
 	idleAnim.speed = 0.001f;
 
+	name.Create("players");
+	
+
 	downAnim.PushBack({ 45, 18, 36, 102 });
 	downAnim.PushBack({ 168,18, 41, 104 });
 	downAnim.PushBack({ 301,18, 36, 102 });
@@ -51,6 +54,8 @@ ZombieEnem::ZombieEnem() :Entity(EntityType::ZOMBIE)
 	upAnim.PushBack({ 1965,17, 42, 104 });
 	upAnim.loop = true;
 	upAnim.speed = 0.1f;
+
+	
 }
 
 ZombieEnem::~ZombieEnem()
@@ -121,17 +126,21 @@ bool ZombieEnem::Update(float dt)
 		if (app->BTSystem->SpawnedEnemies == false) {
 			SpawnEnemies();
 		}
+		
 		DrawEnemies();
 		ChooseEnemy();
 		Combat();
 		DrawHpBars();
+		
 		if (app->BTSystem->PlayerTurn == false) {
+			
 			CheckEnemy();
 			EnemyPhase();
 		}
 	}
 	else if (app->BTSystem->battleAux == true) {
 		app->BTSystem->battleAux = false;
+
 		Zbie[WhichZombie].Destroyed = true;
 	}
 	timer3 = SDL_GetTicks() / 10;
@@ -194,6 +203,7 @@ bool ZombieEnem::Update(float dt)
 
 bool ZombieEnem::PostUpdate()
 {
+
 	LOG("FUNCIONA?");
 	for (int i = 0; i < NUM_ZOMBIE; i++)
 	{

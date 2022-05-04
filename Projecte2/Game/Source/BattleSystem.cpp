@@ -23,8 +23,19 @@
 
 battleSystem::battleSystem() : Module()
 {
+
 	name.Create("battleSystem");
 
+	idleAttack1.PushBack({ 0, 0, 0, 0 });
+	idleAttack1.loop = true;
+	idleAttack1.speed = 0.001f;
+	AttackAnim1.PushBack({ 0, 0, 160, 192 });
+	AttackAnim1.PushBack({ 160, 0, 160, 192 });
+	AttackAnim1.PushBack({ 320, 0, 160, 192 });
+	AttackAnim1.PushBack({ 460, 0, 160, 192 });
+	AttackAnim1.PushBack({ 640, 0, 160, 192 });
+	AttackAnim1.loop = false;
+	AttackAnim1.speed = 0.1f;
 	/*idle1.PushBack({62, 25, 85, 149});
 	idle1.loop = false;
 	idle1.speed = 0.001f;
@@ -67,6 +78,7 @@ bool battleSystem::Awake()
 // Called before the first frame
 bool battleSystem::Start()
 {
+
 	Attack = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 31, "Attack", {0, 0, 0, 0 }, this);
 	Attack->state = GuiControlState::DISABLED;
 	Attack1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 32, "Attack1", { 0, 0, 0, 0 }, this);
@@ -118,6 +130,9 @@ bool battleSystem::Start()
 	battle_screen = app->tex->Load("Assets/Textures/UI/battle_bg.png");
 	loose = app->tex->Load("Assets/Textures/Assets/pantalla_derrota.png");
 
+	currentAttack1 = &idleAttack1;
+
+	player1A = app->tex->Load("Assets/Textures/Soldiers/soldier_animation.png");
 	//L13: TODO 2: Declare an Item and create it using the EntityManager
 	VampirEnem* Vampir = (VampirEnem*)app->entityManager->CreateEntity(EntityType::VAMPYR, 0, { 0,0 });
 	ZombieEnem* Zombies = (ZombieEnem*)app->entityManager->CreateEntity(EntityType::ZOMBIE, 0, { 0,0 });
@@ -223,6 +238,7 @@ bool battleSystem::Update(float dt)
 
 		DrawHpBars();
 		if (PlayerTurn == true) {
+			
 			Attack->state = GuiControlState::NORMAL;
 			SpecialAttack->state = GuiControlState::NORMAL;
 			Inventory->state = GuiControlState::NORMAL;
@@ -237,6 +253,7 @@ bool battleSystem::Update(float dt)
 		
 	}
 	else if(battleAux == true){
+		
 		AttackPlayer = 0;
 		for (int i = 0; i < 4; i++) {
 			waitPlayer[i] = 0;
@@ -378,6 +395,12 @@ bool battleSystem::Update(float dt)
 	CheckAllies();
 	MaxHp();
 	MaxMana();
+	if (puta == true) {
+		currentAttack1 = &AttackAnim1;
+		app->render->DrawTexture(player1A, app->player->P1.position.x - 420 + 120, app->player->P1.position.y - 320, &player1AR);
+		currentAttack1->Update();
+
+	}
 	if (app->player->P1.IsAlive == false) {
 		app->player->P1.position.x = -2000;
 		app->player->P1.position.y = -2000;
@@ -392,6 +415,7 @@ bool battleSystem::Update(float dt)
 bool battleSystem::PostUpdate()
 {
 	bool ret = true;
+	player1AR = currentAttack1->GetCurrentFrame();
 
 	if (battleTransition && app->player->P1.IsAlive && transitionRep == 1)
 	{
@@ -456,6 +480,8 @@ void battleSystem::AttackPhase() {
 void battleSystem::AttackPhaseDisabled() {
 	Attack1->state = GuiControlState::DISABLED;
 	Attack2->state = GuiControlState::DISABLED;
+	puta = true;
+	
 }
 void battleSystem::AttackPhaseDisabled2() {
 	Attack1->state = GuiControlState::DISABLED;
