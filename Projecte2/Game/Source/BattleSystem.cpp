@@ -396,16 +396,19 @@ bool battleSystem::Update(float dt)
 	MaxHp();
 	MaxMana();
 	//Animaciones Ataque
-	if (puta == true) {
+	if (puta == true && AttackPlayer == 1) {
 		currentAttack1 = &AttackAnim1;
 		app->render->DrawTexture(player1A, app->player->P1.position.x - 420 + 120, app->player->P1.position.y - 320, &player1AR);
 		currentAttack1->Update();
 		if (AttackAnim1.currentFrame == 4.0) {
 			AttackAnim1.currentFrame = 0;
 			puta = false;
+			app->BTSystem->AttackPlayer = 0;
+
 		}
 	}
 	else if(battle == true){
+		puta = false;
 		currentAttack1 = &idleAttack1;
 		app->render->DrawTexture(player1A, app->player->P1.position.x - 420 + 120, app->player->P1.position.y - 320, &player1AR);
 	}
