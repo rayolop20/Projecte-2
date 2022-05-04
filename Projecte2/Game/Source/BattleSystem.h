@@ -180,6 +180,10 @@ public:
 	Animation AttackAnim1;
 	Animation idleAttack1;
 
+	int transitionRep = 0;
+
+	bool transitionLock = true;
+
 private:
 
 	SDL_Rect Player1;
@@ -208,8 +212,9 @@ private:
 	Animation leftAnim;
 	Animation deadAnim;
 
+	bool curtainBounce = false;
+	bool transitionEnd = false;
 	int curtainCont = 0;
-	int transitionRep = 1;
 };
 
 #endif // __BATTLESYSTEM_H__

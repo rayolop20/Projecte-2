@@ -108,8 +108,6 @@ bool battleSystem::Start()
 	CloseStatsMenu = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 66, "CloseStatsMenu", { 0, 0, 0, 0 }, this);
 	CloseStatsMenu->state = GuiControlState::DISABLED;
 
-
-
 	//Initialize playerTurns
 	for (int i = 0; i <= 4 - alliesDead;i++) {
 		waitPlayer[i] = 0;
@@ -420,6 +418,12 @@ bool battleSystem::Update(float dt)
 			return false;
 		}
 	}
+
+	if (battleTransition && battle)
+	{
+		transitionLock = true;
+	}
+
 	return true;
 }
 
@@ -430,20 +434,44 @@ bool battleSystem::PostUpdate()
 
 	if (battleTransition && app->player->P1.IsAlive && transitionRep == 1)
 	{
-		if (curtainCont <= (app->win->GetWidth() / 2))
+		if (curtainCont <= (app->win->GetWidth() / 2) && !curtainBounce)
+		{
+			Curtain1 = { -app->render->camera.x - app->win->GetWidth()/2 + curtainCont, -app->render->camera.y, app->win->GetWidth() / 2, app->win->GetHeight() };
+			Curtain2 = { -app->render->camera.x + app->win->GetWidth() - curtainCont, -app->render->camera.y, app->win->GetWidth() / 2, app->win->GetHeight() };
+
+			app->render->DrawRectangle(Curtain1, 10, 10, 10);
+			app->render->DrawRectangle(Curtain2, 10, 10, 10);
+			curtainCont += 20;			
+		}
+		else if (curtainBounce)
 		{			
 			Curtain1 = { -app->render->camera.x - curtainCont, -app->render->camera.y, app->win->GetWidth() / 2, app->win->GetHeight() };
 			Curtain2 = { -app->render->camera.x + app->win->GetWidth() / 2 + curtainCont, -app->render->camera.y, app->win->GetWidth() / 2, app->win->GetHeight() };
 
 			app->render->DrawRectangle(Curtain1, 10, 10, 10);
 			app->render->DrawRectangle(Curtain2, 10, 10, 10);
-			curtainCont+=10;
+			curtainCont+=20;
 		}
-		else
+		
+		if (Curtain1.x >= (-app->render->camera.x) && !curtainBounce)
 		{
+			curtainBounce = true;
+			curtainCont = 0;
+			battle = true;
+		}
+		else if (Curtain1.x <= (-app->render->camera.x - app->win->GetWidth()/2) && curtainBounce)
+		{
+			curtainBounce = false;
+			curtainCont = 0;
+			transitionEnd = true;
+		}
+
+		if (transitionEnd)
+		{
+			transitionEnd = false;
 			battleTransition = false;
 			curtainCont = 0;
-			transitionRep--;
+			transitionRep = 0;
 		}
 	}
 
@@ -1069,7 +1097,6 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 		}
 		if (control->id == 36 && battle == true) {
 			battle = false;
-			transitionRep = 1;
 			Delay = false;
 			Zombiebattle = false;
 			Vampirebattle = false;
@@ -1201,7 +1228,6 @@ void battleSystem::CheckAllies() {
 		if (alliesDead == 4) {
 			battle = false;
 			battleWin = false;
-			transitionRep = 1;
 		}
 		alliesDead = 0;
 }

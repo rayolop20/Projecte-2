@@ -681,22 +681,38 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 			{
 				if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::VAMPIRE && app->BTSystem->Delay == true)
 				{
-					app->BTSystem->battle = true;
-					app->BTSystem->battleTransition = true;
+					if (!app->BTSystem->transitionLock)
+					{
+						//app->BTSystem->battle = true;
+						app->BTSystem->battleTransition = true;
+					}
 				}
 			}
 			{
 				if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::ZOMBIE && app->BTSystem->Delay == true)
 				{
-					app->BTSystem->battle = true;
-					app->BTSystem->battleTransition = true;
+					if (!app->BTSystem->transitionLock)
+					{
+						//app->BTSystem->battle = true;
+						app->BTSystem->battleTransition = true;
+					}
 				}
 			}
 			{
 				if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::SKELETON && app->BTSystem->Delay == true)
 				{
-					app->BTSystem->battle = true;
-					app->BTSystem->battleTransition = true;
+					if (!app->BTSystem->transitionLock)
+					{
+						//app->BTSystem->battle = true;
+						app->BTSystem->battleTransition = true;
+					}
+				}
+			}
+			{
+				if (c1->type == Collider::Type::PLAYER && c2->type != Collider::Type::VAMPIRE && app->BTSystem->Delay && c1->type == Collider::Type::PLAYER && c2->type != Collider::Type::ZOMBIE && c1->type == Collider::Type::PLAYER && c2->type != Collider::Type::SKELETON && !app->BTSystem->battle)
+				{
+					app->BTSystem->transitionRep = 1;
+					app->BTSystem->transitionLock = false;
 				}
 			}
 
