@@ -87,6 +87,8 @@ public:
 	bool battleWin = NULL;
 	bool battleTransition = false;
 
+	float klk = 0;
+
 	bool choosingPlayer = false;
 	bool puta = false;
 

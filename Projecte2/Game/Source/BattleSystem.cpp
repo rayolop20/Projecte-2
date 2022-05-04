@@ -26,7 +26,7 @@ battleSystem::battleSystem() : Module()
 
 	name.Create("battleSystem");
 
-	idleAttack1.PushBack({ 0, 0, 0, 0 });
+	idleAttack1.PushBack({ 0, 0, 160, 192 });
 	idleAttack1.loop = true;
 	idleAttack1.speed = 0.001f;
 	AttackAnim1.PushBack({ 0, 0, 160, 192 });
@@ -395,11 +395,19 @@ bool battleSystem::Update(float dt)
 	CheckAllies();
 	MaxHp();
 	MaxMana();
+	//Animaciones Ataque
 	if (puta == true) {
 		currentAttack1 = &AttackAnim1;
 		app->render->DrawTexture(player1A, app->player->P1.position.x - 420 + 120, app->player->P1.position.y - 320, &player1AR);
 		currentAttack1->Update();
-
+		if (AttackAnim1.currentFrame == 4.0) {
+			AttackAnim1.currentFrame = 0;
+			puta = false;
+		}
+	}
+	else if(battle == true){
+		currentAttack1 = &idleAttack1;
+		app->render->DrawTexture(player1A, app->player->P1.position.x - 420 + 120, app->player->P1.position.y - 320, &player1AR);
 	}
 	if (app->player->P1.IsAlive == false) {
 		app->player->P1.position.x = -2000;
