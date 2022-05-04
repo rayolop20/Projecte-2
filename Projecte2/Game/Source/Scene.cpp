@@ -105,7 +105,7 @@ bool Scene::Update(float dt)
 
 		if (app->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN && app->BTSystem->battle == false)
 			app->SaveGameRequest();
-
+		
 		if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN) {
 			debug = !debug;
 
