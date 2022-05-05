@@ -208,7 +208,6 @@ void VampirEnem::Combat() {
 			app->player->P1.mana += app->player->P1.mana1;
 			app->BTSystem->VampireTarget = 0;
 			app->BTSystem->randomAux = false;
-			app->BTSystem->AttackPlayer = 0;
 			app->BTSystem->AttackType = 0;
 			app->BTSystem->AttackPhaseActive = false;
 			app->BTSystem->AttackPhaseEnable = false;
@@ -245,7 +244,6 @@ void VampirEnem::Combat() {
 			app->player->P1.mana += app->player->P1.mana2;
 			app->BTSystem->VampireTarget = 0;
 			app->BTSystem->randomAux = false;
-			app->BTSystem->AttackPlayer = 0;
 			app->BTSystem->AttackType = 0;
 			app->BTSystem->AttackPhaseActive = false;
 			app->BTSystem->AttackPhaseEnable = false;
@@ -391,7 +389,6 @@ void VampirEnem::Combat() {
 			app->player->P4.mana += app->player->P4.mana1;
 			app->BTSystem->VampireTarget = 0;
 			app->BTSystem->randomAux = false;
-			app->BTSystem->AttackPlayer = 0;
 			app->BTSystem->AttackType = 0;
 			app->BTSystem->AttackPhaseActive = false;
 			app->BTSystem->AttackPhaseEnable = false;
@@ -417,7 +414,6 @@ void VampirEnem::Combat() {
 			app->player->P4.mana += app->player->P4.mana2;
 			app->BTSystem->VampireTarget = 0;
 			app->BTSystem->randomAux = false;
-			app->BTSystem->AttackPlayer = 0;
 			app->BTSystem->AttackType = 0;
 			app->BTSystem->AttackPhaseActive = false;
 			app->BTSystem->AttackPhaseEnable = false;

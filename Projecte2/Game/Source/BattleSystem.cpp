@@ -36,6 +36,18 @@ battleSystem::battleSystem() : Module()
 	AttackAnim1.PushBack({ 640, 0, 160, 192 });
 	AttackAnim1.loop = false;
 	AttackAnim1.speed = 0.08f;
+	
+	
+	idleAttack4.PushBack({ 0, 0, 160, 192 });
+	idleAttack4.loop = true;
+	idleAttack4.speed = 0.001f;
+	AttackAnim4.PushBack({ 0, 0, 160, 192 });
+	AttackAnim4.PushBack({ 160, 0, 160, 192 });
+	AttackAnim4.PushBack({ 320, 0, 160, 192 });
+	AttackAnim4.PushBack({ 480, 0, 160, 192 });
+	AttackAnim4.PushBack({ 640, 0, 160, 192 });
+	AttackAnim4.loop = false;
+	AttackAnim4.speed = 0.08f;
 	/*idle1.PushBack({62, 25, 85, 149});
 	idle1.loop = false;
 	idle1.speed = 0.001f;
@@ -127,8 +139,10 @@ bool battleSystem::Start()
 	loose = app->tex->Load("Assets/Textures/Assets/pantalla_derrota.png");
 
 	currentAttack1 = &idleAttack1;
+	currentAttack4 = &idleAttack4;
 
 	player1A = app->tex->Load("Assets/Textures/Soldiers/soldier_britain_attack_animation.png");
+	player4A = app->tex->Load("Assets/Textures/Soldiers/characters_italian_attack_animation.png");
 	//L13: TODO 2: Declare an Item and create it using the EntityManager
 	VampirEnem* Vampir = (VampirEnem*)app->entityManager->CreateEntity(EntityType::VAMPYR, 0, { 0,0 });
 	ZombieEnem* Zombies = (ZombieEnem*)app->entityManager->CreateEntity(EntityType::ZOMBIE, 0, { 0,0 });
@@ -226,7 +240,7 @@ bool battleSystem::Update(float dt)
 			app->render->DrawTexture(app->characterMenu->russian, app->player->P1.position.x - 450 + 120, app->player->P1.position.y - 320 + 260);
 		}
 		if (battle1 == true && app->player->P4.IsAlive == true) {
-			app->render->DrawTexture(app->characterMenu->italian, app->player->P1.position.x - 450, app->player->P1.position.y - 320 + 390);
+			//app->render->DrawTexture(app->characterMenu->italian, app->player->P1.position.x - 450, app->player->P1.position.y - 320 + 390);
 		}
 		if (app->player->P4.IsAlive == true && battle1 == false) {
 			app->render->DrawTexture(app->characterMenu->french, app->player->P1.position.x - 450, app->player->P1.position.y - 320 + 390);
@@ -392,21 +406,37 @@ bool battleSystem::Update(float dt)
 	MaxHp();
 	MaxMana();
 	//Animaciones Ataque
-	if (puta == true && AttackPlayer == 1) {
+	if (puta1 == true && AttackPlayer == 1) {//British
 		currentAttack1 = &AttackAnim1;
 		app->render->DrawTexture(player1A, app->player->P1.position.x - 420 + 100, app->player->P1.position.y - 320, &player1AR);
 		currentAttack1->Update();
-		if (AttackAnim1.currentFrame == 4.0) {
-			AttackAnim1.currentFrame = 0;
-			puta = false;
+		if (AttackAnim1.currentFrame == 5.0) {
+			AttackAnim1.currentFrame = 0.0;
+			puta1 = false;
 			app->BTSystem->AttackPlayer = 0;
 		}
 	}
-	else if(battle == true){
-		puta = false;
+	else if (battle == true) {
+		puta1 = false;
 		currentAttack1 = &idleAttack1;
 		app->render->DrawTexture(player1A, app->player->P1.position.x - 420 + 100, app->player->P1.position.y - 320, &player1AR);
 	}
+	if (puta4 == true && AttackPlayer == 4 && battle1 == true) {//Italian
+		currentAttack4 = &AttackAnim4;
+		app->render->DrawTexture(player4A, app->player->P1.position.x - 450, app->player->P1.position.y - 320 + 390, &player4AR);
+		currentAttack4->Update();
+		if (AttackAnim4.currentFrame == 4.0) {
+			AttackAnim4.currentFrame = 0;
+			puta4 = false;
+			app->BTSystem->AttackPlayer = 0;
+		}
+	}
+	else if (battle == true && app->player->P4.IsAlive == true) {
+		puta4 = false;
+		currentAttack4 = &idleAttack4;
+		app->render->DrawTexture(player4A, app->player->P1.position.x - 450, app->player->P1.position.y - 320 + 390, &player4AR);
+	}
+	
 	if (app->player->P1.IsAlive == false) {
 		app->player->P1.position.x = -2000;
 		app->player->P1.position.y = -2000;
@@ -422,6 +452,7 @@ bool battleSystem::PostUpdate()
 {
 	bool ret = true;
 	player1AR = currentAttack1->GetCurrentFrame();
+	player4AR = currentAttack4->GetCurrentFrame();
 
 	if (battleTransition && app->player->P1.IsAlive && transitionRep == 1)
 	{
@@ -486,7 +517,14 @@ void battleSystem::AttackPhase() {
 void battleSystem::AttackPhaseDisabled() {
 	Attack1->state = GuiControlState::DISABLED;
 	Attack2->state = GuiControlState::DISABLED;
-	puta = true;
+	AttackAnim1.currentFrame = 0.0;
+	AttackAnim4.currentFrame = 0.0;
+	if (AttackPlayer == 1) {
+		puta1 = true;
+	}
+	if (AttackPlayer == 4) {
+		puta4 = true;
+	}
 	
 }
 void battleSystem::AttackPhaseDisabled2() {

@@ -90,7 +90,8 @@ public:
 	float klk = 0;
 
 	bool choosingPlayer = false;
-	bool puta = false;
+	bool puta1 = false;
+	bool puta4 = false;
 
 	int POSQTE2Y = 0;
 	int POSQTE2X = 0;
@@ -179,6 +180,12 @@ public:
 	SDL_Rect player1AR;
 	Animation AttackAnim1;
 	Animation idleAttack1;
+	
+	Animation* currentAttack4 = nullptr;
+	SDL_Texture* player4A = nullptr;
+	SDL_Rect player4AR;
+	Animation AttackAnim4;
+	Animation idleAttack4;
 
 private:
 
