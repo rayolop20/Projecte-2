@@ -32,10 +32,10 @@ battleSystem::battleSystem() : Module()
 	AttackAnim1.PushBack({ 0, 0, 160, 192 });
 	AttackAnim1.PushBack({ 160, 0, 160, 192 });
 	AttackAnim1.PushBack({ 320, 0, 160, 192 });
-	AttackAnim1.PushBack({ 460, 0, 160, 192 });
+	AttackAnim1.PushBack({ 480, 0, 160, 192 });
 	AttackAnim1.PushBack({ 640, 0, 160, 192 });
 	AttackAnim1.loop = false;
-	AttackAnim1.speed = 0.1f;
+	AttackAnim1.speed = 0.08f;
 	/*idle1.PushBack({62, 25, 85, 149});
 	idle1.loop = false;
 	idle1.speed = 0.001f;
@@ -119,10 +119,6 @@ bool battleSystem::Start()
 	}
 	// L03: DONE: Load map
 	selectPlayer = app->tex->Load("Assets/Textures/UI/choseplayers.png");
-	/*AttackTexture = app->tex->Load("Assets/Textures/Soldiers/soldier_animation.png");
-	AttackTextureP2 = app->tex->Load("Assets/Textures/Soldiers/soldier_french.png");
-	AttackTextureP3 = app->tex->Load("Assets/Textures/Soldiers/soldier_italian.png");
-	AttackTextureP4 = app->tex->Load("Assets/Textures/Soldiers/soldier_rusian.png");*/
 	Tutorial = app->tex->Load("Assets/Textures/UI/qte_tutorial.png");
 	QTE4 = app->tex->Load("Assets/Textures/UI/qte4.png");
 	PopQTE2 = app->tex->Load("Assets/Textures/UI/qte1_1.png");
@@ -132,7 +128,7 @@ bool battleSystem::Start()
 
 	currentAttack1 = &idleAttack1;
 
-	player1A = app->tex->Load("Assets/Textures/Soldiers/soldier_animation.png");
+	player1A = app->tex->Load("Assets/Textures/Soldiers/soldier_britain_attack_animation.png");
 	//L13: TODO 2: Declare an Item and create it using the EntityManager
 	VampirEnem* Vampir = (VampirEnem*)app->entityManager->CreateEntity(EntityType::VAMPYR, 0, { 0,0 });
 	ZombieEnem* Zombies = (ZombieEnem*)app->entityManager->CreateEntity(EntityType::ZOMBIE, 0, { 0,0 });
@@ -221,7 +217,7 @@ bool battleSystem::Update(float dt)
 		MiniPlayerButton4->state = GuiControlState::NORMAL;
 		MiniPlayerButton3->state = GuiControlState::NORMAL;
 		if (app->player->P1.IsAlive == true) {
-			app->render->DrawTexture(app->characterMenu->british, app->player->P1.position.x - 420 + 120, app->player->P1.position.y - 320);
+			//app->render->DrawTexture(app->characterMenu->british, app->player->P1.position.x - 420 + 120, app->player->P1.position.y - 320);
 		}
 		if (app->player->P2.IsAlive == true) {
 			app->render->DrawTexture(app->characterMenu->american, app->player->P1.position.x - 450, app->player->P1.position.y - 320 + 130);
@@ -398,19 +394,18 @@ bool battleSystem::Update(float dt)
 	//Animaciones Ataque
 	if (puta == true && AttackPlayer == 1) {
 		currentAttack1 = &AttackAnim1;
-		app->render->DrawTexture(player1A, app->player->P1.position.x - 420 + 120, app->player->P1.position.y - 320, &player1AR);
+		app->render->DrawTexture(player1A, app->player->P1.position.x - 420 + 100, app->player->P1.position.y - 320, &player1AR);
 		currentAttack1->Update();
 		if (AttackAnim1.currentFrame == 4.0) {
 			AttackAnim1.currentFrame = 0;
 			puta = false;
 			app->BTSystem->AttackPlayer = 0;
-
 		}
 	}
 	else if(battle == true){
 		puta = false;
 		currentAttack1 = &idleAttack1;
-		app->render->DrawTexture(player1A, app->player->P1.position.x - 420 + 120, app->player->P1.position.y - 320, &player1AR);
+		app->render->DrawTexture(player1A, app->player->P1.position.x - 420 + 100, app->player->P1.position.y - 320, &player1AR);
 	}
 	if (app->player->P1.IsAlive == false) {
 		app->player->P1.position.x = -2000;
