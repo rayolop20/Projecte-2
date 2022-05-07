@@ -501,6 +501,49 @@ bool battleSystem::PostUpdate()
 		}
 	}
 
+	if (battleEnd && app->player->P1.IsAlive && transitionRep == 1)
+	{
+		if (curtainCont <= (app->win->GetWidth() / 2) && !curtainBounce)
+		{
+			Curtain1 = { -app->render->camera.x - app->win->GetWidth() / 2 + curtainCont, -app->render->camera.y, app->win->GetWidth() / 2, app->win->GetHeight() };
+			Curtain2 = { -app->render->camera.x + app->win->GetWidth() - curtainCont, -app->render->camera.y, app->win->GetWidth() / 2, app->win->GetHeight() };
+
+			app->render->DrawRectangle(Curtain1, 10, 10, 10);
+			app->render->DrawRectangle(Curtain2, 10, 10, 10);
+			curtainCont += 20;
+		}
+		else if (curtainBounce)
+		{
+			Curtain1 = { -app->render->camera.x - curtainCont, -app->render->camera.y, app->win->GetWidth() / 2, app->win->GetHeight() };
+			Curtain2 = { -app->render->camera.x + app->win->GetWidth() / 2 + curtainCont, -app->render->camera.y, app->win->GetWidth() / 2, app->win->GetHeight() };
+
+			app->render->DrawRectangle(Curtain1, 10, 10, 10);
+			app->render->DrawRectangle(Curtain2, 10, 10, 10);
+			curtainCont += 20;
+		}
+
+		if (Curtain1.x >= (-app->render->camera.x) && !curtainBounce)
+		{
+			curtainBounce = true;
+			curtainCont = 0;
+			battle = false;
+		}
+		else if (Curtain1.x <= (-app->render->camera.x - app->win->GetWidth() / 2) && curtainBounce)
+		{
+			curtainBounce = false;
+			curtainCont = 0;
+			transitionEnd = true;
+		}
+
+		if (transitionEnd)
+		{
+			transitionEnd = false;
+			battleEnd = false;
+			curtainCont = 0;
+			transitionRep = 0;
+		}
+	}
+
 	/*if (battle == true && app->player->P1.IsAlive == true) {
 		Player1 = currentAnimation->GetCurrentFrame();
 		app->render->DrawTexture(AttackTexture, app->player->P1.position.x - 420 + 120, app->player->P1.position.y - 250, &Player1);
@@ -1129,7 +1172,8 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 			CloseInventory->state = GuiControlState::NORMAL;
 		}
 		if (control->id == 36 && battle == true) {
-			battle = false;
+			battleEnd = true;
+			app->BTSystem->transitionRep = 1;
 			Delay = false;
 			Zombiebattle = false;
 			Vampirebattle = false;

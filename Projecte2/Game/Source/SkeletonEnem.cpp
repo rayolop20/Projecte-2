@@ -227,7 +227,8 @@ void SkeletonEnem::Combat() {
 				app->BTSystem->alliesDead++;
 			}
 			if (app->BTSystem->alliesDead == 4) {
-				app->BTSystem->battle = false;
+				app->BTSystem->battleEnd = true;
+				app->BTSystem->transitionRep = 1;
 				app->BTSystem->battleWin = false;
 			}
 		}
@@ -646,7 +647,8 @@ void SkeletonEnem::EnemyPhase() {
 				app->BTSystem->alliesDead++;
 			}
 			if (app->BTSystem->alliesDead == 4) {
-				app->BTSystem->battle = false;
+				app->BTSystem->battleEnd = true;
+				app->BTSystem->transitionRep = 1;
 				app->BTSystem->battleWin = false;
 
 			}
@@ -780,7 +782,8 @@ void SkeletonEnem::CheckEnemy() {
 				app->BTSystem->CombatDeaths += 1;
 			}
 			if (app->BTSystem->CombatDeaths == Ston[WhichSkeleton].numEnemies) {
-				app->BTSystem->battle = false;
+				app->BTSystem->battleEnd = true;
+				app->BTSystem->transitionRep = 1;
 				app->BTSystem->Skeletonbattle = false;
 				app->BTSystem->battleWin = false;
 				app->BTSystem->battle1 = false;

@@ -194,7 +194,8 @@ void VampirEnem::Combat() {
 				app->BTSystem->alliesDead++;
 			}
 			if (app->BTSystem->alliesDead == 4) {
-				app->BTSystem->battle = false;
+				app->BTSystem->battleEnd = true;
+				app->BTSystem->transitionRep = 1;
 				app->BTSystem->battleWin = false;
 			}
 		}
@@ -613,7 +614,8 @@ void VampirEnem::EnemyPhase() {
 				app->BTSystem->alliesDead++;
 			}
 			if (app->BTSystem->alliesDead == 4) {
-				app->BTSystem->battle = false;
+				app->BTSystem->battleEnd = true;
+				app->BTSystem->transitionRep = 1;
 				app->BTSystem->battleWin = false;
 
 			}
@@ -742,7 +744,8 @@ void VampirEnem::CheckEnemy() {
 				app->BTSystem->CombatDeaths += 1;
 			}
 			if (app->BTSystem->CombatDeaths == Vpir[WhichVampire].numEnemies) {
-				app->BTSystem->battle = false;
+				app->BTSystem->battleEnd = true;
+				app->BTSystem->transitionRep = 1;
 				app->BTSystem->Vampirebattle = false;
 				app->BTSystem->battleWin = false;
 				app->BTSystem->battle1 = false;

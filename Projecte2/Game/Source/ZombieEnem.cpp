@@ -233,7 +233,8 @@ void ZombieEnem::Combat() {
 				app->BTSystem->alliesDead++;
 			}
 			if (app->BTSystem->alliesDead == 4) {
-				app->BTSystem->battle = false;
+				app->BTSystem->battleEnd = true;
+				app->BTSystem->transitionRep = 1;
 				app->BTSystem->battleWin = false;
 			}
 		}
@@ -650,7 +651,8 @@ void ZombieEnem::EnemyPhase() {
 				app->BTSystem->alliesDead++;
 			}
 			if (app->BTSystem->alliesDead == 4) {
-				app->BTSystem->battle = false;
+				app->BTSystem->battleEnd = true;
+				app->BTSystem->transitionRep = 1;
 				app->BTSystem->battleWin = false;
 
 			}
@@ -785,7 +787,8 @@ void ZombieEnem::CheckEnemy() {
 			}
 			if (app->BTSystem->CombatDeaths == Zbie[WhichZombie].numEnemies) {
 
-				app->BTSystem->battle = false;
+				app->BTSystem->battleEnd = true;
+				app->BTSystem->transitionRep = 1;
 				app->BTSystem->Zombiebattle = false;
 				app->BTSystem->battleWin = false;
 				app->BTSystem->battle1 = false;
