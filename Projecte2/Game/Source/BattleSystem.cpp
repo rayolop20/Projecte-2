@@ -49,6 +49,17 @@ qteAnimation::qteAnimation() : Module()
 	qte2.PushBack({ 579, 486, 301, 63 });
 	qte2.loop = false;
 	qte2.speed = 0.005f;
+
+	qte2fx.PushBack({ 51, 36, 301, 77 });
+	qte2fx.PushBack({ 579, 36, 301, 77 });
+	qte2fx.PushBack({ 51, 186, 301, 77 });
+	qte2fx.PushBack({ 579, 186, 301, 77 });
+	qte2fx.PushBack({ 51, 336, 301, 77 });
+	qte2fx.PushBack({ 579, 336, 301, 77 });
+	qte2fx.PushBack({ 51, 486, 301, 77 });
+	qte2fx.PushBack({ 579, 486, 301, 77 });
+	qte2fx.loop = false;
+	qte2fx.speed = 0.005f;
 };
 
 
