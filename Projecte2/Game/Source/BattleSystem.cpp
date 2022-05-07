@@ -37,8 +37,22 @@ qteAnimation::qteAnimation() : Module()
 	qte1.PushBack({ 0, 0, 0, 0 });
 	qte1.loop = false;
 	qte1.speed = 0.005f;
-	qte1.loop = true;
-	qte1.speed = 0.001f;
+
+
+	qte2.PushBack({ 65, 47, 60, 60 });
+	qte2.PushBack({ 206, 43, 60, 60 });
+	qte2.PushBack({ 348, 44, 60, 60 });
+	qte2.PushBack({ 488, 44, 60, 60 });
+	qte2.PushBack({ 620, 40, 70, 70 });
+	qte2.PushBack({ 47, 158, 70, 70 });
+	qte2.PushBack({ 195, 155, 70, 70 });
+	qte2.PushBack({ 335, 155, 70, 70 });
+	qte2.PushBack({ 482, 155, 70, 70 });
+	qte2.PushBack({ 625, 155, 70, 70 });
+	qte2.PushBack({ 0, 0, 0, 0 });
+	qte2.loop = false;
+	qte2.speed = 0.005f;
+
 };
 
 
