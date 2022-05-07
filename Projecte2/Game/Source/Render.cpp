@@ -1,7 +1,7 @@
 #include "App.h"
 #include "Window.h"
 #include "Render.h"
-
+#include "Input.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -27,13 +27,9 @@ bool Render::Awake(pugi::xml_node& config)
 	LOG("Create SDL rendering context");
 	bool ret = true;
 
-	Uint32 flags = SDL_RENDERER_ACCELERATED;
+	flags = SDL_RENDERER_ACCELERATED;
 
-	if(config.child("vsync").attribute("value").as_bool(true) == true)
-	{
-		flags |= SDL_RENDERER_PRESENTVSYNC;
-		LOG("Using vsync");
-	}
+	VsyncActive = config.child("vsync").attribute("value").as_bool();
 
 	renderer = SDL_CreateRenderer(app->win->window, -1, flags);
 
@@ -71,6 +67,11 @@ bool Render::PreUpdate()
 
 bool Render::Update(float dt)
 {
+	if (VsyncActive == true)
+	{
+		flags |= SDL_RENDERER_PRESENTVSYNC;
+		LOG("Using vsync");
+	}
 	return true;
 }
 
@@ -118,6 +119,17 @@ bool Render::SaveState(pugi::xml_node& data) const
 void Render::SetBackgroundColor(SDL_Color color)
 {
 	background = color;
+}
+
+void Render::VSync_Active()
+{
+	if (app->input->GetKey(SDL_SCANCODE_8) == KEY_DOWN) {
+		app->render->VsyncActive = true;
+	}
+
+	if (app->input->GetKey(SDL_SCANCODE_9) == KEY_DOWN) {
+		app->render->VsyncActive = false;
+	}
 }
 
 void Render::SetViewPort(const SDL_Rect& rect)
