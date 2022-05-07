@@ -18,12 +18,11 @@ public:
 
 	Animation* qte1Animation = nullptr;
 	Animation* qte2Animation;
-	Animation* qte3Animation;
-	Animation* qte4Animation;
+	Animation* qte2Animationfx;
+
 	Animation qte1;
 	Animation qte2;
-	Animation qte3;
-	Animation qte4;
+	Animation qte2fx;
 };
 
 class battleSystem : public Module
