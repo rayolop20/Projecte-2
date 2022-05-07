@@ -7,6 +7,25 @@
 
 struct SDL_Texture;
 
+class qteAnimation : public Module
+{
+public:
+	// Constructor
+	qteAnimation();
+
+	// Destructor
+	~qteAnimation();
+
+	Animation* qte1Animation = nullptr;
+	Animation* qte2Animation;
+	Animation* qte3Animation;
+	Animation* qte4Animation;
+	Animation qte1;
+	Animation qte2;
+	Animation qte3;
+	Animation qte4;
+};
+
 class battleSystem : public Module
 {
 public:

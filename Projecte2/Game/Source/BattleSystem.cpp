@@ -21,6 +21,27 @@
 #include "Log.h"
 #include <time.h>
 
+qteAnimation::qteAnimation() : Module()
+{
+	name.Create("qteAnimation");
+	qte1.PushBack({ 65, 47, 60, 60 });
+	qte1.PushBack({ 206, 43, 60, 60 });
+	qte1.PushBack({ 348, 44, 60, 60 });
+	qte1.PushBack({ 488, 44, 60, 60 });
+	qte1.PushBack({ 620, 40, 70, 70 });
+	qte1.PushBack({ 47, 158, 70, 70 });
+	qte1.PushBack({ 195, 155, 70, 70 });
+	qte1.PushBack({ 335, 155, 70, 70 });
+	qte1.PushBack({ 482, 155, 70, 70 });
+	qte1.PushBack({ 625, 155, 70, 70 });
+	qte1.PushBack({ 0, 0, 0, 0 });
+	qte1.loop = false;
+	qte1.speed = 0.005f;
+	qte1.loop = true;
+	qte1.speed = 0.001f;
+};
+
+
 battleSystem::battleSystem() : Module()
 {
 
