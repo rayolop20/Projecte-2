@@ -132,6 +132,10 @@ public:
 	void MaxHp();
 	void MaxMana();
 
+	void AttackAnimations();
+	void HitPlayersAnimations();
+	void DeathPlayersAnimations();
+
 	bool ChoosePlayerPhase = true;
 
 	int alliesDead = 0;
@@ -255,6 +259,13 @@ public:
 	SDL_Rect player5HR;
 	Animation HitAnim5;
 	Animation idleHit5;
+	
+	bool russianDead = false;
+	Animation* currentDeath3 = nullptr;
+	SDL_Texture* player3D = nullptr;
+	SDL_Rect player3DR;
+	Animation DeathAnim3;
+	Animation idleDeath3;
 
 	int transitionRep = 0;
 
