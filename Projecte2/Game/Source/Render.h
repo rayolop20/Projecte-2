@@ -47,7 +47,6 @@ public:
 	// Set background color
 	void SetBackgroundColor(SDL_Color color);
 
-	void VSync_Active();
 	bool VsyncActive;
 	Uint32 flags;
 
