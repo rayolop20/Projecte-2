@@ -226,11 +226,35 @@ public:
 	Animation idleAttack5;
 	
 	bool hit = false;
+	Animation* currentHit1 = nullptr;
+	SDL_Texture* player1H = nullptr;
+	SDL_Rect player1HR;
+	Animation HitAnim1;
+	Animation idleHit1;
+	
+	Animation* currentHit2 = nullptr;
+	SDL_Texture* player2H = nullptr;
+	SDL_Rect player2HR;
+	Animation HitAnim2;
+	Animation idleHit2;
+	
+	Animation* currentHit3 = nullptr;
+	SDL_Texture* player3H = nullptr;
+	SDL_Rect player3HR;
+	Animation HitAnim3;
+	Animation idleHit3;
+	
 	Animation* currentHit4 = nullptr;
 	SDL_Texture* player4H = nullptr;
 	SDL_Rect player4HR;
 	Animation HitAnim4;
 	Animation idleHit4;
+
+	Animation* currentHit5 = nullptr;
+	SDL_Texture* player5H = nullptr;
+	SDL_Rect player5HR;
+	Animation HitAnim5;
+	Animation idleHit5;
 
 	int transitionRep = 0;
 

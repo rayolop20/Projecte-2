@@ -125,6 +125,36 @@ battleSystem::battleSystem() : Module()
 	AttackAnim5.loop = false;
 	AttackAnim5.speed = 0.08f;
 
+	idleHit1.PushBack({ 0, 0, 160, 192 });
+	idleHit1.loop = false;
+	idleHit1.speed = 0.001f;
+	HitAnim1.PushBack({ 0, 0, 160, 192 });
+	HitAnim1.PushBack({ 160, 0, 160, 192 });
+	HitAnim1.PushBack({ 320, 0, 160, 192 });
+	HitAnim1.PushBack({ 480, 0, 160, 192 });
+	HitAnim1.loop = false;
+	HitAnim1.speed = 0.08f;
+	
+	idleHit2.PushBack({ 0, 0, 160, 192 });
+	idleHit2.loop = false;
+	idleHit2.speed = 0.001f;
+	HitAnim2.PushBack({ 0, 0, 160, 192 });
+	HitAnim2.PushBack({ 160, 0, 160, 192 });
+	HitAnim2.PushBack({ 320, 0, 160, 192 });
+	HitAnim2.PushBack({ 480, 0, 160, 192 });
+	HitAnim2.loop = false;
+	HitAnim2.speed = 0.08f;
+	
+	idleHit3.PushBack({ 0, 0, 160, 192 });
+	idleHit3.loop = false;
+	idleHit3.speed = 0.001f;
+	HitAnim3.PushBack({ 0, 0, 160, 192 });
+	HitAnim3.PushBack({ 160, 0, 160, 192 });
+	HitAnim3.PushBack({ 320, 0, 160, 192 });
+	HitAnim3.PushBack({ 480, 0, 160, 192 });
+	HitAnim3.loop = false;
+	HitAnim3.speed = 0.08f;
+
 	idleHit4.PushBack({ 0, 0, 160, 192 });
 	idleHit4.loop = false;
 	idleHit4.speed = 0.001f;
@@ -134,6 +164,18 @@ battleSystem::battleSystem() : Module()
 	HitAnim4.PushBack({ 480, 0, 160, 192 });
 	HitAnim4.loop = false;
 	HitAnim4.speed = 0.08f;
+
+	idleHit5.PushBack({ 0, 0, 160, 192 });
+	idleHit5.loop = false;
+	idleHit5.speed = 0.001f;
+	HitAnim5.PushBack({ 0, 0, 160, 192 });
+	HitAnim5.PushBack({ 160, 0, 160, 192 });
+	HitAnim5.PushBack({ 320, 0, 160, 192 });
+	HitAnim5.PushBack({ 480, 0, 160, 192 });
+	HitAnim5.loop = false;
+	HitAnim5.speed = 0.08f;
+	
+	
 	/*idle1.PushBack({62, 25, 85, 149});
 	idle1.loop = false;
 	idle1.speed = 0.001f;
@@ -228,7 +270,11 @@ bool battleSystem::Start()
 	currentAttack4 = &idleAttack4;
 	currentAttack5 = &idleAttack5;
 
+	currentHit1 = &idleHit1;
+	currentHit2 = &idleHit2;
+	currentHit3 = &idleHit3;
 	currentHit4 = &idleHit4;
+	currentHit5 = &idleHit5;
 
 	player1A = app->tex->Load("Assets/Textures/Soldiers/soldier_britain_attack_animation.png");
 	player2A = app->tex->Load("Assets/Textures/Soldiers/american_dogmaster_attack_animation.png");
@@ -236,7 +282,11 @@ bool battleSystem::Start()
 	player4A = app->tex->Load("Assets/Textures/Soldiers/characters_italian_attack_animation.png");
 	player5A = app->tex->Load("Assets/Textures/Soldiers/french_attack_animation.png");
 	
+	player1H = app->tex->Load("Assets/Textures/Soldiers/britain_hit_animation.png");
+	player2H = app->tex->Load("Assets/Textures/Soldiers/american_dogmaster_hit_animation.png");
+	player3H = app->tex->Load("Assets/Textures/Soldiers/russian_hit_animation.png");
 	player4H = app->tex->Load("Assets/Textures/Soldiers/italian_hit_animation.png");
+	player5H = app->tex->Load("Assets/Textures/Soldiers/french_hit_animation.png");
 	
 	//L13: TODO 2: Declare an Item and create it using the EntityManager
 	VampirEnem* Vampir = (VampirEnem*)app->entityManager->CreateEntity(EntityType::VAMPYR, 0, { 0,0 });
@@ -583,6 +633,39 @@ bool battleSystem::Update(float dt)
 		app->render->DrawTexture(player5A, app->player->P1.position.x - 450, app->player->P1.position.y - 320 + 390, &player5AR);
 	}
 	
+	if (hit == false && playerTarget == 1 && battle == true && app->player->P1.IsAlive == true) {//British
+		currentHit1 = &HitAnim1;
+		app->render->DrawTexture(player1H, app->player->P1.position.x - 420 + 100, app->player->P1.position.y - 320, &player1HR);
+		currentHit1->Update();
+		if (HitAnim1.currentFrame >= 3.0) {
+			HitAnim1.currentFrame = 0.0;
+			playerTarget = 0;
+			hit = false;
+		}
+	}
+	
+	if (hit == false && playerTarget == 2 && battle == true && app->player->P2.IsAlive == true) {//British
+		currentHit2 = &HitAnim2;
+		app->render->DrawTexture(player2H, app->player->P1.position.x - 450, app->player->P1.position.y - 320 + 130, &player2HR);
+		currentHit2->Update();
+		if (HitAnim2.currentFrame >= 3.0) {
+			HitAnim2.currentFrame = 0.0;
+			playerTarget = 0;
+			hit = false;
+		}
+	}
+	
+	if (hit == false && playerTarget == 3 && battle == true && app->player->P3.IsAlive == true) {//British
+		currentHit3 = &HitAnim3;
+		app->render->DrawTexture(player3H, app->player->P1.position.x - 450 + 120, app->player->P1.position.y - 320 + 260, &player3HR);
+		currentHit3->Update();
+		if (HitAnim3.currentFrame >= 3.0) {
+			HitAnim3.currentFrame = 0.0;
+			playerTarget = 0;
+			hit = false;
+		}
+	}
+
 	if (hit == false && playerTarget == 4 && battle == true && app->player->P4.IsAlive == true && battle1 == true) {//British
 		currentHit4 = &HitAnim4;
 		app->render->DrawTexture(player4H, app->player->P1.position.x - 450, app->player->P1.position.y - 320 + 390, &player4HR);
@@ -593,6 +676,19 @@ bool battleSystem::Update(float dt)
 			hit = false;
 		}
 	}
+
+	if (hit == false && playerTarget == 4 && battle == true && app->player->P4.IsAlive == true && battle1 == false) {//British
+		currentHit5 = &HitAnim5;
+		app->render->DrawTexture(player5H, app->player->P1.position.x - 450, app->player->P1.position.y - 320 + 390, &player5HR);
+		currentHit5->Update();
+		if (HitAnim5.currentFrame >= 3.0) {
+			HitAnim5.currentFrame = 0.0; 
+			playerTarget = 0;
+			hit = false;
+		}
+	}
+	
+	
 
 	if (app->player->P1.IsAlive == false) {
 		app->player->P1.position.x = -2000;
@@ -620,7 +716,11 @@ bool battleSystem::PostUpdate()
 	player4AR = currentAttack4->GetCurrentFrame();
 	player5AR = currentAttack5->GetCurrentFrame();
 
+	player1HR = currentHit1->GetCurrentFrame();
+	player2HR = currentHit2->GetCurrentFrame();
+	player3HR = currentHit3->GetCurrentFrame();
 	player4HR = currentHit4->GetCurrentFrame();
+	player5HR = currentHit5->GetCurrentFrame();
 
 	if (battleTransition && app->player->P1.IsAlive && transitionRep == 1)
 	{
