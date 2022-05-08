@@ -219,7 +219,7 @@ public:
 	Animation AttackAnim4;
 	Animation idleAttack4;
 	
-	//bool hit = false;
+	bool hit = false;
 	Animation* currentHit4 = nullptr;
 	SDL_Texture* player4H = nullptr;
 	SDL_Rect player4HR;

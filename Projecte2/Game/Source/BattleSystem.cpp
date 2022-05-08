@@ -115,7 +115,7 @@ battleSystem::battleSystem() : Module()
 	AttackAnim4.speed = 0.08f;
 
 	idleHit4.PushBack({ 0, 0, 160, 192 });
-	idleHit4.loop = true;
+	idleHit4.loop = false;
 	idleHit4.speed = 0.001f;
 	HitAnim4.PushBack({ 0, 0, 160, 192 });
 	HitAnim4.PushBack({ 160, 0, 160, 192 });
@@ -325,7 +325,7 @@ bool battleSystem::Update(float dt)
 			//app->render->DrawTexture(app->characterMenu->italian, app->player->P1.position.x - 450, app->player->P1.position.y - 320 + 390);
 		}
 		if (app->player->P4.IsAlive == true && battle1 == false) {
-			app->render->DrawTexture(app->characterMenu->french, app->player->P1.position.x - 450, app->player->P1.position.y - 320 + 390);
+			//app->render->DrawTexture(app->characterMenu->french, app->player->P1.position.x - 450, app->player->P1.position.y - 320 + 390);
 		}
 
 		DrawHpBars();
@@ -537,7 +537,7 @@ bool battleSystem::Update(float dt)
 		currentAttack3 = &idleAttack3;
 		app->render->DrawTexture(player3A, app->player->P1.position.x - 450 + 120, app->player->P1.position.y - 320 + 260, &player3AR);
 	}
-	if (puta4 == true && AttackPlayer == 4 && battle1 == true) {//Italian
+	if (puta4 == true && AttackPlayer == 4 && battle1 == true && hit == false) {//Italian
 		currentAttack4 = &AttackAnim4;
 		app->render->DrawTexture(player4A, app->player->P1.position.x - 450, app->player->P1.position.y - 320 + 390, &player4AR);
 		currentAttack4->Update();
@@ -548,12 +548,12 @@ bool battleSystem::Update(float dt)
 			app->BTSystem->AttackPlayer = 0;
 		}
 	}
-	else if (battle == true && app->player->P4.IsAlive == true && battle1 == true /*&& hit == false*/) {
+	else if (battle == true && app->player->P4.IsAlive == true && battle1 == true && playerTarget == 0) {
 		puta4 = false;
 		currentAttack4 = &idleAttack4;
 		app->render->DrawTexture(player4A, app->player->P1.position.x - 450, app->player->P1.position.y - 320 + 390, &player4AR);
 	}
-	if (puta4 == true && AttackPlayer == 4 && battle1 == false) {//Italian
+	if (puta4 == true && AttackPlayer == 4 && battle1 == false && hit == false) {//Italian
 		currentAttack4 = &AttackAnim4;
 		app->render->DrawTexture(player4A, app->player->P1.position.x - 450, app->player->P1.position.y - 320 + 390, &player4AR);
 		currentAttack4->Update();
@@ -564,22 +564,22 @@ bool battleSystem::Update(float dt)
 			app->BTSystem->AttackPlayer = 0;
 		}
 	}
-	else if (battle == true && app->player->P4.IsAlive == true && battle1 == false /*&& hit == false*/) {
+	else if (battle == true && app->player->P4.IsAlive == true && battle1 == false && playerTarget == 0) {
 		puta4 = false;
 		currentAttack4 = &idleAttack4;
 		app->render->DrawTexture(player4A, app->player->P1.position.x - 450, app->player->P1.position.y - 320 + 390, &player4AR);
 	}
 	
-	/*if (hit == false && playerTarget == 4 && battle == true) {//British
+	if (hit == false && playerTarget == 4 && battle == true) {//British
 		currentHit4 = &HitAnim4;
 		app->render->DrawTexture(player4H, app->player->P1.position.x - 450, app->player->P1.position.y - 320 + 390, &player4HR);
 		currentHit4->Update();
-		if (HitAnim4.currentFrame >= 4.0) {
+		if (HitAnim4.currentFrame >= 3.0) {
 			HitAnim4.currentFrame = 0.0; 
 			playerTarget = 0;
 			hit = false;
 		}
-	}*/
+	}
 
 	if (app->player->P1.IsAlive == false) {
 		app->player->P1.position.x = -2000;
