@@ -133,7 +133,7 @@ battleSystem::battleSystem() : Module()
 	HitAnim1.PushBack({ 320, 0, 160, 192 });
 	HitAnim1.PushBack({ 480, 0, 160, 192 });
 	HitAnim1.loop = false;
-	HitAnim1.speed = 0.08f;
+	HitAnim1.speed = 0.1f;
 	
 	idleHit2.PushBack({ 0, 0, 160, 192 });
 	idleHit2.loop = false;
@@ -143,7 +143,7 @@ battleSystem::battleSystem() : Module()
 	HitAnim2.PushBack({ 320, 0, 160, 192 });
 	HitAnim2.PushBack({ 480, 0, 160, 192 });
 	HitAnim2.loop = false;
-	HitAnim2.speed = 0.08f;
+	HitAnim2.speed = 0.1f;
 	
 	idleHit3.PushBack({ 0, 0, 160, 192 });
 	idleHit3.loop = false;
@@ -153,7 +153,7 @@ battleSystem::battleSystem() : Module()
 	HitAnim3.PushBack({ 320, 0, 160, 192 });
 	HitAnim3.PushBack({ 480, 0, 160, 192 });
 	HitAnim3.loop = false;
-	HitAnim3.speed = 0.08f;
+	HitAnim3.speed = 0.1f;
 
 	idleHit4.PushBack({ 0, 0, 160, 192 });
 	idleHit4.loop = false;
@@ -163,7 +163,7 @@ battleSystem::battleSystem() : Module()
 	HitAnim4.PushBack({ 320, 0, 160, 192 });
 	HitAnim4.PushBack({ 480, 0, 160, 192 });
 	HitAnim4.loop = false;
-	HitAnim4.speed = 0.08f;
+	HitAnim4.speed = 0.1f;
 
 	idleHit5.PushBack({ 0, 0, 160, 192 });
 	idleHit5.loop = false;
@@ -173,7 +173,7 @@ battleSystem::battleSystem() : Module()
 	HitAnim5.PushBack({ 320, 0, 160, 192 });
 	HitAnim5.PushBack({ 480, 0, 160, 192 });
 	HitAnim5.loop = false;
-	HitAnim5.speed = 0.08f;
+	HitAnim5.speed = 0.1f;
 	
 	
 	/*idle1.PushBack({62, 25, 85, 149});
@@ -562,7 +562,7 @@ bool battleSystem::Update(float dt)
 			app->BTSystem->AttackPlayer = 0;
 		}
 	}
-	else if (battle == true) {
+	else if (battle == true && playerTarget != 1) {
 		puta1 = false;
 		currentAttack1 = &idleAttack1;
 		app->render->DrawTexture(player1A, app->player->P1.position.x - 420 + 100, app->player->P1.position.y - 320, &player1AR);
@@ -579,7 +579,7 @@ bool battleSystem::Update(float dt)
 			app->BTSystem->AttackPlayer = 0;
 		}
 	}
-	else if (battle == true && app->player->P2.IsAlive == true) {
+	else if (battle == true && app->player->P2.IsAlive == true && playerTarget != 2) {
 		puta2 = false;
 		currentAttack2 = &idleAttack2;
 		app->render->DrawTexture(player2A, app->player->P1.position.x - 450, app->player->P1.position.y - 320 + 130, &player2AR);
@@ -595,7 +595,7 @@ bool battleSystem::Update(float dt)
 			app->BTSystem->AttackPlayer = 0;
 		}
 	}
-	else if (battle == true && app->player->P3.IsAlive == true) {
+	else if (battle == true && app->player->P3.IsAlive == true && playerTarget != 3) {
 		puta3 = false;
 		currentAttack3 = &idleAttack3;
 		app->render->DrawTexture(player3A, app->player->P1.position.x - 450 + 120, app->player->P1.position.y - 320 + 260, &player3AR);
@@ -611,7 +611,7 @@ bool battleSystem::Update(float dt)
 			app->BTSystem->AttackPlayer = 0;
 		}
 	}
-	else if (battle == true && app->player->P4.IsAlive == true && battle1 == true) {
+	else if (battle == true && app->player->P4.IsAlive == true && battle1 == true && playerTarget != 4) {
 		puta4 = false;
 		currentAttack4 = &idleAttack4;
 		app->render->DrawTexture(player4A, app->player->P1.position.x - 450, app->player->P1.position.y - 320 + 390, &player4AR);
@@ -627,7 +627,7 @@ bool battleSystem::Update(float dt)
 			app->BTSystem->AttackPlayer = 0;
 		}
 	}
-	else if (battle == true && app->player->P4.IsAlive == true && battle1 == false) {
+	else if (battle == true && app->player->P4.IsAlive == true && battle1 == false && playerTarget != 4) {
 		puta4 = false;
 		currentAttack5 = &idleAttack5;
 		app->render->DrawTexture(player5A, app->player->P1.position.x - 450, app->player->P1.position.y - 320 + 390, &player5AR);
