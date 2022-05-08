@@ -51,8 +51,9 @@ bool Menu_Screen::Start()
 	btnConfigBack = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 8, "Back to menu", { 450, 625, 418, 62 }, this);
 	btnFullscreen = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 81, "Fullscreen", { 0, 0, 263, 78 }, this);
 	btnFPS = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 82, "FPS", { 0, 0, 263, 78 }, this);
+	btnVsync = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 84, "Fullscreen", { 0, 0, 263, 78 }, this);
 
-	Volume = (GuiSlider*)app->guiManager->CreateGuiControl(GuiControlType::SLIDER, 83, "Volumen", { 585, 170, 460, 30 }, this);
+	Volume = (GuiSlider*)app->guiManager->CreateGuiControl(GuiControlType::SLIDER, 83, "Volumen", { 585, 125, 460, 30 }, this);
 	Volume->maxValue = app->audio->maxMusicValue;
 	Volume->minValue = 0;
 	
@@ -164,37 +165,49 @@ bool Menu_Screen::Update(float dt)
 		Options30->h = 78;
 
 
-		app->render->DrawTexture(app->menu->options, 215, 85, OptionsTxt);
+		app->render->DrawTexture(app->menu->options, 215, 65, OptionsTxt);
 		app->menu->btnConfigBack->bounds.x = -app->render->camera.x + (app->win->GetWidth() / 2) - 150;
 		app->menu->btnConfigBack->bounds.y = -app->render->camera.y + 650;
 		if (app->menu->On == true) {
-			app->render->DrawTexture(app->menu->options, -app->render->camera.x + (app->win->GetWidth() / 2) + 190, -app->render->camera.y + 330, OptionsOn);
+			app->render->DrawTexture(app->menu->options, -app->render->camera.x + (app->win->GetWidth() / 2) + 190, -app->render->camera.y + 242, OptionsOn);
 			//Activar Fullscreen
 			SDL_SetWindowFullscreen(app->win->window, SDL_WINDOW_FULLSCREEN);
 		}
 		if (app->menu->On == false) {
-			app->render->DrawTexture(app->menu->options, -app->render->camera.x + (app->win->GetWidth() / 2) + 190, -app->render->camera.y + 330, OptionsOff);
+			app->render->DrawTexture(app->menu->options, -app->render->camera.x + (app->win->GetWidth() / 2) + 190, -app->render->camera.y + 242, OptionsOff);
 			//Desactivar Fullscreen
 			SDL_SetWindowFullscreen(app->win->window, SDL_WINDOW_MAXIMIZED);
 		}
 		if (app->menu->fps30 == true) {
-			app->render->DrawTexture(app->menu->options, -app->render->camera.x + (app->win->GetWidth() / 2) + 190, -app->render->camera.y + 495, Options60);
+			app->render->DrawTexture(app->menu->options, -app->render->camera.x + (app->win->GetWidth() / 2) + 190, -app->render->camera.y + 375, Options60);
 
 			//app->dt = 32.0f;
 			app->Maxfps = false;
 		}
 		if (app->menu->fps30 == false) {
-			app->render->DrawTexture(app->menu->options, -app->render->camera.x + (app->win->GetWidth() / 2) + 190, -app->render->camera.y + 495, Options30);
+			app->render->DrawTexture(app->menu->options, -app->render->camera.x + (app->win->GetWidth() / 2) + 190, -app->render->camera.y + 375, Options30);
 			//Desactivar 60fps
 			//app->dt = 16.0f;
 			app->Maxfps = true;
 		}
+		
+		if (app->menu->VsyncEnable == true) {
+			app->render->DrawTexture(app->menu->options, -app->render->camera.x + (app->win->GetWidth() / 2) + 190, -app->render->camera.y + 505, OptionsOn);
+			app->render->VsyncActive = true;
+		}
+		if (app->menu->VsyncEnable == false) {
+			app->render->DrawTexture(app->menu->options, -app->render->camera.x + (app->win->GetWidth() / 2) + 190, -app->render->camera.y + 500, OptionsOff);
+			app->render->VsyncActive = false;
+		}
 		app->menu->btnFullscreen->bounds.x = -app->render->camera.x + (app->win->GetWidth() / 2) + 190;
-		app->menu->btnFullscreen->bounds.y = -app->render->camera.y + 330;
+		app->menu->btnFullscreen->bounds.y = -app->render->camera.y + 240;
 		app->menu->btnFullscreen->state = GuiControlState::NORMAL;
 		app->menu->btnFPS->bounds.x = -app->render->camera.x + (app->win->GetWidth() / 2) + 175;
-		app->menu->btnFPS->bounds.y = -app->render->camera.y + 465;
+		app->menu->btnFPS->bounds.y = -app->render->camera.y + 375;
 		app->menu->btnFPS->state = GuiControlState::NORMAL;
+		app->menu->btnVsync->bounds.x = -app->render->camera.x + (app->win->GetWidth() / 2) + 175;
+		app->menu->btnVsync->bounds.y = -app->render->camera.y + 500;
+		app->menu->btnVsync->state = GuiControlState::NORMAL;
 		Volume->Draw(true, app->render, app->input);
 		app->menu->Volume->state = GuiControlState::NORMAL;
 
@@ -360,6 +373,13 @@ bool Menu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 				}
 				else if (control->id == 82 && fps30 == false) {
 					fps30 = true;
+				}
+				
+				if (control->id == 84 && VsyncEnable == true) {
+					VsyncEnable = false;
+				}
+				else if (control->id == 84 && VsyncEnable == false) {
+					VsyncEnable = true;
 				}
 			case GuiControlType::SLIDER:
 			{

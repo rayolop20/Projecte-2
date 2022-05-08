@@ -52,6 +52,7 @@ public:
 	bool playing = false;
 	bool On = false;
 	bool fps30 = true;
+	bool VsyncEnable = true;
 	bool credits = false;
 
 	GuiButton* btnMenuConfig = nullptr;
@@ -63,6 +64,7 @@ public:
 	GuiButton* btnConfigBack = nullptr;
 	GuiButton* btnFullscreen = nullptr;
 	GuiButton* btnFPS = nullptr;
+	GuiButton* btnVsync = nullptr;
 
 	GuiSlider* Volume = nullptr;
 
