@@ -218,6 +218,12 @@ public:
 	SDL_Rect player4AR;
 	Animation AttackAnim4;
 	Animation idleAttack4;
+
+	Animation* currentAttack5 = nullptr;
+	SDL_Texture* player5A = nullptr;
+	SDL_Rect player5AR;
+	Animation AttackAnim5;
+	Animation idleAttack5;
 	
 	bool hit = false;
 	Animation* currentHit4 = nullptr;

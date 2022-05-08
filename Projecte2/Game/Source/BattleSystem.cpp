@@ -113,6 +113,17 @@ battleSystem::battleSystem() : Module()
 	AttackAnim4.PushBack({ 640, 0, 160, 192 });
 	AttackAnim4.loop = false;
 	AttackAnim4.speed = 0.08f;
+	
+	idleAttack5.PushBack({ 0, 0, 160, 192 });
+	idleAttack5.loop = true;
+	idleAttack5.speed = 0.001f;
+	AttackAnim5.PushBack({ 0, 0, 160, 192 });
+	AttackAnim5.PushBack({ 160, 0, 160, 192 });
+	AttackAnim5.PushBack({ 320, 0, 160, 192 });
+	AttackAnim5.PushBack({ 480, 0, 160, 192 });
+	AttackAnim5.PushBack({ 640, 0, 160, 192 });
+	AttackAnim5.loop = false;
+	AttackAnim5.speed = 0.08f;
 
 	idleHit4.PushBack({ 0, 0, 160, 192 });
 	idleHit4.loop = false;
@@ -215,6 +226,7 @@ bool battleSystem::Start()
 	currentAttack2 = &idleAttack2;
 	currentAttack3 = &idleAttack3;
 	currentAttack4 = &idleAttack4;
+	currentAttack5 = &idleAttack5;
 
 	currentHit4 = &idleHit4;
 
@@ -222,6 +234,7 @@ bool battleSystem::Start()
 	player2A = app->tex->Load("Assets/Textures/Soldiers/american_dogmaster_attack_animation.png");
 	player3A = app->tex->Load("Assets/Textures/Soldiers/russian_attack_animation.png");
 	player4A = app->tex->Load("Assets/Textures/Soldiers/characters_italian_attack_animation.png");
+	player5A = app->tex->Load("Assets/Textures/Soldiers/french_attack_animation.png");
 	
 	player4H = app->tex->Load("Assets/Textures/Soldiers/italian_hit_animation.png");
 	
@@ -548,29 +561,29 @@ bool battleSystem::Update(float dt)
 			app->BTSystem->AttackPlayer = 0;
 		}
 	}
-	else if (battle == true && app->player->P4.IsAlive == true && battle1 == true && playerTarget == 0) {
+	else if (battle == true && app->player->P4.IsAlive == true && battle1 == true) {
 		puta4 = false;
 		currentAttack4 = &idleAttack4;
 		app->render->DrawTexture(player4A, app->player->P1.position.x - 450, app->player->P1.position.y - 320 + 390, &player4AR);
 	}
 	if (puta4 == true && AttackPlayer == 4 && battle1 == false && hit == false) {//Italian
-		currentAttack4 = &AttackAnim4;
-		app->render->DrawTexture(player4A, app->player->P1.position.x - 450, app->player->P1.position.y - 320 + 390, &player4AR);
-		currentAttack4->Update();
-		if (AttackAnim4.currentFrame >= 4.0) {
+		currentAttack5 = &AttackAnim5;
+		app->render->DrawTexture(player5A, app->player->P1.position.x - 450, app->player->P1.position.y - 320 + 390, &player5AR);
+		currentAttack5->Update();
+		if (AttackAnim5.currentFrame >= 4.0) {
 			PlayerTurn = false;
-			AttackAnim4.currentFrame = 0;
+			AttackAnim5.currentFrame = 0;
 			puta4 = false;
 			app->BTSystem->AttackPlayer = 0;
 		}
 	}
-	else if (battle == true && app->player->P4.IsAlive == true && battle1 == false && playerTarget == 0) {
+	else if (battle == true && app->player->P4.IsAlive == true && battle1 == false) {
 		puta4 = false;
-		currentAttack4 = &idleAttack4;
-		app->render->DrawTexture(player4A, app->player->P1.position.x - 450, app->player->P1.position.y - 320 + 390, &player4AR);
+		currentAttack5 = &idleAttack5;
+		app->render->DrawTexture(player5A, app->player->P1.position.x - 450, app->player->P1.position.y - 320 + 390, &player5AR);
 	}
 	
-	if (hit == false && playerTarget == 4 && battle == true) {//British
+	if (hit == false && playerTarget == 4 && battle == true && app->player->P4.IsAlive == true && battle1 == true) {//British
 		currentHit4 = &HitAnim4;
 		app->render->DrawTexture(player4H, app->player->P1.position.x - 450, app->player->P1.position.y - 320 + 390, &player4HR);
 		currentHit4->Update();
@@ -605,6 +618,7 @@ bool battleSystem::PostUpdate()
 	player2AR = currentAttack2->GetCurrentFrame();
 	player3AR = currentAttack3->GetCurrentFrame();
 	player4AR = currentAttack4->GetCurrentFrame();
+	player5AR = currentAttack5->GetCurrentFrame();
 
 	player4HR = currentHit4->GetCurrentFrame();
 
@@ -741,14 +755,18 @@ void battleSystem::AttackPhaseDisabled() {
 
 	if (AttackPlayer == 1) {
 		puta1 = true;
+		playerTarget = 0;
 	}
 	if (AttackPlayer == 2) {
+		playerTarget = 0;
 		puta2 = true;
 	}
 	if (AttackPlayer == 3) {
+		playerTarget = 0;
 		puta3 = true;
 	}
 	if (AttackPlayer == 4) {
+		playerTarget = 0;
 		puta4 = true;
 	}
 	
