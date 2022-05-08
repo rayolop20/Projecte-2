@@ -71,6 +71,7 @@ public:
 	SDL_Texture* frenchNpc = nullptr;
 	SDL_Texture* italian = nullptr;
 	SDL_Texture* italianNpc = nullptr;
+	SDL_Texture* items = nullptr;
 
 	int increaseDmg = 2;
 	int increaseSpeed = 2;

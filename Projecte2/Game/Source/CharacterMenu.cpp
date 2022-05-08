@@ -50,6 +50,7 @@ bool CharacterMenu_Screen::Start()
 	americanNpc = app->tex->Load("Assets/Textures/Soldiers/soldier_american_dogmaster_npc.png");
 	italian = app->tex->Load("Assets/Textures/Soldiers/soldier_italian.png");
 	italianNpc = app->tex->Load("Assets/Textures/Soldiers/soldier_italian_npc.png");
+	items = app->tex->Load("Assets/Textures/UI/items.png");
 	 
 	char lookupTable[] = { "! @,_./0123456789$;< ?abcdefghijklmnopqrstuvwxyz" };
 	FText = app->fonts->Load("Assets/Textures/Fonts/fonts.png", lookupTable, 1);
