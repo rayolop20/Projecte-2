@@ -42,6 +42,9 @@ public:
 
 	// Called before quitting
 	bool CleanUp();
+
+
+
 	bool EScreen = true;
 	bool menuScreen = true;
 	bool exit = false;
@@ -52,6 +55,7 @@ public:
 	bool playing = false;
 	bool On = false;
 	bool fps30 = true;
+	bool VsyncEnable = true;
 	bool credits = false;
 
 	GuiButton* btnMenuConfig = nullptr;
@@ -63,6 +67,7 @@ public:
 	GuiButton* btnConfigBack = nullptr;
 	GuiButton* btnFullscreen = nullptr;
 	GuiButton* btnFPS = nullptr;
+	GuiButton* btnVsync = nullptr;
 
 	GuiSlider* Volume = nullptr;
 
@@ -73,6 +78,18 @@ public:
 	float timerCreditsaux = 0;
 	int timerCreditCount = 0;
 private:
+
+
+	//no es fa falta i ns pk
+	/*
+	void LoadTexFile(const pugi::xml_document& dataFile);
+
+	//load the fx
+	void LoadFxFile(const pugi::xml_document& dataFile);
+
+	//load and play the music
+	void LoadMusFile(const pugi::xml_document& dataFile);
+	*/
 
 	int EnterLogo = 1;
 
