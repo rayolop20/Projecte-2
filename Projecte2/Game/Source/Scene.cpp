@@ -200,32 +200,43 @@ bool Scene::Update(float dt)
 			app->menu->btnConfigBack->bounds.x = -app->render->camera.x + (app->win->GetWidth() / 2) - 150;
 			app->menu->btnConfigBack->bounds.y = -app->render->camera.y + 650;
 			if (app->menu->On == true) {
-				app->render->DrawTexture(app->menu->options, -app->render->camera.x + (app->win->GetWidth() / 2) + 190, -app->render->camera.y + 330, OptionsOn);
+				app->render->DrawTexture(app->menu->options, -app->render->camera.x + (app->win->GetWidth() / 2) + 190, -app->render->camera.y + 250, OptionsOn);
 				//Activar Fullscreen
 				SDL_SetWindowFullscreen(app->win->window, SDL_WINDOW_FULLSCREEN);
 			}
 			if (app->menu->On == false) {
-				app->render->DrawTexture(app->menu->options, -app->render->camera.x + (app->win->GetWidth() / 2) + 190, -app->render->camera.y + 330, OptionsOff);
+				app->render->DrawTexture(app->menu->options, -app->render->camera.x + (app->win->GetWidth() / 2) + 190, -app->render->camera.y + 250, OptionsOff);
 				//Desactivar Fullscreen
 				SDL_SetWindowFullscreen(app->win->window, SDL_WINDOW_MAXIMIZED);
 			}
 			if (app->menu->fps30 == true) {
-				app->render->DrawTexture(app->menu->options, -app->render->camera.x + (app->win->GetWidth() / 2) + 190, -app->render->camera.y + 495, Options60);
+				app->render->DrawTexture(app->menu->options, -app->render->camera.x + (app->win->GetWidth() / 2) + 185, -app->render->camera.y + 385, Options60);
 				//app->dt = 32.0f;
 				app->Maxfps = false;
 			}
 			if (app->menu->fps30 == false) {
-				app->render->DrawTexture(app->menu->options, -app->render->camera.x + (app->win->GetWidth() / 2) + 190, -app->render->camera.y + 495, Options30);
+				app->render->DrawTexture(app->menu->options, -app->render->camera.x + (app->win->GetWidth() / 2) + 185, -app->render->camera.y + 385, Options30);
 				//Desactivar 60fps
 				//app->dt = 16.0f;
 				app->Maxfps = true;
 			}
+			if (app->menu->VsyncEnable == true) {
+				app->render->DrawTexture(app->menu->options, -app->render->camera.x + (app->win->GetWidth() / 2) + 190, -app->render->camera.y + 515, OptionsOn);
+				app->render->VsyncActive = true;
+			}
+			if (app->menu->VsyncEnable == false) {
+				app->render->DrawTexture(app->menu->options, -app->render->camera.x + (app->win->GetWidth() / 2) + 190, -app->render->camera.y + 515, OptionsOff);
+				app->render->VsyncActive = false;
+			}
 			app->menu->btnFullscreen->bounds.x = -app->render->camera.x + (app->win->GetWidth() / 2) + 190;
-			app->menu->btnFullscreen->bounds.y = -app->render->camera.y + 330;
+			app->menu->btnFullscreen->bounds.y = -app->render->camera.y + 240;
 			app->menu->btnFullscreen->state = GuiControlState::NORMAL;
 			app->menu->btnFPS->bounds.x = -app->render->camera.x + (app->win->GetWidth() / 2) + 175;
-			app->menu->btnFPS->bounds.y = -app->render->camera.y + 465;
+			app->menu->btnFPS->bounds.y = -app->render->camera.y + 375;
 			app->menu->btnFPS->state = GuiControlState::NORMAL;
+			app->menu->btnVsync->bounds.x = -app->render->camera.x + (app->win->GetWidth() / 2) + 175;
+			app->menu->btnVsync->bounds.y = -app->render->camera.y + 500;
+			app->menu->btnVsync->state = GuiControlState::NORMAL;
 
 		}
 
