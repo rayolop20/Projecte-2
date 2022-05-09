@@ -18,7 +18,7 @@
 #include "CharacterMenu.h"
 #include "GameMenu.h"
 #include "StatsMenu.h"
-
+#include "AssetsManager.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -52,9 +52,10 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	characterMenu = new CharacterMenu_Screen();
 	gameMenu = new GameMenu_Screen();
 	statsMenu = new StatsMenu_Screen();
-
+	assetManager = new ModuleAssetsManager();
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
+	AddModule(assetManager);
 	AddModule(win);
 	AddModule(input);
 	AddModule(tex);

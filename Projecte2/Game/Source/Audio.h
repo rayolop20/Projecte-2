@@ -45,7 +45,7 @@ public:
 
 	int maxFxValue = 125;
 private:
-
+	SString fxFolder;
 	_Mix_Music* music;
 	List<Mix_Chunk *>	fx;
 };
