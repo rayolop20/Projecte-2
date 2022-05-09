@@ -42,6 +42,9 @@ public:
 
 	// Called before quitting
 	bool CleanUp();
+
+
+
 	bool EScreen = true;
 	bool menuScreen = true;
 	bool exit = false;
@@ -75,6 +78,18 @@ public:
 	float timerCreditsaux = 0;
 	int timerCreditCount = 0;
 private:
+
+
+	//no es fa falta i ns pk
+	/*
+	void LoadTexFile(const pugi::xml_document& dataFile);
+
+	//load the fx
+	void LoadFxFile(const pugi::xml_document& dataFile);
+
+	//load and play the music
+	void LoadMusFile(const pugi::xml_document& dataFile);
+	*/
 
 	int EnterLogo = 1;
 
