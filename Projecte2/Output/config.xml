@@ -20,7 +20,7 @@
 
   <!-- L03: Added maps folder as config option -->
   <map>
-    <folder>Assets/maps/</folder>
+    <folder>Map/</folder>
   </map>
 
   <!-- L13: Create a structure in XML to store multiple entities -->
