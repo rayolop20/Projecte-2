@@ -41,14 +41,11 @@ bool Scene::Awake()
 // Called before the first frame
 bool Scene::Start()
 {
-	if (app->map->Load("Maps/dungeon.tmx") == true)
+	if (app->map->Load("dungeon.tmx") == true)
 	{
 		int w, h;
 		uchar* data = NULL;
-
 		if (app->map->CreateWalkabilityMap(w, h, &data)) app->pathfinding->SetMap(w, h, data);
-
-
 		RELEASE_ARRAY(data);
 	};
 	door = app->tex->Load("Assets/Textures/Assets/door.png");

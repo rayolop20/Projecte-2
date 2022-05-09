@@ -79,6 +79,9 @@ public:
 	int timerCreditCount = 0;
 private:
 
+
+	//no es fa falta i ns pk
+	/*
 	void LoadTexFile(const pugi::xml_document& dataFile);
 
 	//load the fx
@@ -86,6 +89,7 @@ private:
 
 	//load and play the music
 	void LoadMusFile(const pugi::xml_document& dataFile);
+	*/
 
 	int EnterLogo = 1;
 

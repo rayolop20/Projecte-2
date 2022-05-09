@@ -39,6 +39,8 @@ bool Menu_Screen::Awake()
 // Called before the first frame
 bool Menu_Screen::Start()
 {
+	// no ens fa falta i no se Pk
+	{
 	/*
 	char* buffer = 0;
 	pugi::xml_document dataFile;
@@ -54,6 +56,7 @@ bool Menu_Screen::Start()
 	LoadFxFile(dataFile);
 	LoadMusFile(dataFile);
 	*/
+	}
 	EnterLogo = app->audio->LoadFx("Assets/Audio/Fx/enter_logo.wav");
 	fonsMenu = app->tex->Load("Assets/Textures/Assets/game_title.png");
 	creditsTexture = app->tex->Load("Assets/Textures/UI/credits.png");
@@ -429,22 +432,23 @@ bool Menu_Screen::CleanUp()
 	return true;
 }
 
-/*
-void Menu_Screen::LoadTexFile(const pugi::xml_document& dataFile)
-{
-	pugi::xml_node tex_node = dataFile.child("data").child("Textures").child("Assets");
-	//creditsTexture = app->tex->Load("Assets/Textures/UI/credits.png");
+//no ens fa falta i ns pk
+	/*
+	void Menu_Screen::LoadTexFile(const pugi::xml_document& dataFile)
+	{
+		pugi::xml_node tex_node = dataFile.child("data").child("Textures").child("Assets");
+		//creditsTexture = app->tex->Load("Assets/Textures/UI/credits.png");
 
-}
+	}
 
-void Menu_Screen::LoadFxFile(const pugi::xml_document& dataFile)
-{
-	pugi::xml_node fx_node = dataFile.child("data").child("fx");
-	app->audio->LoadFx(fx_node.attribute("file").as_string());
-}
+	void Menu_Screen::LoadFxFile(const pugi::xml_document& dataFile)
+	{
+		pugi::xml_node fx_node = dataFile.child("data").child("fx");
+		app->audio->LoadFx(fx_node.attribute("file").as_string());
+	}
 
-void Menu_Screen::LoadMusFile(const pugi::xml_document& dataFile)
-{
-	pugi::xml_node mus_node = dataFile.child("data").child("mus");
-	app->audio->PlayMusic(mus_node.attribute("file").as_string());
-}*/
+	void Menu_Screen::LoadMusFile(const pugi::xml_document& dataFile)
+	{
+		pugi::xml_node mus_node = dataFile.child("data").child("mus");
+		app->audio->PlayMusic(mus_node.attribute("file").as_string());
+	}*/
