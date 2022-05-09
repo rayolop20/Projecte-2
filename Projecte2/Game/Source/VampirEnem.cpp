@@ -124,7 +124,6 @@ bool VampirEnem::Update(float dt)
 	}
 	else if (app->BTSystem->battleAux == true) {
 		app->BTSystem->battleAux = false;
-		app->BTSystem->playerTarget = 0;
 		Vpir[WhichVampire].Destroyed = true;
 	}
 	timer3 = SDL_GetTicks() / 10;

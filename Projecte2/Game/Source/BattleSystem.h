@@ -109,8 +109,6 @@ public:
 
 	bool choosingPlayer = false;
 	bool puta1 = false;
-	bool puta2 = false;
-	bool puta3 = false;
 	bool puta4 = false;
 
 	int POSQTE2Y = 0;
@@ -131,10 +129,6 @@ public:
 	void DrawHpBars();
 	void MaxHp();
 	void MaxMana();
-
-	void AttackAnimations();
-	void HitPlayersAnimations();
-	void DeathPlayersAnimations();
 
 	bool ChoosePlayerPhase = true;
 
@@ -204,68 +198,12 @@ public:
 	SDL_Rect player1AR;
 	Animation AttackAnim1;
 	Animation idleAttack1;
-
-	Animation* currentAttack2 = nullptr;
-	SDL_Texture* player2A = nullptr;
-	SDL_Rect player2AR;
-	Animation AttackAnim2;
-	Animation idleAttack2;
-	
-	Animation* currentAttack3 = nullptr;
-	SDL_Texture* player3A = nullptr;
-	SDL_Rect player3AR;
-	Animation AttackAnim3;
-	Animation idleAttack3;
 	
 	Animation* currentAttack4 = nullptr;
 	SDL_Texture* player4A = nullptr;
 	SDL_Rect player4AR;
 	Animation AttackAnim4;
 	Animation idleAttack4;
-
-	Animation* currentAttack5 = nullptr;
-	SDL_Texture* player5A = nullptr;
-	SDL_Rect player5AR;
-	Animation AttackAnim5;
-	Animation idleAttack5;
-	
-	bool hit = false;
-	Animation* currentHit1 = nullptr;
-	SDL_Texture* player1H = nullptr;
-	SDL_Rect player1HR;
-	Animation HitAnim1;
-	Animation idleHit1;
-	
-	Animation* currentHit2 = nullptr;
-	SDL_Texture* player2H = nullptr;
-	SDL_Rect player2HR;
-	Animation HitAnim2;
-	Animation idleHit2;
-	
-	Animation* currentHit3 = nullptr;
-	SDL_Texture* player3H = nullptr;
-	SDL_Rect player3HR;
-	Animation HitAnim3;
-	Animation idleHit3;
-	
-	Animation* currentHit4 = nullptr;
-	SDL_Texture* player4H = nullptr;
-	SDL_Rect player4HR;
-	Animation HitAnim4;
-	Animation idleHit4;
-
-	Animation* currentHit5 = nullptr;
-	SDL_Texture* player5H = nullptr;
-	SDL_Rect player5HR;
-	Animation HitAnim5;
-	Animation idleHit5;
-	
-	bool russianDead = false;
-	Animation* currentDeath3 = nullptr;
-	SDL_Texture* player3D = nullptr;
-	SDL_Rect player3DR;
-	Animation DeathAnim3;
-	Animation idleDeath3;
 
 	int transitionRep = 0;
 

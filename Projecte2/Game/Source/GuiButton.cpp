@@ -80,7 +80,6 @@ bool GuiButton::Draw(Render* render)
 	{
 		//new game
 		
-
 		if (id == 1)
 		{
 			uitext->x = 160;

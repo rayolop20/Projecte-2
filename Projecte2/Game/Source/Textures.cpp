@@ -4,7 +4,6 @@
 
 #include "Defs.h"
 #include "Log.h"
-#include "Assetsmanager.h"
 
 #include "SDL_image/include/SDL_image.h"
 //#pragma comment(lib, "../Game/Source/External/SDL_image/libx86/SDL2_image.lib")
@@ -74,9 +73,6 @@ SDL_Texture* const Textures::Load(const char* path)
 
 	SDL_Texture* texture = nullptr;
 	SDL_Surface* surface = IMG_Load(path);
-
-	surface = IMG_Load_RW(app->assetManager->Load(path), 1);
-
 
 	if (surface == NULL)
 	{

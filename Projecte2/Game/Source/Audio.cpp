@@ -1,6 +1,5 @@
 #include "App.h"
 #include "Audio.h"
-#include "AssetsManager.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -29,8 +28,6 @@ bool Audio::Awake(pugi::xml_node& config)
 	LOG("Loading Audio Mixer");
 	bool ret = true;
 	SDL_Init(0);
-
-	fxFolder.Create(config.child("folder").child_value());
 
 	if(SDL_InitSubSystem(SDL_INIT_AUDIO) < 0)
 	{
@@ -110,7 +107,7 @@ bool Audio::PlayMusic(const char* path, float fade_time)
 		Mix_FreeMusic(music);
 	}
 
-	music = Mix_LoadMUS_RW(app->assetManager->Load(path), 1);
+	music = Mix_LoadMUS(path);
 
 	if(music == NULL)
 	{
@@ -150,7 +147,6 @@ unsigned int Audio::LoadFx(const char* path)
 		return 0;
 
 	Mix_Chunk* chunk = Mix_LoadWAV(path);
-	chunk = Mix_LoadWAV_RW(app->assetManager->Load(path), 1);
 
 	if(chunk == NULL)
 	{

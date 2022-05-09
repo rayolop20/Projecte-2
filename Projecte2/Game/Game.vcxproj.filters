@@ -65,7 +65,6 @@
     <ClCompile Include="Source\StatsMenu.cpp">
       <Filter>Menus</Filter>
     </ClCompile>
-    <ClCompile Include="Source\AssetsManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -158,8 +157,6 @@
     <ClInclude Include="Source\StatsMenu.h">
       <Filter>Menus</Filter>
     </ClInclude>
-    <ClInclude Include="Source\AssetsManager.h" />
-    <ClInclude Include="Source\External\PhysFS\include\physfs.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">

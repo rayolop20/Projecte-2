@@ -64,8 +64,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_mixer.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;physfs.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(ProjectDir)Source\External\PhysFS\libx86;$(ProjectDir)Source\External\SDL\libx86;$(ProjectDir)Source\External\SDL_image\libx86;$(ProjectDir)Source\External\SDL_mixer\libx86</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib; SDL2_mixer.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)Source\External\SDL\libx86;$(ProjectDir)Source\External\SDL_image\libx86;$(ProjectDir)Source\External\SDL_mixer\libx86</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -89,7 +89,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Source\AssetsManager.cpp" />
     <ClCompile Include="Source\BattleSystem.cpp" />
     <ClCompile Include="Source\CharacterMenu.cpp" />
     <ClCompile Include="Source\Collider.cpp" />
@@ -121,7 +120,6 @@
     <ClCompile Include="Source\Window.cpp" />
     <ClCompile Include="Source\ZombieEnem.cpp" />
     <ClInclude Include="Source\Animation.h" />
-    <ClInclude Include="Source\AssetsManager.h" />
     <ClInclude Include="Source\BattleSystem.h" />
     <ClInclude Include="Source\CharacterMenu.h" />
     <ClInclude Include="Source\Collider.h" />
@@ -129,7 +127,6 @@
     <ClInclude Include="Source\Entity.h" />
     <ClInclude Include="Source\EntityManager.h" />
     <ClInclude Include="Source\EntityNPC.h" />
-    <ClInclude Include="Source\External\PhysFS\include\physfs.h" />
     <ClInclude Include="Source\Fonts.h" />
     <ClInclude Include="Source\GameMenu.h" />
     <ClInclude Include="Source\GuiButton.h" />

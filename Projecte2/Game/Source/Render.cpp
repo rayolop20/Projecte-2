@@ -121,6 +121,17 @@ void Render::SetBackgroundColor(SDL_Color color)
 	background = color;
 }
 
+void Render::VSync_Active()
+{
+	if (app->input->GetKey(SDL_SCANCODE_8) == KEY_DOWN) {
+		app->render->VsyncActive = true;
+	}
+
+	if (app->input->GetKey(SDL_SCANCODE_9) == KEY_DOWN) {
+		app->render->VsyncActive = false;
+	}
+}
+
 void Render::SetViewPort(const SDL_Rect& rect)
 {
 	SDL_RenderSetViewport(renderer, &rect);

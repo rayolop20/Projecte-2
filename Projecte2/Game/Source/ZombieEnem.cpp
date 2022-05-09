@@ -136,7 +136,6 @@ bool ZombieEnem::Update(float dt)
 			
 			CheckEnemy();
 			EnemyPhase();
-
 		}
 	}
 	else if (app->BTSystem->battleAux == true) {
@@ -255,6 +254,7 @@ void ZombieEnem::Combat() {
 			app->BTSystem->AttackPhaseEnable = false;
 			app->BTSystem->ChoosePlayerPhase = true;
 			app->BTSystem->waitPlayer[0] += 1;
+			app->BTSystem->PlayerTurn = false;
 			for (int i = 0; i <= 4; i++) {
 				if (app->BTSystem->waitPlayer[i] != 0) {
 					app->BTSystem->waitPlayer[i] += 1;
@@ -290,6 +290,7 @@ void ZombieEnem::Combat() {
 			app->BTSystem->AttackPhaseEnable = false;
 			app->BTSystem->ChoosePlayerPhase = true;
 			app->BTSystem->waitPlayer[0] += 1;
+			app->BTSystem->PlayerTurn = false;
 			for (int i = 0; i <= 4; i++) {
 				if (app->BTSystem->waitPlayer[i] != 0) {
 					app->BTSystem->waitPlayer[i] += 1;
@@ -309,11 +310,13 @@ void ZombieEnem::Combat() {
 			app->player->P2.mana += app->player->P2.mana1;
 			app->BTSystem->ZombieTarget = 0;
 			app->BTSystem->randomAux = false;
+			app->BTSystem->AttackPlayer = 0;
 			app->BTSystem->AttackType = 0;
 			app->BTSystem->AttackPhaseActive = false;
 			app->BTSystem->AttackPhaseEnable = false;
 			app->BTSystem->ChoosePlayerPhase = true;
 			app->BTSystem->waitPlayer[1] += 1;
+			app->BTSystem->PlayerTurn = false;
 			for (int i = 0; i <= 4; i++) {
 				if (app->BTSystem->waitPlayer[i] != 0) {
 					app->BTSystem->waitPlayer[i] += 1;
@@ -333,11 +336,13 @@ void ZombieEnem::Combat() {
 			app->player->P2.mana += app->player->P2.mana2;
 			app->BTSystem->ZombieTarget = 0;
 			app->BTSystem->randomAux = false;
+			app->BTSystem->AttackPlayer = 0;
 			app->BTSystem->AttackType = 0;
 			app->BTSystem->AttackPhaseActive = false;
 			app->BTSystem->AttackPhaseEnable = false;
 			app->BTSystem->ChoosePlayerPhase = true;
 			app->BTSystem->waitPlayer[1] += 1;
+			app->BTSystem->PlayerTurn = false;
 			for (int i = 0; i <= 4; i++) {
 				if (app->BTSystem->waitPlayer[i] != 0) {
 					app->BTSystem->waitPlayer[i] += 1;
@@ -367,11 +372,13 @@ void ZombieEnem::Combat() {
 			app->player->P3.mana += app->player->P3.mana1;
 			app->BTSystem->ZombieTarget = 0;
 			app->BTSystem->randomAux = false;
+			app->BTSystem->AttackPlayer = 0;
 			app->BTSystem->AttackType = 0;
 			app->BTSystem->AttackPhaseActive = false;
 			app->BTSystem->AttackPhaseEnable = false;
 			app->BTSystem->ChoosePlayerPhase = true;
 			app->BTSystem->waitPlayer[2] += 1;
+			app->BTSystem->PlayerTurn = false;
 			for (int i = 0; i <= 4; i++) {
 				if (app->BTSystem->waitPlayer[i] != 0) {
 					app->BTSystem->waitPlayer[i] += 1;
@@ -391,11 +398,13 @@ void ZombieEnem::Combat() {
 			app->player->P3.mana += app->player->P3.mana2;
 			app->BTSystem->ZombieTarget = 0;
 			app->BTSystem->randomAux = false;
+			app->BTSystem->AttackPlayer = 0;
 			app->BTSystem->AttackType = 0;
 			app->BTSystem->AttackPhaseActive = false;
 			app->BTSystem->AttackPhaseEnable = false;
 			app->BTSystem->ChoosePlayerPhase = true;
 			app->BTSystem->waitPlayer[2] += 1;
+			app->BTSystem->PlayerTurn = false;
 			for (int i = 0; i <= 4; i++) {
 				if (app->BTSystem->waitPlayer[i] != 0) {
 					app->BTSystem->waitPlayer[i] += 1;
@@ -426,6 +435,7 @@ void ZombieEnem::Combat() {
 			app->BTSystem->AttackPhaseEnable = false;
 			app->BTSystem->ChoosePlayerPhase = true;
 			app->BTSystem->waitPlayer[3] += 1;
+			app->BTSystem->PlayerTurn = false;
 			for (int i = 0; i <= 4; i++) {
 				if (app->BTSystem->waitPlayer[i] != 0) {
 					app->BTSystem->waitPlayer[i] += 1;
@@ -450,6 +460,7 @@ void ZombieEnem::Combat() {
 			app->BTSystem->AttackPhaseEnable = false;
 			app->BTSystem->ChoosePlayerPhase = true;
 			app->BTSystem->waitPlayer[3] += 1;
+			app->BTSystem->PlayerTurn = false;
 			for (int i = 0; i <= 4; i++) {
 				if (app->BTSystem->waitPlayer[i] != 0) {
 					app->BTSystem->waitPlayer[i] += 1;
@@ -466,11 +477,13 @@ void ZombieEnem::Combat() {
 			app->BTSystem->AttackAux = 0;
 			app->BTSystem->ZombieTarget = 0;
 			app->BTSystem->randomAux = false;
+			app->BTSystem->AttackPlayer = 0;
 			app->BTSystem->AttackType = 0;
 			app->BTSystem->AttackPhaseActive = false;
 			app->BTSystem->AttackPhaseEnable = false;
 			app->BTSystem->ChoosePlayerPhase = true;
 			app->BTSystem->waitPlayer[0]++;
+			app->BTSystem->PlayerTurn = false;
 			for (int i = 0; i <= 4; i++) {
 				if (app->BTSystem->waitPlayer[i] != 0) {
 					app->BTSystem->waitPlayer[i] += 1;
@@ -490,11 +503,13 @@ void ZombieEnem::Combat() {
 			app->BTSystem->AttackAux = 0;
 			app->BTSystem->ZombieTarget = 0;
 			app->BTSystem->randomAux = false;
+			app->BTSystem->AttackPlayer = 0;
 			app->BTSystem->AttackType = 0;
 			app->BTSystem->AttackPhaseActive = false;
 			app->BTSystem->AttackPhaseEnable = false;
 			app->BTSystem->ChoosePlayerPhase = true;
 			app->BTSystem->waitPlayer[1]++;
+			app->BTSystem->PlayerTurn = false;
 			for (int i = 0; i <= 4; i++) {
 				if (app->BTSystem->waitPlayer[i] != 0) {
 					app->BTSystem->waitPlayer[i] += 1;
@@ -509,11 +524,13 @@ void ZombieEnem::Combat() {
 			app->BTSystem->AttackAux = 0;
 			app->BTSystem->ZombieTarget = 0;
 			app->BTSystem->randomAux = false;
+			app->BTSystem->AttackPlayer = 0;
 			app->BTSystem->AttackType = 0;
 			app->BTSystem->AttackPhaseActive = false;
 			app->BTSystem->AttackPhaseEnable = false;
 			app->BTSystem->ChoosePlayerPhase = true;
 			app->BTSystem->waitPlayer[2]++;
+			app->BTSystem->PlayerTurn = false;
 			for (int i = 0; i <= 4; i++) {
 				if (app->BTSystem->waitPlayer[i] != 0) {
 					app->BTSystem->waitPlayer[i] += 1;
@@ -528,11 +545,13 @@ void ZombieEnem::Combat() {
 			app->BTSystem->AttackAux = 0;
 			app->BTSystem->ZombieTarget = 0;
 			app->BTSystem->randomAux = false;
+			app->BTSystem->AttackPlayer = 0;
 			app->BTSystem->AttackType = 0;
 			app->BTSystem->AttackPhaseActive = false;
 			app->BTSystem->AttackPhaseEnable = false;
 			app->BTSystem->ChoosePlayerPhase = true;
 			app->BTSystem->waitPlayer[3]++;
+			app->BTSystem->PlayerTurn = false;
 			app->player->P4.revolverActive = false;
 			for (int i = 0; i <= 4; i++) {
 				if (app->BTSystem->waitPlayer[i] != 0) {
@@ -732,7 +751,6 @@ void ZombieEnem::EnemyPhase() {
 		app->BTSystem->SpecialAttackEnable = false;
 		app->BTSystem->alliesDead = 0;
 	}
-
 }
 
 void ZombieEnem::CheckEnemy() {

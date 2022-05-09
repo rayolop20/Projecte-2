@@ -32,7 +32,6 @@ class CharacterMenu_Screen;
 class GameMenu_Screen;
 class StatsMenu_Screen;
 class DialogueSystem;
-class ModuleAssetsManager;
 
 class App
 {
@@ -116,8 +115,6 @@ public:
 	GameMenu_Screen* gameMenu = nullptr;
 	StatsMenu_Screen* statsMenu = nullptr;
 	DialogueSystem* dialogues = nullptr;
-	ModuleAssetsManager* assetManager = nullptr;
-
 
 	float dt = 16.0f;
 	bool Maxfps = false;
