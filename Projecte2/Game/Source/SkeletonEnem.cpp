@@ -304,7 +304,6 @@ void SkeletonEnem::Combat() {
 			app->player->P2.mana += app->player->P2.mana1;
 			app->BTSystem->SkeletonTarget = 0;
 			app->BTSystem->randomAux = false;
-			app->BTSystem->AttackPlayer = 0;
 			app->BTSystem->AttackType = 0;
 			app->BTSystem->AttackPhaseActive = false;
 			app->BTSystem->AttackPhaseEnable = false;
@@ -330,7 +329,6 @@ void SkeletonEnem::Combat() {
 			app->player->P2.mana += app->player->P2.mana2;
 			app->BTSystem->SkeletonTarget = 0;
 			app->BTSystem->randomAux = false;
-			app->BTSystem->AttackPlayer = 0;
 			app->BTSystem->AttackType = 0;
 			app->BTSystem->AttackPhaseActive = false;
 			app->BTSystem->AttackPhaseEnable = false;
@@ -366,7 +364,6 @@ void SkeletonEnem::Combat() {
 			app->player->P3.mana += app->player->P3.mana1;
 			app->BTSystem->SkeletonTarget = 0;
 			app->BTSystem->randomAux = false;
-			app->BTSystem->AttackPlayer = 0;
 			app->BTSystem->AttackType = 0;
 			app->BTSystem->AttackPhaseActive = false;
 			app->BTSystem->AttackPhaseEnable = false;
@@ -392,7 +389,6 @@ void SkeletonEnem::Combat() {
 			app->player->P3.mana += app->player->P3.mana2;
 			app->BTSystem->SkeletonTarget = 0;
 			app->BTSystem->randomAux = false;
-			app->BTSystem->AttackPlayer = 0;
 			app->BTSystem->AttackType = 0;
 			app->BTSystem->AttackPhaseActive = false;
 			app->BTSystem->AttackPhaseEnable = false;
@@ -471,7 +467,6 @@ void SkeletonEnem::Combat() {
 			app->BTSystem->AttackAux = 0;
 			app->BTSystem->SkeletonTarget = 0;
 			app->BTSystem->randomAux = false;
-			app->BTSystem->AttackPlayer = 0;
 			app->BTSystem->AttackType = 0;
 			app->BTSystem->AttackPhaseActive = false;
 			app->BTSystem->AttackPhaseEnable = false;
@@ -497,7 +492,6 @@ void SkeletonEnem::Combat() {
 			app->BTSystem->AttackAux = 0;
 			app->BTSystem->SkeletonTarget = 0;
 			app->BTSystem->randomAux = false;
-			app->BTSystem->AttackPlayer = 0;
 			app->BTSystem->AttackType = 0;
 			app->BTSystem->AttackPhaseActive = false;
 			app->BTSystem->AttackPhaseEnable = false;
@@ -518,7 +512,6 @@ void SkeletonEnem::Combat() {
 			app->BTSystem->AttackAux = 0;
 			app->BTSystem->SkeletonTarget = 0;
 			app->BTSystem->randomAux = false;
-			app->BTSystem->AttackPlayer = 0;
 			app->BTSystem->AttackType = 0;
 			app->BTSystem->AttackPhaseActive = false;
 			app->BTSystem->AttackPhaseEnable = false;
@@ -539,7 +532,6 @@ void SkeletonEnem::Combat() {
 			app->BTSystem->AttackAux = 0;
 			app->BTSystem->SkeletonTarget = 0;
 			app->BTSystem->randomAux = false;
-			app->BTSystem->AttackPlayer = 0;
 			app->BTSystem->AttackType = 0;
 			app->BTSystem->AttackPhaseActive = false;
 			app->BTSystem->AttackPhaseEnable = false;
