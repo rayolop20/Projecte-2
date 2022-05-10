@@ -1,0 +1,29 @@
+
+name: Release Alpha
+
+on:
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Zip Generator
+        uses: thedoctor0/zip-release@master
+        with:
+          filename: 'Explosive_RPG-Blood_War_Alpha.zip'
+          path: './Output ./LICENSE ./README.md'
+          exclusions: '*.gitignore* *Projecte2.sln* ./.github ./Docs ./Game ./Build'
+
+      - name: Create Release
+        uses: ncipollo/release-action@v1
+        with:
+          tag: alpha
+          name: Blood War Alpha
+         
+          artifacts: "Explosive_RPG-Blood_War_Alpha.zip"
+          token: ${{ secrets.GITHUB_TOKEN }}
