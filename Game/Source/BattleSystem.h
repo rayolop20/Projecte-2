@@ -270,7 +270,7 @@ public:
 	int transitionRep = 0;
 
 	bool transitionLock = true;
-	bool battleEnd = true;
+	bool battleEnd = false;
 
 private:
 
