@@ -51,6 +51,13 @@ bool Scene::Start()
 	door = app->tex->Load("Assets/Textures/Assets/door.png");
 	app->map->DColisions();
 	pathTex = app->tex->Load("Assets/Maps/path2.png");
+	torch1Texture = app->tex->Load("Assets/Textures/Assets/torch_grey.png");
+	torch2Texture = app->tex->Load("Assets/Textures/Assets/torch_blue.png");
+	torch3Texture = app->tex->Load("Assets/Textures/Assets/torch_green.png");
+	torch4Texture = app->tex->Load("Assets/Textures/Assets/torch_purple.png");
+	torch5Texture = app->tex->Load("Assets/Textures/Assets/torch_turquoise.png");
+	torch6Texture = app->tex->Load("Assets/Textures/Assets/torch_yellow.png");
+	torch7Texture = app->tex->Load("Assets/Textures/Assets/torch_red.png");
 	if (puzzle1Active == true) {
 		//Wall1 = app->collisions->AddCollider({ 608+32,2176+32,32,32 }, Collider::Type::WALLH);
 		Wall1 = app->collisions->AddCollider({ 608,2176+32,32,32 }, Collider::Type::WALLV,this);
@@ -320,7 +327,7 @@ bool Scene::Update(float dt)
 			Wall17->pendingToDelete = true;
 			Wall18->pendingToDelete = true;
 		}
-		if (puzzle3Active == true  ) {
+		if (puzzle3Active == true) {
 			Torch1 = app->collisions->AddCollider({ 1733,2000,50,50 }, Collider::Type::TORCH1);
 			Torch2 = app->collisions->AddCollider({ 1658,1100,50,50 }, Collider::Type::TORCH2);
 			Torch3 = app->collisions->AddCollider({ 65,1447,50,50 }, Collider::Type::TORCH3);
@@ -332,10 +339,10 @@ bool Scene::Update(float dt)
 			CheckPuzzle3();
 		}
 		else {
-			app->render->DrawRectangle({ 1733,2000,50,50 }, 255, 255, 255);
-			app->render->DrawRectangle({ 1658,1100,50,50 }, 255, 255, 255);
-			app->render->DrawRectangle({ 65,1447,50,50 }, 255, 255, 255);
-			app->render->DrawRectangle({ 572,1855,50,50 }, 255, 255, 255);
+			app->render->DrawTexture(torch7Texture, 1733, 2000);
+			app->render->DrawTexture(torch7Texture, 1658, 1100);
+			app->render->DrawTexture(torch7Texture, 65, 1447);
+			app->render->DrawTexture(torch7Texture, 572, 1855);
 		}
 		return true;
 	}
@@ -348,80 +355,81 @@ void Scene::CheckPuzzle3() {
 }
 void Scene::Drawtorch1() {
 	if (torchCount1 == 0) {
-		app->render->DrawRectangle({ 1733,2000,50,50 }, 255, 255, 255);
+		//app->render->DrawRectangle({ 1733,2000,50,50 }, 255, 255, 255);
+		app->render->DrawTexture(torch1Texture, 1733, 2000);
 	}
 	if (torchCount1 == 1) {
-		app->render->DrawRectangle({ 1733,2000,50,50 }, 0, 0, 0);
+		app->render->DrawTexture(torch2Texture, 1733, 2000);
 	}
 	if (torchCount1 == 2) {
-		app->render->DrawRectangle({ 1733,2000,50,50 }, 255, 0, 0);
+		app->render->DrawTexture(torch3Texture, 1733, 2000);
 	}
 	if (torchCount1 == 3) {
-		app->render->DrawRectangle({ 1733,2000,50,50 }, 0, 255, 0);
+		app->render->DrawTexture(torch4Texture, 1733, 2000);
 	}
 	if (torchCount1 == 4) {
-		app->render->DrawRectangle({ 1733,2000,50,50 }, 0, 0, 255);
+		app->render->DrawTexture(torch5Texture, 1733, 2000);
 	}
 	if (torchCount1 == 5) {
-		app->render->DrawRectangle({ 1733,2000,50,50 }, 255, 0, 255);
+		app->render->DrawTexture(torch6Texture, 1733, 2000);
 	}
 }
 void Scene::Drawtorch2() {
 	if (torchCount2 == 0) {
-		app->render->DrawRectangle({ 1658,1100,50,50 }, 255, 255, 255);
+		app->render->DrawTexture(torch1Texture, 1658, 1100);
 	}
 	if (torchCount2 == 1) {
-		app->render->DrawRectangle({ 1658,1100,50,50 }, 0, 0, 0);
+		app->render->DrawTexture(torch2Texture, 1658, 1100);
 	}
 	if (torchCount2 == 2) {
-		app->render->DrawRectangle({ 1658,1100,50,50 }, 255, 0, 0);
+		app->render->DrawTexture(torch3Texture, 1658, 1100);
 	}
 	if (torchCount2 == 3) {
-		app->render->DrawRectangle({ 1658,1100,50,50 }, 0, 255, 0);
+		app->render->DrawTexture(torch4Texture, 1658, 1100);
 	}
 	if (torchCount2 == 4) {
-		app->render->DrawRectangle({ 1658,1100,50,50 }, 0, 0, 255);
+		app->render->DrawTexture(torch5Texture, 1658, 1100);
 	}
 	if (torchCount2 == 5) {
-		app->render->DrawRectangle({ 1658,1100,50,50 }, 255, 0, 255);
+		app->render->DrawTexture(torch6Texture, 1658, 1100);
 	}
 }void Scene::Drawtorch3() {
 	if (torchCount3 == 0) {
-		app->render->DrawRectangle({ 65,1447,50,50 }, 255, 255, 255);
+		app->render->DrawTexture(torch1Texture, 65, 1447);
 	}
 	if (torchCount3 == 1) {
-		app->render->DrawRectangle({ 65,1447,50,50 }, 0, 0, 0);
+		app->render->DrawTexture(torch2Texture, 65, 1447);
 	}
 	if (torchCount3 == 2) {
-		app->render->DrawRectangle({ 65,1447,50,50 }, 255, 0, 0);
+		app->render->DrawTexture(torch3Texture, 65, 1447);
 	}
 	if (torchCount3 == 3) {
-		app->render->DrawRectangle({ 65,1447,50,50 }, 0, 255, 0);
+		app->render->DrawTexture(torch4Texture, 65, 1447);
 	}
 	if (torchCount3 == 4) {
-		app->render->DrawRectangle({ 65,1447,50,50 }, 0, 0, 255);
+		app->render->DrawTexture(torch5Texture, 65, 1447);
 	}
 	if (torchCount3== 5) {
-		app->render->DrawRectangle({ 65,1447,50,50 }, 255, 0, 255);
+		app->render->DrawTexture(torch6Texture, 65, 1447);
 	}
 }void Scene::Drawtorch4() {
 	if (torchCount4 == 0) {
-		app->render->DrawRectangle({ 572,1855,50,50 }, 255, 255, 255);
+		app->render->DrawTexture(torch1Texture, 572, 1855);
 	}
 	if (torchCount4 == 1) {
-		app->render->DrawRectangle({ 572,1855,50,50 }, 0, 0, 0);
+		app->render->DrawTexture(torch2Texture, 572, 1855);
 	}
 	if (torchCount4 == 2) {
-		app->render->DrawRectangle({ 572,1855,50,50 }, 255, 0, 0);
+		app->render->DrawTexture(torch3Texture, 572, 1855);
 	}
 	if (torchCount4 == 3) {
-		app->render->DrawRectangle({ 572,1855,50,50 }, 0, 255, 0);
+		app->render->DrawTexture(torch4Texture, 572, 1855);
 	}
 	if (torchCount4 == 4) {
-		app->render->DrawRectangle({ 572,1855,50,50 }, 0, 0, 255);
+		app->render->DrawTexture(torch5Texture, 572, 1855);
 	}
 	if (torchCount4 == 5) {
-		app->render->DrawRectangle({ 572,1855,50,50 }, 255, 0, 255);
+		app->render->DrawTexture(torch6Texture, 572, 1855);
 	}
 }
 

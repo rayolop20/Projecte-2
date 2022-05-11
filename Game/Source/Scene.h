@@ -148,6 +148,13 @@ private:
 	SDL_Texture* img;
 
 	SDL_Texture* pathTex;
+	SDL_Texture* torch1Texture;
+	SDL_Texture* torch2Texture;
+	SDL_Texture* torch3Texture;
+	SDL_Texture* torch4Texture;
+	SDL_Texture* torch5Texture;
+	SDL_Texture* torch6Texture;
+	SDL_Texture* torch7Texture;
 	SDL_Texture* originTex;
 	// L13: TODO 2: Declare an Item and create it using the EntityManager
 
