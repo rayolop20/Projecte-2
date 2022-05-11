@@ -159,6 +159,9 @@ private:
  
 	iPoint origin;
 	bool originSelected = false;
+
+	int Puzle_Fail = 1;
+	int Pressure_plate = 1;
 };
 
 #endif // __SCENE_H__

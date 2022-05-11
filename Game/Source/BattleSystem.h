@@ -303,6 +303,10 @@ private:
 	bool curtainBounce = false;
 	bool transitionEnd = false;
 	int curtainCont = 0;
+
+	int Hitdmg = 1;
+	int Shot = 1;
+	int Bite_Dog = 1;
 };
 
 #endif // __BATTLESYSTEM_H__

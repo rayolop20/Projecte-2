@@ -266,6 +266,13 @@ bool battleSystem::Start()
 		poisonCount[i] = 0;
 	}
 	// L03: DONE: Load map
+	//Hitdmg = app->audio->LoadFx("Assets/Audio/Fx/hit_dmg.wav");
+	//Shot = app->audio->LoadFx("Assets/Audio/Fx/shot.wav");
+	//Bite_Dog = app->audio->LoadFx("Assets/Audio/Fx/bite_dog.wav");
+	Hitdmg = app->audio->LoadFx("Audio/Used/hit_dmg.wav");
+	Shot = app->audio->LoadFx("Audio/Used/shot.wav");
+	Bite_Dog = app->audio->LoadFx("Audio/Used/bite_dog.wav");
+
 	selectPlayer = app->tex->Load("Assets/Textures/UI/choseplayers.png");
 	Tutorial = app->tex->Load("Assets/Textures/UI/qte_tutorial.png");
 	QTE4 = app->tex->Load("Assets/Textures/UI/qte4.png");
@@ -728,6 +735,7 @@ void battleSystem::AttackAnimations() {
 		currentAttack1 = &AttackAnim1;
 		app->render->DrawTexture(player1A, app->player->P1.position.x - 420 + 100, app->player->P1.position.y - 320, &player1AR);
 		currentAttack1->Update();
+		app->audio->PlayFx(Shot);
 		if (AttackAnim1.currentFrame >= 4.0) {
 			AttackAnim1.currentFrame = 0.0;
 			puta1 = false;
@@ -745,6 +753,7 @@ void battleSystem::AttackAnimations() {
 		currentAttack2 = &AttackAnim2;
 		app->render->DrawTexture(player2A, app->player->P1.position.x - 450, app->player->P1.position.y - 320 + 130, &player2AR);
 		currentAttack2->Update();
+		app->audio->PlayFx(Bite_Dog);
 		if (AttackAnim2.currentFrame >= 4.0) {
 			AttackAnim2.currentFrame = 0.0;
 			PlayerTurn = false;
@@ -761,6 +770,7 @@ void battleSystem::AttackAnimations() {
 		currentAttack3 = &AttackAnim3;
 		app->render->DrawTexture(player3A, app->player->P1.position.x - 450 + 120, app->player->P1.position.y - 320 + 260, &player3AR);
 		currentAttack3->Update();
+		app->audio->PlayFx(Shot);
 		if (AttackAnim3.currentFrame >= 5.0) {
 			AttackAnim3.currentFrame = 0.0;
 			PlayerTurn = false;
@@ -777,6 +787,7 @@ void battleSystem::AttackAnimations() {
 		currentAttack4 = &AttackAnim4;
 		app->render->DrawTexture(player4A, app->player->P1.position.x - 450, app->player->P1.position.y - 320 + 390, &player4AR);
 		currentAttack4->Update();
+		app->audio->PlayFx(Shot);
 		if (AttackAnim4.currentFrame >= 4.0) {
 			PlayerTurn = false;
 			AttackAnim4.currentFrame = 0;
@@ -793,6 +804,7 @@ void battleSystem::AttackAnimations() {
 		currentAttack5 = &AttackAnim5;
 		app->render->DrawTexture(player5A, app->player->P1.position.x - 450, app->player->P1.position.y - 320 + 390, &player5AR);
 		currentAttack5->Update();
+		app->audio->PlayFx(Shot);
 		if (AttackAnim5.currentFrame >= 4.0) {
 			PlayerTurn = false;
 			AttackAnim5.currentFrame = 0;
@@ -812,6 +824,7 @@ void battleSystem::HitPlayersAnimations() {
 		currentHit1 = &HitAnim1;
 		app->render->DrawTexture(player1H, app->player->P1.position.x - 420 + 100, app->player->P1.position.y - 320, &player1HR);
 		currentHit1->Update();
+		app->audio->PlayFx(Hitdmg);
 		if (HitAnim1.currentFrame >= 3.0) {
 			HitAnim1.currentFrame = 0.0;
 			playerTarget = 0;
@@ -823,6 +836,7 @@ void battleSystem::HitPlayersAnimations() {
 		currentHit2 = &HitAnim2;
 		app->render->DrawTexture(player2H, app->player->P1.position.x - 450, app->player->P1.position.y - 320 + 130, &player2HR);
 		currentHit2->Update();
+		app->audio->PlayFx(Hitdmg);
 		if (HitAnim2.currentFrame >= 3.0) {
 			HitAnim2.currentFrame = 0.0;
 			playerTarget = 0;
@@ -834,6 +848,7 @@ void battleSystem::HitPlayersAnimations() {
 		currentHit3 = &HitAnim3;
 		app->render->DrawTexture(player3H, app->player->P1.position.x - 450 + 120, app->player->P1.position.y - 320 + 260, &player3HR);
 		currentHit3->Update();
+		app->audio->PlayFx(Hitdmg);
 		if (HitAnim3.currentFrame >= 3.0) {
 			HitAnim3.currentFrame = 0.0;
 			playerTarget = 0;
@@ -845,6 +860,7 @@ void battleSystem::HitPlayersAnimations() {
 		currentHit4 = &HitAnim4;
 		app->render->DrawTexture(player4H, app->player->P1.position.x - 450, app->player->P1.position.y - 320 + 390, &player4HR);
 		currentHit4->Update();
+		app->audio->PlayFx(Hitdmg);
 		if (HitAnim4.currentFrame >= 3.0) {
 			HitAnim4.currentFrame = 0.0;
 			playerTarget = 0;
@@ -856,6 +872,7 @@ void battleSystem::HitPlayersAnimations() {
 		currentHit5 = &HitAnim5;
 		app->render->DrawTexture(player5H, app->player->P1.position.x - 450, app->player->P1.position.y - 320 + 390, &player5HR);
 		currentHit5->Update();
+		app->audio->PlayFx(Hitdmg);
 		if (HitAnim5.currentFrame >= 3.0) {
 			HitAnim5.currentFrame = 0.0;
 			playerTarget = 0;
