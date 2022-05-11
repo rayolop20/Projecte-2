@@ -35,7 +35,7 @@ public:
 
 	bool OnGuiMouseClickEvent(GuiControl* control);
 
-	void Menu();
+	void Stats();
 
 	void MenuConfig();
 

@@ -15,6 +15,7 @@
 #include "BattleSystem.h"
 #include "Scene.h"
 #include "CharacterMenu.h"
+#include "StatsMenu.h"
 #include "Menu.h"
 
 #include "Defs.h"
@@ -1560,7 +1561,34 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 		if (control->id == 65)
 		{
 			StatsEnable = true;
-			CloseStatsMenu->state = GuiControlState::NORMAL;
+			app->statsMenu->Enable();
+			MiniPlayerButton1->state = GuiControlState::DISABLED;
+			MiniPlayerButton2->state = GuiControlState::DISABLED;
+			MiniPlayerButton3->state = GuiControlState::DISABLED;
+			MiniPlayerButton4->state = GuiControlState::DISABLED;
+			Attack->state = GuiControlState::DISABLED;
+			Attack1->state = GuiControlState::DISABLED;
+			Attack2->state = GuiControlState::DISABLED;
+			SpecialAttack->state = GuiControlState::DISABLED;
+			Inventory->state = GuiControlState::DISABLED;
+			StatsMenu->state = GuiControlState::DISABLED;
+			Run->state = GuiControlState::DISABLED;
+		}
+		if (control->id == 66)
+		{
+			StatsEnable = false;
+			app->statsMenu->Disable();
+			MiniPlayerButton1->state = GuiControlState::NORMAL;
+			MiniPlayerButton2->state = GuiControlState::NORMAL;
+			MiniPlayerButton3->state = GuiControlState::NORMAL;
+			MiniPlayerButton4->state = GuiControlState::NORMAL;
+			Attack->state = GuiControlState::NORMAL;
+			Attack1->state = GuiControlState::NORMAL;
+			Attack2->state = GuiControlState::NORMAL;
+			SpecialAttack->state = GuiControlState::NORMAL;
+			Inventory->state = GuiControlState::NORMAL;
+			StatsMenu->state = GuiControlState::NORMAL;
+			Run->state = GuiControlState::NORMAL;
 		}
 	}
 	}
