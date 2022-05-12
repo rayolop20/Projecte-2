@@ -50,8 +50,10 @@ bool Scene::Start()
 	};
 	//Puzle_Fail = app->audio->LoadFx("Assets/Audio/Fx/fail_puzle.wav");
 	//Pressure_plate = app->audio->LoadFx("Assets/Audio/Fx/pressure_plate.wav");
+	//Open_Door = app->audio->LoadFx("Assets/Audio/Fx/open_door.wav");
 	Puzle_Fail = app->audio->LoadFx("Audio/Used/fail_puzle.wav");
 	Pressure_plate = app->audio->LoadFx("Audio/Used/pressure_plate.wav");
+	Open_Door = app->audio->LoadFx("Audio/Used/open_door.wav");
 	door = app->tex->Load("Assets/Textures/Assets/door.png");
 	app->map->DColisions();
 	pathTex = app->tex->Load("Assets/Maps/path2.png");
@@ -262,6 +264,7 @@ bool Scene::Update(float dt)
 				app->audio->PlayFx(Puzle_Fail);
 			}
 			if (pressurePlate1 == false && pressurePlate2 == false && pressurePlate3 == false) {
+				app->audio->PlayFx(Open_Door);
 				puzzle1Active = false;
 			}
 		}

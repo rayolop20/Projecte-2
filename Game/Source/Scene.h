@@ -143,6 +143,7 @@ public:
 	bool prepared = false;
 
 	int xCont = 0;
+	int Open_Door = 1;
 private:
 
 	SDL_Texture* img;
@@ -162,6 +163,7 @@ private:
 
 	int Puzle_Fail = 1;
 	int Pressure_plate = 1;
+
 };
 
 #endif // __SCENE_H__

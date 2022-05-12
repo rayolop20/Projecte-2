@@ -117,6 +117,7 @@ bool EntityNPC::Update(float dt)
 
 	if (app->player->P2.IsAlive == true && app->player->P3.IsAlive == true && app->player->P4.IsAlive == true) {
 		porta_2->pendingToDelete = true;
+		app->audio->PlayFx(app->scene->Open_Door);
 	}
 	else if(app->menu->config == false && app->BTSystem->battle == false && app->BTSystem->battle1 == true){
 		app->render->DrawTexture(door3, 1536, 2304);
@@ -365,6 +366,7 @@ bool EntityNPC::Update(float dt)
 			sprintf_s(Text3, "injuries, i do not remember where it is, but I think this");
 			sprintf_s(Text4, " key may be a clue");
 			app->player->door3active = true;
+			app->audio->PlayFx(app->scene->Open_Door);
 			app->characterMenu->Item6->state = GuiControlState::NORMAL;
 			app->characterMenu->item6state = true;
 			app->fonts->DrawTxt(250, 502, FText, Text1);

@@ -269,9 +269,11 @@ bool battleSystem::Start()
 	//Hitdmg = app->audio->LoadFx("Assets/Audio/Fx/hit_dmg.wav");
 	//Shot = app->audio->LoadFx("Assets/Audio/Fx/shot.wav");
 	//Bite_Dog = app->audio->LoadFx("Assets/Audio/Fx/bite_dog.wav");
+	//Knive = app->audio->LoadFx("Assets/Audio/Fx/knive.wav");
 	Hitdmg = app->audio->LoadFx("Audio/Used/hit_dmg.wav");
 	Shot = app->audio->LoadFx("Audio/Used/shot.wav");
 	Bite_Dog = app->audio->LoadFx("Audio/Used/bite_dog.wav");
+	Knive = app->audio->LoadFx("Audio/Used/knive.wav");
 
 	selectPlayer = app->tex->Load("Assets/Textures/UI/choseplayers.png");
 	Tutorial = app->tex->Load("Assets/Textures/UI/qte_tutorial.png");
@@ -804,7 +806,7 @@ void battleSystem::AttackAnimations() {
 		currentAttack5 = &AttackAnim5;
 		app->render->DrawTexture(player5A, app->player->P1.position.x - 450, app->player->P1.position.y - 320 + 390, &player5AR);
 		currentAttack5->Update();
-		app->audio->PlayFx(Shot);
+		app->audio->PlayFx(Knive);
 		if (AttackAnim5.currentFrame >= 4.0) {
 			PlayerTurn = false;
 			AttackAnim5.currentFrame = 0;
