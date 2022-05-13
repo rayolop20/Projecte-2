@@ -266,15 +266,11 @@ bool battleSystem::Start()
 		poisonCount[i] = 0;
 	}
 	// L03: DONE: Load map
-	//Hitdmg = app->audio->LoadFx("Assets/Audio/Fx/hit_dmg.wav");
-	//Shot = app->audio->LoadFx("Assets/Audio/Fx/shot.wav");
-	//Bite_Dog = app->audio->LoadFx("Assets/Audio/Fx/bite_dog.wav");
-	//Knive = app->audio->LoadFx("Assets/Audio/Fx/knive.wav");
-	Hitdmg = app->audio->LoadFx("Audio/Used/hit_dmg.wav");
-	Shot = app->audio->LoadFx("Audio/Used/shot.wav");
-	Bite_Dog = app->audio->LoadFx("Audio/Used/bite_dog.wav");
-	Knive = app->audio->LoadFx("Audio/Used/knive.wav");
-
+	Hitdmg = app->audio->LoadFx("Assets/Audio/Fx/hit_dmg.wav");
+	Shot = app->audio->LoadFx("Assets/Audio/Fx/shot.wav");
+	Bite_Dog = app->audio->LoadFx("Assets/Audio/Fx/bite_dog.wav");
+	Knive = app->audio->LoadFx("Assets/Audio/Fx/knive.wav");
+	
 	selectPlayer = app->tex->Load("Assets/Textures/UI/choseplayers.png");
 	Tutorial = app->tex->Load("Assets/Textures/UI/qte_tutorial.png");
 	QTE4 = app->tex->Load("Assets/Textures/UI/qte4.png");

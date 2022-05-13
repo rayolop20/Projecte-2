@@ -48,12 +48,11 @@ bool Scene::Start()
 		if (app->map->CreateWalkabilityMap(w, h, &data)) app->pathfinding->SetMap(w, h, data);
 		RELEASE_ARRAY(data);
 	};
-	//Puzle_Fail = app->audio->LoadFx("Assets/Audio/Fx/fail_puzle.wav");
-	//Pressure_plate = app->audio->LoadFx("Assets/Audio/Fx/pressure_plate.wav");
-	//Open_Door = app->audio->LoadFx("Assets/Audio/Fx/open_door.wav");
-	Puzle_Fail = app->audio->LoadFx("Audio/Used/fail_puzle.wav");
-	Pressure_plate = app->audio->LoadFx("Audio/Used/pressure_plate.wav");
-	Open_Door = app->audio->LoadFx("Audio/Used/open_door.wav");
+	Puzle_Fail = app->audio->LoadFx("Assets/Audio/Fx/fail_puzle.wav");
+	Pressure_plate = app->audio->LoadFx("Assets/Audio/Fx/pressure_plate.wav");
+	Open_Door = app->audio->LoadFx("Assets/Audio/Fx/open_door.wav");
+	Puzle_Complete = app->audio->LoadFx("Assets/Audio/Fx/puzzle_complete.wav");
+	
 	door = app->tex->Load("Assets/Textures/Assets/door.png");
 	app->map->DColisions();
 	pathTex = app->tex->Load("Assets/Maps/path2.png");
@@ -265,6 +264,7 @@ bool Scene::Update(float dt)
 			}
 			if (pressurePlate1 == false && pressurePlate2 == false && pressurePlate3 == false) {
 				app->audio->PlayFx(Open_Door);
+				app->audio->PlayFx(Puzle_Complete);
 				puzzle1Active = false;
 			}
 		}
@@ -321,6 +321,7 @@ bool Scene::Update(float dt)
 			}
 			if (phase == 6) {
 				puzzle2Active = false;
+				app->audio->PlayFx(Puzle_Complete);
 			}
 			
 
@@ -354,6 +355,7 @@ bool Scene::Update(float dt)
 void Scene::CheckPuzzle3() {
 	if (torchCount1 == 3 && torchCount2 == 1 && torchCount3 == 5 && torchCount4 == 2) {
 		puzzle3Active = false;
+		app->audio->PlayFx(Puzle_Complete);
 	}
 }
 void Scene::Drawtorch1() {

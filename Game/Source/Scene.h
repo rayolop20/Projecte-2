@@ -163,6 +163,7 @@ private:
 
 	int Puzle_Fail = 1;
 	int Pressure_plate = 1;
+	int Puzle_Complete = 1;
 
 };
 

@@ -722,6 +722,7 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 				{
 					if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
 					{
+
 						P2.Move = true;
 						P2.P2Active = false;
 						P2.IsAlive = true;
