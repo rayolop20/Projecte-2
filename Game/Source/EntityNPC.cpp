@@ -76,6 +76,9 @@ bool EntityNPC::Start()
 	TextureNPC2 = app->tex->Load("Assets/Textures/NPC/npc2.png");
 	DialogueBox = app->tex->Load("Assets/Textures/UI/text_box.png");
 
+	//audio
+	Altar_AudioFX = app->audio->LoadFx("Assets/Audio/Fx/Altar_AudioFX.wav");
+
 	//text
 	char lookupTable[] = { "! @,_./0123456789$;< ?abcdefghijklmnopqrstuvwxyz" };
 	FText = app->fonts->Load("Assets/Textures/Fonts/fonts.png", lookupTable, 1);
@@ -92,7 +95,7 @@ bool EntityNPC::Start()
 		npc[1] = CreateNPC(957, 232, TextureNPC);
 		npc[2] = CreateNPC(1357, 1937, TextureNPC2);
 		npc[3] = CreateNPC(1357, 1500, TextureNPC4);
-		npc[4] = CreateNPC(1657, 1500, TextureNPC5);
+		npc[4] = CreateNPC(182, 1341, TextureNPC5);
 	
 	porta_1 = app->collisions->AddCollider({ 1312, 1664, 96, 64 }, Collider::Type::KEY_SENSOR, (Module*)app->entityManager);
 	porta_2 = app->collisions->AddCollider({ 1504, 2304,64, 96 }, Collider::Type::KEY_SENSOR, (Module*)app->entityManager);
@@ -117,6 +120,7 @@ bool EntityNPC::Update(float dt)
 
 	if (app->player->P2.IsAlive == true && app->player->P3.IsAlive == true && app->player->P4.IsAlive == true) {
 		porta_2->pendingToDelete = true;
+		app->audio->PlayFx(app->scene->Open_Door);
 	}
 	else if(app->menu->config == false && app->BTSystem->battle == false && app->BTSystem->battle1 == true){
 		app->render->DrawTexture(door3, 1536, 2304);
@@ -365,6 +369,7 @@ bool EntityNPC::Update(float dt)
 			sprintf_s(Text3, "injuries, i do not remember where it is, but I think this");
 			sprintf_s(Text4, " key may be a clue");
 			app->player->door3active = true;
+			app->audio->PlayFx(app->scene->Open_Door);
 			app->characterMenu->Item6->state = GuiControlState::NORMAL;
 			app->characterMenu->item6state = true;
 			app->fonts->DrawTxt(250, 502, FText, Text1);
@@ -473,10 +478,10 @@ bool EntityNPC::Update(float dt)
 	if (Dialogue5 == true)
 	{
 		app->scene->paused = true;
-
+		app->audio->PlayFx(Altar_AudioFX);
 		if (app->characterMenu->skeletonHead == false) {
 			app->render->DrawTexture(DialogueBox, app->player->P1.position.x - 360, app->player->P1.position.y + 160);
-			sprintf_s(Text1, "Only the chosen one can obtain this...");
+			sprintf_s(Text1, "only the chosen one can obtain this...");
 			sprintf_s(Text2, "if u are the Chosen one u know what i need");
 			app->fonts->DrawTxt(250, 502, FText, Text1);
 			app->fonts->DrawTxt(250, 542, FText, Text2);

@@ -108,7 +108,8 @@ public:
 	char Text3[150] = { "\0" };
 	char Text4[150] = { "\0" };
 	char Text5[150] = { "\0" };
-
+private:
+	int Altar_AudioFX = 1;
 };
 
 #endif // __ENTITYNPC_H__

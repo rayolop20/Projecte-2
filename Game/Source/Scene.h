@@ -143,6 +143,7 @@ public:
 	bool prepared = false;
 
 	int xCont = 0;
+	int Open_Door = 1;
 private:
 
 	SDL_Texture* img;
@@ -166,6 +167,11 @@ private:
  
 	iPoint origin;
 	bool originSelected = false;
+
+	int Puzle_Fail = 1;
+	int Pressure_plate = 1;
+	int Puzle_Complete = 1;
+
 };
 
 #endif // __SCENE_H__
