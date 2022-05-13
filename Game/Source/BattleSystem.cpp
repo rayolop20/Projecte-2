@@ -679,6 +679,7 @@ bool battleSystem::PostUpdate()
 			curtainBounce = true;
 			curtainCont = 0;
 			battle = false;
+			InventoryEnable = false;
 		}
 		else if (Curtain1.x <= (-app->render->camera.x - app->win->GetWidth() / 2) && curtainBounce)
 		{

@@ -39,7 +39,7 @@ bool CharacterMenu_Screen::Start()
 {
 	int a;
 
-	inventoryTex = app->tex->Load("Assets/Textures/UI/inventory.png");
+	inventoryTex = app->tex->Load("Assets/Textures/UI/Inventory.png");
 	inventoryTexBack = app->tex->Load("Assets/Textures/UI/inventory_bg.png");
 	russian = app->tex->Load("Assets/Textures/Soldiers/soldier_rusian.png");
 	american = app->tex->Load("Assets/Textures/Soldiers/soldier_american_dogmaster.png");
@@ -225,6 +225,9 @@ bool CharacterMenu_Screen::Update(float dt)
 
 		if (increaseHP > 0)	item4state = true;
 		else item4state = false;
+
+		if (smoke > 0)	item5state = true;
+		else item5state = false;
 
 		if (item1state) {
 			Item1Rect = Item1Pos;
@@ -1115,7 +1118,34 @@ bool CharacterMenu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 				}
 				else if (control->id == 54 && !item1state && !item2state && !item3state && !item4state && item5state)
 				{
-					typingTxt = true;					
+					if (app->BTSystem->battle == true)
+					{
+						app->BTSystem->transitionRep = 1;
+						app->BTSystem->Delay = false;
+						app->BTSystem->InventoryEnable = false;
+						app->BTSystem->battleEnd = true;
+						Character1->state = GuiControlState::DISABLED;
+						Character2->state = GuiControlState::DISABLED;
+						Character3->state = GuiControlState::DISABLED;
+						Character4->state = GuiControlState::DISABLED;
+
+						Item1->state = GuiControlState::DISABLED;
+						Item2->state = GuiControlState::DISABLED;
+						Item3->state = GuiControlState::DISABLED;
+						Item4->state = GuiControlState::DISABLED;
+						Item5->state = GuiControlState::DISABLED;
+						Item6->state = GuiControlState::DISABLED;
+						Item7->state = GuiControlState::DISABLED;
+						app->BTSystem->CloseInventory->state = GuiControlState::DISABLED;
+
+						exitInventory = true;
+						inventory = false;
+						smoke--;
+					}
+					else if (app->BTSystem->battle == false)
+					{
+						typingTxt = true;
+					}
 
 					buttonCont = 0;
 				}
@@ -1191,7 +1221,34 @@ bool CharacterMenu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 				}
 				else if (control->id == 55 && item1state && !item2state && !item3state && !item4state && item5state || control->id == 55 && increaseHP > 0 && !item1state && item2state && !item3state && !item4state && item5state ||	control->id == 55 && increaseHP > 0 && !item1state && !item2state && item3state && !item4state && item5state ||	control->id == 55 && increaseHP > 0 && !item1state && !item2state && !item3state && item4state && item5state)
 				{
-					typingTxt = true;
+					if (app->BTSystem->battle == true)
+					{
+						app->BTSystem->transitionRep = 1;
+						app->BTSystem->Delay = false;
+						app->BTSystem->InventoryEnable = false;
+						app->BTSystem->battleEnd = true;
+						Character1->state = GuiControlState::DISABLED;
+						Character2->state = GuiControlState::DISABLED;
+						Character3->state = GuiControlState::DISABLED;
+						Character4->state = GuiControlState::DISABLED;
+
+						Item1->state = GuiControlState::DISABLED;
+						Item2->state = GuiControlState::DISABLED;
+						Item3->state = GuiControlState::DISABLED;
+						Item4->state = GuiControlState::DISABLED;
+						Item5->state = GuiControlState::DISABLED;
+						Item6->state = GuiControlState::DISABLED;
+						Item7->state = GuiControlState::DISABLED;
+						app->BTSystem->CloseInventory->state = GuiControlState::DISABLED;
+
+						exitInventory = true;
+						inventory = false;
+						smoke--;
+					}
+					else if (app->BTSystem->battle == false)
+					{
+						typingTxt = true;
+					}
 
 					buttonCont = 0;
 				}
@@ -1242,7 +1299,34 @@ bool CharacterMenu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 				}
 				else if (control->id == 56 && increaseHP > 0 && item1state && item2state && !item3state && !item4state && item5state|| control->id == 56 && increaseHP > 0 && item1state && !item2state && item3state && !item4state && item5state || control->id == 56 && increaseHP > 0 && item1state && !item2state && !item3state && item4state && item5state || control->id == 56 && increaseHP > 0 && !item1state && item2state && !item3state && item4state && item5state || control->id == 56 && increaseHP > 0 && !item1state && item2state && item3state && !item4state && item5state || control->id == 56 && increaseHP > 0 && !item1state && !item2state && item3state && item4state && item5state)
 				{
-					typingTxt = true;
+					if (app->BTSystem->battle == true)
+					{
+						app->BTSystem->transitionRep = 1;
+						app->BTSystem->Delay = false;
+						app->BTSystem->InventoryEnable = false;
+						app->BTSystem->battleEnd = true;
+						Character1->state = GuiControlState::DISABLED;
+						Character2->state = GuiControlState::DISABLED;
+						Character3->state = GuiControlState::DISABLED;
+						Character4->state = GuiControlState::DISABLED;
+
+						Item1->state = GuiControlState::DISABLED;
+						Item2->state = GuiControlState::DISABLED;
+						Item3->state = GuiControlState::DISABLED;
+						Item4->state = GuiControlState::DISABLED;
+						Item5->state = GuiControlState::DISABLED;
+						Item6->state = GuiControlState::DISABLED;
+						Item7->state = GuiControlState::DISABLED;
+						app->BTSystem->CloseInventory->state = GuiControlState::DISABLED;
+
+						exitInventory = true;
+						inventory = false;
+						smoke--;
+					}
+					else if (app->BTSystem->battle == false)
+					{
+						typingTxt = true;
+					}
 
 					buttonCont = 0;
 				}
@@ -1274,7 +1358,34 @@ bool CharacterMenu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 				}
 				else if (control->id == 57 && !item1state && item2state && item3state && item4state && item5state || control->id == 57 && item1state && !item2state && item3state && item4state && item5state || control->id == 57 && item1state && item2state && !item3state && item4state && item5state || control->id == 57 && item1state && item2state && item3state && !item4state && item5state)
 				{
-					typingTxt = true;
+					if (app->BTSystem->battle == true)
+					{
+						app->BTSystem->transitionRep = 1;
+						app->BTSystem->Delay = false;
+						app->BTSystem->InventoryEnable = false;
+						app->BTSystem->battleEnd = true;
+						Character1->state = GuiControlState::DISABLED;
+						Character2->state = GuiControlState::DISABLED;
+						Character3->state = GuiControlState::DISABLED;
+						Character4->state = GuiControlState::DISABLED;
+
+						Item1->state = GuiControlState::DISABLED;
+						Item2->state = GuiControlState::DISABLED;
+						Item3->state = GuiControlState::DISABLED;
+						Item4->state = GuiControlState::DISABLED;
+						Item5->state = GuiControlState::DISABLED;
+						Item6->state = GuiControlState::DISABLED;
+						Item7->state = GuiControlState::DISABLED;
+						app->BTSystem->CloseInventory->state = GuiControlState::DISABLED;
+
+						exitInventory = true;
+						inventory = false;
+						smoke--;
+					}
+					else if (app->BTSystem->battle == false)
+					{
+						typingTxt = true;
+					}
 
 					buttonCont = 0;
 				}
@@ -1282,7 +1393,34 @@ bool CharacterMenu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 				//------------------5th grid pos----------------------
 				if (control->id == 58 && item1state && item2state && item3state && item4state  && item5state)
 				{
-					typingTxt = true;
+					if (app->BTSystem->battle == true)
+					{
+						app->BTSystem->transitionRep = 1;
+						app->BTSystem->Delay = false;
+						app->BTSystem->InventoryEnable = false;
+						app->BTSystem->battleEnd = true;		
+						Character1->state = GuiControlState::DISABLED;
+						Character2->state = GuiControlState::DISABLED;
+						Character3->state = GuiControlState::DISABLED;
+						Character4->state = GuiControlState::DISABLED;
+
+						Item1->state = GuiControlState::DISABLED;
+						Item2->state = GuiControlState::DISABLED;
+						Item3->state = GuiControlState::DISABLED;
+						Item4->state = GuiControlState::DISABLED;
+						Item5->state = GuiControlState::DISABLED;
+						Item6->state = GuiControlState::DISABLED;
+						Item7->state = GuiControlState::DISABLED;
+						app->BTSystem->CloseInventory->state = GuiControlState::DISABLED;
+
+						exitInventory = true;
+						inventory = false;
+						smoke--;
+					}
+					else if (app->BTSystem->battle == false)
+					{
+						typingTxt = true;
+					}
 
 					buttonCont = 0;
 				}
