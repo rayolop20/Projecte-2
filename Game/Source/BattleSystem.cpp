@@ -68,9 +68,16 @@ battleSystem::battleSystem() : Module()
 
 	name.Create("battleSystem");
 
-	idleAttack1.PushBack({ 0, 0, 160, 192 });
+	idleAttack1.PushBack({ 0, 202, 160, 192 });
+	idleAttack1.PushBack({ 160, 202, 160, 192 });
+	idleAttack1.PushBack({ 320, 202, 160, 192 });
+	idleAttack1.PushBack({ 480, 202, 160, 192 });
+	idleAttack1.PushBack({ 640, 202, 160, 192 });
+	idleAttack1.PushBack({ 800, 202, 160, 192 });
+	idleAttack1.PushBack({ 960, 202, 160, 192 });
 	idleAttack1.loop = true;
-	idleAttack1.speed = 0.001f;
+	idleAttack1.speed = 0.08f;
+
 	AttackAnim1.PushBack({ 0, 0, 160, 192 });
 	AttackAnim1.PushBack({ 160, 0, 160, 192 });
 	AttackAnim1.PushBack({ 320, 0, 160, 192 });
@@ -79,9 +86,16 @@ battleSystem::battleSystem() : Module()
 	AttackAnim1.loop = false;
 	AttackAnim1.speed = 0.08f;
 	
-	idleAttack2.PushBack({ 0, 0, 160, 192 });
+	idleAttack2.PushBack({ 0, 225, 160, 192 });
+	idleAttack2.PushBack({ 160, 225, 160, 192 });
+	idleAttack2.PushBack({ 320, 225, 160, 192 });
+	idleAttack2.PushBack({ 480, 225, 160, 192 });
+	idleAttack2.PushBack({ 640, 225, 160, 192 });
+	idleAttack2.PushBack({ 800, 225, 160, 192 });
+	idleAttack2.PushBack({ 960, 225, 160, 192 });
 	idleAttack2.loop = true;
-	idleAttack2.speed = 0.001f;
+	idleAttack2.speed = 0.08f;
+
 	AttackAnim2.PushBack({ 0, 0, 160, 192 });
 	AttackAnim2.PushBack({ 160, 0, 160, 192 });
 	AttackAnim2.PushBack({ 320, 0, 160, 192 });
@@ -90,9 +104,16 @@ battleSystem::battleSystem() : Module()
 	AttackAnim2.loop = false;
 	AttackAnim2.speed = 0.08f;
 	
-	idleAttack3.PushBack({ 0, 0, 160, 192 });
+	idleAttack3.PushBack({ 0, 195, 160, 192 });
+	idleAttack3.PushBack({ 160, 195, 160, 192 });
+	idleAttack3.PushBack({ 320, 195, 160, 192 });
+	idleAttack3.PushBack({ 480, 195, 160, 192 });
+	idleAttack3.PushBack({ 640, 195, 160, 192 });
+	idleAttack3.PushBack({ 800, 195, 160, 192 });
+	idleAttack3.PushBack({ 960, 195, 160, 192 });
 	idleAttack3.loop = true;
-	idleAttack3.speed = 0.001f;
+	idleAttack3.speed = 0.08f;
+
 	AttackAnim3.PushBack({ 0, 0, 160, 192 });
 	AttackAnim3.PushBack({ 160, 0, 160, 192 });
 	AttackAnim3.PushBack({ 320, 0, 160, 192 });
@@ -103,9 +124,16 @@ battleSystem::battleSystem() : Module()
 	AttackAnim3.speed = 0.08f;
 	
 	
-	idleAttack4.PushBack({ 0, 0, 160, 192 });
+	idleAttack4.PushBack({ 0, 205, 160, 192 });
+	idleAttack4.PushBack({ 160, 205, 160, 192 });
+	idleAttack4.PushBack({ 320, 205, 160, 192 });
+	idleAttack4.PushBack({ 480, 205, 160, 192 });
+	idleAttack4.PushBack({ 640, 205, 160, 192 });
+	idleAttack4.PushBack({ 800, 205, 160, 192 });
+	idleAttack4.PushBack({ 960, 205, 160, 192 });
 	idleAttack4.loop = true;
-	idleAttack4.speed = 0.001f;
+	idleAttack4.speed = 0.08f;
+
 	AttackAnim4.PushBack({ 0, 0, 160, 192 });
 	AttackAnim4.PushBack({ 160, 0, 160, 192 });
 	AttackAnim4.PushBack({ 320, 0, 160, 192 });
@@ -114,9 +142,16 @@ battleSystem::battleSystem() : Module()
 	AttackAnim4.loop = false;
 	AttackAnim4.speed = 0.08f;
 	
-	idleAttack5.PushBack({ 0, 0, 160, 192 });
+	idleAttack5.PushBack({ 0, 217, 160, 192 });
+	idleAttack5.PushBack({ 160, 217, 160, 192 });
+	idleAttack5.PushBack({ 300, 217, 160, 192 });
+	idleAttack5.PushBack({ 480, 217, 160, 192 });
+	idleAttack5.PushBack({ 640, 217, 160, 192 });
+	idleAttack5.PushBack({ 800, 217, 160, 192 });
+	idleAttack5.PushBack({ 960, 217, 160, 192 });
 	idleAttack5.loop = true;
-	idleAttack5.speed = 0.001f;
+	idleAttack5.speed = 0.08f;
+
 	AttackAnim5.PushBack({ 0, 0, 160, 192 });
 	AttackAnim5.PushBack({ 160, 0, 160, 192 });
 	AttackAnim5.PushBack({ 320, 0, 160, 192 });
@@ -158,6 +193,7 @@ battleSystem::battleSystem() : Module()
 	idleHit4.PushBack({ 0, 0, 160, 192 });
 	idleHit4.loop = false;
 	idleHit4.speed = 0.001f;
+
 	HitAnim4.PushBack({ 0, 0, 160, 192 });
 	HitAnim4.PushBack({ 160, 0, 160, 192 });
 	HitAnim4.PushBack({ 320, 0, 160, 192 });
@@ -745,6 +781,7 @@ void battleSystem::AttackAnimations() {
 	else if (battle == true && playerTarget != 1) {
 		puta1 = false;
 		currentAttack1 = &idleAttack1;
+		currentAttack1->Update();
 		app->render->DrawTexture(player1A, app->player->P1.position.x - 420 + 100, app->player->P1.position.y - 320, &player1AR);
 	}
 
@@ -763,6 +800,7 @@ void battleSystem::AttackAnimations() {
 	else if (battle == true && app->player->P2.IsAlive == true && playerTarget != 2) {
 		puta2 = false;
 		currentAttack2 = &idleAttack2;
+		currentAttack2->Update();
 		app->render->DrawTexture(player2A, app->player->P1.position.x - 450, app->player->P1.position.y - 320 + 130, &player2AR);
 	}
 	if (puta3 == true && AttackPlayer == 3 && battle == true) {//British
@@ -780,6 +818,7 @@ void battleSystem::AttackAnimations() {
 	else if (battle == true && app->player->P3.IsAlive == true && playerTarget != 3) {
 		puta3 = false;
 		currentAttack3 = &idleAttack3;
+		currentAttack3->Update();
 		app->render->DrawTexture(player3A, app->player->P1.position.x - 450 + 120, app->player->P1.position.y - 320 + 260, &player3AR);
 	}
 	if (puta4 == true && AttackPlayer == 4 && battle1 == true && hit == false) {//Italian
@@ -797,6 +836,7 @@ void battleSystem::AttackAnimations() {
 	else if (battle == true && app->player->P4.IsAlive == true && battle1 == true && playerTarget != 4) {
 		puta4 = false;
 		currentAttack4 = &idleAttack4;
+		currentAttack4->Update();
 		app->render->DrawTexture(player4A, app->player->P1.position.x - 450, app->player->P1.position.y - 320 + 390, &player4AR);
 	}
 	if (puta4 == true && AttackPlayer == 4 && battle1 == false && hit == false) {//Italian
@@ -814,6 +854,7 @@ void battleSystem::AttackAnimations() {
 	else if (battle == true && app->player->P4.IsAlive == true && battle1 == false && playerTarget != 4) {
 		puta4 = false;
 		currentAttack5 = &idleAttack5;
+		currentAttack5->Update();
 		app->render->DrawTexture(player5A, app->player->P1.position.x - 450, app->player->P1.position.y - 320 + 390, &player5AR);
 	}
 }

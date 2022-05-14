@@ -94,7 +94,7 @@ bool EntityNPC::Start()
 		npc[0] = CreateNPC(1050, 1364, app->characterMenu->frenchNpc);
 		npc[1] = CreateNPC(957, 232, TextureNPC);
 		npc[2] = CreateNPC(1357, 1937, TextureNPC2);
-		npc[3] = CreateNPC(1357, 1500, TextureNPC4);
+		npc[3] = CreateNPC(1410, 1343, TextureNPC4);
 		npc[4] = CreateNPC(182, 1341, TextureNPC5);
 	
 	porta_1 = app->collisions->AddCollider({ 1312, 1664, 96, 64 }, Collider::Type::KEY_SENSOR, (Module*)app->entityManager);
@@ -120,7 +120,12 @@ bool EntityNPC::Update(float dt)
 
 	if (app->player->P2.IsAlive == true && app->player->P3.IsAlive == true && app->player->P4.IsAlive == true) {
 		porta_2->pendingToDelete = true;
-		app->audio->PlayFx(app->scene->Open_Door);
+		if (open == false)
+		{
+			app->audio->PlayFx(app->scene->Open_Door);
+		}
+		open = true;
+	
 	}
 	else if(app->menu->config == false && app->BTSystem->battle == false && app->BTSystem->battle1 == true){
 		app->render->DrawTexture(door3, 1536, 2304);
@@ -507,6 +512,7 @@ bool EntityNPC::Update(float dt)
 				app->scene->paused = false;
 				FinishQ5 = true;
 				//afegir suma variables personatge
+
 			}
 		}
 	}

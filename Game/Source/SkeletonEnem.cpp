@@ -11,6 +11,7 @@
 #include "Map.h"
 #include "Window.h"
 #include "Menu.h"
+#include "CharacterMenu.h"
 
 #include "Log.h"
 #include "DynArray.h"
@@ -772,6 +773,7 @@ void SkeletonEnem::CheckEnemy() {
 			if (Ston[i].hp <= 0) {
 				Ston[i].dead = true;
 				app->BTSystem->CombatDeaths += 1;
+				app->characterMenu->skeletonHead = true;
 			}
 			if (app->BTSystem->CombatDeaths == Ston[WhichSkeleton].numEnemies) {
 				app->BTSystem->battleEnd = true;

@@ -110,6 +110,7 @@ public:
 	char Text5[150] = { "\0" };
 private:
 	int Altar_AudioFX = 1;
+	bool open = false;
 };
 
 #endif // __ENTITYNPC_H__
