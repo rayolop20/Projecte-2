@@ -376,6 +376,10 @@ bool battleSystem::Update(float dt)
 		StatsMenu->bounds.y = app->player->P1.position.y - 300;
 		StatsMenu->bounds.w = 78;
 		StatsMenu->bounds.h = 56;
+		CloseStatsMenu->bounds.x = app->player->P1.position.x + 550;
+		CloseStatsMenu->bounds.y = app->player->P1.position.y - 290;
+		CloseStatsMenu->bounds.w = 50;
+		CloseStatsMenu->bounds.h = 50;
 		CloseInventory->bounds.x = app->player->P1.position.x + 550;
 		CloseInventory->bounds.y = app->player->P1.position.y - 290;
 		CloseInventory->bounds.w = 50;
@@ -464,6 +468,8 @@ bool battleSystem::Update(float dt)
 		Attack2->bounds.h = 0;
 		CloseInventory->bounds.w = 0;
 		CloseInventory->bounds.h = 0;
+		CloseStatsMenu->bounds.w = 0;
+		CloseStatsMenu->bounds.h = 0;
 		Run->bounds.w = 0;
 		Run->bounds.h = 0;
 		for (int i = 0; i < 4; i++) {
@@ -538,6 +544,9 @@ bool battleSystem::Update(float dt)
 		CloseInventory->state = GuiControlState::DISABLED;
 
 		invenCont = 0;
+	}
+	if (app->BTSystem->StatsEnable == true) {
+	CloseStatsMenu->state = GuiControlState::NORMAL;
 	}
 	if (debug == true) {
 		//Debug Collisions
@@ -1589,7 +1598,9 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 			Inventory->state = GuiControlState::NORMAL;
 			StatsMenu->state = GuiControlState::NORMAL;
 			Run->state = GuiControlState::NORMAL;
+			CloseStatsMenu->state = GuiControlState::DISABLED;
 		}
+	
 	}
 	}
 	
