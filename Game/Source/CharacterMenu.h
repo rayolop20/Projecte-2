@@ -79,6 +79,7 @@ public:
 	int healing = 2;
 	int increaseHP = 2;
 	bool skeletonHead = false;
+	int smoke = 3;
 
 	GuiButton* Character1;
 	GuiButton* Character2;
