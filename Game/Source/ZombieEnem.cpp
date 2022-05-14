@@ -109,7 +109,7 @@ bool ZombieEnem::Start()
 
 	Zbie[0] = CreateZombie(/*Vpir->Pos.x, Vpir->Pos.x,*/960, 2336, TextureZombie);
 	Zbie[10] = CreateZombie(/*Vpir->Pos.x, Vpir->Pos.x,*/960, 1920, TextureZombie);
-	Zbie[20] = CreateZombie(/*Vpir->Pos.x, Vpir->Pos.x,*/928, 704, TextureZombie);
+	Zbie[20] = CreateZombie(/*Vpir->Pos.x, Vpir->Pos.x,*/928, 608, TextureZombie);
 
 	return false;
 }

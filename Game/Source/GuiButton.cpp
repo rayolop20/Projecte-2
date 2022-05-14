@@ -8,6 +8,7 @@
 #include "Player.h"
 #include "Animation.h"
 #include "BattleSystem.h"
+#include "CharacterMenu.h"
 #include "Menu.h"
 
 GuiButton::GuiButton(uint32 id, SDL_Rect bounds, const char* text) : GuiControl(GuiControlType::BUTTON, id)
@@ -267,7 +268,7 @@ bool GuiButton::Draw(Render* render)
 		}
 		
 		//Run
-		if (id == 36 && app->BTSystem->battle == true)
+		if (id == 36 && app->BTSystem->battle == true && app->characterMenu->smoke > 0)
 		{
 			uitext->x = 198;
 			uitext->y = 82;
@@ -280,7 +281,7 @@ bool GuiButton::Draw(Render* render)
 			app->render->DrawTexture(app->BTSystem->quitCross, app->player->P1.position.x + 550, app->player->P1.position.y - 290);
 		}
 		//StatsMenu
-		if (id == 65 && app->BTSystem->battle == true)
+		if (id == 65 && app->BTSystem->battle == true && app->characterMenu->smoke <= 0)
 		{
 			uitext->x = 26;
 			uitext->y = 82;

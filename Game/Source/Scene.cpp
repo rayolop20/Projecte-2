@@ -63,6 +63,18 @@ bool Scene::Start()
 	torch5Texture = app->tex->Load("Assets/Textures/Assets/torch_turquoise.png");
 	torch6Texture = app->tex->Load("Assets/Textures/Assets/torch_yellow.png");
 	torch7Texture = app->tex->Load("Assets/Textures/Assets/torch_red.png");
+
+	pressed = app->tex->Load("Assets/Textures/Assets/floor_tile_pressed.png");
+	nonPressed = app->tex->Load("Assets/Textures/Assets/floor_tile.png");
+
+	greyButton = app->tex->Load("Assets/Textures/Assets/button_grey.png");
+	greenButton = app->tex->Load("Assets/Textures/Assets/button_green.png");
+	blueButton = app->tex->Load("Assets/Textures/Assets/button_blue.png");
+	redButton = app->tex->Load("Assets/Textures/Assets/button_red.png");
+	purpleButton = app->tex->Load("Assets/Textures/Assets/button_purple.png");
+	turquoiseButton = app->tex->Load("Assets/Textures/Assets/button_turquoise.png");
+	yellowButton = app->tex->Load("Assets/Textures/Assets/button_yellow.png");
+
 	if (puzzle1Active == true) {
 		//Wall1 = app->collisions->AddCollider({ 608+32,2176+32,32,32 }, Collider::Type::WALLH);
 		Wall1 = app->collisions->AddCollider({ 608,2176+32,32,32 }, Collider::Type::WALLV,this);
@@ -256,6 +268,25 @@ bool Scene::Update(float dt)
 			Plate1 = app->collisions->AddCollider({ 64,2432,64,64 }, Collider::Type::PRESSURE_PLATE1);
 			Plate2 = app->collisions->AddCollider({ 192,2016,64,64 }, Collider::Type::PRESSURE_PLATE2);
 			Plate3 = app->collisions->AddCollider({ 800,2240,64,64 }, Collider::Type::PRESSURE_PLATE3);
+			if (app->scene->pressurePlate1 == true) {
+				app->render->DrawTexture(nonPressed, 64, 2432);
+			}
+			else {
+				app->render->DrawTexture(pressed, 64, 2432);
+			}
+			if (app->scene->pressurePlate2 == true) {
+				app->render->DrawTexture(nonPressed, 192, 2016);
+			}
+			else {
+				app->render->DrawTexture(pressed, 192, 2026);
+			}
+			if (app->scene->pressurePlate3 == true) {
+				app->render->DrawTexture(nonPressed, 800, 2240);
+			}
+			else {
+				app->render->DrawTexture(pressed, 800, 2240);
+			}
+
 			app->render->DrawTexture(door, 608, 2112);
 			if (pressurePlate1 == false && pressurePlateTimer1_ > pressurePlateTimer1 + 7) {
 				pressurePlate1 = true;
@@ -276,6 +307,10 @@ bool Scene::Update(float dt)
 			}
 		}
 		else {
+			app->render->DrawTexture(pressed, 64, 2432);
+			app->render->DrawTexture(pressed, 192, 2026);
+			app->render->DrawTexture(pressed, 800, 2240);
+
 			Wall1->pendingToDelete = true;
 			Wall2->pendingToDelete = true;
 			Wall3->pendingToDelete = true;
@@ -286,23 +321,33 @@ bool Scene::Update(float dt)
 		if (puzzle2Active == true) {
 			app->render->DrawTexture(door, 1216, 832 - 96);
 
-			Simon[1] = CreateSimonSays(1166, 850, 1);
-			Simon[1].colliderS = app->collisions->AddCollider({ 1166, 850, 32, 32 }, Collider::Type::SIMON1);
+			Simon[1] = CreateSimonSays(1166, 880, 1);
+			Simon[1].colliderS = app->collisions->AddCollider({ 1166, 880, 32, 32 }, Collider::Type::SIMON1);
+			app->render->DrawTexture(greyButton, 1166, 880);
 
-			Simon[2] = CreateSimonSays(1345, 850, 2);
-			Simon[2].colliderS = app->collisions->AddCollider({ 1345, 850, 32, 32 }, Collider::Type::SIMON2);
+			Simon[2] = CreateSimonSays(1345, 880, 2);
+			Simon[2].colliderS = app->collisions->AddCollider({ 1345, 880, 32, 32 }, Collider::Type::SIMON2);
+			app->render->DrawTexture(greyButton, 1345, 880);
 
-			Simon[3] = CreateSimonSays(1392, 1034, 3);
-			Simon[3].colliderS = app->collisions->AddCollider({ 1392, 1034, 32, 32 }, Collider::Type::SIMON3);
 
-			Simon[4] = CreateSimonSays(1105, 1034, 4);
-			Simon[4].colliderS = app->collisions->AddCollider({ 1105, 1034, 32, 32 }, Collider::Type::SIMON4);
+			Simon[3] = CreateSimonSays(1362, 1034, 3);
+			Simon[3].colliderS = app->collisions->AddCollider({ 1362, 1034, 32, 32 }, Collider::Type::SIMON3);
+			app->render->DrawTexture(greyButton, 1362, 1034);
 
-			Simon[5] = CreateSimonSays(1392, 1205, 5);
-			Simon[5].colliderS = app->collisions->AddCollider({ 1392, 1205, 32, 32 }, Collider::Type::SIMON5);
 
-			Simon[6] = CreateSimonSays(1105, 1205, 6);
-			Simon[6].colliderS = app->collisions->AddCollider({ 1105, 1205, 32, 32 }, Collider::Type::SIMON6);
+			Simon[4] = CreateSimonSays(1135, 1034, 4);
+			Simon[4].colliderS = app->collisions->AddCollider({ 1135, 1034, 32, 32 }, Collider::Type::SIMON4);
+			app->render->DrawTexture(greyButton, 1135, 1034);
+
+
+			Simon[5] = CreateSimonSays(1362, 1205, 5);
+			Simon[5].colliderS = app->collisions->AddCollider({ 1362, 1205, 32, 32 }, Collider::Type::SIMON5);
+			app->render->DrawTexture(greyButton, 1362, 1205);
+
+
+			Simon[6] = CreateSimonSays(1135, 1205, 6);
+			Simon[6].colliderS = app->collisions->AddCollider({ 1135, 1205, 32, 32 }, Collider::Type::SIMON6);
+			app->render->DrawTexture(greyButton, 1135, 1205);
 
 			
 			if (prepared == false) {
@@ -367,7 +412,6 @@ void Scene::CheckPuzzle3() {
 }
 void Scene::Drawtorch1() {
 	if (torchCount1 == 0) {
-		//app->render->DrawRectangle({ 1733,2000,50,50 }, 255, 255, 255);
 		app->render->DrawTexture(torch1Texture, 1733, 2000);
 	}
 	if (torchCount1 == 1) {
@@ -477,15 +521,17 @@ void Scene::PrepareSimon() {
 }
 
 void Scene::One() {
-	app->render->DrawRectangle({ Simon[firstSimon].Pos.x, Simon[firstSimon].Pos.y,32,32 }, 0, 255, 0);
+	//app->render->DrawRectangle({ Simon[firstSimon].Pos.x, Simon[firstSimon].Pos.y,32,32 }, 0, 255, 0);
+	app->render->DrawTexture(greenButton, Simon[firstSimon].Pos.x, Simon[firstSimon].Pos.y);
 }
 
 void Scene::Two() {
 	if (timerphase2_ < timerphase2 + 1) {
-		app->render->DrawRectangle({ Simon[firstSimon].Pos.x, Simon[firstSimon].Pos.y,32,32 }, 0, 255, 0);
+		app->render->DrawTexture(greenButton, Simon[firstSimon].Pos.x, Simon[firstSimon].Pos.y);
+
 	}
 	if (timerphase2_ < timerphase2 + 2) {
-		app->render->DrawRectangle({ Simon[secondSimon].Pos.x, Simon[secondSimon].Pos.y,32,32 }, 0, 0, 255);
+		app->render->DrawTexture(blueButton, Simon[secondSimon].Pos.x, Simon[secondSimon].Pos.y);
 	}
 	else {
 		phase = 0;
@@ -496,13 +542,15 @@ void Scene::Two() {
 
 void Scene::Three() {
 	if (timerphase2_ < timerphase2 + 1) {
-		app->render->DrawRectangle({ Simon[firstSimon].Pos.x, Simon[firstSimon].Pos.y,32,32 }, 0, 255, 0);
+		app->render->DrawTexture(greenButton, Simon[firstSimon].Pos.x, Simon[firstSimon].Pos.y);
+
 	}
 	if (timerphase2_ < timerphase2 + 2) {
-		app->render->DrawRectangle({ Simon[secondSimon].Pos.x, Simon[secondSimon].Pos.y,32,32 }, 0, 0, 255);
+		app->render->DrawTexture(blueButton, Simon[secondSimon].Pos.x, Simon[secondSimon].Pos.y);
 	}
 	if (timerphase2_ < timerphase2 + 3) {
-		app->render->DrawRectangle({ Simon[thirdSimon].Pos.x, Simon[thirdSimon].Pos.y,32,32 }, 255, 0, 0);
+		app->render->DrawTexture(redButton, Simon[thirdSimon].Pos.x, Simon[thirdSimon].Pos.y);
+
 	}
 	else {
 		phase = 1;
@@ -514,16 +562,19 @@ void Scene::Three() {
 }
 void Scene::Four() {
 	if (timerphase2_ < timerphase2 + 1) {
-		app->render->DrawRectangle({ Simon[firstSimon].Pos.x, Simon[firstSimon].Pos.y,32,32 }, 0, 255, 0);
+		app->render->DrawTexture(greenButton, Simon[firstSimon].Pos.x, Simon[firstSimon].Pos.y);
+
 	}
 	if (timerphase2_ < timerphase2 + 2) {
-		app->render->DrawRectangle({ Simon[secondSimon].Pos.x, Simon[secondSimon].Pos.y,32,32 }, 0, 0, 255);
+		app->render->DrawTexture(blueButton, Simon[secondSimon].Pos.x, Simon[secondSimon].Pos.y);
 	}
 	if (timerphase2_ < timerphase2 + 3) {
-		app->render->DrawRectangle({ Simon[thirdSimon].Pos.x, Simon[thirdSimon].Pos.y,32,32 }, 255, 0, 0);
+		app->render->DrawTexture(redButton, Simon[thirdSimon].Pos.x, Simon[thirdSimon].Pos.y);
+
 	}
 	if (timerphase2_ < timerphase2 + 4) {
-		app->render->DrawRectangle({ Simon[fourthSimon].Pos.x, Simon[fourthSimon].Pos.y,32,32 }, 108, 70, 117);
+		app->render->DrawTexture(purpleButton, Simon[fourthSimon].Pos.x, Simon[fourthSimon].Pos.y);
+
 	}
 	else {
 		phase = 1;
@@ -536,19 +587,24 @@ void Scene::Four() {
 }
 void Scene::Five() {
 	if (timerphase2_ < timerphase2 + 1) {
-		app->render->DrawRectangle({ Simon[firstSimon].Pos.x, Simon[firstSimon].Pos.y,32,32 }, 0, 255, 0);
+		//app->render->DrawRectangle({ Simon[firstSimon].Pos.x, Simon[firstSimon].Pos.y,32,32 }, 0, 255, 0);
+		app->render->DrawTexture(greenButton, Simon[firstSimon].Pos.x, Simon[firstSimon].Pos.y);
+
 	}
 	if (timerphase2_ < timerphase2 + 2) {
-		app->render->DrawRectangle({ Simon[secondSimon].Pos.x, Simon[secondSimon].Pos.y,32,32 }, 0, 0, 255);
+		app->render->DrawTexture(blueButton, Simon[secondSimon].Pos.x, Simon[secondSimon].Pos.y);
 	}
 	if (timerphase2_ < timerphase2 + 3) {
-		app->render->DrawRectangle({ Simon[thirdSimon].Pos.x, Simon[thirdSimon].Pos.y,32,32 }, 255, 0, 0);
+		app->render->DrawTexture(redButton, Simon[thirdSimon].Pos.x, Simon[thirdSimon].Pos.y);
+
 	}
 	if (timerphase2_ < timerphase2 + 4) {
-		app->render->DrawRectangle({ Simon[fourthSimon].Pos.x, Simon[fourthSimon].Pos.y,32,32 }, 108, 70, 117);
+		app->render->DrawTexture(purpleButton, Simon[fourthSimon].Pos.x, Simon[fourthSimon].Pos.y);
+
 	}
 	if (timerphase2_ < timerphase2 + 5) {
-		app->render->DrawRectangle({ Simon[fifthSimon].Pos.x, Simon[fifthSimon].Pos.y,32,32 }, 255, 255, 0);
+		app->render->DrawTexture(turquoiseButton, Simon[fifthSimon].Pos.x, Simon[fifthSimon].Pos.y);
+
 	}
 	else {
 		phase = 1;
@@ -562,22 +618,26 @@ void Scene::Five() {
 }
 void Scene::Six() {
 	if (timerphase2_ < timerphase2 + 1) {
-		app->render->DrawRectangle({ Simon[firstSimon].Pos.x, Simon[firstSimon].Pos.y,32,32 }, 0, 255, 0);
+		//app->render->DrawRectangle({ Simon[firstSimon].Pos.x, Simon[firstSimon].Pos.y,32,32 }, 0, 255, 0);
+		app->render->DrawTexture(greenButton, Simon[firstSimon].Pos.x, Simon[firstSimon].Pos.y);
+
 	}
 	if (timerphase2_ < timerphase2 + 2) {
-		app->render->DrawRectangle({ Simon[secondSimon].Pos.x, Simon[secondSimon].Pos.y,32,32 }, 0, 0, 255);
+		app->render->DrawTexture(blueButton, Simon[secondSimon].Pos.x, Simon[secondSimon].Pos.y);
 	}
 	if (timerphase2_ < timerphase2 + 3) {
-		app->render->DrawRectangle({ Simon[thirdSimon].Pos.x, Simon[thirdSimon].Pos.y,32,32 }, 255, 0, 0);
+		app->render->DrawTexture(redButton, Simon[thirdSimon].Pos.x, Simon[thirdSimon].Pos.y);
+
 	}
 	if (timerphase2_ < timerphase2 + 4) {
-		app->render->DrawRectangle({ Simon[fourthSimon].Pos.x, Simon[fourthSimon].Pos.y,32,32 }, 108, 70, 117);
+		app->render->DrawTexture(purpleButton, Simon[fourthSimon].Pos.x, Simon[fourthSimon].Pos.y);
 	}
 	if (timerphase2_ < timerphase2 + 5) {
-		app->render->DrawRectangle({ Simon[fifthSimon].Pos.x, Simon[fifthSimon].Pos.y,32,32 }, 255, 255, 0);
+		app->render->DrawTexture(turquoiseButton, Simon[fifthSimon].Pos.x, Simon[fifthSimon].Pos.y);
+
 	}
 	if (timerphase2_ < timerphase2 + 6) {
-		app->render->DrawRectangle({ Simon[sixthSimon].Pos.x, Simon[sixthSimon].Pos.y,32,32 }, 255, 128, 0);
+		app->render->DrawTexture(yellowButton, Simon[sixthSimon].Pos.x, Simon[sixthSimon].Pos.y);
 	}
 	else {
 		phase = 1;

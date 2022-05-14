@@ -1493,9 +1493,10 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 			InventoryEnable = true;
 			CloseInventory->state = GuiControlState::NORMAL;
 		}
-		if (control->id == 36 && battle == true) {
+		if (control->id == 36 && battle == true && app->characterMenu->smoke > 0) {
 			battleEnd = true;
 			app->BTSystem->transitionRep = 1;
+			app->characterMenu->smoke--;
 			Delay = false;
 			Zombiebattle = false;
 			Vampirebattle = false;

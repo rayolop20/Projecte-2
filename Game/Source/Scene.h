@@ -157,6 +157,15 @@ private:
 	SDL_Texture* torch6Texture;
 	SDL_Texture* torch7Texture;
 	SDL_Texture* originTex;
+	SDL_Texture* pressed;
+	SDL_Texture* nonPressed;
+	SDL_Texture* greyButton;
+	SDL_Texture* greenButton;
+	SDL_Texture* blueButton;
+	SDL_Texture* redButton;
+	SDL_Texture* purpleButton;
+	SDL_Texture* turquoiseButton;
+	SDL_Texture* yellowButton;
 	// L13: TODO 2: Declare an Item and create it using the EntityManager
 
 	// L14: TODO 2: Declare a GUI Button and create it using the GuiManager
