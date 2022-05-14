@@ -33,7 +33,7 @@ bool GuiSlider::Update(float dt)
         // L14: TODO 3: Update the state of the GUiButton according to the mouse position
         int mouseX, mouseY;
         app->input->GetMousePosition(mouseX, mouseY);
-
+        
         if ((mouseX > bounds.x) && (mouseX < (bounds.x + bounds.w)) &&
             (mouseY > bounds.y) && (mouseY < (bounds.y + bounds.h)))
         {
