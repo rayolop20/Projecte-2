@@ -106,6 +106,8 @@ bool Scene::PreUpdate()
 // Called each loop iteration
 bool Scene::Update(float dt)
 {
+
+
 	pressurePlateTimer1_ = SDL_GetTicks() / 1000;
 	pressurePlateTimer2_ = SDL_GetTicks() / 1000;
 	pressurePlateTimer3_ = SDL_GetTicks() / 1000;
@@ -379,6 +381,12 @@ bool Scene::Update(float dt)
 
 		}
 		else {
+			app->render->DrawTexture(yellowButton, Simon[firstSimon].Pos.x, Simon[firstSimon].Pos.y);
+			app->render->DrawTexture(yellowButton, Simon[secondSimon].Pos.x, Simon[secondSimon].Pos.y);
+			app->render->DrawTexture(yellowButton, Simon[thirdSimon].Pos.x, Simon[thirdSimon].Pos.y);
+			app->render->DrawTexture(yellowButton, Simon[fourthSimon].Pos.x, Simon[fourthSimon].Pos.y);
+			app->render->DrawTexture(yellowButton, Simon[fifthSimon].Pos.x, Simon[fifthSimon].Pos.y);
+			app->render->DrawTexture(yellowButton, Simon[sixthSimon].Pos.x, Simon[sixthSimon].Pos.y);
 			Wall16->pendingToDelete = true;
 			Wall17->pendingToDelete = true;
 			Wall18->pendingToDelete = true;

@@ -1075,34 +1075,57 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 				}
 				if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::TORCH1 && app->scene->puzzle3Active == true && app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN && app->scene->Quest3active == true)
 				{
-					if (app->scene->torchCount1 == 5) {
-						app->scene->torchCount1 = 0;
+					if (app->scene->tester1 == true) {
+						if (app->scene->torchCount1 == 5) {
+							app->scene->torchCount1 = 0;
+						}
+						app->scene->torchCount1++;
 					}
-					app->scene->torchCount1++;
+					app->scene->tester1 = false;
+				}
+				else {
+					app->scene->tester1 = true;
 				}
 				if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::TORCH2 && app->scene->puzzle3Active == true && app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN && app->scene->Quest3active == true)
 				{
-					if (app->scene->torchCount2 == 5) {
-						app->scene->torchCount2 = 0;
+					if (app->scene->tester2 == true) {
+						if (app->scene->torchCount2 == 5) {
+							app->scene->torchCount2 = 0;
+						}
+						app->scene->torchCount2++;
 					}
-					app->scene->torchCount2++;
-					
+					app->scene->tester2 = false;
+				}
+				else {
+					app->scene->tester2 = true;
 				}
 				if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::TORCH3 && app->scene->puzzle3Active == true && app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN && app->scene->Quest3active == true)
 				{
-					if (app->scene->torchCount3 == 5) {
-						app->scene->torchCount3 = 0;
+					if (app->scene->tester3 == true) {
+
+						if (app->scene->torchCount3 == 5) {
+							app->scene->torchCount3 = 0;
+						}
+						app->scene->torchCount3++;
 					}
-					app->scene->torchCount3++;
-					
+					app->scene->tester3 = false;
+				}
+				else {
+					app->scene->tester3 = true;
 				}
 				if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::TORCH4 && app->scene->puzzle3Active == true && app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN && app->scene->Quest3active == true)
 				{
-					if (app->scene->torchCount4 == 5) {
-						app->scene->torchCount4 = 0;
+					if (app->scene->tester4 == true) {
+						if (app->scene->torchCount4 == 5) {
+							app->scene->torchCount4 = 0;
+						}
+						app->scene->torchCount4++;
 					}
-					app->scene->torchCount4++;
+					app->scene->tester4 = false;
 					
+				}
+				else {
+					app->scene->tester4 = true;
 				}
 				
 			}
