@@ -271,6 +271,7 @@ public:
 
 	bool transitionLock = true;
 	bool battleEnd = false;
+	bool transitionEnd = false;
 
 private:
 
@@ -301,7 +302,6 @@ private:
 	Animation deadAnim;
 
 	bool curtainBounce = false;
-	bool transitionEnd = false;
 	int curtainCont = 0;
 
 	int Hitdmg = 1;

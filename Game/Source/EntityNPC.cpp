@@ -497,7 +497,7 @@ bool EntityNPC::Update(float dt)
 			sprintf_s(Text2, "if u are the Chosen one u know what i need");
 			app->fonts->DrawTxt(250, 502, FText, Text1);
 			app->fonts->DrawTxt(250, 542, FText, Text2);
-			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN) {
 				Dialogue5 = false;
 				app->scene->paused = false;
 			}
