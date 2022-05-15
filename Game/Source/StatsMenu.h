@@ -71,6 +71,7 @@ private:
 	char PJDmg[150] = { "\0" };
 	char PJSpeed[150] = { "\0" };
 	char PJMana[150] = { "\0" };
+	char PJSpecial[150] = { "\0" };
 
 
 };

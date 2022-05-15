@@ -110,6 +110,12 @@ void StatsMenu_Screen::Stats()
 			app->fonts->DrawTxt(50, 380, FText, PJAttack2);
 			sprintf_s(PJAttack1, "lee enfild %0.f", app->player->P1.damage1);
 			app->fonts->DrawTxt(50, 430, FText, PJAttack1);
+			sprintf_s(PJSpecial, "_____________");
+			app->fonts->DrawTxt(50, 450, FText, PJSpecial);
+			sprintf_s(PJSpecial, "special atack");
+			app->fonts->DrawTxt(50, 480, FText, PJSpecial);
+			sprintf_s(PJSpecial, "poison enemy 2");
+			app->fonts->DrawTxt(50, 510, FText, PJSpecial);
 			sprintf_s(PJHp, "%0.f", app->player->P1.hp);
 			app->fonts->DrawTxt(190, 207, FText, PJHp);
 			sprintf_s(PJMana, "%0.f", app->player->P1.mana);
@@ -139,6 +145,12 @@ void StatsMenu_Screen::Stats()
 			app->fonts->DrawTxt(360, 350, FText, PJAttack2);
 			sprintf_s(PJAttack1, "bar %0.f/3enem", app->player->P2.damage1);
 			app->fonts->DrawTxt(360, 400, FText, PJAttack1);
+			sprintf_s(PJSpecial, "_____________");
+			app->fonts->DrawTxt(360, 450, FText, PJSpecial);
+			sprintf_s(PJSpecial, "special atack");
+			app->fonts->DrawTxt(360, 480, FText, PJSpecial);
+			sprintf_s(PJSpecial, "burn enemy 30");
+			app->fonts->DrawTxt(360, 510, FText, PJSpecial);
 			sprintf_s(PJHp, "%0.f", app->player->P2.hp);
 			app->fonts->DrawTxt(500, 207, FText, PJHp);
 			sprintf_s(PJMana, "%0.f", app->player->P2.mana);
@@ -170,6 +182,12 @@ void StatsMenu_Screen::Stats()
 			app->fonts->DrawTxt(660, 380, FText, PJAttack2);
 			sprintf_s(PJAttack1, "mosin_nagant %0.f", app->player->P3.damage1);
 			app->fonts->DrawTxt(660, 430, FText, PJAttack1);
+			sprintf_s(PJSpecial, "_____________");
+			app->fonts->DrawTxt(660, 450, FText, PJSpecial);
+			sprintf_s(PJSpecial, "special atack");
+			app->fonts->DrawTxt(660, 480, FText, PJSpecial);
+			sprintf_s(PJSpecial, "heal you 18");
+			app->fonts->DrawTxt(660, 510, FText, PJSpecial);
 			sprintf_s(PJHp, "%0.f", app->player->P3.hp);
 			app->fonts->DrawTxt(805, 207, FText, PJHp);
 			sprintf_s(PJMana, "%0.f", app->player->P3.mana);
@@ -228,12 +246,21 @@ void StatsMenu_Screen::Stats()
 			app->render->DrawTexture(French_S, app->player->P1.position.x + 233 + 128, app->player->P1.position.y - 145 + 32, NamePJ5);
 			sprintf_s(PJName, "french rusher");
 			app->fonts->DrawTxt(985, 158, FText, PJName);
+
 			sprintf_s(PJAttack2, "clous");
 			app->fonts->DrawTxt(980, 350, FText, PJAttack2);
 			sprintf_s(PJAttack2, "francais %0.f", app->player->P5.damage1);
 			app->fonts->DrawTxt(980, 380, FText, PJAttack2);
 			sprintf_s(PJAttack1, "revolver %0.f", app->player->P5.damage2);
 			app->fonts->DrawTxt(980, 430, FText, PJAttack1);
+
+			sprintf_s(PJSpecial, "_____________");
+			app->fonts->DrawTxt(970, 450, FText, PJSpecial);
+			sprintf_s(PJSpecial, "special atack");
+			app->fonts->DrawTxt(970, 480, FText, PJSpecial);
+			sprintf_s(PJSpecial, "crit hit 75");
+			app->fonts->DrawTxt(970, 510, FText, PJSpecial);
+
 			sprintf_s(PJHp, "%0.f", app->player->P5.hp);
 			app->fonts->DrawTxt(1110, 207, FText, PJHp);
 			sprintf_s(PJMana, "%0.f", app->player->P5.mana);
