@@ -677,7 +677,7 @@ bool battleSystem::Update(float dt)
 	}
 	else
 	{
-		app->scene->paused = false;
+		//app->scene->paused = false;
 	}
 
 	return true;
