@@ -1932,7 +1932,7 @@ bool CharacterMenu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 				}
 
 				//------------------5th grid pos----------------------
-				if (control->id == 58 && item1state && item2state && item3state && item4state  && item5state)
+				if (control->id == 58 && item1state && item2state && item3state && item4state  && item5state && app->BTSystem->battle1 == false)
 				{
 					if (app->BTSystem->battle == true)
 					{

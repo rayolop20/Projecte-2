@@ -508,6 +508,9 @@ bool battleSystem::Update(float dt)
 	}
 	else {
 		SpawnedEnemies = false;
+		Zombiebattle = false;
+		Skeletonbattle = false;
+		Vampirebattle = false;
 		MiniPlayerButton1->bounds.w = 0;
 		MiniPlayerButton1->bounds.h = 0;
 		MiniPlayerButton2->bounds.w = 0;
