@@ -65,6 +65,7 @@ public:
 	SDL_Texture* TextureNPC4 = nullptr;
 	SDL_Texture* TextureNPC5 = nullptr;
 	SDL_Texture* DialogueBox = nullptr;
+	SDL_Texture* DialogueBoxHint = nullptr;
 
 	NPC npc[NUM_NPC] = { nullptr };
 

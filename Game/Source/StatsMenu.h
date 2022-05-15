@@ -47,17 +47,26 @@ public:
 	GuiControl* btnMenu;
 	GuiControl* btnExit;
 	bool active = false;
+	bool IsPJ4 = true;
 	int FText = -1;
 private:
 
 	int clickFx = 1;
 
 	SDL_Texture* StatsText = nullptr;
+	SDL_Texture* American_S = nullptr;
+	SDL_Texture* Russian_S = nullptr;
+	SDL_Texture* French_S = nullptr;
+	SDL_Texture* Britain_S = nullptr;
+	SDL_Texture* Italian_S = nullptr;
 	SDL_Texture* enter = nullptr;
 
 	// L12b: Debug pathfing
 	iPoint origin;
 
+	char PJName[150] = { "\0" };
+	char PJAttack1[150] = { "\0" };
+	char PJAttack2[150] = { "\0" };
 	char PJHp[150] = { "\0" };
 	char PJDmg[150] = { "\0" };
 	char PJSpeed[150] = { "\0" };

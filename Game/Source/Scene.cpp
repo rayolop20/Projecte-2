@@ -57,6 +57,10 @@ bool Scene::Start()
 	app->map->DColisions();
 	pathTex = app->tex->Load("Assets/Maps/path2.png");
 	torch1Texture = app->tex->Load("Assets/Textures/Assets/torch_grey.png");
+	torch1Texture1 = app->tex->Load("Assets/Textures/Assets/torch_grey_1.png");
+	torch1Texture2 = app->tex->Load("Assets/Textures/Assets/torch_grey_2.png");
+	torch1Texture3 = app->tex->Load("Assets/Textures/Assets/torch_grey_3.png");
+	torch1Texture4 = app->tex->Load("Assets/Textures/Assets/torch_grey_4.png");
 	torch2Texture = app->tex->Load("Assets/Textures/Assets/torch_blue.png");
 	torch3Texture = app->tex->Load("Assets/Textures/Assets/torch_green.png");
 	torch4Texture = app->tex->Load("Assets/Textures/Assets/torch_purple.png");
@@ -413,12 +417,14 @@ bool Scene::Update(float dt)
 }
 
 void Scene::CheckPuzzle3() {
-	if (torchCount1 == 3 && torchCount2 == 1 && torchCount3 == 5 && torchCount4 == 2) {
+	if (torchCount1 == 3 && torchCount2 == 1 && torchCount3 == 4 && torchCount4 == 2) {
 		puzzle3Active = false;
 		app->audio->PlayFx(Puzle_Complete);
 	}
 }
 void Scene::Drawtorch1() {
+	app->render->DrawTexture(torch1Texture1, 1733, 2000);
+
 	if (torchCount1 == 0) {
 		app->render->DrawTexture(torch1Texture, 1733, 2000);
 	}
@@ -439,6 +445,8 @@ void Scene::Drawtorch1() {
 	}
 }
 void Scene::Drawtorch2() {
+	app->render->DrawTexture(torch1Texture2, 1678, 1100);
+
 	if (torchCount2 == 0) {
 		app->render->DrawTexture(torch1Texture, 1658, 1100);
 	}
@@ -458,6 +466,8 @@ void Scene::Drawtorch2() {
 		app->render->DrawTexture(torch6Texture, 1658, 1100);
 	}
 }void Scene::Drawtorch3() {
+	app->render->DrawTexture(torch1Texture3, 65, 1447);
+
 	if (torchCount3 == 0) {
 		app->render->DrawTexture(torch1Texture, 65, 1447);
 	}
@@ -477,6 +487,8 @@ void Scene::Drawtorch2() {
 		app->render->DrawTexture(torch6Texture, 65, 1447);
 	}
 }void Scene::Drawtorch4() {
+	app->render->DrawTexture(torch1Texture4, 572, 1855);
+
 	if (torchCount4 == 0) {
 		app->render->DrawTexture(torch1Texture, 572, 1855);
 	}

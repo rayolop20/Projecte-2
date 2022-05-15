@@ -10,6 +10,7 @@
 #include "Map.h"
 #include "Menu.h"
 #include "EntityNPC.h"
+#include "StatsMenu.h"
 #include "Window.h"
 #include "Fonts.h"
 #include "CharacterMenu.h"
@@ -75,6 +76,7 @@ bool EntityNPC::Start()
 	TextureNPC = app->tex->Load("Assets/Textures/NPC/npc1.png");
 	TextureNPC2 = app->tex->Load("Assets/Textures/NPC/npc2.png");
 	DialogueBox = app->tex->Load("Assets/Textures/UI/text_box.png");
+	DialogueBoxHint = app->tex->Load("Assets/Textures/UI/puzzle3_hint.png");
 
 	//audio
 	Altar_AudioFX = app->audio->LoadFx("Assets/Audio/Fx/Altar_AudioFX.wav");
@@ -95,7 +97,7 @@ bool EntityNPC::Start()
 		npc[1] = CreateNPC(957, 232, TextureNPC);
 		npc[2] = CreateNPC(1357, 1937, TextureNPC2);
 		npc[3] = CreateNPC(1410, 1343, TextureNPC4);
-		npc[4] = CreateNPC(182, 1341, TextureNPC5);
+		npc[4] = CreateNPC(118, 1341, TextureNPC5);
 	
 	porta_1 = app->collisions->AddCollider({ 1312, 1664, 96, 64 }, Collider::Type::KEY_SENSOR, (Module*)app->entityManager);
 	porta_2 = app->collisions->AddCollider({ 1504, 2304,64, 96 }, Collider::Type::KEY_SENSOR, (Module*)app->entityManager);
@@ -360,6 +362,7 @@ bool EntityNPC::Update(float dt)
 				Dialogue1 = false;
 				app->scene->paused = false;
 				app->BTSystem->Alfrench = true;
+				app->statsMenu->IsPJ4 = false;
 			}
 		}
 
@@ -478,6 +481,12 @@ bool EntityNPC::Update(float dt)
 	//dialogue 4
 	if (Dialogue4 == true)
 	{
+		app->scene->paused = true;
+		app->render->DrawTexture(DialogueBoxHint, app->player->P1.position.x - 560, app->player->P1.position.y + 160);
+		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+			app->scene->paused = false;
+			Dialogue4 = false;
+		}
 		app->scene->Quest3active = true;
 	}
 	//dialogue 5
@@ -509,9 +518,15 @@ bool EntityNPC::Update(float dt)
 				app->scene->paused = false;
 			}
 			if (app->input->GetKey(SDL_SCANCODE_Y) == KEY_DOWN) {
+				app->characterMenu->skeletonHead = false;
+				app->characterMenu->item7state = false;
 				Dialogue5 = false;
 				app->scene->paused = false;
 				FinishQ5 = true;
+				app->player->P1.damage += 5;
+				app->player->P2.damage += 5;
+				app->player->P3.damage += 5;
+				app->player->P4.damage += 5;
 				//afegir suma variables personatge
 
 			}
@@ -576,7 +591,7 @@ void EntityNPC::OnCollision(Collider* c1, Collider* c2)
 					}
 				}
 				
-				if (i == 4) {
+				if (i == 4 && FinishQ5 == false) {
 					Dialogue5 = true;
 					if (Dialogue5Count == 0) {
 						Dialogue5Count = 1;

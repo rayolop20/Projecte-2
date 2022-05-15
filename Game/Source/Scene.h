@@ -155,6 +155,10 @@ private:
 
 	SDL_Texture* pathTex;
 	SDL_Texture* torch1Texture;
+	SDL_Texture* torch1Texture1;
+	SDL_Texture* torch1Texture2;
+	SDL_Texture* torch1Texture3;
+	SDL_Texture* torch1Texture4;
 	SDL_Texture* torch2Texture;
 	SDL_Texture* torch3Texture;
 	SDL_Texture* torch4Texture;
