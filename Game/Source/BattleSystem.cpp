@@ -145,7 +145,7 @@ battleSystem::battleSystem() : Module()
 	
 	idleAttack5.PushBack({ 0, 217, 160, 192 });
 	idleAttack5.PushBack({ 160, 217, 160, 192 });
-	idleAttack5.PushBack({ 300, 217, 160, 192 });
+	idleAttack5.PushBack({ 320, 217, 160, 192 });
 	idleAttack5.PushBack({ 480, 217, 160, 192 });
 	idleAttack5.PushBack({ 640, 217, 160, 192 });
 	idleAttack5.PushBack({ 800, 217, 160, 192 });
@@ -215,12 +215,27 @@ battleSystem::battleSystem() : Module()
 	idleDeath3.PushBack({ 0, 0, 160, 192 });
 	idleDeath3.loop = false;
 	idleDeath3.speed = 0.001f;
+
 	DeathAnim3.PushBack({ 0, 0, 160, 192 });
 	DeathAnim3.PushBack({ 160, 0, 160, 192 });
 	DeathAnim3.PushBack({ 320, 0, 160, 192 });
-	DeathAnim3.PushBack({ 480, 0, 160, 192 });
 	DeathAnim3.loop = false;
-	DeathAnim3.speed = 0.1f;
+	DeathAnim3.speed = 0.06f;
+
+	DeathAnim2.PushBack({ 0, 0, 160, 192 });
+	DeathAnim2.PushBack({ 160, 0, 160, 192 });
+	DeathAnim2.loop = false;
+	DeathAnim2.speed = 0.03f;
+	
+	DeathAnim4.PushBack({ 0, 0, 160, 192 });
+	DeathAnim4.PushBack({ 160, 0, 160, 192 });
+	DeathAnim4.loop = false;
+	DeathAnim4.speed = 0.03f;
+	
+	DeathAnim5.PushBack({ 0, 0, 160, 192 });
+	DeathAnim5.PushBack({ 160, 0, 160, 192 });
+	DeathAnim5.loop = false;
+	DeathAnim5.speed = 0.03f;
 	
 	
 	/*idle1.PushBack({62, 25, 85, 149});
@@ -329,6 +344,9 @@ bool battleSystem::Start()
 	currentHit5 = &idleHit5;
 
 	currentDeath3 = &idleDeath3;
+	currentDeath2 = &idleDeath2;
+	currentDeath4 = &idleDeath4;
+	currentDeath5 = &idleDeath5;
 
 	player1A = app->tex->Load("Assets/Textures/Soldiers/soldier_britain_attack_animation.png");
 	player2A = app->tex->Load("Assets/Textures/Soldiers/american_dogmaster_attack_animation.png");
@@ -343,6 +361,9 @@ bool battleSystem::Start()
 	player5H = app->tex->Load("Assets/Textures/Soldiers/french_hit_animation.png");
 
 	player3D = app->tex->Load("Assets/Textures/Soldiers/russian_death_animation.png");
+	player2D = app->tex->Load("Assets/Textures/Soldiers/american_dogmaster_death_animation.png");
+	player4D = app->tex->Load("Assets/Textures/Soldiers/italian_death_animation.png");
+	player5D = app->tex->Load("Assets/Textures/Soldiers/french_death_animation.png");
 	
 	//L13: TODO 2: Declare an Item and create it using the EntityManager
 	VampirEnem* Vampir = (VampirEnem*)app->entityManager->CreateEntity(EntityType::VAMPYR, 0, { 0,0 });
@@ -655,6 +676,9 @@ bool battleSystem::PostUpdate()
 	player5HR = currentHit5->GetCurrentFrame();
 
 	player3DR = currentDeath3->GetCurrentFrame();
+	player2DR = currentDeath2->GetCurrentFrame();
+	player4DR = currentDeath4->GetCurrentFrame();
+	player5DR = currentDeath5->GetCurrentFrame();
 
 	if (battleTransition && app->player->P1.IsAlive && transitionRep == 1)
 	{
@@ -932,10 +956,29 @@ void battleSystem::HitPlayersAnimations() {
 }
 
 void battleSystem::DeathPlayersAnimations() {
-	if (russianDead == true) {
+	
+	if (DogDead == true && battle == true) {
+		currentDeath2 = &DeathAnim2;
+		app->render->DrawTexture(player2D, app->player->P1.position.x - 450, app->player->P1.position.y - 320 + 130, &player2DR);
+		currentDeath2->Update();
+	}
+	
+	if (russianDead == true && battle == true) {
 		currentDeath3 = &DeathAnim3;
 		app->render->DrawTexture(player3D, app->player->P1.position.x - 450 + 120, app->player->P1.position.y - 320 + 260, &player3DR);
 		currentDeath3->Update();
+	}
+
+	if (italianDead == true && battle == true && Alfrench == false) {
+		currentDeath4 = &DeathAnim4;
+		app->render->DrawTexture(player4D, app->player->P1.position.x - 450, app->player->P1.position.y - 320 + 390, &player4DR);
+		currentDeath4->Update();
+	}
+	
+	if (battle == true && FrenchDead == true) {
+		currentDeath5 = &DeathAnim5;
+		app->render->DrawTexture(player5D, app->player->P1.position.x - 450, app->player->P1.position.y - 320 + 390, &player5DR);
+		currentDeath5->Update();
 	}
 
 }
@@ -1672,14 +1715,15 @@ void battleSystem::CheckAllies() {
 			waitPlayer[2] = 0;
 			waitPlayer[3] = 0;
 		}
-		if (app->player->P2.hp <= 0 && app->player->P2.IsAlive) {
+		if (app->player->P2.hp <= 0 ) {
+			DogDead = true;
 			app->player->P2.IsAlive = false;
 			waitPlayer[0] = 0;
 			waitPlayer[1] = 0;
 			waitPlayer[2] = 0;
 			waitPlayer[3] = 0;
 		}
-		if (app->player->P3.hp <= 0 && app->player->P3.IsAlive) {
+		if (app->player->P3.hp <= 0) {
 			app->player->P3.IsAlive = false;
 			russianDead = true;
 			waitPlayer[0] = 0;
@@ -1687,8 +1731,13 @@ void battleSystem::CheckAllies() {
 			waitPlayer[2] = 0;
 			waitPlayer[3] = 0;
 		}
-		if (app->player->P4.hp <= 0 && app->player->P4.IsAlive) {
+		if (app->player->P4.hp <= 0 ) {
 			app->player->P4.IsAlive = false;
+			italianDead = true;
+			if (Alfrench == true)
+			{
+				FrenchDead = true;
+			}
 			waitPlayer[0] = 0;
 			waitPlayer[1] = 0;
 			waitPlayer[2] = 0;

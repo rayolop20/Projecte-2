@@ -267,8 +267,29 @@ public:
 	Animation DeathAnim3;
 	Animation idleDeath3;
 
-	int transitionRep = 0;
+	bool DogDead = false;
+	Animation* currentDeath2 = nullptr;
+	SDL_Texture* player2D = nullptr;
+	SDL_Rect player2DR;
+	Animation DeathAnim2;
+	Animation idleDeath2;
 
+	bool italianDead = false;
+	Animation* currentDeath4 = nullptr;
+	SDL_Texture* player4D = nullptr;
+	SDL_Rect player4DR;
+	Animation DeathAnim4;
+	Animation idleDeath4;
+	
+	bool FrenchDead = false;
+	Animation* currentDeath5 = nullptr;
+	SDL_Texture* player5D = nullptr;
+	SDL_Rect player5DR;
+	Animation DeathAnim5;
+	Animation idleDeath5;
+
+	int transitionRep = 0;
+	bool Alfrench = false;
 	bool transitionLock = true;
 	bool battleEnd = false;
 

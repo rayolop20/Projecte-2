@@ -359,6 +359,7 @@ bool EntityNPC::Update(float dt)
 				timerNPC_ = timerNPC;
 				Dialogue1 = false;
 				app->scene->paused = false;
+				app->BTSystem->Alfrench = true;
 			}
 		}
 
