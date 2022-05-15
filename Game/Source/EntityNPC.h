@@ -66,6 +66,7 @@ public:
 	SDL_Texture* TextureNPC5 = nullptr;
 	SDL_Texture* DialogueBox = nullptr;
 	SDL_Texture* DialogueBoxHint = nullptr;
+	SDL_Texture* ChestT = nullptr;
 
 	NPC npc[NUM_NPC] = { nullptr };
 
@@ -96,6 +97,7 @@ public:
 	SDL_Texture* door3 = nullptr;
 	Collider* porta_1;
 	Collider* porta_2;
+	Collider* Chest;
 
 	float timerNPC = 0.0;
 	float timerNPC2 = 0.0;

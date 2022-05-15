@@ -77,7 +77,7 @@ bool EntityNPC::Start()
 	TextureNPC2 = app->tex->Load("Assets/Textures/NPC/npc2.png");
 	DialogueBox = app->tex->Load("Assets/Textures/UI/text_box.png");
 	DialogueBoxHint = app->tex->Load("Assets/Textures/UI/puzzle3_hint.png");
-
+	ChestT = app->tex->Load("Assets/Textures/NPC/npc1.png");
 	//audio
 	Altar_AudioFX = app->audio->LoadFx("Assets/Audio/Fx/Altar_AudioFX.wav");
 
@@ -98,9 +98,12 @@ bool EntityNPC::Start()
 		npc[2] = CreateNPC(1357, 1937, TextureNPC2);
 		npc[3] = CreateNPC(1410, 1343, TextureNPC4);
 		npc[4] = CreateNPC(118, 1341, TextureNPC5);
+		npc[5] = CreateNPC(1050, 1321, ChestT);
 	
 	porta_1 = app->collisions->AddCollider({ 1312, 1664, 96, 64 }, Collider::Type::KEY_SENSOR, (Module*)app->entityManager);
 	porta_2 = app->collisions->AddCollider({ 1504, 2304,64, 96 }, Collider::Type::KEY_SENSOR, (Module*)app->entityManager);
+	Chest = app->collisions->AddCollider({ 1504, 2304,64, 96 }, Collider::Type::KEY_SENSOR, (Module*)app->entityManager);
+
 
 	return false;
 }
@@ -149,7 +152,7 @@ bool EntityNPC::Update(float dt)
 			npc[i].colliderNPC->pendingToDelete = true;
 		}
 	}
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < 6; i++)
 	{
 		npc[i].colliderNPC->SetPos(npc[i].Pos.x, npc[i].Pos.y);
 		npc[i].colliderSNPC->SetPos(npc[i].Pos.x - 32, npc[i].Pos.y - 32);
@@ -593,6 +596,14 @@ void EntityNPC::OnCollision(Collider* c1, Collider* c2)
 						Dialogue5Count = 1;
 					}
 				}
+			}
+		}
+		if (c2->type == Collider::Type::PLAYER && app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
+		{
+			if (i == 5) {
+				app->characterMenu->increaseDmg++;
+				app->characterMenu->increaseMana++;
+				npc[5].Destroyed = true;
 			}
 		}
 	}
