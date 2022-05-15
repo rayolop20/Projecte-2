@@ -774,6 +774,7 @@ void SkeletonEnem::CheckEnemy() {
 				Ston[i].dead = true;
 				app->BTSystem->CombatDeaths += 1;
 				app->characterMenu->skeletonHead = true;
+				app->characterMenu->item7state = true;
 			}
 			if (app->BTSystem->CombatDeaths == Ston[WhichSkeleton].numEnemies) {
 				app->BTSystem->battleEnd = true;
