@@ -74,13 +74,13 @@ public:
 	SDL_Texture* items = nullptr;
 
 
-	int increaseDmg = 2;
-	int increaseSpeed = 2;
-	int increaseMana = 2;
-	int healing = 2;
-	int increaseHP = 2;
+	int increaseDmg = 0;
+	int increaseSpeed = 0;
+	int increaseMana = 0;
+	int healing = 0;
+	int increaseHP = 0;
 	bool skeletonHead = false;
-	int smoke = 3;
+	int smoke = 0;
 
 	GuiButton* Character1;
 	GuiButton* Character2;

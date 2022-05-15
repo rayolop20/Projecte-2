@@ -103,14 +103,9 @@ bool EntityNPC::Start()
 		npc[2] = CreateNPC(1357, 1937, TextureNPC2);
 		npc[3] = CreateNPC(1410, 1343, TextureNPC4);
 		npc[4] = CreateNPC(118, 1341, TextureNPC5);
-		if (npc[5].opened)
-		{
-			npc[5] = CreateNPC(1050, 1321, ChestT);
-		}
-		else
-		{
-			npc[5] = CreateNPC(1050, 1321, OpenChestT);
-		}
+		npc[5] = CreateNPC(760, 2236, ChestT);
+		npc[6] = CreateNPC(560, 2236, ChestT);
+	
 	
 	
 	porta_1 = app->collisions->AddCollider({ 1312, 1664, 96, 64 }, Collider::Type::KEY_SENSOR, (Module*)app->entityManager);
@@ -165,7 +160,7 @@ bool EntityNPC::Update(float dt)
 			npc[i].colliderNPC->pendingToDelete = true;
 		}
 	}
-	for (int i = 0; i < 6; i++)
+	for (int i = 0; i < 7; i++)
 	{
 		npc[i].colliderNPC->SetPos(npc[i].Pos.x, npc[i].Pos.y);
 		npc[i].colliderSNPC->SetPos(npc[i].Pos.x - 32, npc[i].Pos.y - 32);
@@ -543,8 +538,14 @@ bool EntityNPC::Update(float dt)
 
 			}
 		}
-	}
 
+	}
+	/*if (npc[5].opened == true)
+	{
+
+		app->render->DrawTexture(OpenChestT,760, 2236);
+	}
+	*/
 	return true;
 }
 
@@ -613,10 +614,21 @@ void EntityNPC::OnCollision(Collider* c1, Collider* c2)
 		}
 		if (c2->type == Collider::Type::PLAYER && app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
 		{
-			if (i == 5) {
-				app->characterMenu->increaseDmg++;
-				app->characterMenu->increaseMana++;
+
+			if (i == 5 && npc[5].opened == false) {
+
+				app->characterMenu->smoke += 3;
 				npc[5].opened = true;
+			}
+
+			if (i == 6 && npc[6].opened == false) {
+
+				app->characterMenu->smoke += 3;
+				app->characterMenu->increaseDmg += 3;
+				app->characterMenu->increaseHP+= 3;
+				app->characterMenu->increaseMana += 3;
+				app->characterMenu->increaseSpeed += 3;
+				npc[6].opened = true;
 			}
 		}
 	}
