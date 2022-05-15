@@ -70,7 +70,7 @@ bool GuiButton::Draw(Render* render)
 	switch (state)
 	{
 
-	case GuiControlState::DISABLED: 
+	case GuiControlState::DISABLED:
 	{
 
 		render->DrawRectangle(bounds, 0, 0, 0, 0);
@@ -80,8 +80,6 @@ bool GuiButton::Draw(Render* render)
 	case GuiControlState::NORMAL:
 	{
 		//new game
-		
-
 		if (id == 1)
 		{
 			uitext->x = 160;
@@ -167,7 +165,7 @@ bool GuiButton::Draw(Render* render)
 			uitext->h = 51;
 			app->render->DrawTexture(UIText, -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -app->render->camera.y + 480, uitext);
 		}
-		
+
 		//Atack
 		if (id == 31 && app->BTSystem->battle == true && app->BTSystem->InventoryEnable == false)
 		{
@@ -256,7 +254,7 @@ bool GuiButton::Draw(Render* render)
 			uitext->h = 59;
 			app->render->DrawTexture(BTLText, app->player->P1.position.x + 15, app->player->P1.position.y + 210, uitext);
 		}
-		
+
 		//Inventory
 		if (id == 35 && app->BTSystem->battle == true)
 		{
@@ -266,7 +264,7 @@ bool GuiButton::Draw(Render* render)
 			uitext->h = 59;
 			app->render->DrawTexture(BTLText, app->player->P1.position.x - 165, app->player->P1.position.y + 285, uitext);
 		}
-		
+
 		//Run
 		if (id == 36 && app->BTSystem->battle == true && app->characterMenu->smoke > 0)
 		{
@@ -295,7 +293,6 @@ bool GuiButton::Draw(Render* render)
 		}
 		else
 		{
-			
 			render->DrawRectangle(bounds, 255, 255, 255, 0);
 		}
 	} break;
@@ -322,7 +319,7 @@ bool GuiButton::Draw(Render* render)
 			uitext->x = 825;
 			uitext->y = 295;
 			uitext->w = 144;
-			uitext->h = 57; 
+			uitext->h = 57;
 			if (app->menu->menuScreen == false) {
 				app->render->DrawTexture(UIText, 150, 240, uitext);
 			}
@@ -516,15 +513,15 @@ bool GuiButton::Draw(Render* render)
 		{
 			app->render->DrawTexture(app->BTSystem->quitCross, app->player->P1.position.x + 550, app->player->P1.position.y - 290);
 		}
-		
+
 		else
 		{
 			render->DrawRectangle(bounds, 255, 255, 255,0);
 		}
-		
+
 	} break;
 	case GuiControlState::PRESSED:
-	{	
+	{
 
 
 		//new game

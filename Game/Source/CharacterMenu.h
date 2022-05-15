@@ -73,6 +73,7 @@ public:
 	SDL_Texture* italianNpc = nullptr;
 	SDL_Texture* items = nullptr;
 
+
 	int increaseDmg = 2;
 	int increaseSpeed = 2;
 	int increaseMana = 2;
