@@ -671,14 +671,7 @@ bool battleSystem::Update(float dt)
 	{
 		transitionLock = true;
 	}
-	if (battleTransition)
-	{
-		app->scene->paused = true;
-	}
-	else
-	{
-		//app->scene->paused = false;
-	}
+	
 
 	return true;
 }
