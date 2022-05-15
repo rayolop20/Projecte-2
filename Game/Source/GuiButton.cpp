@@ -281,7 +281,7 @@ bool GuiButton::Draw(Render* render)
 			app->render->DrawTexture(app->BTSystem->quitCross, app->player->P1.position.x + 550, app->player->P1.position.y - 290);
 		}
 		//StatsMenu
-		if (id == 65 && app->BTSystem->battle == true && app->characterMenu->smoke <= 0)
+		if (id == 65 && app->BTSystem->battle == true)
 		{
 			uitext->x = 450;
 			uitext->y = 2;
@@ -506,11 +506,11 @@ bool GuiButton::Draw(Render* render)
 		//StatsMenu
 		if (id == 65 && app->BTSystem->battle == true)
 		{
-			uitext->x = 554;
+			uitext->x = 450;
 			uitext->y = 2;
 			uitext->w = 78;
 			uitext->h = 56;
-			app->render->DrawTexture(BTLText, app->player->P1.position.x, app->player->P1.position.y, uitext);
+			app->render->DrawTexture(BTLText, app->player->P1.position.x - 500, app->player->P1.position.y - 300, uitext);
 		}
 		if (id == 66 && app->BTSystem->battle == true && app->BTSystem->StatsEnable == true)
 		{
@@ -640,7 +640,7 @@ bool GuiButton::Draw(Render* render)
 		//StatsMenu
 		if (id == 65 && app->BTSystem->battle == true)
 		{
-			uitext->x = 554;
+			uitext->x = 450;
 			uitext->y = 2;
 			uitext->w = 78;
 			uitext->h = 56;
