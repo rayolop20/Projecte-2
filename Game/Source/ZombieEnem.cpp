@@ -20,12 +20,35 @@
 ZombieEnem::ZombieEnem() :Entity(EntityType::ZOMBIE)
 {
 	name.Create("VampirEnem");
+
+	ZidleAttack1.PushBack({0, 0, 160, 192});
+	ZidleAttack1.PushBack({160, 0, 160, 192});
+	ZidleAttack1.PushBack({320, 0, 160, 192});
+	ZidleAttack1.PushBack({480, 0, 160, 192});
+	ZidleAttack1.PushBack({640, 0, 160, 192});
+	ZidleAttack1.PushBack({800, 0, 160, 192});
+	ZidleAttack1.loop = true;
+	ZidleAttack1.speed = 0.01f;
+	
+	ZidleHit1.PushBack({0, 211, 160, 192});
+	ZidleHit1.PushBack({160, 211, 160, 192});
+	ZidleHit1.PushBack({320, 211, 160, 192});
+	ZidleHit1.PushBack({320, 211, 160, 192});
+	ZidleHit1.loop = false;
+	ZidleHit1.speed = 0.01f;
+	
+	ZidleDead1.PushBack({0, 404, 160, 192});
+	ZidleDead1.PushBack({160, 404, 160, 192});
+	ZidleDead1.PushBack({320, 404, 160, 192});
+	ZidleDead1.PushBack({320, 404, 160, 192});
+	ZidleDead1.loop = false;
+	ZidleDead1.speed = 0.01f;
+	
+	
+	//movement
 	idleAnim.PushBack({ 45, 18, 36, 102 });
 	idleAnim.loop = true;
 	idleAnim.speed = 0.001f;
-
-	name.Create("players");
-	
 
 	downAnim.PushBack({ 45, 18, 36, 102 });
 	downAnim.PushBack({ 168,18, 41, 104 });
@@ -107,9 +130,13 @@ bool ZombieEnem::Start()
 		currentAnimation[i] = &idleAnim;
 	}
 
-	Zbie[0] = CreateZombie(/*Vpir->Pos.x, Vpir->Pos.x,*/960, 2336, TextureZombie);
-	Zbie[10] = CreateZombie(/*Vpir->Pos.x, Vpir->Pos.x,*/960, 1920, TextureZombie);
-	Zbie[20] = CreateZombie(/*Vpir->Pos.x, Vpir->Pos.x,*/928, 608, TextureZombie);
+	Zbie[0] = CreateZombie(960, 2336, TextureZombie);
+	Zbie[10] = CreateZombie(960, 1920, TextureZombie);
+	Zbie[20] = CreateZombie(928, 608, TextureZombie);
+
+	currentAttack1Z = &ZidleAttack1;
+	currentHit1Z = &ZidleHit1;
+	currentDead1Z = &ZidleDead1;
 
 	return false;
 }
@@ -167,6 +194,7 @@ bool ZombieEnem::Update(float dt)
 		{
 			Zbie[i].dead = true;
 			Zbie[i].colliderZ->pendingToDelete = true;
+
 		}
 	}
 	timer3 = SDL_GetTicks() / 10;
@@ -206,20 +234,28 @@ bool ZombieEnem::PostUpdate()
 {
 
 	LOG("FUNCIONA?");
+	bool ret = true;
+	zombie1AR = currentAttack1Z->GetCurrentFrame();
+	zombieH1AR = currentHit1Z->GetCurrentFrame();
+	zombieD1AR = currentDead1Z->GetCurrentFrame();
+
+
 	for (int i = 0; i < NUM_ZOMBIE; i++)
 	{
 		if (Zbie[i].dead == false && app->menu->config == false && app->BTSystem->battle == false)
 		{
 			app->render->DrawTexture(Zbie[i].zombieT, Zbie[i].Pos.x, Zbie[i].Pos.y, &(currentAnimation[i]->GetCurrentFrame()));
 		}
-		currentAnimation[i]->Update();
 	}
-	return true;
+
+
+	return ret;
 }
 
 void ZombieEnem::Combat() {
 	if (app->BTSystem->Zombiebattle == true) {
 
+		//currentAtackAnimation 
 		if (app->BTSystem->alliesDead == 0) {
 			if (app->player->P1.IsAlive == false) {
 				app->BTSystem->alliesDead++;
@@ -279,6 +315,7 @@ void ZombieEnem::Combat() {
 				Zbie[randomNumber2].hp -= app->player->P1.damage2 + app->player->P1.damage;
 				Zbie[randomNumber2_].hp -= app->player->P1.damage2 + app->player->P1.damage;
 				Zbie[app->BTSystem->ZombieTarget].hp -= app->player->P1.damage2 + app->player->P1.damage;
+				hit = true;
 				randomNumber = (rand() % 100) + 1;
 
 			} while (randomNumber <= app->player->P1.speed + app->player->P1.speed2);
@@ -578,10 +615,32 @@ void ZombieEnem::DrawEnemies() {
 					Choose->h = 110;
 					app->render->DrawTexture(selectZombie, app->player->P1.position.x + 395, app->player->P1.position.y - 335 + 120 * i, Choose);
 				}
-				SDL_Rect Enem1 = { app->player->P1.position.x + 400, app->player->P1.position.y - 330 + 120 * i, 100, 100 };
-				app->render->DrawTexture(zombieEnem, app->player->P1.position.x + 350, app->player->P1.position.y - 330 + 100 * i);
+				if (hit == false)
+				{
+					SDL_Rect Enem1 = { app->player->P1.position.x + 400, app->player->P1.position.y - 330 + 120 * i, 100, 100 };
+					currentAnimation[i] = &ZidleAttack1;;
+					app->render->DrawTexture(zombieEnem, app->player->P1.position.x + 350, app->player->P1.position.y - 330 + 100 * i, &zombie1AR);
+					currentAnimation[i]->Update();
+				}
+				if (hit == true)
+				{
+					currentAnimation[i] = &ZidleHit1;;
+					app->render->DrawTexture(zombieEnem, app->player->P1.position.x + 350, app->player->P1.position.y - 330 + 100 * i, &zombieH1AR);
+					currentAnimation[i]->Update();
+					if (ZidleHit1.currentFrame >= 3.0) {
+						ZidleHit1.currentFrame = 0;
+						hit = false;
+					}
+				}
+			}
+			if (Zbie[i].dead == true)
+			{
+				currentAnimation[i] = &ZidleDead1;;
+				app->render->DrawTexture(zombieEnem, app->player->P1.position.x + 350, app->player->P1.position.y - 330 + 100 * i, &zombieD1AR);
+				currentAnimation[i]->Update();
 			}
 		}
+		
 		app->guiManager->Draw();
 	}
 }
