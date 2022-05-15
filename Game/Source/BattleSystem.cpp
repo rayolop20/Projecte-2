@@ -1495,7 +1495,6 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 		{
 			AttackPhase();
 			AttackPhaseEnable = true;
-			//Atack_1.Reset();
 
 		}
 		if (AttackPhaseActive == false && AttackPhaseEnable == true) {
@@ -1507,7 +1506,7 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 			AttackType = 1;
 			AttackPhaseDisabled();
 			AttackPhaseEnable = false;
-			//currentAnimation = &Atack_1;
+		
 
 		}
 		//atack 2
@@ -1516,7 +1515,7 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 			AttackType = 2;
 			AttackPhaseDisabled();
 			AttackPhaseEnable = false;
-			//currentAnimation = &Atack_1;
+			
 		}
 		if (control->id == 34 && AttackPlayer == 1 && (VampireTarget != 0 || ZombieTarget != 0 || SkeletonTarget != 0) && SpecialAttackEnable == false && app->player->P1.mana >= 60)
 		{

@@ -30,6 +30,8 @@ struct Zombie
 	int numEnemies = 4;
 	bool poisoned = false;
 	bool onFire = false;
+	bool Zhit = false;
+	bool atack = false;
 };
 
 class ZombieEnem : public Entity
@@ -83,9 +85,12 @@ public:
 	SDL_Texture* TextureZombie = nullptr;
 	SDL_Texture* zombieEnem = nullptr;
 
+	
+
 	Zombie Zbie[NUM_ZOMBIE] = { nullptr };
 
 	Animation* currentAnimation[NUM_ZOMBIE] = { nullptr };
+	Animation* currentAtackAnimation[NUM_ZOMBIE] = { nullptr };
 	Animation idleAnim;
 	Animation upAnim;
 	Animation downAnim;
@@ -93,10 +98,29 @@ public:
 	Animation leftAnim;
 	Animation dead;
 
-
+	Animation* currentAttack1Z = nullptr;
+	SDL_Texture* zombie1A = nullptr;
+	SDL_Rect zombie1AR;
+	Animation ZAttackAnim1;
+	Animation ZidleAttack1;
 	
+	Animation* currentHit1Z = nullptr;
+	SDL_Texture* zombieH1A = nullptr;
+	SDL_Rect zombieH1AR;
+	Animation ZhitAnim1;
+	Animation ZidleHit1;
 
+	Animation* currentDead1Z = nullptr;
+	SDL_Texture* zombieD1A = nullptr;
+	SDL_Rect zombieD1AR;
+	Animation ZdeadAnim1;
+	Animation ZidleDead1;
 
+	Animation* currentA1Z = nullptr;
+	SDL_Texture* zombieA1A = nullptr;
+	SDL_Rect zombieA1AR;
+	Animation ZAAnim1;
+	Animation ZidleA1;
 
 	float randomEnemyhp = 0.0;
 	float randomEnemySpeed = 0.0;
@@ -109,7 +133,9 @@ public:
 
 	int ZombieNum = NULL;
 	bool randomstats = true;
+	
 	int WhichZombie = NULL;
+
 
 
 

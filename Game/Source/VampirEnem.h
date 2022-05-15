@@ -30,6 +30,8 @@ struct Vampire
 	int numEnemies = 2;
 	bool poisoned = false;
 	bool onFire = false;
+	bool Vhit = false;
+	bool atack = false;
 };
 
 class VampirEnem : public Entity
@@ -96,6 +98,31 @@ public:
 	Animation leftAnim;
 	Animation dead;
 
+	Animation* currentAttack1V = nullptr;
+	SDL_Texture* vampire1A = nullptr;
+	SDL_Rect VampireAR;
+	Animation VAttackAnim1;
+	Animation VidleAttack1;
+	
+	Animation* currentHit1V = nullptr;
+	SDL_Texture* vampireH1A = nullptr;
+	SDL_Rect vampireH1AR;
+	Animation VhitAnim1;
+	Animation VidleHit1;
+
+	Animation* currentDead1V = nullptr;
+	SDL_Texture* vampireD1A = nullptr;
+	SDL_Rect vampireD1AR;
+	Animation VdeadAnim1;
+	Animation VidleDead1;
+
+	Animation* currentA1V = nullptr;
+	SDL_Texture* vampireA1A = nullptr;
+	SDL_Rect vampireA1AR;
+	Animation VAAnim1;
+	Animation VidleA1;
+
+
 	float randomEnemyhp = 0.0;
 	float randomEnemySpeed = 0.0;
 	float randomEnemyDamage = 0.0;
@@ -107,7 +134,6 @@ public:
 	int VampireNum = NULL;
 	bool randomstats = true;
 	int WhichVampire = NULL;
-
 };
 
 #endif // __VAMPIRENEM_H__
