@@ -15,6 +15,7 @@
 #include "BattleSystem.h"
 #include "Scene.h"
 #include "CharacterMenu.h"
+#include "StatsMenu.h"
 #include "Menu.h"
 
 #include "Defs.h"
@@ -412,10 +413,14 @@ bool battleSystem::Update(float dt)
 		Inventory->bounds.y = app->player->P1.position.y + 285;
 		Inventory->bounds.w = 150;
 		Inventory->bounds.h = 61;
-		StatsMenu->bounds.x = app->player->P1.position.x;
-		StatsMenu->bounds.y = app->player->P1.position.y;
-		StatsMenu->bounds.w = 150;
-		StatsMenu->bounds.h = 61;
+		StatsMenu->bounds.x = app->player->P1.position.x - 500;
+		StatsMenu->bounds.y = app->player->P1.position.y - 300;
+		StatsMenu->bounds.w = 78;
+		StatsMenu->bounds.h = 56;
+		CloseStatsMenu->bounds.x = app->player->P1.position.x + 550;
+		CloseStatsMenu->bounds.y = app->player->P1.position.y - 290;
+		CloseStatsMenu->bounds.w = 50;
+		CloseStatsMenu->bounds.h = 50;
 		CloseInventory->bounds.x = app->player->P1.position.x + 550;
 		CloseInventory->bounds.y = app->player->P1.position.y - 290;
 		CloseInventory->bounds.w = 50;
@@ -504,6 +509,8 @@ bool battleSystem::Update(float dt)
 		Attack2->bounds.h = 0;
 		CloseInventory->bounds.w = 0;
 		CloseInventory->bounds.h = 0;
+		CloseStatsMenu->bounds.w = 0;
+		CloseStatsMenu->bounds.h = 0;
 		Run->bounds.w = 0;
 		Run->bounds.h = 0;
 		for (int i = 0; i < 4; i++) {
@@ -578,6 +585,9 @@ bool battleSystem::Update(float dt)
 		CloseInventory->state = GuiControlState::DISABLED;
 
 		invenCont = 0;
+	}
+	if (app->BTSystem->StatsEnable == true) {
+	CloseStatsMenu->state = GuiControlState::NORMAL;
 	}
 	if (debug == true) {
 		//Debug Collisions
@@ -1615,10 +1625,40 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 			app->player->P4.hp = 0;
 
 		}
-		if (control->id == 65) {
+		if (control->id == 65)
+		{
 			StatsEnable = true;
-			CloseStatsMenu->state = GuiControlState::NORMAL;
+			app->statsMenu->Enable();
+			MiniPlayerButton1->state = GuiControlState::DISABLED;
+			MiniPlayerButton2->state = GuiControlState::DISABLED;
+			MiniPlayerButton3->state = GuiControlState::DISABLED;
+			MiniPlayerButton4->state = GuiControlState::DISABLED;
+			Attack->state = GuiControlState::DISABLED;
+			Attack1->state = GuiControlState::DISABLED;
+			Attack2->state = GuiControlState::DISABLED;
+			SpecialAttack->state = GuiControlState::DISABLED;
+			Inventory->state = GuiControlState::DISABLED;
+			StatsMenu->state = GuiControlState::DISABLED;
+			Run->state = GuiControlState::DISABLED;
 		}
+		if (control->id == 66)
+		{
+			StatsEnable = false;
+			app->statsMenu->Disable();
+			MiniPlayerButton1->state = GuiControlState::NORMAL;
+			MiniPlayerButton2->state = GuiControlState::NORMAL;
+			MiniPlayerButton3->state = GuiControlState::NORMAL;
+			MiniPlayerButton4->state = GuiControlState::NORMAL;
+			Attack->state = GuiControlState::NORMAL;
+			Attack1->state = GuiControlState::NORMAL;
+			Attack2->state = GuiControlState::NORMAL;
+			SpecialAttack->state = GuiControlState::NORMAL;
+			Inventory->state = GuiControlState::NORMAL;
+			StatsMenu->state = GuiControlState::NORMAL;
+			Run->state = GuiControlState::NORMAL;
+			CloseStatsMenu->state = GuiControlState::DISABLED;
+		}
+	
 	}
 	}
 	

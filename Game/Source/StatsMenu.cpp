@@ -8,9 +8,15 @@
 #include "Scene.h"
 #include "Menu.h"
 #include "StatsMenu.h"
+#include "BattleSystem.h"
 #include "GuiManager.h"
 #include "Menu.h"
+#include "Fonts.h"
 
+
+#include "DynArray.h"
+#include "BattleSystem.h"
+#include <time.h>
 #include "Defs.h"
 #include "Log.h"
 
@@ -36,27 +42,27 @@ bool StatsMenu_Screen::Awake()
 // Called before the first frame
 bool StatsMenu_Screen::Start()
 {
-	btnMenu = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 6, "Menu", { -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -1390, 160, 51 }, this);
-	btnExit = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 9, "Exit", { -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -1480, 160, 51 }, this);
-	btnResume = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 5, "Resume", { -app->render->camera.x + (app->win->GetWidth() / 2 - 80), -1250, 193, 51 }, this);
 
-	btnResume->state = GuiControlState::DISABLED;
-	btnExit->state = GuiControlState::DISABLED;
-	btnMenu->state = GuiControlState::DISABLED;
+	StatsText = app->tex->Load("Assets/Textures/UI/stats_menu.png");
+	char lookupTable[] = { "! @,_./0123456789$;< ?abcdefghijklmnopqrstuvwxyz" };
+	FText = app->fonts->Load("Assets/Textures/Fonts/fonts.png", lookupTable, 1);
+
+	if (app->BTSystem->StatsEnable == false) {
+		Disable();
+	}
 	return true;
 }
 
 // Called each loop iteration
 bool StatsMenu_Screen::PreUpdate()
 {
-	if (!app->scene->cMenu) Disable();
 	return true;
 }
 
 // Called each loop iteration
 bool StatsMenu_Screen::Update(float dt)
 {
-	Menu();
+	Stats();
 	return true;
 }
 
@@ -70,94 +76,80 @@ bool StatsMenu_Screen::PostUpdate()
 	return ret;
 }
 
-void StatsMenu_Screen::Menu()
+void StatsMenu_Screen::Stats()
 {
-	if (app->scene->paused == true && app->menu->playing == true) {
-		app->menu->btnMenuConfig->state = GuiControlState::NORMAL;
-		btnResume->state = GuiControlState::NORMAL;
-		btnMenu->state = GuiControlState::NORMAL;
-		btnExit->state = GuiControlState::NORMAL;
-		btnResume->bounds.x = -app->render->camera.x + (app->win->GetWidth() / 2 - 80);
-		btnResume->bounds.y = -app->render->camera.y + 250;
 
-		if (app->menu->menuScreen == true && app->scene->paused == true) {
+	if (app->BTSystem->StatsEnable == true) {
+		/*app->BTSystem->CloseStatsMenu->bounds.x = -app->render->camera.x + (app->win->GetWidth() / 2 - 80);
+		app->BTSystem->CloseStatsMenu->bounds.y = -app->render->camera.y + 250;*/
 
-			app->menu->btnMenuConfig->bounds.x = -app->render->camera.x + (app->win->GetWidth() / 2 - 80);
-			app->menu->btnMenuConfig->bounds.y = -app->render->camera.y + 320;
+		SDL_Rect* StatsPJ1 = new SDL_Rect();
+		StatsPJ1->x = 70;
+		StatsPJ1->y = 56;
+		StatsPJ1->w = 278;
+		StatsPJ1->h = 424;
+		app->render->DrawTexture(StatsText, app->player->P1.position.x - 610 + 32, app->player->P1.position.y - 220 + 32, StatsPJ1);
+		sprintf_s(PJHp, "%0.f", app->player->P1.hp);
+		app->fonts->DrawTxt(190, 207, FText, PJHp);
+		sprintf_s(PJDmg, "%0.f", app->player->P1.damage);
+		app->fonts->DrawTxt(190, 233, FText, PJDmg);
+		sprintf_s(PJSpeed, "%0.f", app->player->P1.speed);
+		app->fonts->DrawTxt(190, 261, FText, PJSpeed);
+		sprintf_s(PJMana, "%0.f", app->player->P1.mana);
+		app->fonts->DrawTxt(190, 291, FText, PJMana);
 
-		}
-		if (app->menu->menuScreen == false) {
+		SDL_Rect* StatsPJ2 = new SDL_Rect();
+		StatsPJ2->x = 70;
+		StatsPJ2->y = 56;
+		StatsPJ2->w = 278;
+		StatsPJ2->h = 424;
+		app->render->DrawTexture(StatsText, app->player->P1.position.x - 332 + 64, app->player->P1.position.y - 220 + 32, StatsPJ2);
+		sprintf_s(PJHp, "%0.f", app->player->P2.hp);
+		app->fonts->DrawTxt(500, 207, FText, PJHp);
+		sprintf_s(PJDmg, "%0.f", app->player->P2.damage);
+		app->fonts->DrawTxt(500, 233, FText, PJDmg);
+		sprintf_s(PJSpeed, "%0.f", app->player->P2.speed);
+		app->fonts->DrawTxt(500, 261, FText, PJSpeed);
+		sprintf_s(PJMana, "%0.f", app->player->P2.mana);
+		app->fonts->DrawTxt(500, 291, FText, PJMana);
 
-			app->menu->btnMenuConfig->bounds.x = 150;
-			app->menu->btnMenuConfig->bounds.y = 240;
-		}
+		SDL_Rect* StatsPJ3 = new SDL_Rect();
+		StatsPJ3->x = 70;
+		StatsPJ3->y = 56;
+		StatsPJ3->w = 278;
+		StatsPJ3->h = 424;
+		app->render->DrawTexture(StatsText, app->player->P1.position.x - 54 + 96, app->player->P1.position.y - 220 + 32, StatsPJ3);
+		sprintf_s(PJHp, "%0.f", app->player->P3.hp);
+		app->fonts->DrawTxt(805, 207, FText, PJHp);
+		sprintf_s(PJDmg, "%0.f", app->player->P3.damage);
+		app->fonts->DrawTxt(805, 233, FText, PJDmg);
+		sprintf_s(PJSpeed, "%0.f", app->player->P3.speed);
+		app->fonts->DrawTxt(805, 261, FText, PJSpeed);
+		sprintf_s(PJMana, "%0.f", app->player->P3.mana);
+		app->fonts->DrawTxt(805, 291, FText, PJMana);
 
-		btnMenu->bounds.x = -app->render->camera.x + (app->win->GetWidth() / 2 - 80);
-		btnMenu->bounds.y = -app->render->camera.y + 390;
-		btnExit->bounds.x = -app->render->camera.x + (app->win->GetWidth() / 2 - 80);
-		btnExit->bounds.y = -app->render->camera.y + 480;
-	}
-	else {
-		app->menu->btnConfigBack->bounds.x = -app->render->camera.x + (app->win->GetWidth() / 2) - 150;
-		app->menu->btnConfigBack->bounds.y = -app->render->camera.y + 650;
-		app->menu->btnMenuConfig->state = GuiControlState::DISABLED;
-		btnResume->state = GuiControlState::DISABLED;
-		btnMenu->state = GuiControlState::DISABLED;
-		btnExit->state = GuiControlState::DISABLED;
+		SDL_Rect* StatsPJ4 = new SDL_Rect();
+		StatsPJ4->x = 70;
+		StatsPJ4->y = 56;
+		StatsPJ4->w = 278;
+		StatsPJ4->h = 424;
+		app->render->DrawTexture(StatsText, app->player->P1.position.x + 224 + 128, app->player->P1.position.y - 220 + 32, StatsPJ4);
+		sprintf_s(PJHp, "%0.f", app->player->P4.hp);
+		app->fonts->DrawTxt(1110, 207, FText, PJHp);
+		sprintf_s(PJDmg, "%0.f", app->player->P4.damage);
+		app->fonts->DrawTxt(1110, 233, FText, PJDmg);
+		sprintf_s(PJSpeed, "%0.f", app->player->P4.speed);
+		app->fonts->DrawTxt(1110, 261, FText, PJSpeed);
+		sprintf_s(PJMana, "%0.f", app->player->P4.mana);
+		app->fonts->DrawTxt(1110, 291, FText, PJMana);
+	
 	}
 }
 
 bool StatsMenu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 {
-	if (app->guiManager->CheackA1 == true)
-	{
-		switch (control->type)
-		{
-		case GuiControlType::BUTTON:
-		{
-			if (control->id == 5)
-			{
 
-				app->scene->paused = false;
-				app->menu->btnMenuConfig->state = GuiControlState::DISABLED;
-
-				btnResume->state = GuiControlState::DISABLED;
-				btnMenu->state = GuiControlState::DISABLED;
-				btnExit->state = GuiControlState::DISABLED;
-			}
-
-			if (control->id == 6)
-			{
-				app->menu->musicActive = true;
-				app->scene->paused = false;
-				app->menu->playing = false;
-				Disable();
-				app->menu->Enable();
-				app->player->Disable();
-				app->scene->Disable();
-				app->render->camera.x = 0;
-				app->render->camera.y = 0;
-				app->menu->starting = true;
-				btnResume->state = GuiControlState::DISABLED;
-				btnMenu->state = GuiControlState::DISABLED;
-				btnExit->state = GuiControlState::DISABLED;;
-				app->menu->btnMenuConfig->state = GuiControlState::NORMAL;
-				app->menu->btnMenuConfig->bounds.x = -app->render->camera.x + (app->win->GetWidth() / 2 - 80) - 420;
-				app->menu->btnMenuConfig->bounds.y = -app->render->camera.y + 320 - 75;
-				app->menu->btnMenuPlay->state = GuiControlState::NORMAL;
-				app->menu->btnMenuExit->state = GuiControlState::NORMAL;
-				app->menu->btnConfigBack->state = GuiControlState::DISABLED;
-			}
-
-			if (control->id == 9)
-			{
-				app->menu->exit = true;
-			}
-		default: break;
-		}
-		}
-		return true;
-	}
+	return true;
 }
 
 void StatsMenu_Screen::ShowStats(int a)
