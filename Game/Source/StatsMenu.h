@@ -47,6 +47,7 @@ public:
 	GuiControl* btnMenu;
 	GuiControl* btnExit;
 	bool active = false;
+	int FText = -1;
 private:
 
 	int clickFx = 1;
@@ -57,6 +58,10 @@ private:
 	// L12b: Debug pathfing
 	iPoint origin;
 
+	char PJHp[150] = { "\0" };
+	char PJDmg[150] = { "\0" };
+	char PJSpeed[150] = { "\0" };
+	char PJMana[150] = { "\0" };
 
 
 };
