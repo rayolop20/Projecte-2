@@ -144,6 +144,11 @@ public:
 
 	int xCont = 0;
 	int Open_Door = 1;
+
+	bool tester1 = NULL;
+	bool tester2 = NULL;
+	bool tester3 = NULL;
+	bool tester4 = NULL;
 private:
 
 	SDL_Texture* img;
