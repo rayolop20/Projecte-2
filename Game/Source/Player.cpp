@@ -1122,7 +1122,6 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 						app->scene->torchCount4++;
 					}
 					app->scene->tester4 = false;
-					
 				}
 				else {
 					app->scene->tester4 = true;

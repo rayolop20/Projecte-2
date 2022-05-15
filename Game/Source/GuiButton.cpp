@@ -80,8 +80,6 @@ bool GuiButton::Draw(Render* render)
 	case GuiControlState::NORMAL:
 	{
 		//new game
-		
-
 		if (id == 1)
 		{
 			uitext->x = 160;
@@ -281,6 +279,7 @@ bool GuiButton::Draw(Render* render)
 			app->render->DrawTexture(app->BTSystem->quitCross, app->player->P1.position.x + 550, app->player->P1.position.y - 290);
 		}
 		//StatsMenu
+
 		if (id == 65 && app->BTSystem->battle == true && app->characterMenu->smoke <= 0)
 		{
 			uitext->x = 450;
@@ -295,7 +294,6 @@ bool GuiButton::Draw(Render* render)
 		}
 		else
 		{
-			
 			render->DrawRectangle(bounds, 255, 255, 255, 0);
 		}
 	} break;
