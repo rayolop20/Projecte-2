@@ -379,15 +379,12 @@ bool EntityNPC::Update(float dt)
 			sprintf_s(Text4, " key may be a clue");
 			app->player->door3active = true;
 			app->audio->PlayFx(app->scene->Open_Door);
-			app->characterMenu->Item6->state = GuiControlState::NORMAL;
+			//app->characterMenu->Item6->state = GuiControlState::NORMAL;
 			app->characterMenu->item6state = true;
 			app->fonts->DrawTxt(250, 502, FText, Text1);
 			app->fonts->DrawTxt(250, 542, FText, Text2);
 			app->fonts->DrawTxt(250, 582, FText, Text3);
 			app->fonts->DrawTxt(250, 622, FText, Text4);
-			//Hey, luck I found you, I have lost my wife who is a nurse,
-			//if you help me find her, she may help you with your
-			//injuries, I do not remember where it is, but I think this key may be a clue
 			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && timerNPC2 > timerNPC2_ + 2) {
 				Dialogue2 = false;
 				app->scene->paused = false;
@@ -397,7 +394,6 @@ bool EntityNPC::Update(float dt)
 		}
 		if (Dialogue2Count == 2 && app->player->P1.medkit == false) {
 			app->render->DrawTexture(DialogueBox, app->player->P1.position.x - 360, app->player->P1.position.y + 160);
-			//What? You did not find her?! I am sure this key must open some door...
 			sprintf_s(Text1, "what? you did not find her?! i am sure this key must open some door...");
 			app->fonts->DrawTxt(250, 502, FText, Text1);
 
