@@ -587,7 +587,19 @@ bool battleSystem::Update(float dt)
 		invenCont = 0;
 	}
 	if (app->BTSystem->StatsEnable == true) {
+	
 	CloseStatsMenu->state = GuiControlState::NORMAL;
+	MiniPlayerButton1->state = GuiControlState::DISABLED;
+	MiniPlayerButton2->state = GuiControlState::DISABLED;
+	MiniPlayerButton3->state = GuiControlState::DISABLED;
+	MiniPlayerButton4->state = GuiControlState::DISABLED;
+	Attack->state = GuiControlState::DISABLED;
+	Attack1->state = GuiControlState::DISABLED;
+	Attack2->state = GuiControlState::DISABLED;
+	SpecialAttack->state = GuiControlState::DISABLED;
+	Inventory->state = GuiControlState::DISABLED;
+	StatsMenu->state = GuiControlState::DISABLED;
+	Run->state = GuiControlState::DISABLED;
 	}
 	if (debug == true) {
 		//Debug Collisions
@@ -1626,6 +1638,7 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 		}
 		if (control->id == 65)
 		{
+		
 			StatsEnable = true;
 			app->statsMenu->Enable();
 			MiniPlayerButton1->state = GuiControlState::DISABLED;
@@ -1642,6 +1655,7 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 		}
 		if (control->id == 66)
 		{
+		
 			StatsEnable = false;
 			app->statsMenu->Disable();
 			MiniPlayerButton1->state = GuiControlState::NORMAL;

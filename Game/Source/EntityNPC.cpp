@@ -10,6 +10,7 @@
 #include "Map.h"
 #include "Menu.h"
 #include "EntityNPC.h"
+#include "StatsMenu.h"
 #include "Window.h"
 #include "Fonts.h"
 #include "CharacterMenu.h"
@@ -360,6 +361,7 @@ bool EntityNPC::Update(float dt)
 				timerNPC_ = timerNPC;
 				Dialogue1 = false;
 				app->scene->paused = false;
+				app->statsMenu->IsPJ4 = false;
 			}
 		}
 

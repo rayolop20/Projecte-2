@@ -88,7 +88,6 @@ void StatsMenu_Screen::Stats()
 	if (app->BTSystem->StatsEnable == true) {
 		/*app->BTSystem->CloseStatsMenu->bounds.x = -app->render->camera.x + (app->win->GetWidth() / 2 - 80);
 		app->BTSystem->CloseStatsMenu->bounds.y = -app->render->camera.y + 250;*/
-		LOG("Polla");
 		if (app->player->P1.IsAlive == true) 
 		{
 			SDL_Rect* StatsPJ1 = new SDL_Rect();
@@ -113,12 +112,12 @@ void StatsMenu_Screen::Stats()
 			app->fonts->DrawTxt(50, 430, FText, PJAttack1);
 			sprintf_s(PJHp, "%0.f", app->player->P1.hp);
 			app->fonts->DrawTxt(190, 207, FText, PJHp);
-			sprintf_s(PJDmg, "%0.f", app->player->P1.damage);
-			app->fonts->DrawTxt(190, 233, FText, PJDmg);
-			sprintf_s(PJSpeed, "%0.f", app->player->P1.speed);
-			app->fonts->DrawTxt(190, 261, FText, PJSpeed);
 			sprintf_s(PJMana, "%0.f", app->player->P1.mana);
-			app->fonts->DrawTxt(190, 291, FText, PJMana);
+			app->fonts->DrawTxt(190, 233, FText, PJMana);
+			sprintf_s(PJDmg, "%0.f", app->player->P1.damage);
+			app->fonts->DrawTxt(190, 261, FText, PJDmg);
+			sprintf_s(PJSpeed, "%0.f", app->player->P1.speed);
+			app->fonts->DrawTxt(190, 291, FText, PJSpeed);
 		}
 		if (app->player->P2.IsAlive == true)
 		{
@@ -142,12 +141,12 @@ void StatsMenu_Screen::Stats()
 			app->fonts->DrawTxt(360, 400, FText, PJAttack1);
 			sprintf_s(PJHp, "%0.f", app->player->P2.hp);
 			app->fonts->DrawTxt(500, 207, FText, PJHp);
-			sprintf_s(PJDmg, "%0.f", app->player->P2.damage);
-			app->fonts->DrawTxt(500, 233, FText, PJDmg);
-			sprintf_s(PJSpeed, "%0.f", app->player->P2.speed);
-			app->fonts->DrawTxt(500, 261, FText, PJSpeed);
 			sprintf_s(PJMana, "%0.f", app->player->P2.mana);
-			app->fonts->DrawTxt(500, 291, FText, PJMana);
+			app->fonts->DrawTxt(500, 233, FText, PJMana);
+			sprintf_s(PJDmg, "%0.f", app->player->P2.damage);
+			app->fonts->DrawTxt(500, 261, FText, PJDmg);
+			sprintf_s(PJSpeed, "%0.f", app->player->P2.speed);
+			app->fonts->DrawTxt(500, 291, FText, PJSpeed);
 		}
 		if (app->player->P3.IsAlive == true)
 		{
@@ -173,12 +172,12 @@ void StatsMenu_Screen::Stats()
 			app->fonts->DrawTxt(660, 430, FText, PJAttack1);
 			sprintf_s(PJHp, "%0.f", app->player->P3.hp);
 			app->fonts->DrawTxt(805, 207, FText, PJHp);
-			sprintf_s(PJDmg, "%0.f", app->player->P3.damage);
-			app->fonts->DrawTxt(805, 233, FText, PJDmg);
-			sprintf_s(PJSpeed, "%0.f", app->player->P3.speed);
-			app->fonts->DrawTxt(805, 261, FText, PJSpeed);
 			sprintf_s(PJMana, "%0.f", app->player->P3.mana);
-			app->fonts->DrawTxt(805, 291, FText, PJMana);
+			app->fonts->DrawTxt(805, 233, FText, PJMana);
+			sprintf_s(PJDmg, "%0.f", app->player->P3.damage);
+			app->fonts->DrawTxt(805, 261, FText, PJDmg);
+			sprintf_s(PJSpeed, "%0.f", app->player->P3.speed);
+			app->fonts->DrawTxt(805, 291, FText, PJSpeed);
 		}
 		if (app->player->P4.IsAlive == true && IsPJ4 == true)
 		{
@@ -206,12 +205,12 @@ void StatsMenu_Screen::Stats()
 			app->fonts->DrawTxt(970, 460, FText, PJAttack1);
 			sprintf_s(PJHp, "%0.f", app->player->P4.hp);
 			app->fonts->DrawTxt(1110, 207, FText, PJHp);
-			sprintf_s(PJDmg, "%0.f", app->player->P4.damage);
-			app->fonts->DrawTxt(1110, 233, FText, PJDmg);
-			sprintf_s(PJSpeed, "%0.f", app->player->P4.speed);
-			app->fonts->DrawTxt(1110, 261, FText, PJSpeed);
 			sprintf_s(PJMana, "%0.f", app->player->P4.mana);
-			app->fonts->DrawTxt(1110, 291, FText, PJMana);
+			app->fonts->DrawTxt(1110, 233, FText, PJMana);
+			sprintf_s(PJDmg, "%0.f", app->player->P4.damage);
+			app->fonts->DrawTxt(1110, 261, FText, PJDmg);
+			sprintf_s(PJSpeed, "%0.f", app->player->P4.speed);
+			app->fonts->DrawTxt(1110, 291, FText, PJSpeed);
 		}
 		if (app->player->P4.IsAlive == true && IsPJ4 == false)
 		{
@@ -237,12 +236,12 @@ void StatsMenu_Screen::Stats()
 			app->fonts->DrawTxt(980, 430, FText, PJAttack1);
 			sprintf_s(PJHp, "%0.f", app->player->P5.hp);
 			app->fonts->DrawTxt(1110, 207, FText, PJHp);
-			sprintf_s(PJDmg, "%0.f", app->player->P5.damage);
-			app->fonts->DrawTxt(1110, 233, FText, PJDmg);
-			sprintf_s(PJSpeed, "%0.f", app->player->P5.speed);
-			app->fonts->DrawTxt(1110, 261, FText, PJSpeed);
 			sprintf_s(PJMana, "%0.f", app->player->P5.mana);
-			app->fonts->DrawTxt(1110, 291, FText, PJMana);
+			app->fonts->DrawTxt(1110, 233, FText, PJMana);
+			sprintf_s(PJDmg, "%0.f", app->player->P5.damage);
+			app->fonts->DrawTxt(1110, 261, FText, PJDmg);
+			sprintf_s(PJSpeed, "%0.f", app->player->P5.speed);
+			app->fonts->DrawTxt(1110, 291, FText, PJSpeed);
 		}
 	}
 }
