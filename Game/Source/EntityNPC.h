@@ -21,6 +21,7 @@ struct NPC
 	bool Destroyed = false;
 	uint vCount = 0;
 	bool dead = false;
+	bool opened = false;
 };
 
 class EntityNPC : public Entity
@@ -67,6 +68,7 @@ public:
 	SDL_Texture* DialogueBox = nullptr;
 	SDL_Texture* DialogueBoxHint = nullptr;
 	SDL_Texture* ChestT = nullptr;
+	SDL_Texture* OpenChestT = nullptr;
 
 	NPC npc[NUM_NPC] = { nullptr };
 

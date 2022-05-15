@@ -31,6 +31,10 @@ EntityNPC::EntityNPC() :Entity(EntityType::NPC)
 	idle2.PushBack({ 46, 38, 37, 65 });
 	idle2.loop = true;
 	idle2.speed = 0.001f;
+	
+	idle2.PushBack({ 46, 38, 37, 65 });
+	idle2.loop = true;
+	idle2.speed = 0.001f;
 
 }
 
@@ -77,7 +81,8 @@ bool EntityNPC::Start()
 	TextureNPC2 = app->tex->Load("Assets/Textures/NPC/npc2.png");
 	DialogueBox = app->tex->Load("Assets/Textures/UI/text_box.png");
 	DialogueBoxHint = app->tex->Load("Assets/Textures/UI/puzzle3_hint.png");
-	ChestT = app->tex->Load("Assets/Textures/NPC/npc1.png");
+	ChestT = app->tex->Load("Assets/Textures/Assets/chest2.png");
+	OpenChestT = app->tex->Load("Assets/Textures/Assets/open_chest.png");
 	//audio
 	Altar_AudioFX = app->audio->LoadFx("Assets/Audio/Fx/Altar_AudioFX.wav");
 
@@ -98,7 +103,15 @@ bool EntityNPC::Start()
 		npc[2] = CreateNPC(1357, 1937, TextureNPC2);
 		npc[3] = CreateNPC(1410, 1343, TextureNPC4);
 		npc[4] = CreateNPC(118, 1341, TextureNPC5);
-		npc[5] = CreateNPC(1050, 1321, ChestT);
+		if (npc[5].opened)
+		{
+			npc[5] = CreateNPC(1050, 1321, ChestT);
+		}
+		else
+		{
+			npc[5] = CreateNPC(1050, 1321, OpenChestT);
+		}
+	
 	
 	porta_1 = app->collisions->AddCollider({ 1312, 1664, 96, 64 }, Collider::Type::KEY_SENSOR, (Module*)app->entityManager);
 	porta_2 = app->collisions->AddCollider({ 1504, 2304,64, 96 }, Collider::Type::KEY_SENSOR, (Module*)app->entityManager);
@@ -603,7 +616,7 @@ void EntityNPC::OnCollision(Collider* c1, Collider* c2)
 			if (i == 5) {
 				app->characterMenu->increaseDmg++;
 				app->characterMenu->increaseMana++;
-				npc[5].Destroyed = true;
+				npc[5].opened = true;
 			}
 		}
 	}
