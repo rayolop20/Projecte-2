@@ -25,6 +25,40 @@ SkeletonEnem::SkeletonEnem() :Entity(EntityType::SKELETON)
 	idleAnim.loop = true;
 	idleAnim.speed = 0.001f;
 
+	SidleAttack1.PushBack({ 0, 0, 160, 192 });
+	SidleAttack1.PushBack({ 160, 0, 160, 192 });
+	SidleAttack1.PushBack({ 320, 0, 160, 192 });
+	SidleAttack1.PushBack({ 480, 0, 160, 192 });
+	SidleAttack1.PushBack({ 640, 0, 160, 192 });
+	SidleAttack1.loop = true;
+	SidleAttack1.speed = 0.01f;
+
+	SidleHit1.PushBack({ 0, 645, 160, 192 });
+	SidleHit1.PushBack({ 160, 645, 160, 192 });
+	SidleHit1.PushBack({ 320, 645, 160, 192 });
+	SidleHit1.PushBack({ 480, 645, 160, 192 });
+	SidleHit1.PushBack({ 480, 645, 160, 192 });
+	SidleHit1.loop = true;
+	SidleHit1.speed = 0.04f;
+
+	SidleA1.PushBack({ 0, 430, 160, 192 });
+	SidleA1.PushBack({ 160, 430, 160, 192 });
+	SidleA1.PushBack({ 320, 430, 160, 192 });
+	SidleA1.PushBack({ 320, 430, 287, 192 });
+	SidleA1.PushBack({ 320, 430, 287, 192 });
+	SidleA1.loop = true;
+	SidleA1.speed = 0.009f;
+
+	SidleDead1.PushBack({ 0, 214, 160, 192 });
+	SidleDead1.PushBack({ 160, 214, 160, 192 });
+	SidleDead1.PushBack({ 320, 214, 160, 192 });
+	SidleDead1.PushBack({ 480, 214, 160, 192 });
+	SidleDead1.PushBack({ 640, 214, 160, 192 });
+	SidleDead1.PushBack({ 800, 214, 160, 192 });
+	SidleDead1.PushBack({ 960, 214, 160, 192 });
+	SidleDead1.PushBack({ 1120, 214, 160, 192 });
+	SidleDead1.loop = false;
+	SidleDead1.speed = 0.01f;
 
 	downAnim.PushBack({ 47, 8, 33, 113 });
 	downAnim.PushBack({ 175,8, 33, 116 });
@@ -105,6 +139,11 @@ bool SkeletonEnem::Start()
 
 	Ston[0] = CreateSkeleton(/*Vpir->Pos.x, Vpir->Pos.x,*/512, 1504, TextureSkeleton);
 	Ston[10] = CreateSkeleton(/*Vpir->Pos.x, Vpir->Pos.x,*/1632, 704, TextureSkeleton);
+
+	currentAttack1S = &SidleAttack1;
+	currentHit1S = &SidleHit1;
+	currentDead1S = &SidleDead1;
+	currentA1S = &SidleA1;
 
 	return false;
 }
@@ -200,6 +239,11 @@ bool SkeletonEnem::Update(float dt)
 bool SkeletonEnem::PostUpdate()
 {
 
+	SkeletonAR = currentAttack1S->GetCurrentFrame();
+	SkeletonH1AR = currentHit1S->GetCurrentFrame();
+	SkeletonD1AR = currentDead1S->GetCurrentFrame();
+	SkeletonA1AR = currentA1S->GetCurrentFrame();
+
 	for (int i = 0; i < NUM_SKELETON; i++)
 	{
 		if (Ston[i].dead == false && app->menu->config == false && app->BTSystem->battle == false)
@@ -274,6 +318,7 @@ void SkeletonEnem::Combat() {
 				Ston[randomNumber2].hp -= app->player->P1.damage2 + app->player->P1.damage;
 				Ston[randomNumber2_].hp -= app->player->P1.damage2 + app->player->P1.damage;
 				Ston[app->BTSystem->SkeletonTarget].hp -= app->player->P1.damage2 + app->player->P1.damage;
+				Ston[app->BTSystem->SkeletonTarget].Shit = true;
 				randomNumber = (rand() % 100) + 1;
 
 			} while (randomNumber <= app->player->P1.speed + app->player->P1.speed2);
@@ -585,10 +630,56 @@ void SkeletonEnem::DrawEnemies() {
 					Choose->h = 110;
 					app->render->DrawTexture(selectSkeleton, app->player->P1.position.x + 395, app->player->P1.position.y - 335 + 120 * i, Choose);
 				}
-				app->render->DrawTexture(skeletonEnem, app->player->P1.position.x + 360, app->player->P1.position.y - 330 + 110 * i);
+				if (Ston[i].dead == false && app->menu->config == false && app->BTSystem->battle == false)
+				{
+					app->render->DrawTexture(Ston[i].skeletonT, Ston[i].Pos.x, Ston[i].Pos.y, &(currentAnimation[i]->GetCurrentFrame()));
+				}
+				if (Ston[i].Shit == false && Ston[i].atack == false)
+				{
+					SDL_Rect Enem1 = { app->player->P1.position.x + 400, app->player->P1.position.y - 330 + 120 * i, 100, 100 };
+					currentAnimation[i] = &SidleAttack1;;
+					app->render->DrawTexture(skeletonEnem, app->player->P1.position.x + 350, app->player->P1.position.y - 330 + 100 * i, &SkeletonAR);
+					currentAnimation[i]->Update();
+				}
+				if (Ston[i].Shit == true)
+				{
+					currentAnimation[i] = &SidleHit1;;
+					app->render->DrawTexture(skeletonEnem, app->player->P1.position.x + 350, app->player->P1.position.y - 330 + 100 * i, &SkeletonH1AR);
+					currentAnimation[i]->Update();
+					if (SidleHit1.currentFrame >= 4.0) {
+						SidleHit1.currentFrame = 0;
+						Ston[i].Shit = false;
+					}
+				}
+				
+				if (Ston[i].atack == true)
+				{
+					currentAnimation[i] = &SidleA1;;
+					app->render->DrawTexture(skeletonEnem, app->player->P1.position.x + 350, app->player->P1.position.y - 330 + 100 * i, &SkeletonA1AR);
+					currentAnimation[i]->Update();
+					if (Ston[i].atack == true)
+					{
+						if (SidleA1.currentFrame <= 2.0) {
+							currentAnimation[i] = &SidleA1;
+							app->render->DrawTexture(skeletonEnem, app->player->P1.position.x + 350, app->player->P1.position.y - 330 + 100 * i, &SkeletonA1AR);
+							currentAnimation[i]->Update();
 
+						}
+						if (SidleA1.currentFrame >= 2.0 && SidleA1.currentFrame <= 4.0)
+						{
+							app->render->DrawTexture(skeletonEnem, app->player->P1.position.x + 390, app->player->P1.position.y - 330 + 100 * i, &SkeletonA1AR);
+							SidleA1.currentFrame = 0;
+							Ston[i].atack = false;
+						}
+					}
+				}
 			}
-
+			if (Ston[i].dead == true)
+			{
+				currentAnimation[i] = &SidleDead1;
+				app->render->DrawTexture(skeletonEnem, app->player->P1.position.x + 350, app->player->P1.position.y - 330 + 100 * i, &SkeletonD1AR);
+				currentAnimation[i]->Update();
+			}
 		}
 		app->guiManager->Draw();
 	}
@@ -697,6 +788,7 @@ void SkeletonEnem::EnemyPhase() {
 						randomNumber = (rand() % 100) + 1;
 						if (app->player->godMode == false) {
 							app->player->P1.hp -= Ston[app->BTSystem->playerTarget].damage;
+							Ston[i].atack = true;
 						}
 					} while (randomNumber <= Ston[app->BTSystem->playerTarget].speed);
 					app->BTSystem->PlayerTurn = true;
@@ -707,6 +799,7 @@ void SkeletonEnem::EnemyPhase() {
 						randomNumber = (rand() % 100) + 1;
 						if (app->player->godMode == false) {
 							app->player->P2.hp -= Ston[app->BTSystem->playerTarget].damage;
+							Ston[i].atack = true;
 						}
 					} while (randomNumber <= Ston[app->BTSystem->playerTarget].speed);
 					app->BTSystem->PlayerTurn = true;
@@ -718,6 +811,7 @@ void SkeletonEnem::EnemyPhase() {
 						randomNumber = (rand() % 100) + 1;
 						if (app->player->godMode == false) {
 							app->player->P3.hp -= Ston[app->BTSystem->playerTarget].damage;
+							Ston[i].atack = true;
 						}
 					} while (randomNumber <= Ston[app->BTSystem->playerTarget].speed);
 					app->BTSystem->PlayerTurn = true;
@@ -729,6 +823,7 @@ void SkeletonEnem::EnemyPhase() {
 						randomNumber = (rand() % 100) + 1;
 						if (app->player->godMode == false) {
 							app->player->P4.hp -= Ston[app->BTSystem->playerTarget].damage;
+							Ston[i].atack = true;
 						}
 					} while (randomNumber <= Ston[app->BTSystem->playerTarget].speed);
 					app->BTSystem->PlayerTurn = true;

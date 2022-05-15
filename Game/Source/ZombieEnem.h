@@ -30,6 +30,8 @@ struct Zombie
 	int numEnemies = 4;
 	bool poisoned = false;
 	bool onFire = false;
+	bool Zhit = false;
+	bool atack = false;
 };
 
 class ZombieEnem : public Entity
@@ -114,6 +116,11 @@ public:
 	Animation ZdeadAnim1;
 	Animation ZidleDead1;
 
+	Animation* currentA1Z = nullptr;
+	SDL_Texture* zombieA1A = nullptr;
+	SDL_Rect zombieA1AR;
+	Animation ZAAnim1;
+	Animation ZidleA1;
 
 	float randomEnemyhp = 0.0;
 	float randomEnemySpeed = 0.0;
@@ -126,8 +133,9 @@ public:
 
 	int ZombieNum = NULL;
 	bool randomstats = true;
-	bool hit = false;
+	
 	int WhichZombie = NULL;
+
 
 
 

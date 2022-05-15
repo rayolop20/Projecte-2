@@ -23,6 +23,47 @@ VampirEnem::VampirEnem():Entity (EntityType::VAMPYR)
 	idleAnim.loop = true;
 	idleAnim.speed = 0.1f;
 
+	VidleAttack1.PushBack({ 0, 0, 160, 192 });
+	VidleAttack1.PushBack({ 160, 0, 160, 192 });
+	VidleAttack1.PushBack({ 320, 0, 160, 192 });
+	VidleAttack1.PushBack({ 480, 0, 160, 192 });
+	VidleAttack1.PushBack({ 640, 0, 160, 192 });
+	VidleAttack1.PushBack({ 800, 0, 160, 192 });
+	VidleAttack1.loop = true;
+	VidleAttack1.speed = 0.01f;
+
+	VidleHit1.PushBack({ 0, 202, 160, 192 });
+	VidleHit1.PushBack({ 160, 202, 160, 192 });
+	VidleHit1.PushBack({ 320, 202, 160, 192 });
+	VidleHit1.PushBack({ 480, 202, 160, 192 });
+	VidleHit1.PushBack({ 480, 202, 160, 192 });
+	VidleHit1.loop = false;
+	VidleHit1.speed = 0.03f;
+
+	VidleDead1.PushBack({ 0, 418, 160, 192 });
+	VidleDead1.PushBack({ 160, 418, 160, 192 });
+	VidleDead1.PushBack({ 320, 418, 160, 192 });
+	VidleDead1.PushBack({ 480, 418, 160, 192 });
+	VidleDead1.PushBack({ 640, 418, 160, 192 });
+	VidleDead1.PushBack({ 800, 418, 160, 192 });
+	VidleDead1.PushBack({ 960, 418, 160, 192 });
+	VidleDead1.PushBack({ 1120, 418, 160, 192 });
+	VidleDead1.PushBack({ 1280, 418, 160, 192 });
+	VidleDead1.PushBack({ 1440, 418, 160, 192 });
+	VidleDead1.loop = false;
+	VidleDead1.speed = 0.1f;
+	
+	VidleA1.PushBack({ 0, 716, 160, 192 });
+	VidleA1.PushBack({ 160, 716, 160, 192 });
+	VidleA1.PushBack({ 160, 716, 160, 192 });
+	VidleA1.PushBack({ 320, 625, 160, 284 });
+	VidleA1.PushBack({ 320, 625, 160, 284 });
+	VidleA1.PushBack({ 480, 624, 222, 284 });
+	VidleA1.PushBack({ 480, 624, 200, 283 });
+	VidleA1.PushBack({ 480, 624, 200, 283 });
+	VidleA1.loop = false;
+	VidleA1.speed = 0.1f;
+
 	downAnim.PushBack({ 41,18, 45, 102 });
 	downAnim.PushBack({ 169,18, 45, 104 });
 	downAnim.PushBack({ 297,18, 45, 102 });
@@ -104,6 +145,11 @@ bool VampirEnem::Start()
 	Vpir[0] = CreateVampire(/*Vpir->Pos.x, Vpir->Pos.x,*/1248,448, TextureVampire);
 	Vpir[10] = CreateVampire(/*Vpir->Pos.x, Vpir->Pos.x,*/1696,1536, TextureVampire);
 
+	currentAttack1V = &VidleAttack1;
+	currentHit1V = &VidleHit1;
+	currentDead1V = &VidleDead1;
+	currentA1V = &VidleA1;
+
 	return false;
 }
 
@@ -165,6 +211,12 @@ bool VampirEnem::Update(float dt)
 bool VampirEnem::PostUpdate()
 {
 	LOG("FUNCIONA?");
+
+	VampireAR = currentAttack1V->GetCurrentFrame();
+	vampireH1AR = currentHit1V->GetCurrentFrame();
+	vampireD1AR = currentDead1V->GetCurrentFrame();
+	vampireA1AR = currentA1V->GetCurrentFrame();
+
 	for (int i = 0; i < NUM_VAMPIRE; i++)
 	{
 		if (Vpir[i].dead == false && app->menu->config == false && app->BTSystem->battle == false)
@@ -240,6 +292,7 @@ void VampirEnem::Combat() {
 				Vpir[randomNumber2].hp -= app->player->P1.damage2 + app->player->P1.damage;
 				Vpir[randomNumber2_].hp -= app->player->P1.damage + app->player->P1.damage2;
 				Vpir[app->BTSystem->VampireTarget].hp -= app->player->P1.damage2 + app->player->P1.damage;
+				Vpir[app->BTSystem->VampireTarget].Vhit = true;
 				randomNumber = (rand() % 100) + 1;
 
 			} while (randomNumber <= app->player->P1.speed + app->player->P1.speed2);
@@ -561,8 +614,55 @@ void VampirEnem::DrawEnemies() {
 					Choose->h = 110;
 					app->render->DrawTexture(selectVampire, app->player->P1.position.x + 395, app->player->P1.position.y - 335 + 120 * i, Choose);
 				}
-				app->render->DrawTexture(vampireEnem, app->player->P1.position.x + 360, app->player->P1.position.y - 330 + 110 * i);
+				if (Vpir[i].Vhit == false && Vpir[i].atack == false)
+				{
+					SDL_Rect Enem1 = { app->player->P1.position.x + 400, app->player->P1.position.y - 330 + 120 * i, 100, 100 };
+					currentAnimation[i] = &VidleAttack1;;
+					app->render->DrawTexture(vampireEnem, app->player->P1.position.x + 350, app->player->P1.position.y - 330 + 100 * i, &VampireAR);
+					currentAnimation[i]->Update();
+				}
+				if (Vpir[i].Vhit == true)
+				{
+					currentAnimation[i] = &VidleHit1;;
+					app->render->DrawTexture(vampireEnem, app->player->P1.position.x + 350, app->player->P1.position.y - 330 + 100 * i, &vampireH1AR);
+					currentAnimation[i]->Update();
+					if (VidleHit1.currentFrame >= 4.0) {
+						VidleHit1.currentFrame = 0;
+						Vpir[i].Vhit = false;
+					}
+				}
+				if (Vpir[i].atack == true)
+				{
+					if (VidleA1.currentFrame <= 3.0) {
+						currentAnimation[i] = &VidleA1;
+						app->render->DrawTexture(vampireEnem, app->player->P1.position.x + 350, app->player->P1.position.y - 330 + 100 * i, &vampireA1AR);
+						currentAnimation[i]->Update();
 
+					}
+					if (VidleA1.currentFrame >= 3.0 && VidleA1.currentFrame <= 5.0)
+					{
+
+						//currentAnimation[i] = &VidleA1;
+						app->render->DrawTexture(vampireEnem, app->player->P1.position.x + 350, app->player->P1.position.y - 391 + 100 * i, &vampireA1AR);
+						//currentAnimation[i]->Update();
+					}
+
+					if (VidleA1.currentFrame >= 5.0 && VidleA1.currentFrame <= 7.0)
+					{
+
+						//currentAnimation[i] = &VidleA1;
+						app->render->DrawTexture(vampireEnem, app->player->P1.position.x + 390, app->player->P1.position.y - 391 + 100 * i, &vampireA1AR);
+						//currentAnimation[i]->Update();
+						VidleA1.currentFrame = 0;
+						Vpir[i].atack = false;
+					}
+				}
+			}
+			if (Vpir[i].dead == true)
+			{
+				currentAnimation[i] = &VidleDead1;;
+				app->render->DrawTexture(vampireEnem, app->player->P1.position.x + 350, app->player->P1.position.y - 330 + 100 * i, &vampireD1AR);
+				currentAnimation[i]->Update();
 			}
 
 		}
@@ -669,9 +769,11 @@ void VampirEnem::EnemyPhase() {
 						randomNumber = (rand() % 100) + 1;
 						if (app->player->godMode == false) {
 							app->player->P1.hp -= Vpir[app->BTSystem->playerTarget].damage;
+							Vpir[i].atack = true;
 						}
 					} while (randomNumber <= Vpir[app->BTSystem->playerTarget].speed);
    					app->BTSystem->PlayerTurn = true;
+
 				}
 				if (app->BTSystem->playerTarget == 2 && app->player->P2.IsAlive == true) {
 					int randomNumber = 0;
@@ -679,6 +781,7 @@ void VampirEnem::EnemyPhase() {
 						randomNumber = (rand() % 100) + 1;
 						if (app->player->godMode == false) {
 							app->player->P2.hp -= Vpir[app->BTSystem->playerTarget].damage;
+							Vpir[i].atack = true;
 						}
 					} while (randomNumber <= Vpir[app->BTSystem->playerTarget].speed);
 					app->BTSystem->PlayerTurn = true;
@@ -690,6 +793,7 @@ void VampirEnem::EnemyPhase() {
 						randomNumber = (rand() % 100) + 1;
 						if (app->player->godMode == false) {
 							app->player->P3.hp -= Vpir[app->BTSystem->playerTarget].damage;
+							Vpir[i].atack = true;
 						}
 					} while (randomNumber <= Vpir[app->BTSystem->playerTarget].speed);
 					app->BTSystem->PlayerTurn = true;
@@ -701,6 +805,7 @@ void VampirEnem::EnemyPhase() {
 						randomNumber = (rand() % 100) + 1;
 						if (app->player->godMode == false) {
 							app->player->P4.hp -= Vpir[app->BTSystem->playerTarget].damage;
+							Vpir[i].atack = true;
 						}
 					} while (randomNumber <= Vpir[app->BTSystem->playerTarget].speed);
 					app->BTSystem->PlayerTurn = true;
