@@ -48,6 +48,7 @@ bool Scene::Start()
 		if (app->map->CreateWalkabilityMap(w, h, &data)) app->pathfinding->SetMap(w, h, data);
 		RELEASE_ARRAY(data);
 	};
+
 	Puzle_Fail = app->audio->LoadFx("Assets/Audio/Fx/fail_puzle.wav");
 	Pressure_plate = app->audio->LoadFx("Assets/Audio/Fx/pressure_plate.wav");
 	Open_Door = app->audio->LoadFx("Assets/Audio/Fx/open_door.wav");

@@ -182,7 +182,7 @@ private:
 	GuiButton* btn2;
 
 	SDL_Rect block;
- 
+
 	iPoint origin;
 	bool originSelected = false;
 

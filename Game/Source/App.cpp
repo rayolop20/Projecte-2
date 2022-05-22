@@ -19,6 +19,7 @@
 #include "GameMenu.h"
 #include "StatsMenu.h"
 #include "AssetsManager.h"
+#include "Mouse.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -53,6 +54,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	gameMenu = new GameMenu_Screen();
 	statsMenu = new StatsMenu_Screen();
 	assetManager = new ModuleAssetsManager();
+	mouse = new Mouse();
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
 	AddModule(assetManager);
@@ -72,6 +74,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(collisions);
 	AddModule(gameMenu); // 84 Mb de memoria
 	AddModule(statsMenu);
+	AddModule(mouse);
 
 	AddModule(characterMenu); // genera memory leacks sempre k es clica la I (120mb)
 

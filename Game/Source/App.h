@@ -33,6 +33,7 @@ class GameMenu_Screen;
 class StatsMenu_Screen;
 class DialogueSystem;
 class ModuleAssetsManager;
+class Mouse;
 
 class App
 {
@@ -117,6 +118,7 @@ public:
 	StatsMenu_Screen* statsMenu = nullptr;
 	DialogueSystem* dialogues = nullptr;
 	ModuleAssetsManager* assetManager = nullptr;
+	Mouse* mouse = nullptr;
 
 
 	float dt = 16.0f;
