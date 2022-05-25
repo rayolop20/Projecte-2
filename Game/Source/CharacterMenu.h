@@ -59,6 +59,7 @@ public:
 	bool item7state = false;
 
 	bool typingTxt = false;
+	bool typingTxt2 = false;
 
 	SDL_Texture* inventoryTex = nullptr;
 	SDL_Texture* inventoryTexBack = nullptr;

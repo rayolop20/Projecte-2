@@ -110,7 +110,7 @@ bool CharacterMenu_Screen::Update(float dt)
 		Item3->state = GuiControlState::NORMAL;
 		Item4->state = GuiControlState::NORMAL;
 		Item5->state = GuiControlState::NORMAL;
-		Item6->state = GuiControlState::DISABLED;
+		Item6->state = GuiControlState::NORMAL;
 		Item7->state = GuiControlState::NORMAL;
 
 		buttonCont = 1;
@@ -203,7 +203,7 @@ bool CharacterMenu_Screen::Update(float dt)
 		}
 		if (app->input->GetKey(SDL_SCANCODE_5) == KEY_DOWN)
 		{
-			item5state = true;
+			smoke = 2;
 		}
 		if (app->input->GetKey(SDL_SCANCODE_6) == KEY_DOWN)
 		{
@@ -824,7 +824,6 @@ bool CharacterMenu_Screen::Update(float dt)
 		else 
 		{
 			item6state = false;
-			Item6->state = GuiControlState::DISABLED;
 		}
 
 		if (!item1state && !item2state && !item3state && !item4state && !item5state && !item6state && item7state)
@@ -1462,7 +1461,7 @@ bool CharacterMenu_Screen::Update(float dt)
 		sprintf_s(Mana4, "mana %.2f", app->player->P4.mana);
 		app->fonts->DrawTxt(10, 70, FText, Mana4);
 	}
-	if (typingTxt)
+	if (typingTxt && !typingTxt2)
 	{
 		sprintf_s(adviceTxt, "try to use this item in a fight to run away");
 		app->fonts->DrawTxt(390, 620, FText, adviceTxt);
@@ -1471,10 +1470,20 @@ bool CharacterMenu_Screen::Update(float dt)
 			TxtCont++;
 		}
 	}
+	if (typingTxt2 && !typingTxt)
+	{
+		sprintf_s(adviceTxt, "this skull seems to be used in an altar");
+		app->fonts->DrawTxt(430, 620, FText, adviceTxt);
+		if (TxtCont < 2)
+		{
+			TxtCont++;
+		}
+	}
 
-	if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_UP && typingTxt && TxtCont == 2)
+	if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_UP && (typingTxt || typingTxt2) && TxtCont == 2)
 	{
 		typingTxt = false;
+		typingTxt2 = false;
 		TxtCont = 0;
 	}
 
@@ -1506,8 +1515,8 @@ void CharacterMenu_Screen::Menu()
 	Item3 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 56, "item3", { -app->render->camera.x + app->win->GetWidth() / 2 + 91, -app->render->camera.y + app->win->GetHeight() / 2 - 160, 70, 70 }, this);
 	Item4 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 57, "item4", { -app->render->camera.x + app->win->GetWidth() / 2 + 186, -app->render->camera.y + app->win->GetHeight() / 2 - 160, 70, 70 }, this);
 	Item5 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 58, "item5", { -app->render->camera.x + app->win->GetWidth() / 2 + 281, -app->render->camera.y + app->win->GetHeight() / 2 - 160, 70, 70 }, this);
-	Item6 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 59, "Key", { -app->render->camera.x + app->win->GetWidth() / 2 - 99, -app->render->camera.y + app->win->GetHeight() / 2 - 100 + 95 + 95, 70, 70 }, this);
-	Item7 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 60, "item7", { -app->render->camera.x + app->win->GetWidth() / 2 - 4, -app->render->camera.y + app->win->GetHeight() / 2 - 100 + 95 + 95, 70, 70 }, this);
+	Item6 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 59, "item6", { -app->render->camera.x + app->win->GetWidth() / 2 - 99, -app->render->camera.y + app->win->GetHeight() / 2 - 64, 70, 70 }, this);
+	Item7 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 60, "item7", { -app->render->camera.x + app->win->GetWidth() / 2 - 4, -app->render->camera.y + app->win->GetHeight() / 2 - 64, 70, 70 }, this);
 
 	Character1->state = GuiControlState::NORMAL;
 	Character2->state = GuiControlState::NORMAL;
@@ -1690,6 +1699,13 @@ bool CharacterMenu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 
 					buttonCont = 0;
 				}
+				else if (control->id == 54 && !item1state && !item2state && !item3state && !item4state && !item5state && item7state)
+				{
+					typingTxt2 = true;
+
+					buttonCont = 0;
+				}
+
 				//------------------2nd grid pos----------------------
 				if (control->id == 55 && healing > 0 && item1state && item2state)
 				{
@@ -1760,7 +1776,7 @@ bool CharacterMenu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 					}
 					buttonCont = 0;
 				}
-				else if (control->id == 55 && item1state && !item2state && !item3state && !item4state && item5state || control->id == 55 && increaseHP > 0 && !item1state && item2state && !item3state && !item4state && item5state ||	control->id == 55 && increaseHP > 0 && !item1state && !item2state && item3state && !item4state && item5state ||	control->id == 55 && increaseHP > 0 && !item1state && !item2state && !item3state && item4state && item5state)
+				else if (control->id == 55 && item1state && !item2state && !item3state && !item4state && item5state || control->id == 55 && !item1state && item2state && !item3state && !item4state && item5state ||	control->id == 55 && !item1state && !item2state && item3state && !item4state && item5state ||	control->id == 55 && !item1state && !item2state && !item3state && item4state && item5state)
 				{
 					if (app->BTSystem->battle == true)
 					{
@@ -1790,6 +1806,12 @@ bool CharacterMenu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 					{
 						typingTxt = true;
 					}
+
+					buttonCont = 0;
+				}
+				else if (control->id == 55 && !item1state && !item2state && !item3state && !item4state && item5state && item7state ||control->id == 55 && !item1state && !item2state && !item3state && item4state && !item5state && item7state ||control->id == 55 && !item1state && !item2state && item3state && !item4state && !item5state && item7state ||control->id == 55 && !item1state && item2state && !item3state && !item4state && !item5state && item7state ||control->id == 55 && item1state && !item2state && !item3state && !item4state && !item5state && item7state)
+				{
+					typingTxt2 = true;
 
 					buttonCont = 0;
 				}
@@ -1838,7 +1860,7 @@ bool CharacterMenu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 					}
 					buttonCont = 0;
 				}
-				else if (control->id == 56 && increaseHP > 0 && item1state && item2state && !item3state && !item4state && item5state|| control->id == 56 && increaseHP > 0 && item1state && !item2state && item3state && !item4state && item5state || control->id == 56 && increaseHP > 0 && item1state && !item2state && !item3state && item4state && item5state || control->id == 56 && increaseHP > 0 && !item1state && item2state && !item3state && item4state && item5state || control->id == 56 && increaseHP > 0 && !item1state && item2state && item3state && !item4state && item5state || control->id == 56 && increaseHP > 0 && !item1state && !item2state && item3state && item4state && item5state)
+				else if (control->id == 56 && item1state && item2state && !item3state && !item4state && item5state|| control->id == 56 && item1state && !item2state && item3state && !item4state && item5state || control->id == 56 && item1state && !item2state && !item3state && item4state && item5state || control->id == 56 && !item1state && item2state && !item3state && item4state && item5state || control->id == 56 && !item1state && item2state && item3state && !item4state && item5state || control->id == 56 && !item1state && !item2state && item3state && item4state && item5state)
 				{
 					if (app->BTSystem->battle == true)
 					{
@@ -1868,6 +1890,12 @@ bool CharacterMenu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 					{
 						typingTxt = true;
 					}
+
+					buttonCont = 0;
+				}
+				else if (control->id == 56 && item1state && !item2state && !item3state && !item4state && item5state && item7state || control->id == 56 && item1state && !item2state && !item3state && item4state && !item5state && item7state || control->id == 56 && item1state && !item2state && item3state && !item4state && !item5state && item7state || control->id == 56 && item1state && item2state && !item3state && !item4state && !item5state && item7state || control->id == 56 && !item1state && item2state && item3state && !item4state && !item5state && item7state ||	control->id == 56 && !item1state && item2state && !item3state && item4state && !item5state && item7state ||	control->id == 56 && !item1state && item2state && !item3state && !item4state && item5state && item7state ||	control->id == 56 && !item1state && !item2state && item3state && !item4state && item5state && item7state ||	control->id == 56 && !item1state && !item2state && item3state && item4state && !item5state && item7state ||	control->id == 56 && !item1state && !item2state && !item3state && item4state && item5state && item7state)
+				{
+					typingTxt2 = true;
 
 					buttonCont = 0;
 				}
@@ -1930,9 +1958,15 @@ bool CharacterMenu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 
 					buttonCont = 0;
 				}
+				else if (control->id == 57 && item1state && item2state && item3state && !item4state && !item5state && item7state ||control->id == 57 && item1state && item2state && !item3state && item4state && !item5state && item7state ||control->id == 57 && item1state && item2state && !item3state && !item4state && item5state && item7state ||control->id == 57 && item1state && !item2state && item3state && item4state && !item5state && item7state ||control->id == 57 && item1state && !item2state && item3state && !item4state && item5state && item7state ||control->id == 57 && item1state && !item2state && !item3state && item4state && item5state && item7state ||control->id == 57 && !item1state && item2state && item3state && !item4state && item5state && item7state ||control->id == 57 && !item1state && item2state && item3state && item4state && !item5state && item7state ||control->id == 57 && !item1state && item2state && !item3state && item4state && item5state && item7state || control->id == 57 && !item1state && !item2state && item3state && item4state && item5state && item7state)
+				{
+					typingTxt2 = true;
+
+					buttonCont = 0;
+				}
 
 				//------------------5th grid pos----------------------
-				if (control->id == 58 && item1state && item2state && item3state && item4state  && item5state && app->BTSystem->battle1 == false)
+				if (control->id == 58 && item1state && item2state && item3state && item4state  && item5state)
 				{
 					if (app->BTSystem->battle == true)
 					{
@@ -1965,6 +1999,21 @@ bool CharacterMenu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 
 					buttonCont = 0;
 				}
+				else if (control->id == 58 && item1state && item2state && item3state && item4state && !item5state && item7state || control->id == 58 && item1state && item2state && item3state && !item4state && item5state && item7state || control->id == 58 && item1state && item2state && !item3state && item4state && item5state && item7state || control->id == 58 && item1state && !item2state && item3state && item4state && item5state && item7state || control->id == 58 && !item1state && item2state && item3state && item4state && item5state && item7state)
+				{
+					typingTxt2 = true;
+
+					buttonCont = 0;
+				}
+
+				//------------------6th grid pos----------------------
+				if (control->id == 59 && item1state && item2state && item3state && item4state && item5state && item7state)
+				{
+					typingTxt2 = true;
+
+					buttonCont = 0;
+				}
+
 				default: break;
 			}
 		}
