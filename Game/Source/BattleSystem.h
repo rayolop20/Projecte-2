@@ -281,6 +281,7 @@ public:
 	Animation qte2;
 
 	Animation qte2fx;
+	Animation qte2fx2;
 
 	Animation qte3;
 
@@ -290,6 +291,7 @@ public:
 
 	Animation* currentQTE2 = nullptr;
 	Animation* currentQTE2fx = nullptr;
+	Animation* currentQTE2fx2 = nullptr;
 
 	Animation* currentQTE3 = nullptr;
 
@@ -302,6 +304,9 @@ public:
 
 	SDL_Texture* qte2fxT = nullptr;
 	SDL_Rect qte2fxR;
+
+	SDL_Texture* qte2fxT2 = nullptr;
+	SDL_Rect qte2fxR2;
 
 	SDL_Texture* qte3T = nullptr;
 	SDL_Rect qte3R;

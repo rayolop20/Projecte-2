@@ -249,6 +249,32 @@ battleSystem::battleSystem() : Module()
 	qte2.loop = true;
 	qte2.speed = 0.5f;
 
+	qte2fx.PushBack({ 38, 32, 70, 77 });
+	qte2fx.PushBack({ 170, 32, 70, 77 });
+	qte2fx.PushBack({ 324, 32, 70, 77 });
+	qte2fx.PushBack({ 480, 32, 70, 77 });
+	qte2fx.PushBack({ 635, 32, 70, 77 });
+	qte2fx.PushBack({ 783, 32, 70, 77 });
+	qte2fx.PushBack({ 38, 110, 70, 77 });
+	qte2fx.PushBack({ 180, 110, 70, 77 });
+	qte2fx.PushBack({ 324, 110, 70, 77 });
+	qte2fx.PushBack({ 490, 110, 70, 77 });
+	qte2fx.loop = true;
+	qte2fx.speed = 0.25f;
+
+	qte2fx2.PushBack({ 38, 400, 70, 77 });
+	qte2fx2.PushBack({170, 400, 70, 77 });
+	qte2fx2.PushBack({ 324, 400, 70, 77 });
+	qte2fx2.PushBack({ 480, 400, 70, 77 });
+	qte2fx2.PushBack({ 635, 400, 70, 77 });
+	qte2fx2.PushBack({ 783, 400, 70, 77 });
+	qte2fx2.PushBack({ 38, 540, 70, 77 });
+	qte2fx2.PushBack({ 180, 540, 70, 77 });
+	qte2fx2.PushBack({ 324, 540, 70, 77 });
+	qte2fx2.PushBack({ 490, 540, 70, 77 });
+	qte2fx2.loop = true;
+	qte2fx2.speed = 0.25f;
+
 	/*qte2fx.PushBack({ , , , 77 });
 	qte2fx.PushBack({ , , , 77 });
 	qte2fx.PushBack({ , , , 77 });
@@ -384,6 +410,7 @@ bool battleSystem::Start()
 	currentQTE1 = &qte1;
 	currentQTE2 = &qte2;
 	currentQTE2fx = &qte2fx;
+	currentQTE2fx2 = &qte2fx2;
 	currentQTE3 = &qte3;
 	currentQTE4 = &qte4;
 
@@ -704,6 +731,8 @@ bool battleSystem::PostUpdate()
 
 	qte1R = currentQTE1->GetCurrentFrame();
 	qte2R = currentQTE2->GetCurrentFrame();
+	qte2fxR = currentQTE2fx->GetCurrentFrame();
+	qte2fxR2 = currentQTE2fx2->GetCurrentFrame();
 
 	if (battleTransition && app->player->P1.IsAlive && transitionRep == 1)
 	{
@@ -1167,12 +1196,28 @@ void battleSystem::SpecialAttackPhase() {
 		if (AttackAux <= 100 && go == 0) {
 			currentQTE2 = &qte2;
 			currentQTE2->Update();
-			app->render->DrawTexture(qte2T, app->player->P1.position.x - 119, app->player->P1.position.y + 25, &qte2R);
+			app->render->DrawTexture(qte2T, app->player->P1.position.x - 110, app->player->P1.position.y + 25, &qte2R);
+
+			currentQTE2fx = &qte2fx;
+			currentQTE2fx->Update();
+			app->render->DrawTexture(qte2fxT, app->player->P1.position.x + 205, app->player->P1.position.y + 25, &qte2fxR);
+
+			currentQTE2fx2 = &qte2fx2;
+			currentQTE2fx2->Update();
+			app->render->DrawTexture(qte2fxT, app->player->P1.position.x - 200, app->player->P1.position.y + 25, &qte2fxR2);
 		}
 		if (AttackAux <= 100 && go == 1) {
 			currentQTE2 = &qte2;
 			currentQTE2->Update();
-			app->render->DrawTexture(qte2T, app->player->P1.position.x - 119, app->player->P1.position.y + 200, &qte2R);
+			app->render->DrawTexture(qte2T, app->player->P1.position.x - 110, app->player->P1.position.y + 200, &qte2R);
+
+			currentQTE2fx = &qte2fx;
+			currentQTE2fx->Update();
+			app->render->DrawTexture(qte2fxT, app->player->P1.position.x + 205, app->player->P1.position.y + 200, &qte2fxR);
+
+			currentQTE2fx2 = &qte2fx2;
+			currentQTE2fx2->Update();
+			app->render->DrawTexture(qte2fxT, app->player->P1.position.x - 200, app->player->P1.position.y + 200, &qte2fxR2);
 		}
 		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
 			AttackAux+=2;
