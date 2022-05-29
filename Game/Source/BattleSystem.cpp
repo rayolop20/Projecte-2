@@ -22,47 +22,6 @@
 #include "Log.h"
 #include <time.h>
 
-qteAnimation::qteAnimation() : Module()
-{
-	name.Create("qteAnimation");
-	qte1.PushBack({ 65, 47, 60, 60 });
-	qte1.PushBack({ 206, 43, 60, 60 });
-	qte1.PushBack({ 348, 44, 60, 60 });
-	qte1.PushBack({ 488, 44, 60, 60 });
-	qte1.PushBack({ 620, 40, 70, 70 });
-	qte1.PushBack({ 47, 158, 70, 70 });
-	qte1.PushBack({ 195, 155, 70, 70 });
-	qte1.PushBack({ 335, 155, 70, 70 });
-	qte1.PushBack({ 482, 155, 70, 70 });
-	qte1.PushBack({ 625, 155, 70, 70 });
-	qte1.PushBack({ 0, 0, 0, 0 });
-	qte1.loop = false;
-	qte1.speed = 0.005f;
-
-
-	qte2.PushBack({ 51, 36, 301, 63 });
-	qte2.PushBack({ 579, 36, 301, 63 });
-	qte2.PushBack({ 51, 186, 301, 63 });
-	qte2.PushBack({ 579, 186, 301, 63 });
-	qte2.PushBack({ 51, 336, 301, 63 });
-	qte2.PushBack({ 579, 336, 301, 63 });
-	qte2.PushBack({ 51, 486, 301, 63 });
-	qte2.PushBack({ 579, 486, 301, 63 });
-	qte2.loop = true;
-	qte2.speed = 0.005f;
-
-	/*qte2fx.PushBack({ , , , 77 });
-	qte2fx.PushBack({ , , , 77 });
-	qte2fx.PushBack({ , , , 77 });
-	qte2fx.PushBack({ , , , 77 });
-	qte2fx.PushBack({ , , , 77 });
-	qte2fx.PushBack({ , , , 77 });
-	qte2fx.PushBack({ , , , 77 });
-	qte2fx.PushBack({ , , , 77 });
-	qte2fx.loop = false;
-	qte2fx.speed = 0.005f;*/
-};
-
 
 battleSystem::battleSystem() : Module()
 {
@@ -262,6 +221,44 @@ battleSystem::battleSystem() : Module()
 	Atack_1.PushBack({ 606, 25, 85, 149 });
 	Atack_1.loop = false;
 	Atack_1.speed = 0.05f;*/
+
+	name.Create("qteAnimation");
+	qte1.PushBack({ 65, 47, 60, 60 });
+	qte1.PushBack({ 206, 43, 60, 60 });
+	qte1.PushBack({ 348, 44, 60, 60 });
+	qte1.PushBack({ 488, 44, 60, 60 });
+	qte1.PushBack({ 620, 40, 70, 70 });
+	qte1.PushBack({ 47, 158, 70, 70 });
+	qte1.PushBack({ 195, 155, 70, 70 });
+	qte1.PushBack({ 335, 155, 70, 70 });
+	qte1.PushBack({ 482, 155, 70, 70 });
+	qte1.PushBack({ 625, 155, 70, 70 });
+	qte1.PushBack({ 0, 0, 0, 0 });
+	qte1.loop = false;
+	qte1.speed = 0.005f;
+
+
+	qte2.PushBack({ 51, 36, 301, 63 });
+	qte2.PushBack({ 579, 36, 301, 63 });
+	qte2.PushBack({ 51, 186, 301, 63 });
+	qte2.PushBack({ 579, 186, 301, 63 });
+	qte2.PushBack({ 51, 336, 301, 63 });
+	qte2.PushBack({ 579, 336, 301, 63 });
+	qte2.PushBack({ 51, 486, 301, 63 });
+	qte2.PushBack({ 579, 486, 301, 63 });
+	qte2.loop = true;
+	qte2.speed = 0.5f;
+
+	/*qte2fx.PushBack({ , , , 77 });
+	qte2fx.PushBack({ , , , 77 });
+	qte2fx.PushBack({ , , , 77 });
+	qte2fx.PushBack({ , , , 77 });
+	qte2fx.PushBack({ , , , 77 });
+	qte2fx.PushBack({ , , , 77 });
+	qte2fx.PushBack({ , , , 77 });
+	qte2fx.PushBack({ , , , 77 });
+	qte2fx.loop = false;
+	qte2fx.speed = 0.005f;*/
 }
 
 // Destructor
@@ -325,11 +322,14 @@ bool battleSystem::Start()
 	
 	selectPlayer = app->tex->Load("Assets/Textures/UI/choseplayers.png");
 	Tutorial = app->tex->Load("Assets/Textures/UI/qte_tutorial.png");
-	QTE4 = app->tex->Load("Assets/Textures/UI/qte4.png");
+	QTE4A = app->tex->Load("Assets/Textures/UI/qte4.png");
 	PopQTE2 = app->tex->Load("Assets/Textures/UI/qte1_1.png");
 	quitCross = app->tex->Load("Assets/Textures/UI/quit_cross.png");
 	battle_screen = app->tex->Load("Assets/Textures/UI/battle_bg.png");
 	loose = app->tex->Load("Assets/Textures/Assets/pantalla_derrota.png");
+	qte2T = app->tex->Load("Assets/Textures/UI/qte2.png");
+	qte2fxT = app->tex->Load("Assets/Textures/UI/qte2_fx.png");
+	qte3T = app->tex->Load("Assets/Textures/UI/qt3.png");
 
 	currentAttack1 = &idleAttack1;
 	currentAttack2 = &idleAttack2;
@@ -380,6 +380,12 @@ bool battleSystem::Start()
 	currentAnimation2 = &idle2;
 	currentAnimation3 = &idle3;
 	currentAnimation4 = &idle4;
+
+	currentQTE1 = &qte1;
+	currentQTE2 = &qte2;
+	currentQTE2fx = &qte2fx;
+	currentQTE3 = &qte3;
+	currentQTE4 = &qte4;
 
 	return true;
 }
@@ -695,6 +701,8 @@ bool battleSystem::PostUpdate()
 	player2DR = currentDeath2->GetCurrentFrame();
 	player4DR = currentDeath4->GetCurrentFrame();
 	player5DR = currentDeath5->GetCurrentFrame();
+
+	qte2R = currentQTE2->GetCurrentFrame();
 
 	if (battleTransition && app->player->P1.IsAlive && transitionRep == 1)
 	{
@@ -1140,6 +1148,9 @@ void battleSystem::SpecialAttackPhase() {
 	if (randomAttack == 1) {//QTE 1
 		timer1 = SDL_GetTicks() / 1000;
 		if (AttackAux == 0){
+			/*currentQTE2 = &qte2;
+			currentQTE2->Update();
+			app->render->DrawTexture(qte2T, app->player->P1.position.x - 119, app->player->P1.position.y + 200, &qte2R);*/
 			SDL_Rect* Tutorial1 = new SDL_Rect();
 			Tutorial1->x = 0;
 			Tutorial1->y = 0;
@@ -1150,6 +1161,17 @@ void battleSystem::SpecialAttackPhase() {
 		if (AttackAux == 0 && app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
 			timer1_ = timer1;
 			AttackAux = 1;
+			go = 1;
+		}
+		if (AttackAux <= 100 && go == 0) {
+			currentQTE2 = &qte2;
+			currentQTE2->Update();
+			app->render->DrawTexture(qte2T, app->player->P1.position.x - 119, app->player->P1.position.y + 25, &qte2R);
+		}
+		if (AttackAux <= 100 && go == 1) {
+			currentQTE2 = &qte2;
+			currentQTE2->Update();
+			app->render->DrawTexture(qte2T, app->player->P1.position.x - 119, app->player->P1.position.y + 200, &qte2R);
 		}
 		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
 			AttackAux+=2;
@@ -1314,7 +1336,7 @@ void battleSystem::SpecialAttackPhase() {
 			QTE4_->y = 0;
 			QTE4_->w = 64;
 			QTE4_->h = 64;
-			app->render->DrawTexture(QTE4, app->player->P1.position.x, app->player->P1.position.y - 64, QTE4_);
+			app->render->DrawTexture(QTE4A, app->player->P1.position.x, app->player->P1.position.y - 64, QTE4_);
 			if (app->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN && randomLetterGenerator == 1) {
 				AttackAux += 10;
 				LetterGenerator = true;

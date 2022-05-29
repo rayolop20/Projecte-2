@@ -7,24 +7,6 @@
 
 struct SDL_Texture;
 
-class qteAnimation : public Module
-{
-public:
-	// Constructor
-	qteAnimation();
-
-	// Destructor
-	~qteAnimation();
-
-	Animation* qte1Animation = nullptr;
-	Animation* qte2Animation;
-	Animation* qte2Animationfx;
-
-	Animation qte1;
-	Animation qte2;
-	Animation qte2fx;
-};
-
 class battleSystem : public Module
 {
 public:
@@ -192,7 +174,7 @@ public:
 	SDL_Texture* Tutorial;
 	SDL_Texture* PopQTE2 = nullptr;
 	SDL_Texture* quitCross = nullptr;
-	SDL_Texture* QTE4;
+	SDL_Texture* QTE4A;
 	SDL_Texture* loose;
 
 
@@ -293,6 +275,36 @@ public:
 	bool transitionLock = true;
 	bool battleEnd = false;
 	bool transitionEnd = false;
+
+	Animation qte1;
+
+	Animation qte2;
+
+	Animation qte2fx;
+
+	Animation qte3;
+
+	Animation qte4;
+
+	Animation* currentQTE1 = nullptr;
+
+	Animation* currentQTE2 = nullptr;
+	Animation* currentQTE2fx = nullptr;
+
+	Animation* currentQTE3 = nullptr;
+
+	Animation* currentQTE4 = nullptr;
+
+	SDL_Texture* qte2T = nullptr;
+	SDL_Rect qte2R;
+
+	SDL_Texture* qte2fxT = nullptr;
+	SDL_Rect qte2fxR;
+
+	SDL_Texture* qte3T = nullptr;
+	SDL_Rect qte3R;
+
+	int go = 0;
 
 private:
 
