@@ -234,8 +234,8 @@ battleSystem::battleSystem() : Module()
 	qte1.PushBack({ 482, 155, 70, 70 });
 	qte1.PushBack({ 625, 155, 70, 70 });
 	qte1.PushBack({ 0, 0, 0, 0 });
-	qte1.loop = false;
-	qte1.speed = 0.005f;
+	qte1.loop = true;
+	qte1.speed = 0.25f;
 
 
 	qte2.PushBack({ 51, 36, 301, 63 });
@@ -323,7 +323,7 @@ bool battleSystem::Start()
 	selectPlayer = app->tex->Load("Assets/Textures/UI/choseplayers.png");
 	Tutorial = app->tex->Load("Assets/Textures/UI/qte_tutorial.png");
 	QTE4A = app->tex->Load("Assets/Textures/UI/qte4.png");
-	PopQTE2 = app->tex->Load("Assets/Textures/UI/qte1_1.png");
+	PopQTE2 = app->tex->Load("Assets/Textures/UI/qte1_2.png");
 	quitCross = app->tex->Load("Assets/Textures/UI/quit_cross.png");
 	battle_screen = app->tex->Load("Assets/Textures/UI/battle_bg.png");
 	loose = app->tex->Load("Assets/Textures/Assets/pantalla_derrota.png");
@@ -702,6 +702,7 @@ bool battleSystem::PostUpdate()
 	player4DR = currentDeath4->GetCurrentFrame();
 	player5DR = currentDeath5->GetCurrentFrame();
 
+	qte1R = currentQTE1->GetCurrentFrame();
 	qte2R = currentQTE2->GetCurrentFrame();
 
 	if (battleTransition && app->player->P1.IsAlive && transitionRep == 1)
@@ -1207,9 +1208,23 @@ void battleSystem::SpecialAttackPhase() {
 		if (AttackAux == 0 && app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
 			timer1_ = timer1;
 			AttackAux = 1;
+			go = 1;
 		}
-		if (AttackAux != 0) {
-			app->render->DrawTexture(PopQTE2, POSQTE2X - 6, POSQTE2Y - 6);
+		/*if (AttackAux != 0) {
+			currentQTE1 = &qte1;
+			currentQTE2->Update();
+			app->render->DrawTexture(PopQTE2, POSQTE2X - 6, POSQTE2Y - 6, &qte1R);
+			//app->render->DrawTexture(PopQTE2, POSQTE2X - 6, POSQTE2Y - 6);
+		}*/
+		if (AttackAux <= 100 && go == 0) {
+			currentQTE1 = &qte1;
+			currentQTE1->Update();
+			app->render->DrawTexture(PopQTE2, app->player->P1.position.x - 119, app->player->P1.position.y + 25, &qte1R);
+		}
+		if (AttackAux <= 100 && go == 1) {
+			currentQTE1 = &qte1;
+			currentQTE1->Update();
+			app->render->DrawTexture(PopQTE2, POSQTE2X - 6, POSQTE2Y - 6, &qte1R);
 		}
 		randomx = (rand() % 500);
 		randomy = (rand() % 300);
