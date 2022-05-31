@@ -109,8 +109,8 @@ bool EntityNPC::Start()
 	
 	
 	porta_1 = app->collisions->AddCollider({ 1312, 1664, 96, 64 }, Collider::Type::KEY_SENSOR, (Module*)app->entityManager);
-	//porta_2 = app->collisions->AddCollider({ 1504, 2304,64, 96 }, Collider::Type::KEY_SENSOR, (Module*)app->entityManager);
-	Chest = app->collisions->AddCollider({ 1504, 2304,64, 96 }, Collider::Type::KEY_SENSOR, (Module*)app->entityManager);
+	porta_2 = app->collisions->AddCollider({ 1504, 2304,64, 96 }, Collider::Type::KEY_SENSOR, (Module*)app->entityManager);
+	//Chest = app->collisions->AddCollider({ 1504, 2304,64, 96 }, Collider::Type::KEY_SENSOR, (Module*)app->entityManager);
 
 
 	return false;
