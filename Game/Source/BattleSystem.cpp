@@ -197,31 +197,6 @@ battleSystem::battleSystem() : Module()
 	DeathAnim5.speed = 0.03f;
 	
 	
-	/*idle1.PushBack({62, 25, 85, 149});
-	idle1.loop = false;
-	idle1.speed = 0.001f;
-
-
-	idle2.PushBack({ 37, 21, 102, 150 });
-	idle2.loop = false;
-	idle2.speed = 0.001f;
-	
-	idle3.PushBack({ 1, 58, 126, 130 });
-	idle3.loop = false;
-	idle3.speed = 0.001f;
-
-	idle4.PushBack({ 14, 8, 141, 182 });
-	idle4.loop = false;
-	idle4.speed = 0.001f;
-
-	Atack_1.PushBack({ 62, 25, 85, 149 });
-	Atack_1.PushBack({ 192, 59, 86, 115 });
-	Atack_1.PushBack({ 328, 64, 128, 110 });
-	Atack_1.PushBack({ 464, 59, 86, 115 });
-	Atack_1.PushBack({ 606, 25, 85, 149 });
-	Atack_1.loop = false;
-	Atack_1.speed = 0.05f;*/
-
 	name.Create("qteAnimation");
 	qte1.PushBack({ 65, 47, 60, 60 });
 	qte1.PushBack({ 206, 43, 60, 60 });
@@ -275,16 +250,24 @@ battleSystem::battleSystem() : Module()
 	qte2fx2.loop = true;
 	qte2fx2.speed = 0.25f;
 
-	/*qte2fx.PushBack({ , , , 77 });
-	qte2fx.PushBack({ , , , 77 });
-	qte2fx.PushBack({ , , , 77 });
-	qte2fx.PushBack({ , , , 77 });
-	qte2fx.PushBack({ , , , 77 });
-	qte2fx.PushBack({ , , , 77 });
-	qte2fx.PushBack({ , , , 77 });
-	qte2fx.PushBack({ , , , 77 });
-	qte2fx.loop = false;
-	qte2fx.speed = 0.005f;*/
+	fire_particles.PushBack({0,0,80,142});
+	fire_particles.PushBack({80,0,80,142});
+	fire_particles.PushBack({160,0,80,142});
+	fire_particles.PushBack({240,0,80,142});
+	fire_particles.PushBack({320,0,80,142});
+	fire_particles.PushBack({400,0,80,142});
+	fire_particles.PushBack({480,0,80,142});
+	fire_particles.PushBack({560,0,80,142});
+	fire_particles.PushBack({640,0,80,142});
+	fire_particles.PushBack({720,0,80,142});
+	fire_particles.PushBack({800,0,80,142});
+	fire_particles.PushBack({0,36,80,142});
+	fire_particles.PushBack({80,36,80,142});
+	fire_particles.PushBack({160,36,80,142});
+	fire_particles.PushBack({240,36,80,142});
+	fire_particles.PushBack({320,36,80,142});
+	fire_particles.loop = true;
+	fire_particles.speed = 0.1f;
 }
 
 // Destructor
@@ -357,6 +340,8 @@ bool battleSystem::Start()
 	qte2fxT = app->tex->Load("Assets/Textures/UI/qte2_fx.png");
 	qte3T = app->tex->Load("Assets/Textures/UI/qt3.png");
 
+	firepart = app->tex->Load("Assets/Particles/fire_particle.png");
+
 	currentAttack1 = &idleAttack1;
 	currentAttack2 = &idleAttack2;
 	currentAttack3 = &idleAttack3;
@@ -413,6 +398,8 @@ bool battleSystem::Start()
 	currentQTE2fx2 = &qte2fx2;
 	currentQTE3 = &qte3;
 	currentQTE4 = &qte4;
+
+	currentFire = &fire_particles;
 
 	return true;
 }
@@ -734,6 +721,7 @@ bool battleSystem::PostUpdate()
 	qte2fxR = currentQTE2fx->GetCurrentFrame();
 	qte2fxR2 = currentQTE2fx2->GetCurrentFrame();
 
+	fireparticv = currentFire->GetCurrentFrame();
 	if (battleTransition && app->player->P1.IsAlive && transitionRep == 1)
 	{
 		if (curtainCont <= (app->win->GetWidth() / 2) && !curtainBounce)
