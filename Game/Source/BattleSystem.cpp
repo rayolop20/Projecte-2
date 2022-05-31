@@ -275,16 +275,18 @@ battleSystem::battleSystem() : Module()
 	qte2fx2.loop = true;
 	qte2fx2.speed = 0.25f;
 
-	/*qte2fx.PushBack({ , , , 77 });
-	qte2fx.PushBack({ , , , 77 });
-	qte2fx.PushBack({ , , , 77 });
-	qte2fx.PushBack({ , , , 77 });
-	qte2fx.PushBack({ , , , 77 });
-	qte2fx.PushBack({ , , , 77 });
-	qte2fx.PushBack({ , , , 77 });
-	qte2fx.PushBack({ , , , 77 });
-	qte2fx.loop = false;
-	qte2fx.speed = 0.005f;*/
+	qte3.PushBack({ 5, 7, 350, 40 });
+	qte3.loop = true;
+	qte3.speed = 0.25f;
+
+	qte32.PushBack({ 24, 63, 25, 25 });
+	qte32.loop = true;
+	qte32.speed = 0.25f;
+
+	qte33.PushBack({ 76, 55, 30, 42 });
+	qte33.loop = true;
+	qte33.speed = 0.25f;
+	
 }
 
 // Destructor
@@ -356,6 +358,8 @@ bool battleSystem::Start()
 	qte2T = app->tex->Load("Assets/Textures/UI/qte2.png");
 	qte2fxT = app->tex->Load("Assets/Textures/UI/qte2_fx.png");
 	qte3T = app->tex->Load("Assets/Textures/UI/qt3.png");
+	qte3T2 = app->tex->Load("Assets/Textures/UI/qt3.png");
+	qte3T3 = app->tex->Load("Assets/Textures/UI/qt3.png");
 
 	currentAttack1 = &idleAttack1;
 	currentAttack2 = &idleAttack2;
@@ -412,6 +416,8 @@ bool battleSystem::Start()
 	currentQTE2fx = &qte2fx;
 	currentQTE2fx2 = &qte2fx2;
 	currentQTE3 = &qte3;
+	currentQTE32 = &qte32;
+	currentQTE33 = &qte33;
 	currentQTE4 = &qte4;
 
 	return true;
@@ -733,6 +739,9 @@ bool battleSystem::PostUpdate()
 	qte2R = currentQTE2->GetCurrentFrame();
 	qte2fxR = currentQTE2fx->GetCurrentFrame();
 	qte2fxR2 = currentQTE2fx2->GetCurrentFrame();
+	qte3R = currentQTE3->GetCurrentFrame();
+	qte3R2 = currentQTE32->GetCurrentFrame();
+	qte3R3 = currentQTE33->GetCurrentFrame();
 
 	if (battleTransition && app->player->P1.IsAlive && transitionRep == 1)
 	{
@@ -1224,6 +1233,7 @@ void battleSystem::SpecialAttackPhase() {
 		}
 		if (AttackAux > 100) {
     		AttackAux = 100;
+			go = 0;
 		}
 		if (timer1 > timer1_ + 5 && AttackAux != 0) {
 			randomAttack = 0;
@@ -1285,6 +1295,7 @@ void battleSystem::SpecialAttackPhase() {
 
 		if (AttackAux > 100) {
 			AttackAux = 100 ;
+			go = 0;
 		}
 		if (timer1 > timer1_ + 5 && AttackAux != 0) {
 			randomAttack = 0;
@@ -1321,9 +1332,25 @@ void battleSystem::SpecialAttackPhase() {
 			AttackAux = 1;
 			randomtargetRect = (rand() % 185) + 165;
 			randomtargetRect_ = randomtargetRect;
+			go = 1;
+		}
+		if (AttackAux <= 100 && go == 1) {
+			currentQTE3 = &qte3;
+			currentQTE3->Update();
+			app->render->DrawTexture(qte3T, app->player->P1.position.x - 125, app->player->P1.position.y + 200, &qte3R);
+
+			currentQTE33 = &qte33;
+			currentQTE33->Update();
+			app->render->DrawTexture(qte3T3, randomtargetRect_ + app->player->P1.position.x - 125 - 115, app->player->P1.position.y + 200, &qte3R3);
+
+			currentQTE32 = &qte32;
+			currentQTE32->Update();
+			app->render->DrawTexture(qte3T2, timer1_ + app->player->P1.position.x - 95, app->player->P1.position.y + 207, &qte3R2);
+
 		}
 		if (AttackAux != 0) {
 			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && timer1 > _timer1_ + 0.25) {
+				go = 0;
 				finalpos = timer1_ + app->player->P1.position.x - 125;
 				if (finalpos > randomtargetRect_ + app->player->P1.position.x - 125  - 115 && finalpos < randomtargetRect_ + app->player->P1.position.x - 125 - 115 + 30) {
 					AttackAux = 100;
@@ -1349,14 +1376,14 @@ void battleSystem::SpecialAttackPhase() {
 				rectDirection = false;
 			}
 			
-			SDL_Rect largeRect = { app->player->P1.position.x - 125,app->player->P1.position.y + 200,300,40 };
+			/*SDL_Rect largeRect = { app->player->P1.position.x - 125,app->player->P1.position.y + 200,300,40 };
 			app->render->DrawRectangle(largeRect, 0, 250, 0);
 			SDL_Rect targetRect2 = { randomtargetRect_  + app->player->P1.position.x - 155 - 115,app->player->P1.position.y + 200,90,40 };
 			app->render->DrawRectangle(targetRect2, 255, 128, 0);
 			SDL_Rect targetRect = { randomtargetRect_ + app->player->P1.position.x - 125 - 115,app->player->P1.position.y + 200,30,40 };
 			app->render->DrawRectangle(targetRect, 250, 250, 0);
 			SDL_Rect PointRect = {timer1_ + app->player->P1.position.x - 125,app->player->P1.position.y + 210,20,20 };
-			app->render->DrawRectangle(PointRect, 250, 0, 0);
+			app->render->DrawRectangle(PointRect, 250, 0, 0);*/
 			if (AttackAux == 25 || AttackAux == 50 || AttackAux == 100) {
 				for (int i = 0; i <= 4; i++) {
 					if (app->BTSystem->waitPlayer[i] != 0) {
