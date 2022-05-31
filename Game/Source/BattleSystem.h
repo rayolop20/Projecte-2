@@ -283,11 +283,6 @@ public:
 	Animation qte2fx;
 	Animation qte2fx2;
 
-	SDL_Texture* firepart = nullptr;
-	Animation fire_particles;
-	SDL_Rect fireparticv;
-	Animation* currentFire = nullptr;
-
 	Animation qte3;
 
 	Animation qte4;

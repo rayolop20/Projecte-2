@@ -11,6 +11,7 @@
 #include "Map.h"
 #include "Window.h"
 #include "Menu.h"
+#include "Particles.h"
 
 #include "Log.h"
 #include "DynArray.h"
@@ -833,9 +834,9 @@ void ZombieEnem::CheckEnemy() {
 			}
 			if (Zbie[i].onFire == true && app->BTSystem->SpecialAttackEnable == false) {
 				Zbie[i].hp -= 10;
-				app->BTSystem->currentFire = &app->BTSystem->fire_particles;
-				app->render->DrawTexture(app->BTSystem->firepart, app->player->P1.position.x - 420 + 100, app->player->P1.position.y - 320, &app->BTSystem->fireparticv);
-				app->BTSystem->currentFire->Update();
+				app->particle->currentFire = &app->particle->fire_particles;
+				app->render->DrawTexture(app->particle->firepart, app->player->P1.position.x, app->player->P1.position.y, &app->particle->fireparticv);
+				app->particle->currentFire->Update();
 			}
 			if (app->BTSystem->onFireCount != 0 && Zbie[WhichZombie].onFire == true) {
 				app->BTSystem->onFireCount++;

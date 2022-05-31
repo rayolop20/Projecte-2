@@ -34,6 +34,7 @@ class StatsMenu_Screen;
 class DialogueSystem;
 class ModuleAssetsManager;
 class Mouse;
+class Particle;
 
 class App
 {
@@ -119,6 +120,7 @@ public:
 	DialogueSystem* dialogues = nullptr;
 	ModuleAssetsManager* assetManager = nullptr;
 	Mouse* mouse = nullptr;
+	Particle* particle = nullptr;
 
 
 	float dt = 16.0f;
