@@ -6,6 +6,9 @@
 #include "GuiButton.h"
 #include "GuiCheckBox.h"
 #include "GuiSlider.h"
+#include "EasingFunctions.h"
+#include <vector>
+
 struct SDL_Texture;
 
 class Menu_Screen : public Module
@@ -43,6 +46,7 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	float EaseCameraBetweenPoints(iPoint posA, iPoint posB);
 
 
 	bool EScreen = true;
@@ -100,7 +104,17 @@ private:
 	// L12b: Debug pathfing
 	iPoint origin;
 	
+	iPoint resetPlayerPos;
 
+	iPoint pointA;
+	iPoint pointB;
+
+	int iterations;
+	int total_iterations;
+	bool easing_active = false;
+	float speedX, speedY;
+
+	EasingFunctions function;
 
 };
 

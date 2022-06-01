@@ -242,8 +242,8 @@ void App::FinishUpdate()
 	uint32 lastFrameMs = frameTime.Read();
 
 	static char title[256];
-	sprintf_s(title, 256, "Av.FPS: %.2f Last Frame Ms: %02u Last dt: %.3f Time since startup: %.3f Frame Count: %I64u ",
-		averageFps, lastFrameMs, dt, secondsSinceStartup, frameCount);
+	sprintf_s(title, 256, "Av.FPS: %.2f Last Frame Ms: %02u Last dt: %.3f Time since startup: %.3f Frame Count: %I64u Camera: %d ",
+		averageFps, lastFrameMs, dt, secondsSinceStartup, frameCount, app->render->camera.x);
 	app->win->SetTitle(title);
 	// L08: TODO 2: Use SDL_Delay to make sure you get your capped framerate
 
