@@ -111,8 +111,6 @@ bool Scene::PreUpdate()
 // Called each loop iteration
 bool Scene::Update(float dt)
 {
-
-
 	pressurePlateTimer1_ = SDL_GetTicks() / 1000;
 	pressurePlateTimer2_ = SDL_GetTicks() / 1000;
 	pressurePlateTimer3_ = SDL_GetTicks() / 1000;

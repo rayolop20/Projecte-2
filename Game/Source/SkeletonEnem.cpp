@@ -12,6 +12,7 @@
 #include "Window.h"
 #include "Menu.h"
 #include "CharacterMenu.h"
+#include "Particles.h"
 
 #include "Log.h"
 #include "DynArray.h"
@@ -243,6 +244,7 @@ bool SkeletonEnem::PostUpdate()
 	SkeletonH1AR = currentHit1S->GetCurrentFrame();
 	SkeletonD1AR = currentDead1S->GetCurrentFrame();
 	SkeletonA1AR = currentA1S->GetCurrentFrame();
+	app->particle->fireparticv = app->particle->currentFire->GetCurrentFrame();
 
 	for (int i = 0; i < NUM_SKELETON; i++)
 	{
@@ -673,6 +675,12 @@ void SkeletonEnem::DrawEnemies() {
 						}
 					}
 				}
+				if (Ston[i].onFire == true && app->menu->config == false && app->BTSystem->battle == true)
+				{
+					app->particle->currentAnimationF[i] = &app->particle->fire_particles;
+					app->render->DrawTexture(app->particle->firepart, app->player->P1.position.x + 350, app->player->P1.position.y - 330 + 100 * i, &app->particle->fireparticv);
+					app->particle->currentAnimationF[i]->Update();
+				}
 			}
 			if (Ston[i].dead == true)
 			{
@@ -851,6 +859,10 @@ void SkeletonEnem::CheckEnemy() {
 			}
 			if (Ston[i].onFire == true && app->BTSystem->SpecialAttackEnable == false) {
 				Ston[i].hp -= 10;
+			}
+			else
+			{
+				Ston[i].onFire = false;
 			}
 			if (app->BTSystem->onFireCount != 0 && Ston[WhichSkeleton].onFire == true) {
 				app->BTSystem->onFireCount++;

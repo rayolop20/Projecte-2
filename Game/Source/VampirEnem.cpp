@@ -14,6 +14,7 @@
 #include "DynArray.h"
 #include "BattleSystem.h"
 #include "Menu.h"
+#include "Particles.h"
 #include <time.h>
 
 VampirEnem::VampirEnem():Entity (EntityType::VAMPYR)
@@ -216,7 +217,7 @@ bool VampirEnem::PostUpdate()
 	vampireH1AR = currentHit1V->GetCurrentFrame();
 	vampireD1AR = currentDead1V->GetCurrentFrame();
 	vampireA1AR = currentA1V->GetCurrentFrame();
-
+	app->particle->fireparticv = app->particle->currentFire->GetCurrentFrame();
 	for (int i = 0; i < NUM_VAMPIRE; i++)
 	{
 		if (Vpir[i].dead == false && app->menu->config == false && app->BTSystem->battle == false)
@@ -657,6 +658,12 @@ void VampirEnem::DrawEnemies() {
 						Vpir[i].atack = false;
 					}
 				}
+				if (Vpir[i].onFire == true && app->menu->config == false && app->BTSystem->battle == true)
+				{
+					app->particle->currentAnimationF[i] = &app->particle->fire_particles;
+					app->render->DrawTexture(app->particle->firepart, app->player->P1.position.x + 350, app->player->P1.position.y - 330 + 100 * i, &app->particle->fireparticv);
+					app->particle->currentAnimationF[i]->Update();
+				}
 			}
 			if (Vpir[i].dead == true)
 			{
@@ -831,6 +838,10 @@ void VampirEnem::CheckEnemy() {
 			}
 			if (Vpir[i].onFire == true && app->BTSystem->SpecialAttackEnable == false) {
 				Vpir[i].hp -= 10;
+			}
+			else
+			{
+				Vpir[i].onFire = false;
 			}
 			if (app->BTSystem->onFireCount != 0 && Vpir[WhichVampire].onFire == true) {
 				app->BTSystem->onFireCount++;

@@ -11,6 +11,7 @@
 #include "Map.h"
 #include "Window.h"
 #include "Menu.h"
+#include "Particles.h"
 
 #include "Log.h"
 #include "DynArray.h"
@@ -184,19 +185,6 @@ bool ZombieEnem::Update(float dt)
 	}
 	timer3 = SDL_GetTicks() / 10;
 
-	/*if (app->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN)
-	{
-		PathFindVamp(VampireNum);
-	}
-
-	if (app->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
-	{
-		if (pathfindingaux == true) {
-			pathfindingtimer = timer3;
-			pathfindingaux = false;
-		}
-		path = true;
-	}*/
 	for (int i = 0; i < NUM_ZOMBIE; i++)
 	{
 		currentAnimation[i]->Update();
@@ -210,19 +198,6 @@ bool ZombieEnem::Update(float dt)
 	}
 	timer3 = SDL_GetTicks() / 10;
 
-	/*if (app->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN)
-	{
-		PathFindVamp(VampireNum);
-	}
-
-	if (app->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
-	{
-		if (pathfindingaux == true) {
-			pathfindingtimer = timer3;
-			pathfindingaux = false;
-		}
-		path = true;
-	}*/
 	for (int i = 0; i < NUM_ZOMBIE; i++)
 	{
 		currentAnimation[i]->Update();
@@ -238,6 +213,7 @@ bool ZombieEnem::Update(float dt)
 		Zbie[i].colliderZ->SetPos(Zbie[i].Pos.x, Zbie[i].Pos.y);
 		Zbie[i].colliderS->SetPos(Zbie[i].Pos.x - 168, Zbie[i].Pos.y - 168);
 	}
+
 	return true;
 }
 
@@ -246,11 +222,12 @@ bool ZombieEnem::PostUpdate()
 
 	LOG("FUNCIONA?");
 	bool ret = true;
+
 	zombie1AR = currentAttack1Z->GetCurrentFrame();
 	zombieH1AR = currentHit1Z->GetCurrentFrame();
 	zombieD1AR = currentDead1Z->GetCurrentFrame();
 	zombieA1AR = currentA1Z->GetCurrentFrame();
-
+	app->particle->fireparticv = app->particle->currentFire->GetCurrentFrame();
 
 	for (int i = 0; i < NUM_ZOMBIE; i++)
 	{
@@ -259,6 +236,7 @@ bool ZombieEnem::PostUpdate()
 			app->render->DrawTexture(Zbie[i].zombieT, Zbie[i].Pos.x, Zbie[i].Pos.y, &(currentAnimation[i]->GetCurrentFrame()));
 		}
 	}
+
 
 	return ret;
 }
@@ -629,7 +607,7 @@ void ZombieEnem::DrawEnemies() {
 				if (Zbie[i].Zhit == false && Zbie[i].atack == false)
 				{
 					SDL_Rect Enem1 = { app->player->P1.position.x + 400, app->player->P1.position.y - 330 + 120 * i, 100, 100 };
-					currentAnimation[i] = &ZidleAttack1;;
+					currentAnimation[i] = &ZidleAttack1;
 					app->render->DrawTexture(zombieEnem, app->player->P1.position.x + 350, app->player->P1.position.y - 330 + 100 * i, &zombie1AR);
 					currentAnimation[i]->Update();
 				}
@@ -653,6 +631,14 @@ void ZombieEnem::DrawEnemies() {
 						Zbie[i].atack = false;
 					}
 				}
+				
+				if (Zbie[i].onFire == true && app->menu->config == false && app->BTSystem->battle == true)
+				{
+					app->particle->currentAnimationF[i] = &app->particle->fire_particles;
+					app->render->DrawTexture(app->particle->firepart, app->player->P1.position.x + 350, app->player->P1.position.y - 330 + 100 * i, &app->particle->fireparticv);
+					app->particle->currentAnimationF[i]->Update();
+				}
+			
 			}
 			if (Zbie[i].dead == true)
 			{
@@ -833,6 +819,10 @@ void ZombieEnem::CheckEnemy() {
 			}
 			if (Zbie[i].onFire == true && app->BTSystem->SpecialAttackEnable == false) {
 				Zbie[i].hp -= 10;
+			}
+			else
+			{
+				Zbie[i].onFire = false;
 			}
 			if (app->BTSystem->onFireCount != 0 && Zbie[WhichZombie].onFire == true) {
 				app->BTSystem->onFireCount++;

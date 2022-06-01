@@ -67,6 +67,7 @@
     </ClCompile>
     <ClCompile Include="Source\AssetsManager.cpp" />
     <ClCompile Include="Source\Mouse.cpp" />
+    <ClCompile Include="Source\Particles.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -162,6 +163,7 @@
     <ClInclude Include="Source\AssetsManager.h" />
     <ClInclude Include="Source\External\PhysFS\include\physfs.h" />
     <ClInclude Include="Source\Mouse.h" />
+    <ClInclude Include="Source\Particles.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">

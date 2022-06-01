@@ -301,6 +301,8 @@ public:
 
 	Animation* currentQTE4 = nullptr;
 
+
+
 	SDL_Rect qte1R;
 
 	SDL_Texture* qte2T = nullptr;
