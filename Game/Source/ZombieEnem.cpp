@@ -229,9 +229,6 @@ bool ZombieEnem::PostUpdate()
 	zombieA1AR = currentA1Z->GetCurrentFrame();
 	app->particle->fireparticv = app->particle->currentFire->GetCurrentFrame();
 
-
-
-
 	for (int i = 0; i < NUM_ZOMBIE; i++)
 	{
 		if (Zbie[i].dead == false && app->menu->config == false && app->BTSystem->battle == false)
