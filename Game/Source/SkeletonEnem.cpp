@@ -234,6 +234,15 @@ bool SkeletonEnem::Update(float dt)
 		Ston[i].colliderSK->SetPos(Ston[i].Pos.x, Ston[i].Pos.y);
 		Ston[i].colliderS->SetPos(Ston[i].Pos.x - 168, Ston[i].Pos.y - 168);
 	}
+
+	if (app->BTSystem->battle == false)
+	{
+		for (int i = 0; i < 5; i++) {
+			Ston[i].onFire = false;
+			Ston[i].poisoned = false;
+		}
+	}
+
 	return true;
 }
 
@@ -245,6 +254,7 @@ bool SkeletonEnem::PostUpdate()
 	SkeletonD1AR = currentDead1S->GetCurrentFrame();
 	SkeletonA1AR = currentA1S->GetCurrentFrame();
 	app->particle->fireparticv = app->particle->currentFire->GetCurrentFrame();
+	app->particle->Venomparticv = app->particle->currentVenom->GetCurrentFrame();
 
 	for (int i = 0; i < NUM_SKELETON; i++)
 	{
@@ -681,6 +691,13 @@ void SkeletonEnem::DrawEnemies() {
 					app->render->DrawTexture(app->particle->firepart, app->player->P1.position.x + 350, app->player->P1.position.y - 330 + 100 * i, &app->particle->fireparticv);
 					app->particle->currentAnimationF[i]->Update();
 				}
+				
+				if (Ston[i].poisoned == true && app->menu->config == false && app->BTSystem->battle == true)
+				{
+					app->particle->currentAnimationV[i] = &app->particle->Venom_particles;
+					app->render->DrawTexture(app->particle->Venompart, app->player->P1.position.x + 350, app->player->P1.position.y - 330 + 100 * i, &app->particle->Venomparticv);
+					app->particle->currentAnimationV[i]->Update();
+				}
 			}
 			if (Ston[i].dead == true)
 			{
@@ -859,10 +876,6 @@ void SkeletonEnem::CheckEnemy() {
 			}
 			if (Ston[i].onFire == true && app->BTSystem->SpecialAttackEnable == false) {
 				Ston[i].hp -= 10;
-			}
-			else
-			{
-				Ston[i].onFire = false;
 			}
 			if (app->BTSystem->onFireCount != 0 && Ston[WhichSkeleton].onFire == true) {
 				app->BTSystem->onFireCount++;
