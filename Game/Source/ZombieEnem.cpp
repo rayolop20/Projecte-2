@@ -214,6 +214,13 @@ bool ZombieEnem::Update(float dt)
 		Zbie[i].colliderS->SetPos(Zbie[i].Pos.x - 168, Zbie[i].Pos.y - 168);
 	}
 
+	if (app->BTSystem->battle == false)
+	{
+		for (int i = 0; i < 5; i++) {
+			Zbie[i].onFire = false;
+			Zbie[i].poisoned = false;
+		}
+	}
 	return true;
 }
 
@@ -228,6 +235,7 @@ bool ZombieEnem::PostUpdate()
 	zombieD1AR = currentDead1Z->GetCurrentFrame();
 	zombieA1AR = currentA1Z->GetCurrentFrame();
 	app->particle->fireparticv = app->particle->currentFire->GetCurrentFrame();
+	app->particle->Venomparticv = app->particle->currentVenom->GetCurrentFrame();
 
 	for (int i = 0; i < NUM_ZOMBIE; i++)
 	{
@@ -236,7 +244,6 @@ bool ZombieEnem::PostUpdate()
 			app->render->DrawTexture(Zbie[i].zombieT, Zbie[i].Pos.x, Zbie[i].Pos.y, &(currentAnimation[i]->GetCurrentFrame()));
 		}
 	}
-
 
 	return ret;
 }
@@ -638,6 +645,13 @@ void ZombieEnem::DrawEnemies() {
 					app->render->DrawTexture(app->particle->firepart, app->player->P1.position.x + 350, app->player->P1.position.y - 330 + 100 * i, &app->particle->fireparticv);
 					app->particle->currentAnimationF[i]->Update();
 				}
+				
+				if (Zbie[i].poisoned == true && app->menu->config == false && app->BTSystem->battle == true)
+				{
+					app->particle->currentAnimationV[i] = &app->particle->Venom_particles;
+					app->render->DrawTexture(app->particle->Venompart, app->player->P1.position.x + 350, app->player->P1.position.y - 330 + 100 * i, &app->particle->Venomparticv);
+					app->particle->currentAnimationV[i]->Update();
+				}
 			
 			}
 			if (Zbie[i].dead == true)
@@ -819,10 +833,6 @@ void ZombieEnem::CheckEnemy() {
 			}
 			if (Zbie[i].onFire == true && app->BTSystem->SpecialAttackEnable == false) {
 				Zbie[i].hp -= 10;
-			}
-			else
-			{
-				Zbie[i].onFire = false;
 			}
 			if (app->BTSystem->onFireCount != 0 && Zbie[WhichZombie].onFire == true) {
 				app->BTSystem->onFireCount++;

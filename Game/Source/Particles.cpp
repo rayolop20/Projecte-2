@@ -20,6 +20,15 @@ Particle::Particle() : Module()
 	fire_particles.PushBack({ 520,0,130,150 });
 	fire_particles.loop = true;
 	fire_particles.speed = 0.1f;
+	
+	Venom_particles.PushBack({ 0,4,136,132 });
+	Venom_particles.PushBack({ 154,4,132,128 });
+	Venom_particles.PushBack({ 313,4,127,123 });
+	Venom_particles.PushBack({ 467,0,127,123 });
+	Venom_particles.loop = true;
+	Venom_particles.speed = 0.1f;
+
+
 
 }
 
@@ -33,8 +42,10 @@ Particle::~Particle()
 bool Particle::Start()
 {
 	firepart = app->tex->Load("Assets/Particles/fire_particle.png");
+	Venompart = app->tex->Load("Assets/Particles/venom_particle.png");
 
 	currentFire = &fire_particles;
+	currentVenom = &Venom_particles;
 
 	return true;
 }

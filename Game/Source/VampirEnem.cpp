@@ -99,38 +99,6 @@ VampirEnem::~VampirEnem()
 
 }
 
-
-
-/*
-bool VampirEnem::LoadState(pugi::xml_node& data)
-{
-	Vpir[WhichVampire].Pos.x = data.child("Vampire").attribute("x").as_int();
-	Vpir[WhichVampire].Pos.y = data.child("Vampire").attribute("y").as_int();
-	return false;
-}
-
-bool VampirEnem::SaveState(pugi::xml_node& data) const
-{
-	pugi::xml_node VPyr = data.append_child("Vampire");
-
-	VPyr.append_attribute("x") = Vpir[WhichVampire].Pos.x;
-	VPyr.append_attribute("y") = Vpir[WhichVampire].Pos.y;
-	return false;
-}
-
-bool VampirEnem::Awake(pugi::xml_node& config)
-{
-	LOG("Loading Vampire");
-	bool ret = true;
-	AwakeEnable = false;
-
-	Vpir[WhichVampire].Pos.x = config.child("Position").attribute("PositionX").as_int();
-	Vpir[WhichVampire].Pos.y = config.child("Position").attribute("PositionY").as_int();
-
-
-	return ret;
-}
-*/
 bool VampirEnem::Start()
 {
 
@@ -176,19 +144,6 @@ bool VampirEnem::Update(float dt)
 	}
 	timer3 = SDL_GetTicks() / 10;
 
-	/*if (app->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN)
-	{
-		PathFindVamp(VampireNum);
-	}
-
-	if (app->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
-	{
-		if (pathfindingaux == true) {
-			pathfindingtimer = timer3;
-			pathfindingaux = false;
-		}
-		path = true;
-	}*/
 	for (int i = 0; i < NUM_VAMPIRE; i++)
 	{
 		currentAnimation[i]->Update();
@@ -204,6 +159,15 @@ bool VampirEnem::Update(float dt)
 		Vpir[i].colliderV->SetPos(Vpir[i].Pos.x, Vpir[i].Pos.y);
 		Vpir[i].colliderS->SetPos(Vpir[i].Pos.x - 168, Vpir[i].Pos.y - 168);
 	}
+
+	if (app->BTSystem->battle == false)
+	{
+		for (int i = 0; i < 5; i++) {
+			Vpir[i].onFire = false;
+			Vpir[i].poisoned = false;
+		}
+	}
+
 	return true;
 }
 
@@ -218,6 +182,7 @@ bool VampirEnem::PostUpdate()
 	vampireD1AR = currentDead1V->GetCurrentFrame();
 	vampireA1AR = currentA1V->GetCurrentFrame();
 	app->particle->fireparticv = app->particle->currentFire->GetCurrentFrame();
+	app->particle->Venomparticv = app->particle->currentVenom->GetCurrentFrame();
 	for (int i = 0; i < NUM_VAMPIRE; i++)
 	{
 		if (Vpir[i].dead == false && app->menu->config == false && app->BTSystem->battle == false)
@@ -664,6 +629,12 @@ void VampirEnem::DrawEnemies() {
 					app->render->DrawTexture(app->particle->firepart, app->player->P1.position.x + 350, app->player->P1.position.y - 330 + 100 * i, &app->particle->fireparticv);
 					app->particle->currentAnimationF[i]->Update();
 				}
+				if (Vpir[i].poisoned == true && app->menu->config == false && app->BTSystem->battle == true)
+				{
+					app->particle->currentAnimationV[i] = &app->particle->Venom_particles;
+					app->render->DrawTexture(app->particle->Venompart, app->player->P1.position.x + 350, app->player->P1.position.y - 330 + 100 * i, &app->particle->Venomparticv);
+					app->particle->currentAnimationV[i]->Update();
+				}
 			}
 			if (Vpir[i].dead == true)
 			{
@@ -838,10 +809,6 @@ void VampirEnem::CheckEnemy() {
 			}
 			if (Vpir[i].onFire == true && app->BTSystem->SpecialAttackEnable == false) {
 				Vpir[i].hp -= 10;
-			}
-			else
-			{
-				Vpir[i].onFire = false;
 			}
 			if (app->BTSystem->onFireCount != 0 && Vpir[WhichVampire].onFire == true) {
 				app->BTSystem->onFireCount++;

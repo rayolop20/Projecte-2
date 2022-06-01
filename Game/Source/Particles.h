@@ -5,6 +5,7 @@
 #include "Animation.h"
 
 #define NUM_ZOMBIEF 100
+#define NUM_ZOMBIEV 100
 
 struct SDL_Texture;
 
@@ -23,11 +24,17 @@ public:
 	bool PostUpdate();
 
 	Animation* currentAnimationF[NUM_ZOMBIEF] = { nullptr };
+	Animation* currentAnimationV[NUM_ZOMBIEV] = { nullptr };
 
 	SDL_Texture* firepart = nullptr;
 	Animation fire_particles;
 	SDL_Rect fireparticv;
 	Animation* currentFire = nullptr;
+	
+	SDL_Texture* Venompart = nullptr;
+	Animation Venom_particles;
+	SDL_Rect Venomparticv;
+	Animation* currentVenom = nullptr;
 private:
 
 
