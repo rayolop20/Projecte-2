@@ -6,6 +6,8 @@
 #include "Window.h"
 #include "Player.h"
 #include "Particles.h"
+#include "ZombieEnem.h"
+#include "EntityManager.h"
 
 
 Particle::Particle() : Module()
@@ -40,9 +42,8 @@ bool Particle::Start()
 // Called each loop iteration
 bool Particle::Update(float dt)
 {
-	app->particle->currentFire = &app->particle->fire_particles;
-	app->render->DrawTexture(app->particle->firepart, app->player->P1.position.x, app->player->P1.position.y, &app->particle->fireparticv);
-	app->particle->currentFire->Update();
+
+
 	return true;
 }
 
@@ -50,9 +51,6 @@ bool Particle::Update(float dt)
 bool Particle::PostUpdate()
 {
 	bool ret = true;
-	fireparticv = currentFire->GetCurrentFrame();
-
-
 	return ret;
 }
 

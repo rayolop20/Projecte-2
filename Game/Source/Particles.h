@@ -4,6 +4,8 @@
 #include "Module.h"
 #include "Animation.h"
 
+#define NUM_ZOMBIEF 100
+
 struct SDL_Texture;
 
 class Particle : public Module
@@ -20,6 +22,7 @@ public:
 
 	bool PostUpdate();
 
+	Animation* currentAnimation[NUM_ZOMBIEF] = { nullptr };
 
 	SDL_Texture* firepart = nullptr;
 	Animation fire_particles;

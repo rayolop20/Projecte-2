@@ -247,6 +247,7 @@ bool ZombieEnem::PostUpdate()
 
 	LOG("FUNCIONA?");
 	bool ret = true;
+	app->particle->fireparticv = app->particle->currentFire->GetCurrentFrame();
 	zombie1AR = currentAttack1Z->GetCurrentFrame();
 	zombieH1AR = currentHit1Z->GetCurrentFrame();
 	zombieD1AR = currentDead1Z->GetCurrentFrame();
@@ -630,7 +631,7 @@ void ZombieEnem::DrawEnemies() {
 				if (Zbie[i].Zhit == false && Zbie[i].atack == false)
 				{
 					SDL_Rect Enem1 = { app->player->P1.position.x + 400, app->player->P1.position.y - 330 + 120 * i, 100, 100 };
-					currentAnimation[i] = &ZidleAttack1;;
+					currentAnimation[i] = &ZidleAttack1;
 					app->render->DrawTexture(zombieEnem, app->player->P1.position.x + 350, app->player->P1.position.y - 330 + 100 * i, &zombie1AR);
 					currentAnimation[i]->Update();
 				}
@@ -834,9 +835,9 @@ void ZombieEnem::CheckEnemy() {
 			}
 			if (Zbie[i].onFire == true && app->BTSystem->SpecialAttackEnable == false) {
 				Zbie[i].hp -= 10;
-				app->particle->currentFire = &app->particle->fire_particles;
-				app->render->DrawTexture(app->particle->firepart, app->player->P1.position.x, app->player->P1.position.y, &app->particle->fireparticv);
-				app->particle->currentFire->Update();
+				currentAnimation[i] = &app->particle->fire_particles;
+				app->render->DrawTexture(app->particle->firepart, app->player->P1.position.x + 350, app->player->P1.position.y - 330 + 100 * i, &app->particle->fireparticv);
+				currentAnimation[i]->Update();
 			}
 			if (app->BTSystem->onFireCount != 0 && Zbie[WhichZombie].onFire == true) {
 				app->BTSystem->onFireCount++;
