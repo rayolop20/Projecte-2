@@ -22,7 +22,7 @@ public:
 
 	bool PostUpdate();
 
-	Animation* currentAnimation[NUM_ZOMBIEF] = { nullptr };
+	Animation* currentAnimationF[NUM_ZOMBIEF] = { nullptr };
 
 	SDL_Texture* firepart = nullptr;
 	Animation fire_particles;
