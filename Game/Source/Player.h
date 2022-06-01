@@ -4,6 +4,8 @@
 #include "Module.h"
 #include "Animation.h"
 #include "Point.h"
+#include "EasingFunctions.h"
+#include <vector>
 
 struct SDL_Texture;
 struct Collider;
@@ -42,8 +44,8 @@ struct playr2
 	float speed1 = 5.0;
 	float speed2 = 15.0;
 	float luck = 0.0;
-	float mana1 = 85.0;
-	float mana2 = 85.0;
+	float mana1 = 35.0;
+	float mana2 = 35.0;
 	float damage1 = 15.0;
 	float damage2 = 20.0;
 	float speed = 0.0;
@@ -146,6 +148,8 @@ public:
 	// Collision callback, called when the player intersects with another collider
 	void OnCollision(Collider* c1, Collider* c2);
 
+	float EaseCameraBetweenPoints(iPoint posA, iPoint posB);
+
 	void movementPlayer();
 	//int Timer(int second);
 	playr1 P1;
@@ -216,6 +220,16 @@ public:
 	int OrdenPlayers = 0;
 
 	iPoint resetPlayerPos;
+
+	iPoint pointA;
+	iPoint pointB;
+
+	int iterations;
+	int total_iterations;
+	bool easing_active;
+	float speedX, speedY;
+
+	EasingFunctions function;
 };
 
 #endif // __MODULEPLAYER_H__

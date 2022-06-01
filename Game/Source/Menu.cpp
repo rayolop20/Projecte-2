@@ -11,6 +11,7 @@
 #include "EntityManager.h"
 #include "CharacterMenu.h"
 #include "AssetsManager.h"
+#include "EasingFunctions.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -56,6 +57,14 @@ bool Menu_Screen::Start()
 	LoadFxFile(dataFile);
 	LoadMusFile(dataFile);
 	*/
+	speedX = 0;
+
+	total_iterations = 64;
+
+	pointA = { -20, 0 };
+	pointB = { 2, 0 };
+	easing_active = true;
+	app->render->camera.x -= 500;
 	}
 	EnterLogo = app->audio->LoadFx("Assets/Audio/Fx/enter_logo.wav");
 	fonsMenu = app->tex->Load("Assets/Textures/Assets/game_title.png");
@@ -152,6 +161,12 @@ bool Menu_Screen::Update(float dt)
 		btnMenuConfig->state = GuiControlState::NORMAL;
 		btnMenuExit->state = GuiControlState::NORMAL;
 		btnCredits->state = GuiControlState::NORMAL;
+	}
+
+		
+	
+	if (easing_active == true) {
+		app->render->camera.x -= EaseCameraBetweenPoints(pointA, pointB) * dt;
 	}
 
 	if (app->menu->config == true) {
@@ -452,3 +467,23 @@ bool Menu_Screen::CleanUp()
 		pugi::xml_node mus_node = dataFile.child("data").child("mus");
 		app->audio->PlayMusic(mus_node.attribute("file").as_string());
 	}*/
+float Menu_Screen::EaseCameraBetweenPoints(iPoint posA, iPoint posB)
+{
+	float value = function.backEaseOut(iterations, posA.x, posB.x - posA.x, total_iterations);
+
+
+	//speedY = function.linearEaseNull(iterations, 472, 572, 300);
+
+	//App->render->camera.y += speedY;
+
+	if (iterations < total_iterations) {
+		iterations++;
+	}
+
+	else {
+		iterations = 0;
+		easing_active = false;
+	}
+
+	return value;
+}

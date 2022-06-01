@@ -88,7 +88,7 @@ void StatsMenu_Screen::Stats()
 	if (app->BTSystem->StatsEnable == true) {
 		/*app->BTSystem->CloseStatsMenu->bounds.x = -app->render->camera.x + (app->win->GetWidth() / 2 - 80);
 		app->BTSystem->CloseStatsMenu->bounds.y = -app->render->camera.y + 250;*/
-		if (app->player->P1.IsAlive == true) 
+		if (app->player->P1.IsAlive == true)
 		{
 			SDL_Rect* StatsPJ1 = new SDL_Rect();
 			StatsPJ1->x = 70;
@@ -289,6 +289,3 @@ bool StatsMenu_Screen::CleanUp()
 	LOG("Freeing scene");
 	return true;
 }
-
-
-

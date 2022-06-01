@@ -45,7 +45,7 @@ battleSystem::battleSystem() : Module()
 	AttackAnim1.PushBack({ 640, 0, 160, 192 });
 	AttackAnim1.loop = false;
 	AttackAnim1.speed = 0.08f;
-	
+
 	idleAttack2.PushBack({ 0, 225, 160, 192 });
 	idleAttack2.PushBack({ 160, 225, 160, 192 });
 	idleAttack2.PushBack({ 320, 225, 160, 192 });
@@ -63,7 +63,7 @@ battleSystem::battleSystem() : Module()
 	AttackAnim2.PushBack({ 640, 0, 160, 192 });
 	AttackAnim2.loop = false;
 	AttackAnim2.speed = 0.08f;
-	
+
 	idleAttack3.PushBack({ 0, 195, 160, 192 });
 	idleAttack3.PushBack({ 160, 195, 160, 192 });
 	idleAttack3.PushBack({ 320, 195, 160, 192 });
@@ -82,8 +82,8 @@ battleSystem::battleSystem() : Module()
 	AttackAnim3.PushBack({ 800, 0, 160, 192 });
 	AttackAnim3.loop = false;
 	AttackAnim3.speed = 0.08f;
-	
-	
+
+
 	idleAttack4.PushBack({ 0, 205, 160, 192 });
 	idleAttack4.PushBack({ 160, 205, 160, 192 });
 	idleAttack4.PushBack({ 320, 205, 160, 192 });
@@ -101,7 +101,7 @@ battleSystem::battleSystem() : Module()
 	AttackAnim4.PushBack({ 640, 0, 160, 192 });
 	AttackAnim4.loop = false;
 	AttackAnim4.speed = 0.08f;
-	
+
 	idleAttack5.PushBack({ 0, 217, 160, 192 });
 	idleAttack5.PushBack({ 160, 217, 160, 192 });
 	idleAttack5.PushBack({ 320, 217, 160, 192 });
@@ -129,7 +129,7 @@ battleSystem::battleSystem() : Module()
 	HitAnim1.PushBack({ 480, 0, 160, 192 });
 	HitAnim1.loop = false;
 	HitAnim1.speed = 0.1f;
-	
+
 	idleHit2.PushBack({ 0, 0, 160, 192 });
 	idleHit2.loop = false;
 	idleHit2.speed = 0.001f;
@@ -139,7 +139,7 @@ battleSystem::battleSystem() : Module()
 	HitAnim2.PushBack({ 480, 0, 160, 192 });
 	HitAnim2.loop = false;
 	HitAnim2.speed = 0.1f;
-	
+
 	idleHit3.PushBack({ 0, 0, 160, 192 });
 	idleHit3.loop = false;
 	idleHit3.speed = 0.001f;
@@ -170,7 +170,7 @@ battleSystem::battleSystem() : Module()
 	HitAnim5.PushBack({ 480, 0, 160, 192 });
 	HitAnim5.loop = false;
 	HitAnim5.speed = 0.1f;
-	
+
 	idleDeath3.PushBack({ 0, 0, 160, 192 });
 	idleDeath3.loop = false;
 	idleDeath3.speed = 0.001f;
@@ -185,18 +185,18 @@ battleSystem::battleSystem() : Module()
 	DeathAnim2.PushBack({ 160, 0, 160, 192 });
 	DeathAnim2.loop = false;
 	DeathAnim2.speed = 0.03f;
-	
+
 	DeathAnim4.PushBack({ 0, 0, 160, 192 });
 	DeathAnim4.PushBack({ 160, 0, 160, 192 });
 	DeathAnim4.loop = false;
 	DeathAnim4.speed = 0.03f;
-	
+
 	DeathAnim5.PushBack({ 0, 0, 160, 192 });
 	DeathAnim5.PushBack({ 160, 0, 160, 192 });
 	DeathAnim5.loop = false;
 	DeathAnim5.speed = 0.03f;
-	
-	
+
+
 	name.Create("qteAnimation");
 	qte1.PushBack({ 65, 47, 60, 60 });
 	qte1.PushBack({ 206, 43, 60, 60 });
@@ -261,7 +261,7 @@ battleSystem::battleSystem() : Module()
 	qte33.PushBack({ 76, 55, 30, 42 });
 	qte33.loop = true;
 	qte33.speed = 0.25f;
-	
+
 
 }
 
@@ -323,7 +323,7 @@ bool battleSystem::Start()
 	Shot = app->audio->LoadFx("Assets/Audio/Fx/shot.wav");
 	Bite_Dog = app->audio->LoadFx("Assets/Audio/Fx/bite_dog.wav");
 	Knive = app->audio->LoadFx("Assets/Audio/Fx/knive.wav");
-	
+
 	selectPlayer = app->tex->Load("Assets/Textures/UI/choseplayers.png");
 	Tutorial = app->tex->Load("Assets/Textures/UI/qte_tutorial.png");
 	QTE4A = app->tex->Load("Assets/Textures/UI/qte4.png");
@@ -360,7 +360,7 @@ bool battleSystem::Start()
 	player3A = app->tex->Load("Assets/Textures/Soldiers/russian_attack_animation.png");
 	player4A = app->tex->Load("Assets/Textures/Soldiers/characters_italian_attack_animation.png");
 	player5A = app->tex->Load("Assets/Textures/Soldiers/french_attack_animation.png");
-	
+
 	player1H = app->tex->Load("Assets/Textures/Soldiers/britain_hit_animation.png");
 	player2H = app->tex->Load("Assets/Textures/Soldiers/american_dogmaster_hit_animation.png");
 	player3H = app->tex->Load("Assets/Textures/Soldiers/russian_hit_animation.png");
@@ -371,7 +371,7 @@ bool battleSystem::Start()
 	player2D = app->tex->Load("Assets/Textures/Soldiers/american_dogmaster_death_animation.png");
 	player4D = app->tex->Load("Assets/Textures/Soldiers/italian_death_animation.png");
 	player5D = app->tex->Load("Assets/Textures/Soldiers/french_death_animation.png");
-	
+
 	//L13: TODO 2: Declare an Item and create it using the EntityManager
 	VampirEnem* Vampir = (VampirEnem*)app->entityManager->CreateEntity(EntityType::VAMPYR, 0, { 0,0 });
 	ZombieEnem* Zombies = (ZombieEnem*)app->entityManager->CreateEntity(EntityType::ZOMBIE, 0, { 0,0 });
@@ -404,7 +404,7 @@ bool battleSystem::Start()
 // Called each loop iteration
 bool battleSystem::PreUpdate()
 {
-	
+
 	return true;
 }
 
@@ -467,7 +467,7 @@ bool battleSystem::Update(float dt)
 		Run->bounds.y = app->player->P1.position.y + 285;
 		Run->bounds.w = 150;
 		Run->bounds.h = 61;
-		//SDL_Rect battle_screen = { app->player->P1.position.x - 640 + 32,app->player->P1.position.y - 360 + 32,1280,720 };		
+		//SDL_Rect battle_screen = { app->player->P1.position.x - 640 + 32,app->player->P1.position.y - 360 + 32,1280,720 };
 		app->render->DrawTexture(battle_screen, app->player->P1.position.x - 640 + 32, app->player->P1.position.y - 360 + 32);
 		MiniPlayerButton1->state = GuiControlState::NORMAL;
 		MiniPlayerButton2->state = GuiControlState::NORMAL;
@@ -491,7 +491,7 @@ bool battleSystem::Update(float dt)
 
 		DrawHpBars();
 		if (PlayerTurn == true) {
-			
+
 			Attack->state = GuiControlState::NORMAL;
 			SpecialAttack->state = GuiControlState::NORMAL;
 			Inventory->state = GuiControlState::NORMAL;
@@ -503,10 +503,10 @@ bool battleSystem::Update(float dt)
 				ChoosePlayer();
 			}
 		}
-		
+
 	}
 	else if(battleAux == true){
-		
+
 		AttackPlayer = 0;
 		for (int i = 0; i < 4; i++) {
 			waitPlayer[i] = 0;
@@ -588,10 +588,10 @@ bool battleSystem::Update(float dt)
 			Run->state = GuiControlState::NORMAL;
 		}
 	}
-	
+
 	//Draw Entities
-	//L13 
-	//L13 
+	//L13
+	//L13
 	app->entityManager->Draw();
 
 	if (InventoryEnable) {
@@ -628,7 +628,7 @@ bool battleSystem::Update(float dt)
 		invenCont = 0;
 	}
 	if (app->BTSystem->StatsEnable == true) {
-	
+
 	CloseStatsMenu->state = GuiControlState::NORMAL;
 	MiniPlayerButton1->state = GuiControlState::DISABLED;
 	MiniPlayerButton2->state = GuiControlState::DISABLED;
@@ -672,7 +672,7 @@ bool battleSystem::Update(float dt)
 	AttackAnimations();
 
 	HitPlayersAnimations();
-	
+
 	DeathPlayersAnimations();
 
 	if (app->player->P1.IsAlive == false) {
@@ -688,7 +688,7 @@ bool battleSystem::Update(float dt)
 	{
 		transitionLock = true;
 	}
-	
+
 
 	return true;
 }
@@ -731,10 +731,10 @@ bool battleSystem::PostUpdate()
 
 			app->render->DrawRectangle(Curtain1, 10, 10, 10);
 			app->render->DrawRectangle(Curtain2, 10, 10, 10);
-			curtainCont += 20;			
+			curtainCont += 20;
 		}
 		else if (curtainBounce)
-		{			
+		{
 			Curtain1 = { -app->render->camera.x - curtainCont, -app->render->camera.y, app->win->GetWidth() / 2, app->win->GetHeight() };
 			Curtain2 = { -app->render->camera.x + app->win->GetWidth() / 2 + curtainCont, -app->render->camera.y, app->win->GetWidth() / 2, app->win->GetHeight() };
 
@@ -742,7 +742,7 @@ bool battleSystem::PostUpdate()
 			app->render->DrawRectangle(Curtain2, 10, 10, 10);
 			curtainCont+=20;
 		}
-		
+
 		if (Curtain1.x >= (-app->render->camera.x) && !curtainBounce)
 		{
 			curtainBounce = true;
@@ -805,7 +805,7 @@ bool battleSystem::PostUpdate()
 			transitionEnd = false;
 			battleEnd = false;
 			curtainCont = 0;
-			transitionRep = 0;			
+			transitionRep = 0;
 		}
 	}
 
@@ -819,13 +819,13 @@ bool battleSystem::PostUpdate()
 		app->render->DrawTexture(AttackTextureP2, app->player->P1.position.x - 420, app->player->P1.position.y - 220 + 130, &Player2);
 		currentAnimation->Update();
 	}
-	
+
 	if (battle == true && app->player->P1.IsAlive == true) {
 		Player3 = currentAnimation3->GetCurrentFrame();
 		app->render->DrawTexture(AttackTextureP3, app->player->P1.position.x - 420 + 120, app->player->P1.position.y - 220 + 260, &Player3);
 		currentAnimation->Update();
 	}
-	
+
 	if (battle == true && app->player->P1.IsAlive == true) {
 		Player4 = currentAnimation4->GetCurrentFrame();
 		app->render->DrawTexture(AttackTextureP4, app->player->P1.position.x - 420, app->player->P1.position.y - 220 + 390, &Player4);
@@ -998,13 +998,13 @@ void battleSystem::HitPlayersAnimations() {
 }
 
 void battleSystem::DeathPlayersAnimations() {
-	
+
 	if (DogDead == true && battle == true) {
 		currentDeath2 = &DeathAnim2;
 		app->render->DrawTexture(player2D, app->player->P1.position.x - 450, app->player->P1.position.y - 320 + 130, &player2DR);
 		currentDeath2->Update();
 	}
-	
+
 	if (russianDead == true && battle == true) {
 		currentDeath3 = &DeathAnim3;
 		app->render->DrawTexture(player3D, app->player->P1.position.x - 450 + 120, app->player->P1.position.y - 320 + 260, &player3DR);
@@ -1016,7 +1016,7 @@ void battleSystem::DeathPlayersAnimations() {
 		app->render->DrawTexture(player4D, app->player->P1.position.x - 450, app->player->P1.position.y - 320 + 390, &player4DR);
 		currentDeath4->Update();
 	}
-	
+
 	if (battle == true && FrenchDead == true) {
 		currentDeath5 = &DeathAnim5;
 		app->render->DrawTexture(player5D, app->player->P1.position.x - 450, app->player->P1.position.y - 320 + 390, &player5DR);
@@ -1032,7 +1032,7 @@ void battleSystem::AttackPhase() {
 	Attack2->state = GuiControlState::NORMAL;
 	AttackPhaseActive = true;
 	AttackPhaseEnable = true;
-	
+
 }
 void battleSystem::AttackPhaseDisabled() {
 	Attack1->state = GuiControlState::DISABLED;
@@ -1054,7 +1054,7 @@ void battleSystem::AttackPhaseDisabled() {
 		playerTarget = 0;
 		puta4 = true;
 	}
-	
+
 }
 void battleSystem::AttackPhaseDisabled2() {
 	Attack1->state = GuiControlState::DISABLED;
@@ -1354,7 +1354,7 @@ void battleSystem::SpecialAttackPhase() {
 			else {
 				rectDirection = false;
 			}
-			
+
 			/*SDL_Rect largeRect = { app->player->P1.position.x - 125,app->player->P1.position.y + 200,300,40 };
 			app->render->DrawRectangle(largeRect, 0, 250, 0);
 			SDL_Rect targetRect2 = { randomtargetRect_  + app->player->P1.position.x - 155 - 115,app->player->P1.position.y + 200,90,40 };
@@ -1622,12 +1622,12 @@ void battleSystem::DrawHpBars() {
 			app->render->DrawRectangle(bar4_, 0, 0, 255);
 		}
 	}
-	
+
 }
 
 bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 {
-	
+
 	switch (control->type)
 	{
 	case GuiControlType::BUTTON:
@@ -1653,7 +1653,7 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 			AttackType = 1;
 			AttackPhaseDisabled();
 			AttackPhaseEnable = false;
-		
+
 
 		}
 		//atack 2
@@ -1662,7 +1662,7 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 			AttackType = 2;
 			AttackPhaseDisabled();
 			AttackPhaseEnable = false;
-			
+
 		}
 		if (control->id == 34 && AttackPlayer == 1 && (VampireTarget != 0 || ZombieTarget != 0 || SkeletonTarget != 0) && SpecialAttackEnable == false && app->player->P1.mana >= 60)
 		{
@@ -1773,7 +1773,7 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 		}
 		if (control->id == 65)
 		{
-		
+
 			StatsEnable = true;
 			app->statsMenu->Enable();
 			MiniPlayerButton1->state = GuiControlState::DISABLED;
@@ -1806,10 +1806,10 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 			Run->state = GuiControlState::NORMAL;
 			CloseStatsMenu->state = GuiControlState::DISABLED;
 		}
-	
+
 	}
 	}
-	
+
 	return false;
 }
 

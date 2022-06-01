@@ -15,6 +15,7 @@
 #include "Menu.h"
 #include "BattleSystem.h"
 #include "CharacterMenu.h"
+#include "EasingFunctions.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -1259,4 +1260,25 @@ void Player::movementPlayer()
 	else if (app->menu->config == false && P4.IsAlive == false && app->BTSystem->battle1 == true && P4.hp >0) {
 		app->render->DrawTexture(app->characterMenu->italianNpc, 1613, 2410);
 	}
+}
+
+float Player::EaseCameraBetweenPoints(iPoint posA, iPoint posB)
+{
+	float value = function.backEaseOut(iterations, posA.x, posB.x - posA.x, total_iterations);
+
+
+	//speedY = function.linearEaseNull(iterations, 472, 572, 300);
+
+	//App->render->camera.y += speedY;
+
+	if (iterations < total_iterations) {
+		iterations++;
+	}
+
+	else {
+		iterations = 0;
+		easing_active = false;
+	}
+
+	return value;
 }
