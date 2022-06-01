@@ -39,7 +39,7 @@ bool CharacterMenu_Screen::Start()
 {
 	int a;
 
-	inventoryTex = app->tex->Load("Assets/Textures/UI/inventory.png");
+	inventoryTex = app->tex->Load("Assets/Textures/UI/Inventory.png");
 	inventoryTexBack = app->tex->Load("Assets/Textures/UI/inventory_bg.png");
 	russian = app->tex->Load("Assets/Textures/Soldiers/soldier_rusian.png");
 	american = app->tex->Load("Assets/Textures/Soldiers/soldier_american_dogmaster.png");
@@ -110,7 +110,7 @@ bool CharacterMenu_Screen::Update(float dt)
 		Item3->state = GuiControlState::NORMAL;
 		Item4->state = GuiControlState::NORMAL;
 		Item5->state = GuiControlState::NORMAL;
-		Item6->state = GuiControlState::DISABLED;
+		Item6->state = GuiControlState::NORMAL;
 		Item7->state = GuiControlState::NORMAL;
 
 		buttonCont = 1;
@@ -203,7 +203,7 @@ bool CharacterMenu_Screen::Update(float dt)
 		}
 		if (app->input->GetKey(SDL_SCANCODE_5) == KEY_DOWN)
 		{
-			item5state = true;
+			smoke = 2;
 		}
 		if (app->input->GetKey(SDL_SCANCODE_6) == KEY_DOWN)
 		{
@@ -226,161 +226,323 @@ bool CharacterMenu_Screen::Update(float dt)
 		if (increaseHP > 0)	item4state = true;
 		else item4state = false;
 
+		if (smoke > 0)	item5state = true;
+		else item5state = false;
+
 		if (item1state) {
 			Item1Rect = Item1Pos;
-			app->render->DrawRectangle(Item1Rect, 250, 0, 0);
+			SDL_Rect* damage = new SDL_Rect();
+			damage->x = 336;
+			damage->y = 0;
+			damage->w = 50;
+			damage->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item1Rect.x+10, Item1Rect.y-10,damage);
+
+			//app->render->DrawRectangle(Item1Rect, 250, 0, 0);
 		}
 
 
 		if (!item1state && item2state) {
 			Item2Rect = Item1Pos;
-			app->render->DrawRectangle(Item2Rect, 0, 250, 0);
+			SDL_Rect* hp = new SDL_Rect();
+			hp->x = 109;
+			hp->y = 114;
+			hp->w = 73;
+			hp->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item2Rect.x, Item2Rect.y - 10, hp);
+			//app->render->DrawRectangle(Item2Rect, 0, 250, 0);º
 		}
 		else if (item1state && item2state) {
-			Item2Rect = Item2Pos;
-			app->render->DrawRectangle(Item2Rect, 0, 250, 0);
+			Item2Rect = Item2Pos; 
+			SDL_Rect* hp = new SDL_Rect();
+			hp->x = 109;
+			hp->y = 114;
+			hp->w = 73;
+			hp->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item2Rect.x, Item2Rect.y - 10, hp);
+			//app->render->DrawRectangle(Item2Rect, 0, 250, 0);
 		}
 
 
 		if (!item1state && !item2state && item3state) {
 			Item3Rect = Item1Pos;
-			app->render->DrawRectangle(Item3Rect, 0, 0, 250);
+			SDL_Rect* mana = new SDL_Rect();
+			mana->x = 215;
+			mana->y = 0;
+			mana->w = 80;
+			mana->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item3Rect.x + 5, Item3Rect.y - 5, mana);
+			//app->render->DrawRectangle(Item3Rect, 0, 0, 250);
 		}
 		else if (!item1state && item2state && item3state) {
 			Item3Rect = Item2Pos;
-			app->render->DrawRectangle(Item3Rect, 0, 0, 250);
+			SDL_Rect* mana = new SDL_Rect();
+			mana->x = 215;
+			mana->y = 0;
+			mana->w = 80;
+			mana->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item3Rect.x + 5, Item3Rect.y - 5, mana);
 		}
 		else if (item1state && !item2state && item3state) {
-			Item3Rect = Item2Pos;
-			app->render->DrawRectangle(Item3Rect, 0, 0, 250);
+			Item3Rect = Item2Pos; 
+			SDL_Rect* mana = new SDL_Rect();
+			mana->x = 215;
+			mana->y = 0;
+			mana->w = 80;
+			mana->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item3Rect.x + 5, Item3Rect.y - 5, mana);
 		}
 		else if (item1state && item2state && item3state) {
-			Item3Rect = Item3Pos;
-			app->render->DrawRectangle(Item3Rect, 0, 0, 250);
+			Item3Rect = Item3Pos; 
+			SDL_Rect* mana = new SDL_Rect();
+			mana->x = 215;
+			mana->y = 0;
+			mana->w = 80;
+			mana->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item3Rect.x + 5, Item3Rect.y - 5, mana);
 		}
 
 		
 		if (!item1state && !item2state && !item3state && item4state)
 		{
-			Item4Rect = Item1Pos;
-			app->render->DrawRectangle(Item4Rect, 0, 250, 250);
+			Item4Rect = Item1Pos;			
+			SDL_Rect* hp = new SDL_Rect();
+			hp->x = 415;
+			hp->y = 115;
+			hp->w = 40;
+			hp->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item4Rect.x + 5, Item4Rect.y - 5, hp);
 		}
 		else if (item1state && !item2state && !item3state && item4state)
 		{
-			Item4Rect = Item2Pos;
-			app->render->DrawRectangle(Item4Rect, 0, 250, 250);
+			Item4Rect = Item2Pos; SDL_Rect* hp = new SDL_Rect();
+			hp->x = 415;
+			hp->y = 115;
+			hp->w = 40;
+			hp->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item4Rect.x + 5, Item4Rect.y - 5, hp);
 		}
 		else if (!item1state && item2state && !item3state && item4state)
 		{
 			Item4Rect = Item2Pos;
-			app->render->DrawRectangle(Item4Rect, 0, 250, 250);
+			SDL_Rect* hp = new SDL_Rect();
+			hp->x = 415;
+			hp->y = 115;
+			hp->w = 40;
+			hp->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item4Rect.x + 5, Item4Rect.y - 5, hp);
 		}
 		else if (!item1state && !item2state && item3state && item4state)
 		{
-			Item4Rect = Item2Pos;
-			app->render->DrawRectangle(Item4Rect, 0, 250, 250);
+			Item4Rect = Item2Pos; 
+			SDL_Rect* hp = new SDL_Rect();
+			hp->x = 415;
+			hp->y = 115;
+			hp->w = 40;
+			hp->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item4Rect.x + 5, Item4Rect.y - 5, hp);
 		}
 		else if (item1state && item2state && !item3state && item4state)
 		{
-			Item4Rect = Item3Pos;
-			app->render->DrawRectangle(Item4Rect, 0, 250, 250);
+			Item4Rect = Item3Pos; 
+			SDL_Rect* hp = new SDL_Rect();
+			hp->x = 415;
+			hp->y = 115;
+			hp->w = 40;
+			hp->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item4Rect.x + 5, Item4Rect.y - 5, hp);
 		}
 		else if (item1state && !item2state && item3state && item4state)
 		{
-			Item4Rect = Item3Pos;
-			app->render->DrawRectangle(Item4Rect, 0, 250, 250);
+			Item4Rect = Item3Pos; 
+			SDL_Rect* hp = new SDL_Rect();
+			hp->x = 415;
+			hp->y = 115;
+			hp->w = 40;
+			hp->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item4Rect.x + 5, Item4Rect.y - 5, hp);
 		}
 		else if (!item1state && item2state && item3state && item4state)
 		{
 			Item4Rect = Item3Pos;
-			app->render->DrawRectangle(Item4Rect, 0, 250, 250);
+			SDL_Rect* hp = new SDL_Rect();
+			hp->x = 415;
+			hp->y = 115;
+			hp->w = 40;
+			hp->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item4Rect.x + 5, Item4Rect.y - 5, hp);
 		}
 		else if (item1state && item2state && item3state && item4state)
 		{
-			Item4Rect = Item4Pos;
-			app->render->DrawRectangle(Item4Rect, 0, 250, 250);
+			Item4Rect = Item4Pos; 
+			SDL_Rect* hp = new SDL_Rect();
+			hp->x = 415;
+			hp->y = 115;
+			hp->w = 40;
+			hp->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item4Rect.x + 5, Item4Rect.y - 5, hp);
 		}
 		
 
 		if (!item1state && !item2state && !item3state && !item4state && item5state)
 		{
-			Item5Rect = Item1Pos;
-			app->render->DrawRectangle(Item5Rect, 250, 0, 250);
+			Item5Rect = Item1Pos;	
+			SDL_Rect* smoke = new SDL_Rect();
+			smoke->x = 425;
+			smoke->y = 0;
+			smoke->w = 50;
+			smoke->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item5Rect.x + 5, Item5Rect.y - 5, smoke);
 		}
 		else if (item1state && !item2state && !item3state && !item4state && item5state)
 		{
 			Item5Rect = Item2Pos;
-			app->render->DrawRectangle(Item5Rect, 250, 0, 250);
+			SDL_Rect* smoke = new SDL_Rect();
+			smoke->x = 425;
+			smoke->y = 0;
+			smoke->w = 50;
+			smoke->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item5Rect.x + 5, Item5Rect.y - 5, smoke);
 		}
 		else if (!item1state && item2state && !item3state && !item4state && item5state)
 		{
 			Item5Rect = Item2Pos;
-			app->render->DrawRectangle(Item5Rect, 250, 0, 250);
+			SDL_Rect* smoke = new SDL_Rect();
+			smoke->x = 425;
+			smoke->y = 0;
+			smoke->w = 50;
+			smoke->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item5Rect.x + 5, Item5Rect.y - 5, smoke);
 		}
 		else if (!item1state && !item2state && item3state && !item4state && item5state)
 		{
 			Item5Rect = Item2Pos;
-			app->render->DrawRectangle(Item5Rect, 250, 0, 250);
+			SDL_Rect* smoke = new SDL_Rect();
+			smoke->x = 425;
+			smoke->y = 0;
+			smoke->w = 50;
+			smoke->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item5Rect.x + 5, Item5Rect.y - 5, smoke);
 		}
 		else if (!item1state && !item2state && !item3state && item4state && item5state)
 		{
 			Item5Rect = Item2Pos;
-			app->render->DrawRectangle(Item5Rect, 250, 0, 250);
+			SDL_Rect* smoke = new SDL_Rect();
+			smoke->x = 425;
+			smoke->y = 0;
+			smoke->w = 50;
+			smoke->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item5Rect.x + 5, Item5Rect.y - 5, smoke);
 		}
 		else if (item1state && item2state && !item3state && !item4state && item5state)
 		{
 			Item5Rect = Item3Pos;
-			app->render->DrawRectangle(Item5Rect, 250, 0, 250);
+			SDL_Rect* smoke = new SDL_Rect();
+			smoke->x = 425;
+			smoke->y = 0;
+			smoke->w = 50;
+			smoke->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item5Rect.x + 5, Item5Rect.y - 5, smoke);
 		}
 		else if (item1state && !item2state && item3state && !item4state && item5state)
 		{
 			Item5Rect = Item3Pos;
-			app->render->DrawRectangle(Item5Rect, 250, 0, 250);
+			SDL_Rect* smoke = new SDL_Rect();
+			smoke->x = 425;
+			smoke->y = 0;
+			smoke->w = 50;
+			smoke->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item5Rect.x + 5, Item5Rect.y - 5, smoke);
 		}
 		else if (item1state && !item2state && !item3state && item4state && item5state)
 		{
 			Item5Rect = Item3Pos;
-			app->render->DrawRectangle(Item5Rect, 250, 0, 250);
+			SDL_Rect* smoke = new SDL_Rect();
+			smoke->x = 425;
+			smoke->y = 0;
+			smoke->w = 50;
+			smoke->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item5Rect.x + 5, Item5Rect.y - 5, smoke);
 		}
 		else if (!item1state && item2state && item3state && !item4state && item5state)
 		{
 			Item5Rect = Item3Pos;
-			app->render->DrawRectangle(Item5Rect, 250, 0, 250);
+			SDL_Rect* smoke = new SDL_Rect();
+			smoke->x = 425;
+			smoke->y = 0;
+			smoke->w = 50;
+			smoke->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item5Rect.x + 5, Item5Rect.y - 5, smoke);
 		}
 		else if (!item1state && item2state && !item3state && item4state && item5state)
 		{
 			Item5Rect = Item3Pos;
-			app->render->DrawRectangle(Item5Rect, 250, 0, 250);
+			SDL_Rect* smoke = new SDL_Rect();
+			smoke->x = 425;
+			smoke->y = 0;
+			smoke->w = 50;
+			smoke->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item5Rect.x + 5, Item5Rect.y - 5, smoke);
 		}
 		else if (!item1state && !item2state && item3state && item4state && item5state)
 		{
 			Item5Rect = Item3Pos;
-			app->render->DrawRectangle(Item5Rect, 250, 0, 250);
+			SDL_Rect* smoke = new SDL_Rect();
+			smoke->x = 425;
+			smoke->y = 0;
+			smoke->w = 50;
+			smoke->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item5Rect.x + 5, Item5Rect.y - 5, smoke);
 		}
 		else if (item1state && !item2state && item3state && item4state && item5state)
 		{
 			Item5Rect = Item4Pos;
-			app->render->DrawRectangle(Item5Rect, 250, 0, 250);
+			SDL_Rect* smoke = new SDL_Rect();
+			smoke->x = 425;
+			smoke->y = 0;
+			smoke->w = 50;
+			smoke->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item5Rect.x + 5, Item5Rect.y - 5, smoke);
 		}
 		else if (item1state && item2state && !item3state && item4state && item5state)
 		{
 			Item5Rect = Item4Pos;
-			app->render->DrawRectangle(Item5Rect, 250, 0, 250);
+			SDL_Rect* smoke = new SDL_Rect();
+			smoke->x = 425;
+			smoke->y = 0;
+			smoke->w = 50;
+			smoke->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item5Rect.x + 5, Item5Rect.y - 5, smoke);
 		}
 		else if (item1state && item2state && item3state && !item4state && item5state)
 		{
 			Item5Rect = Item4Pos;
-			app->render->DrawRectangle(Item5Rect, 250, 0, 250);
+			SDL_Rect* smoke = new SDL_Rect();
+			smoke->x = 425;
+			smoke->y = 0;
+			smoke->w = 50;
+			smoke->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item5Rect.x + 5, Item5Rect.y - 5, smoke);
 		}
 		else if (!item1state && item2state && item3state && item4state && item5state)
 		{
 			Item5Rect = Item4Pos;
-			app->render->DrawRectangle(Item5Rect, 250, 0, 250);
+			SDL_Rect* smoke = new SDL_Rect();
+			smoke->x = 425;
+			smoke->y = 0;
+			smoke->w = 50;
+			smoke->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item5Rect.x + 5, Item5Rect.y - 5, smoke);
 		}
 		else if (item1state && item2state && item3state && item4state && item5state)
 		{
 			Item5Rect = Item5Pos;
-			app->render->DrawRectangle(Item5Rect, 250, 0, 250);
+			SDL_Rect* smoke = new SDL_Rect();
+			smoke->x = 425;
+			smoke->y = 0;
+			smoke->w = 50;
+			smoke->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item5Rect.x + 5, Item5Rect.y - 5, smoke);
 		}
 		else
 		{
@@ -391,483 +553,864 @@ bool CharacterMenu_Screen::Update(float dt)
 		if (!item1state && !item2state && !item3state && !item4state && !item5state && item6state)
 		{
 			Item6Rect = Item1Pos;
-			app->render->DrawRectangle(Item6Rect, 250, 250, 0);
+			SDL_Rect* key = new SDL_Rect();
+			key->x = 340;
+			key->y = 126;
+			key->w = 30;
+			key->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item6Rect.x + 10, Item6Rect.y - 5, key);
 		}
 		else if (item1state && !item2state && !item3state && !item4state && !item5state && item6state)
 		{
-			Item6Rect = Item2Pos;
-			app->render->DrawRectangle(Item6Rect, 250, 250, 0);
+			Item6Rect = Item2Pos; SDL_Rect* key = new SDL_Rect();
+			key->x = 340;
+			key->y = 126;
+			key->w = 30;
+			key->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item6Rect.x + 10, Item6Rect.y - 5, key);
 		}
 		else if (!item1state && item2state && !item3state && !item4state && !item5state && item6state)
 		{
-			Item6Rect = Item2Pos;
-			app->render->DrawRectangle(Item6Rect, 250, 250, 0);
+			Item6Rect = Item2Pos; SDL_Rect* key = new SDL_Rect();
+			key->x = 340;
+			key->y = 126;
+			key->w = 30;
+			key->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item6Rect.x + 10, Item6Rect.y - 5, key);
 		}
 		else if (!item1state && !item2state && item3state && !item4state && !item5state && item6state)
 		{
-			Item6Rect = Item2Pos;
-			app->render->DrawRectangle(Item6Rect, 250, 250, 0);
+			Item6Rect = Item2Pos; SDL_Rect* key = new SDL_Rect();
+			key->x = 340;
+			key->y = 126;
+			key->w = 30;
+			key->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item6Rect.x + 10, Item6Rect.y - 5, key);
 		}
 		else if (!item1state && !item2state && !item3state && item4state && !item5state && item6state)
 		{
-			Item6Rect = Item2Pos;
-			app->render->DrawRectangle(Item6Rect, 250, 250, 0);
+			Item6Rect = Item2Pos; SDL_Rect* key = new SDL_Rect();
+			key->x = 340;
+			key->y = 126;
+			key->w = 30;
+			key->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item6Rect.x + 10, Item6Rect.y - 5, key);
 		}
 		else if (!item1state && !item2state && !item3state && !item4state && item5state && item6state)
 		{
-			Item6Rect = Item2Pos;
-			app->render->DrawRectangle(Item6Rect, 250, 250, 0);
+			Item6Rect = Item2Pos; SDL_Rect* key = new SDL_Rect();
+			key->x = 340;
+			key->y = 126;
+			key->w = 30;
+			key->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item6Rect.x + 10, Item6Rect.y - 5, key);
 		}
 		else if (item1state && item2state && !item3state && !item4state && !item5state && item6state)
 		{
-			Item6Rect = Item3Pos;
-			app->render->DrawRectangle(Item6Rect, 250, 250, 0);
+			Item6Rect = Item3Pos; SDL_Rect* key = new SDL_Rect();
+			key->x = 340;
+			key->y = 126;
+			key->w = 30;
+			key->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item6Rect.x + 10, Item6Rect.y - 5, key);
 		}
 		else if (item1state && !item2state && item3state && !item4state && !item5state && item6state)
 		{
-			Item6Rect = Item3Pos;
-			app->render->DrawRectangle(Item6Rect, 250, 250, 0);
+			Item6Rect = Item3Pos; SDL_Rect* key = new SDL_Rect();
+			key->x = 340;
+			key->y = 126;
+			key->w = 30;
+			key->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item6Rect.x + 10, Item6Rect.y - 5, key);
 		}
 		else if (item1state && !item2state && !item3state && item4state && !item5state && item6state)
 		{
-			Item6Rect = Item3Pos;
-			app->render->DrawRectangle(Item6Rect, 250, 250, 0);
+			Item6Rect = Item3Pos; SDL_Rect* key = new SDL_Rect();
+			key->x = 340;
+			key->y = 126;
+			key->w = 30;
+			key->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item6Rect.x + 10, Item6Rect.y - 5, key);
 		}
 		else if (item1state && !item2state && !item3state && !item4state && item5state && item6state)
 		{
-			Item6Rect = Item3Pos;
-			app->render->DrawRectangle(Item6Rect, 250, 250, 0);
+			Item6Rect = Item3Pos; SDL_Rect* key = new SDL_Rect();
+			key->x = 340;
+			key->y = 126;
+			key->w = 30;
+			key->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item6Rect.x + 10, Item6Rect.y - 5, key);
 		}
 		else if (!item1state && item2state && !item3state && !item4state && item5state && item6state)
 		{
-			Item6Rect = Item3Pos;
-			app->render->DrawRectangle(Item6Rect, 250, 250, 0);
+			Item6Rect = Item3Pos; SDL_Rect* key = new SDL_Rect();
+			key->x = 340;
+			key->y = 126;
+			key->w = 30;
+			key->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item6Rect.x + 10, Item6Rect.y - 5, key);
 		}
 		else if (!item1state && item2state && !item3state && item4state && !item5state && item6state)
 		{
-			Item6Rect = Item3Pos;
-			app->render->DrawRectangle(Item6Rect, 250, 250, 0);
+			Item6Rect = Item3Pos; SDL_Rect* key = new SDL_Rect();
+			key->x = 340;
+			key->y = 126;
+			key->w = 30;
+			key->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item6Rect.x + 10, Item6Rect.y - 5, key);
 		}
 		else if (!item1state && item2state && item3state && !item4state && !item5state && item6state)
 		{
-			Item6Rect = Item3Pos;
-			app->render->DrawRectangle(Item6Rect, 250, 250, 0);
+			Item6Rect = Item3Pos; SDL_Rect* key = new SDL_Rect();
+			key->x = 340;
+			key->y = 126;
+			key->w = 30;
+			key->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item6Rect.x + 10, Item6Rect.y - 5, key);
 		}
 		else if (!item1state && !item2state && item3state && item4state && !item5state && item6state)
 		{
-			Item6Rect = Item3Pos;
-			app->render->DrawRectangle(Item6Rect, 250, 250, 0);
+			Item6Rect = Item3Pos; SDL_Rect* key = new SDL_Rect();
+			key->x = 340;
+			key->y = 126;
+			key->w = 30;
+			key->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item6Rect.x + 10, Item6Rect.y - 5, key);
 		}
 		else if (!item1state && !item2state && item3state && !item4state && item5state && item6state)
 		{
-			Item6Rect = Item3Pos;
-			app->render->DrawRectangle(Item6Rect, 250, 250, 0);
+			Item6Rect = Item3Pos; SDL_Rect* key = new SDL_Rect();
+			key->x = 340;
+			key->y = 126;
+			key->w = 30;
+			key->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item6Rect.x + 10, Item6Rect.y - 5, key);
 		}
 		else if (!item1state && !item2state && !item3state && item4state && item5state && item6state)
 		{
-			Item6Rect = Item3Pos;
-			app->render->DrawRectangle(Item6Rect, 250, 250, 0);
+			Item6Rect = Item3Pos; SDL_Rect* key = new SDL_Rect();
+			key->x = 340;
+			key->y = 126;
+			key->w = 30;
+			key->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item6Rect.x + 10, Item6Rect.y - 5, key);
 		}
 		else if (item1state && item2state && item3state && !item4state && !item5state && item6state)
 		{
-			Item6Rect = Item4Pos;
-			app->render->DrawRectangle(Item6Rect, 250, 250, 0);
+			Item6Rect = Item4Pos; SDL_Rect* key = new SDL_Rect();
+			key->x = 340;
+			key->y = 126;
+			key->w = 30;
+			key->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item6Rect.x + 10, Item6Rect.y - 5, key);
 		}
 		else if (item1state && item2state && !item3state && item4state && !item5state && item6state)
 		{
-			Item6Rect = Item4Pos;
-			app->render->DrawRectangle(Item6Rect, 250, 250, 0);
+			Item6Rect = Item4Pos; SDL_Rect* key = new SDL_Rect();
+			key->x = 340;
+			key->y = 126;
+			key->w = 30;
+			key->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item6Rect.x + 10, Item6Rect.y - 5, key);
 		}
 		else if (item1state && item2state && !item3state && !item4state && item5state && item6state)
 		{
-			Item6Rect = Item4Pos;
-			app->render->DrawRectangle(Item6Rect, 250, 250, 0);
+			Item6Rect = Item4Pos; SDL_Rect* key = new SDL_Rect();
+			key->x = 340;
+			key->y = 126;
+			key->w = 30;
+			key->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item6Rect.x + 10, Item6Rect.y - 5, key);
 		}
 		else if (item1state && !item2state && item3state && item4state && !item5state && item6state)
 		{
-			Item6Rect = Item4Pos;
-			app->render->DrawRectangle(Item6Rect, 250, 250, 0);
+			Item6Rect = Item4Pos; SDL_Rect* key = new SDL_Rect();
+			key->x = 340;
+			key->y = 126;
+			key->w = 30;
+			key->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item6Rect.x + 10, Item6Rect.y - 5, key);
 		}
 		else if (item1state && !item2state && item3state && !item4state && item5state && item6state)
 		{
-			Item6Rect = Item4Pos;
-			app->render->DrawRectangle(Item6Rect, 250, 250, 0);
+			Item6Rect = Item4Pos; SDL_Rect* key = new SDL_Rect();
+			key->x = 340;
+			key->y = 126;
+			key->w = 30;
+			key->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item6Rect.x + 10, Item6Rect.y - 5, key);
 		}
 		else if (!item1state && item2state && item3state && !item4state && item5state && item6state)
 		{
-			Item6Rect = Item4Pos;
-			app->render->DrawRectangle(Item6Rect, 250, 250, 0);
+			Item6Rect = Item4Pos; SDL_Rect* key = new SDL_Rect();
+			key->x = 340;
+			key->y = 126;
+			key->w = 30;
+			key->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item6Rect.x + 10, Item6Rect.y - 5, key);
 		}
 		else if (!item1state && item2state && item3state && item4state && !item5state && item6state)
 		{
-			Item6Rect = Item4Pos;
-			app->render->DrawRectangle(Item6Rect, 250, 250, 0);
+			Item6Rect = Item4Pos; SDL_Rect* key = new SDL_Rect();
+			key->x = 340;
+			key->y = 126;
+			key->w = 30;
+			key->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item6Rect.x + 10, Item6Rect.y - 5, key);
 		}
 		else if (!item1state && !item2state && item3state && item4state && item5state && item6state)
 		{
-			Item6Rect = Item4Pos;
-			app->render->DrawRectangle(Item6Rect, 250, 250, 0);
+			Item6Rect = Item4Pos; SDL_Rect* key = new SDL_Rect();
+			key->x = 340;
+			key->y = 126;
+			key->w = 30;
+			key->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item6Rect.x + 10, Item6Rect.y - 5, key);
 		}
 		else if (item1state && item2state && item3state && item4state && !item5state && item6state)
 		{
-			Item6Rect = Item5Pos;
-			app->render->DrawRectangle(Item6Rect, 250, 250, 0);
+			Item6Rect = Item5Pos; SDL_Rect* key = new SDL_Rect();
+			key->x = 340;
+			key->y = 126;
+			key->w = 30;
+			key->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item6Rect.x + 10, Item6Rect.y - 5, key);
 		}
 		else if (item1state && item2state && item3state && !item4state && item5state && item6state)
 		{
-			Item6Rect = Item5Pos;
-			app->render->DrawRectangle(Item6Rect, 250, 250, 0);
+			Item6Rect = Item5Pos; SDL_Rect* key = new SDL_Rect();
+			key->x = 340;
+			key->y = 126;
+			key->w = 30;
+			key->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item6Rect.x + 10, Item6Rect.y - 5, key);
 		}
 		else if (item1state && item2state && !item3state && item4state && item5state && item6state)
 		{
-			Item6Rect = Item5Pos;
-			app->render->DrawRectangle(Item6Rect, 250, 250, 0);
+			Item6Rect = Item5Pos; SDL_Rect* key = new SDL_Rect();
+			key->x = 340;
+			key->y = 126;
+			key->w = 30;
+			key->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item6Rect.x + 10, Item6Rect.y - 5, key);
 		}
 		else if (item1state && !item2state && item3state && item4state && item5state && item6state)
 		{
-			Item6Rect = Item5Pos;
-			app->render->DrawRectangle(Item6Rect, 250, 250, 0);
+			Item6Rect = Item5Pos; SDL_Rect* key = new SDL_Rect();
+			key->x = 340;
+			key->y = 126;
+			key->w = 30;
+			key->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item6Rect.x + 10, Item6Rect.y - 5, key);
 		}
 		else if (!item1state && item2state && item3state && item4state && item5state && item6state)
 		{
-			Item6Rect = Item5Pos;
-			app->render->DrawRectangle(Item6Rect, 250, 250, 0);
+			Item6Rect = Item5Pos; SDL_Rect* key = new SDL_Rect();
+			key->x = 340;
+			key->y = 126;
+			key->w = 30;
+			key->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item6Rect.x + 10, Item6Rect.y - 5, key);
 		}
 		else if (item1state && item2state && item3state && item4state && item5state && item6state)
 		{
-			Item6Rect = Item6Pos;
-			app->render->DrawRectangle(Item6Rect, 250, 250, 0);
+			Item6Rect = Item6Pos; SDL_Rect* key = new SDL_Rect();
+			key->x = 340;
+			key->y = 126;
+			key->w = 30;
+			key->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item6Rect.x + 10, Item6Rect.y - 5, key);
 		}
 		else 
 		{
 			item6state = false;
-			Item6->state = GuiControlState::DISABLED;
 		}
 
 		if (!item1state && !item2state && !item3state && !item4state && !item5state && !item6state && item7state)
 		{
 			Item7Rect = Item1Pos;
-			app->render->DrawRectangle(Item7Rect, 100, 100, 100);
+			SDL_Rect* skull = new SDL_Rect();
+			skull->x = 219;
+			skull->y = 130;
+			skull->w = 70;
+			skull->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item7Rect.x + 10, Item7Rect.y - 5, skull);
 		}
 		else if (item1state && !item2state && !item3state && !item4state && !item5state && !item6state && item7state)
 		{
-			Item7Rect = Item2Pos;
-			app->render->DrawRectangle(Item7Rect, 100, 100, 100);
+			Item7Rect = Item2Pos; SDL_Rect* skull = new SDL_Rect();
+			skull->x = 219;
+			skull->y = 130;
+			skull->w = 70;
+			skull->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item7Rect.x + 10, Item7Rect.y - 5, skull);
 		}
 		else if (!item1state && item2state && !item3state && !item4state && !item5state && !item6state && item7state)
 		{
-			Item7Rect = Item2Pos;
-			app->render->DrawRectangle(Item7Rect, 100, 100, 100);
+			Item7Rect = Item2Pos;SDL_Rect* skull = new SDL_Rect();
+			skull->x = 219;
+			skull->y = 130;
+			skull->w = 70;
+			skull->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item7Rect.x + 10, Item7Rect.y - 5, skull);
 		}
 		else if (!item1state && !item2state && item3state && !item4state && !item5state && !item6state && item7state)
 		{
-			Item7Rect = Item2Pos;
-			app->render->DrawRectangle(Item7Rect, 100, 100, 100);
+			Item7Rect = Item2Pos; SDL_Rect* skull = new SDL_Rect();
+			skull->x = 219;
+			skull->y = 130;
+			skull->w = 70;
+			skull->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item7Rect.x + 10, Item7Rect.y - 5, skull);
 		}
 		else if (!item1state && !item2state && !item3state && item4state && !item5state && !item6state && item7state)
 		{
-			Item7Rect = Item2Pos;
-			app->render->DrawRectangle(Item7Rect, 100, 100, 100);
+			Item7Rect = Item2Pos; SDL_Rect* skull = new SDL_Rect();
+			skull->x = 219;
+			skull->y = 130;
+			skull->w = 70;
+			skull->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item7Rect.x + 10, Item7Rect.y - 5, skull);
 		}
 		else if (!item1state && !item2state && !item3state && !item4state && item5state && !item6state && item7state)
 		{
-			Item7Rect = Item2Pos;
-			app->render->DrawRectangle(Item7Rect, 100, 100, 100);
+			Item7Rect = Item2Pos; SDL_Rect* skull = new SDL_Rect();
+			skull->x = 219;
+			skull->y = 130;
+			skull->w = 70;
+			skull->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item7Rect.x + 10, Item7Rect.y - 5, skull);
 		}
 		else if (!item1state && !item2state && !item3state && !item4state && !item5state && item6state && item7state)
 		{
-			Item7Rect = Item2Pos;
-			app->render->DrawRectangle(Item7Rect, 100, 100, 100);
+			Item7Rect = Item2Pos; SDL_Rect* skull = new SDL_Rect();
+			skull->x = 219;
+			skull->y = 130;
+			skull->w = 70;
+			skull->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item7Rect.x + 10, Item7Rect.y - 5, skull);
 		}
 		else if (item1state && item2state && !item3state && !item4state && !item5state && !item6state && item7state)
 		{
-			Item7Rect = Item3Pos;
-			app->render->DrawRectangle(Item7Rect, 100, 100, 100);
+			Item7Rect = Item3Pos; SDL_Rect* skull = new SDL_Rect();
+			skull->x = 219;
+			skull->y = 130;
+			skull->w = 70;
+			skull->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item7Rect.x + 10, Item7Rect.y - 5, skull);
 		}
 		else if (item1state && !item2state && item3state && !item4state && !item5state && !item6state && item7state)
 		{
-			Item7Rect = Item3Pos;
-			app->render->DrawRectangle(Item7Rect, 100, 100, 100);
+			Item7Rect = Item3Pos; SDL_Rect* skull = new SDL_Rect();
+			skull->x = 219;
+			skull->y = 130;
+			skull->w = 70;
+			skull->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item7Rect.x + 10, Item7Rect.y - 5, skull);
 		}
 		else if (item1state && !item2state && !item3state && item4state && !item5state && !item6state && item7state)
 		{
-			Item7Rect = Item3Pos;
-			app->render->DrawRectangle(Item7Rect, 100, 100, 100);
+			Item7Rect = Item3Pos; SDL_Rect* skull = new SDL_Rect();
+			skull->x = 219;
+			skull->y = 130;
+			skull->w = 70;
+			skull->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item7Rect.x + 10, Item7Rect.y - 5, skull);
 		}
 		else if (item1state && !item2state && !item3state && !item4state && item5state && !item6state && item7state)
 		{
-			Item7Rect = Item3Pos;
-			app->render->DrawRectangle(Item7Rect, 100, 100, 100);
+			Item7Rect = Item3Pos; SDL_Rect* skull = new SDL_Rect();
+			skull->x = 219;
+			skull->y = 130;
+			skull->w = 70;
+			skull->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item7Rect.x + 10, Item7Rect.y - 5, skull);
 		}
 		else if (item1state && !item2state && !item3state && !item4state && !item5state && item6state && item7state)
 		{
-			Item7Rect = Item3Pos;
-			app->render->DrawRectangle(Item7Rect, 100, 100, 100);
+			Item7Rect = Item3Pos; SDL_Rect* skull = new SDL_Rect();
+			skull->x = 219;
+			skull->y = 130;
+			skull->w = 70;
+			skull->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item7Rect.x + 10, Item7Rect.y - 5, skull);
 		}
 		else if (!item1state && item2state && item3state && !item4state && !item5state && !item6state && item7state)
 		{
-			Item7Rect = Item3Pos;
-			app->render->DrawRectangle(Item7Rect, 100, 100, 100);
+			Item7Rect = Item3Pos; SDL_Rect* skull = new SDL_Rect();
+			skull->x = 219;
+			skull->y = 130;
+			skull->w = 70;
+			skull->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item7Rect.x + 10, Item7Rect.y - 5, skull);
 		}
 		else if (!item1state && item2state && !item3state && item4state && !item5state && !item6state && item7state)
 		{
-			Item7Rect = Item3Pos;
-			app->render->DrawRectangle(Item7Rect, 100, 100, 100);
+			Item7Rect = Item3Pos; SDL_Rect* skull = new SDL_Rect();
+			skull->x = 219;
+			skull->y = 130;
+			skull->w = 70;
+			skull->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item7Rect.x + 10, Item7Rect.y - 5, skull);
 		}
 		else if (!item1state && item2state && !item3state && !item4state && item5state && !item6state && item7state)
 		{
-			Item7Rect = Item3Pos;
-			app->render->DrawRectangle(Item7Rect, 100, 100, 100);
+			Item7Rect = Item3Pos; SDL_Rect* skull = new SDL_Rect();
+			skull->x = 219;
+			skull->y = 130;
+			skull->w = 70;
+			skull->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item7Rect.x + 10, Item7Rect.y - 5, skull);
 		}
 		else if (!item1state && item2state && !item3state && !item4state && !item5state && item6state && item7state)
 		{
-			Item7Rect = Item3Pos;
-			app->render->DrawRectangle(Item7Rect, 100, 100, 100);
+			Item7Rect = Item3Pos; SDL_Rect* skull = new SDL_Rect();
+			skull->x = 219;
+			skull->y = 130;
+			skull->w = 70;
+			skull->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item7Rect.x + 10, Item7Rect.y - 5, skull);
 		}
 		else if (!item1state && !item2state && item3state && item4state && !item5state && !item6state && item7state)
 		{
-			Item7Rect = Item3Pos;
-			app->render->DrawRectangle(Item7Rect, 100, 100, 100);
+			Item7Rect = Item3Pos; SDL_Rect* skull = new SDL_Rect();
+			skull->x = 219;
+			skull->y = 130;
+			skull->w = 70;
+			skull->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item7Rect.x + 10, Item7Rect.y - 5, skull);
 		}
 		else if (!item1state && !item2state && item3state && !item4state && item5state && !item6state && item7state)
 		{
-			Item7Rect = Item3Pos;
-			app->render->DrawRectangle(Item7Rect, 100, 100, 100);
+			Item7Rect = Item3Pos; SDL_Rect* skull = new SDL_Rect();
+			skull->x = 219;
+			skull->y = 130;
+			skull->w = 70;
+			skull->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item7Rect.x + 10, Item7Rect.y - 5, skull);
 		}
 		else if (!item1state && !item2state && item3state && !item4state && !item5state && item6state && item7state)
 		{
-			Item7Rect = Item3Pos;
-			app->render->DrawRectangle(Item7Rect, 100, 100, 100);
+			Item7Rect = Item3Pos; SDL_Rect* skull = new SDL_Rect();
+			skull->x = 219;
+			skull->y = 130;
+			skull->w = 70;
+			skull->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item7Rect.x + 10, Item7Rect.y - 5, skull);
 		}
 		else if (!item1state && !item2state && !item3state && item4state && item5state && !item6state && item7state)
 		{
-			Item7Rect = Item3Pos;
-			app->render->DrawRectangle(Item7Rect, 100, 100, 100);
+			Item7Rect = Item3Pos; SDL_Rect* skull = new SDL_Rect();
+			skull->x = 219;
+			skull->y = 130;
+			skull->w = 70;
+			skull->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item7Rect.x + 10, Item7Rect.y - 5, skull);
 		}
 		else if (!item1state && !item2state && !item3state && item4state && !item5state && item6state && item7state)
 		{
-			Item7Rect = Item3Pos;
-			app->render->DrawRectangle(Item7Rect, 100, 100, 100);
+			Item7Rect = Item3Pos; SDL_Rect* skull = new SDL_Rect();
+			skull->x = 219;
+			skull->y = 130;
+			skull->w = 70;
+			skull->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item7Rect.x + 10, Item7Rect.y - 5, skull);
 		}
 		else if (!item1state && !item2state && !item3state && !item4state && item5state && item6state && item7state)
 		{
-			Item7Rect = Item3Pos;
-			app->render->DrawRectangle(Item7Rect, 100, 100, 100);
+			Item7Rect = Item3Pos; SDL_Rect* skull = new SDL_Rect();
+			skull->x = 219;
+			skull->y = 130;
+			skull->w = 70;
+			skull->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item7Rect.x + 10, Item7Rect.y - 5, skull);
 		}
 		else if (item1state && item2state && item3state && !item4state && !item5state && !item6state && item7state)
 		{
-			Item7Rect = Item4Pos;
-			app->render->DrawRectangle(Item7Rect, 100, 100, 100);
+			Item7Rect = Item4Pos; SDL_Rect* skull = new SDL_Rect();
+			skull->x = 219;
+			skull->y = 130;
+			skull->w = 70;
+			skull->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item7Rect.x + 10, Item7Rect.y - 5, skull);
 		}
 		else if (item1state && item2state && !item3state && item4state && !item5state && !item6state && item7state)
 		{
-			Item7Rect = Item4Pos;
-			app->render->DrawRectangle(Item7Rect, 100, 100, 100);
+			Item7Rect = Item4Pos; SDL_Rect* skull = new SDL_Rect();
+			skull->x = 219;
+			skull->y = 130;
+			skull->w = 70;
+			skull->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item7Rect.x + 10, Item7Rect.y - 5, skull);
 		}
 		else if (item1state && item2state && !item3state && !item4state && item5state && !item6state && item7state)
 		{
-			Item7Rect = Item4Pos;
-			app->render->DrawRectangle(Item7Rect, 100, 100, 100);
+			Item7Rect = Item4Pos; SDL_Rect* skull = new SDL_Rect();
+			skull->x = 219;
+			skull->y = 130;
+			skull->w = 70;
+			skull->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item7Rect.x + 10, Item7Rect.y - 5, skull);
 		}
 		else if (item1state && item2state && !item3state && !item4state && !item5state && item6state && item7state)
 		{
-			Item7Rect = Item4Pos;
-			app->render->DrawRectangle(Item7Rect, 100, 100, 100);
+			Item7Rect = Item4Pos; SDL_Rect* skull = new SDL_Rect();
+			skull->x = 219;
+			skull->y = 130;
+			skull->w = 70;
+			skull->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item7Rect.x + 10, Item7Rect.y - 5, skull);
 		}
 		else if (!item1state && !item2state && !item3state && !item4state && !item5state && !item6state && item7state)
 		{
-			Item7Rect = Item4Pos;
-			app->render->DrawRectangle(Item7Rect, 100, 100, 100);
+			Item7Rect = Item4Pos; SDL_Rect* skull = new SDL_Rect();
+			skull->x = 219;
+			skull->y = 130;
+			skull->w = 70;
+			skull->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item7Rect.x + 10, Item7Rect.y - 5, skull);
 		}
 		else if (item1state && !item2state && item3state && item4state && !item5state && !item6state && item7state)
 		{
-			Item7Rect = Item4Pos;
-			app->render->DrawRectangle(Item7Rect, 100, 100, 100);
+			Item7Rect = Item4Pos; SDL_Rect* skull = new SDL_Rect();
+			skull->x = 219;
+			skull->y = 130;
+			skull->w = 70;
+			skull->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item7Rect.x + 10, Item7Rect.y - 5, skull);
 		}
 		else if (item1state && !item2state && item3state && !item4state && item5state && !item6state && item7state)
 		{
-			Item7Rect = Item4Pos;
-			app->render->DrawRectangle(Item7Rect, 100, 100, 100);
+			Item7Rect = Item4Pos; SDL_Rect* skull = new SDL_Rect();
+			skull->x = 219;
+			skull->y = 130;
+			skull->w = 70;
+			skull->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item7Rect.x + 10, Item7Rect.y - 5, skull);
 		}
 		else if (item1state && !item2state && item3state && !item4state && !item5state && item6state && item7state)
 		{
-			Item7Rect = Item4Pos;
-			app->render->DrawRectangle(Item7Rect, 100, 100, 100);
+			Item7Rect = Item4Pos; SDL_Rect* skull = new SDL_Rect();
+			skull->x = 219;
+			skull->y = 130;
+			skull->w = 70;
+			skull->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item7Rect.x + 10, Item7Rect.y - 5, skull);
 		}
 		else if (item1state && !item2state && !item3state && item4state && item5state && !item6state && item7state)
 		{
-			Item7Rect = Item4Pos;
-			app->render->DrawRectangle(Item7Rect, 100, 100, 100);
+			Item7Rect = Item4Pos; SDL_Rect* skull = new SDL_Rect();
+			skull->x = 219;
+			skull->y = 130;
+			skull->w = 70;
+			skull->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item7Rect.x + 10, Item7Rect.y - 5, skull);
 		}
 		else if (item1state && !item2state && !item3state && item4state && !item5state && item6state && item7state)
 		{
-			Item7Rect = Item4Pos;
-			app->render->DrawRectangle(Item7Rect, 100, 100, 100);
+			Item7Rect = Item4Pos; SDL_Rect* skull = new SDL_Rect();
+			skull->x = 219;
+			skull->y = 130;
+			skull->w = 70;
+			skull->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item7Rect.x + 10, Item7Rect.y - 5, skull);
 		}
 		else if (item1state && !item2state && !item3state && !item4state && item5state && item6state && item7state)
 		{
-			Item7Rect = Item4Pos;
-			app->render->DrawRectangle(Item7Rect, 100, 100, 100);
+			Item7Rect = Item4Pos; SDL_Rect* skull = new SDL_Rect();
+			skull->x = 219;
+			skull->y = 130;
+			skull->w = 70;
+			skull->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item7Rect.x + 10, Item7Rect.y - 5, skull);
 		}
 		else if (!item1state && item2state && item3state && item4state && !item5state && !item6state && item7state)
 		{
-			Item7Rect = Item4Pos;
-			app->render->DrawRectangle(Item7Rect, 100, 100, 100);
+			Item7Rect = Item4Pos; SDL_Rect* skull = new SDL_Rect();
+			skull->x = 219;
+			skull->y = 130;
+			skull->w = 70;
+			skull->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item7Rect.x + 10, Item7Rect.y - 5, skull);
 		}
 		else if (!item1state && item2state && item3state && !item4state && item5state && !item6state && item7state)
 		{
-			Item7Rect = Item4Pos;
-			app->render->DrawRectangle(Item7Rect, 100, 100, 100);
+			Item7Rect = Item4Pos; SDL_Rect* skull = new SDL_Rect();
+			skull->x = 219;
+			skull->y = 130;
+			skull->w = 70;
+			skull->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item7Rect.x + 10, Item7Rect.y - 5, skull);
 		}
 		else if (!item1state && item2state && item3state && !item4state && !item5state && item6state && item7state)
 		{
-			Item7Rect = Item4Pos;
-			app->render->DrawRectangle(Item7Rect, 100, 100, 100);
+			Item7Rect = Item4Pos; SDL_Rect* skull = new SDL_Rect();
+			skull->x = 219;
+			skull->y = 130;
+			skull->w = 70;
+			skull->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item7Rect.x + 10, Item7Rect.y - 5, skull);
 		}
 		else if (!item1state && item2state && !item3state && item4state && item5state && !item6state && item7state)
 		{
-			Item7Rect = Item4Pos;
-			app->render->DrawRectangle(Item7Rect, 100, 100, 100);
+			Item7Rect = Item4Pos; SDL_Rect* skull = new SDL_Rect();
+			skull->x = 219;
+			skull->y = 130;
+			skull->w = 70;
+			skull->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item7Rect.x + 10, Item7Rect.y - 5, skull);
 		}
 		else if (!item1state && item2state && !item3state && item4state && !item5state && item6state && item7state)
 		{
-			Item7Rect = Item4Pos;
-			app->render->DrawRectangle(Item7Rect, 100, 100, 100);
+			Item7Rect = Item4Pos; SDL_Rect* skull = new SDL_Rect();
+			skull->x = 219;
+			skull->y = 130;
+			skull->w = 70;
+			skull->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item7Rect.x + 10, Item7Rect.y - 5, skull);
 		}
 		else if (!item1state && item2state && !item3state && !item4state && item5state && item6state && item7state)
 		{
-			Item7Rect = Item4Pos;
-			app->render->DrawRectangle(Item7Rect, 100, 100, 100);
+			Item7Rect = Item4Pos; SDL_Rect* skull = new SDL_Rect();
+			skull->x = 219;
+			skull->y = 130;
+			skull->w = 70;
+			skull->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item7Rect.x + 10, Item7Rect.y - 5, skull);
 		}
 		else if (!item1state && !item2state && item3state && item4state && item5state && !item6state && item7state)
 		{
-			Item7Rect = Item4Pos;
-			app->render->DrawRectangle(Item7Rect, 100, 100, 100);
+			Item7Rect = Item4Pos; SDL_Rect* skull = new SDL_Rect();
+			skull->x = 219;
+			skull->y = 130;
+			skull->w = 70;
+			skull->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item7Rect.x + 10, Item7Rect.y - 5, skull);
 		}
 		else if (!item1state && !item2state && item3state && item4state && !item5state && item6state && item7state)
 		{
-			Item7Rect = Item4Pos;
-			app->render->DrawRectangle(Item7Rect, 100, 100, 100);
+			Item7Rect = Item4Pos; SDL_Rect* skull = new SDL_Rect();
+			skull->x = 219;
+			skull->y = 130;
+			skull->w = 70;
+			skull->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item7Rect.x + 10, Item7Rect.y - 5, skull);
 		}
 		else if (!item1state && !item2state && item3state && !item4state && item5state && item6state && item7state)
 		{
-			Item7Rect = Item4Pos;
-			app->render->DrawRectangle(Item7Rect, 100, 100, 100);
+			Item7Rect = Item4Pos; SDL_Rect* skull = new SDL_Rect();
+			skull->x = 219;
+			skull->y = 130;
+			skull->w = 70;
+			skull->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item7Rect.x + 10, Item7Rect.y - 5, skull);
 		}
 		else if (!item1state && !item2state && !item3state && item4state && item5state && item6state && item7state)
 		{
-			Item7Rect = Item4Pos;
-			app->render->DrawRectangle(Item7Rect, 100, 100, 100);
+			Item7Rect = Item4Pos; SDL_Rect* skull = new SDL_Rect();
+			skull->x = 219;
+			skull->y = 130;
+			skull->w = 70;
+			skull->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item7Rect.x + 10, Item7Rect.y - 5, skull);
 		}
 		else if (item1state && item2state && item3state && item4state && !item5state && !item6state && item7state)
 		{
-			Item7Rect = Item5Pos;
-			app->render->DrawRectangle(Item7Rect, 100, 100, 100);
+			Item7Rect = Item5Pos; SDL_Rect* skull = new SDL_Rect();
+			skull->x = 219;
+			skull->y = 130;
+			skull->w = 70;
+			skull->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item7Rect.x + 10, Item7Rect.y - 5, skull);
 		}
 		else if (item1state && item2state && item3state && !item4state && item5state && !item6state && item7state)
 		{
-			Item7Rect = Item5Pos;
-			app->render->DrawRectangle(Item7Rect, 100, 100, 100);
+			Item7Rect = Item5Pos; SDL_Rect* skull = new SDL_Rect();
+			skull->x = 219;
+			skull->y = 130;
+			skull->w = 70;
+			skull->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item7Rect.x + 10, Item7Rect.y - 5, skull);
 		}
 		else if (item1state && item2state && item3state && !item4state && !item5state && item6state && item7state)
 		{
-			Item7Rect = Item5Pos;
-			app->render->DrawRectangle(Item7Rect, 100, 100, 100);
+			Item7Rect = Item5Pos; SDL_Rect* skull = new SDL_Rect();
+			skull->x = 219;
+			skull->y = 130;
+			skull->w = 70;
+			skull->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item7Rect.x + 10, Item7Rect.y - 5, skull);
 		}
 		else if (item1state && item2state && !item3state && item4state && item5state && !item6state && item7state)
 		{
-			Item7Rect = Item5Pos;
-			app->render->DrawRectangle(Item7Rect, 100, 100, 100);
+			Item7Rect = Item5Pos; SDL_Rect* skull = new SDL_Rect();
+			skull->x = 219;
+			skull->y = 130;
+			skull->w = 70;
+			skull->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item7Rect.x + 10, Item7Rect.y - 5, skull);
 		}
 		else if (item1state && item2state && !item3state && item4state && !item5state && item6state && item7state)
 		{
-			Item7Rect = Item5Pos;
-			app->render->DrawRectangle(Item7Rect, 100, 100, 100);
+			Item7Rect = Item5Pos; SDL_Rect* skull = new SDL_Rect();
+			skull->x = 219;
+			skull->y = 130;
+			skull->w = 70;
+			skull->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item7Rect.x + 10, Item7Rect.y - 5, skull);
 		}
 		else if (item1state && item2state && !item3state && !item4state && item5state && item6state && item7state)
 		{
-			Item7Rect = Item5Pos;
-			app->render->DrawRectangle(Item7Rect, 100, 100, 100);
+			Item7Rect = Item5Pos; SDL_Rect* skull = new SDL_Rect();
+			skull->x = 219;
+			skull->y = 130;
+			skull->w = 70;
+			skull->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item7Rect.x + 10, Item7Rect.y - 5, skull);
 		}
 		else if (item1state && !item2state && item3state && item4state && item5state && !item6state && item7state)
 		{
-			Item7Rect = Item5Pos;
-			app->render->DrawRectangle(Item7Rect, 100, 100, 100);
+			Item7Rect = Item5Pos; SDL_Rect* skull = new SDL_Rect();
+			skull->x = 219;
+			skull->y = 130;
+			skull->w = 70;
+			skull->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item7Rect.x + 10, Item7Rect.y - 5, skull);
 		}
 		else if (item1state && !item2state && item3state && item4state && !item5state && item6state && item7state)
 		{
-			Item7Rect = Item5Pos;
-			app->render->DrawRectangle(Item7Rect, 100, 100, 100);
+			Item7Rect = Item5Pos; SDL_Rect* skull = new SDL_Rect();
+			skull->x = 219;
+			skull->y = 130;
+			skull->w = 70;
+			skull->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item7Rect.x + 10, Item7Rect.y - 5, skull);
 		}
 		else if (item1state && !item2state && item3state && !item4state && item5state && item6state && item7state)
 		{
-			Item7Rect = Item5Pos;
-			app->render->DrawRectangle(Item7Rect, 100, 100, 100);
+			Item7Rect = Item5Pos; SDL_Rect* skull = new SDL_Rect();
+			skull->x = 219;
+			skull->y = 130;
+			skull->w = 70;
+			skull->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item7Rect.x + 10, Item7Rect.y - 5, skull);
 		}
 		else if (item1state && !item2state && !item3state && item4state && item5state && item6state && item7state)
 		{
-			Item7Rect = Item5Pos;
-			app->render->DrawRectangle(Item7Rect, 100, 100, 100);
+			Item7Rect = Item5Pos; SDL_Rect* skull = new SDL_Rect();
+			skull->x = 219;
+			skull->y = 130;
+			skull->w = 70;
+			skull->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item7Rect.x + 10, Item7Rect.y - 5, skull);
 		}
 		else if (!item1state && item2state && item3state && item4state && item5state && !item6state && item7state)
 		{
-			Item7Rect = Item5Pos;
-			app->render->DrawRectangle(Item7Rect, 100, 100, 100);
+			Item7Rect = Item5Pos; SDL_Rect* skull = new SDL_Rect();
+			skull->x = 219;
+			skull->y = 130;
+			skull->w = 70;
+			skull->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item7Rect.x + 10, Item7Rect.y - 5, skull);
 		}
 		else if (!item1state && item2state && item3state && item4state && !item5state && item6state && item7state)
 		{
-			Item7Rect = Item5Pos;
-			app->render->DrawRectangle(Item7Rect, 100, 100, 100);
+			Item7Rect = Item5Pos; SDL_Rect* skull = new SDL_Rect();
+			skull->x = 219;
+			skull->y = 130;
+			skull->w = 70;
+			skull->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item7Rect.x + 10, Item7Rect.y - 5, skull);
 		}
 		else if (!item1state && item2state && item3state && !item4state && item5state && item6state && item7state)
 		{
-			Item7Rect = Item5Pos;
-			app->render->DrawRectangle(Item7Rect, 100, 100, 100);
+			Item7Rect = Item5Pos; SDL_Rect* skull = new SDL_Rect();
+			skull->x = 219;
+			skull->y = 130;
+			skull->w = 70;
+			skull->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item7Rect.x + 10, Item7Rect.y - 5, skull);
 		}
 		else if (!item1state && item2state && !item3state && item4state && item5state && item6state && item7state)
 		{
-			Item7Rect = Item5Pos;
-			app->render->DrawRectangle(Item7Rect, 100, 100, 100);
+			Item7Rect = Item5Pos; SDL_Rect* skull = new SDL_Rect();
+			skull->x = 219;
+			skull->y = 130;
+			skull->w = 70;
+			skull->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item7Rect.x + 10, Item7Rect.y - 5, skull);
 		}
 		else if (!item1state && !item2state && item3state && item4state && item5state && item6state && item7state)
 		{
-			Item7Rect = Item5Pos;
-			app->render->DrawRectangle(Item7Rect, 100, 100, 100);
+			Item7Rect = Item5Pos; SDL_Rect* skull = new SDL_Rect();
+			skull->x = 219;
+			skull->y = 130;
+			skull->w = 70;
+			skull->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item7Rect.x + 10, Item7Rect.y - 5, skull);
 		}
 		else if (!item1state && item2state && item3state && item4state && item5state && item6state && item7state)
 		{
-			Item7Rect = Item6Pos;
-			app->render->DrawRectangle(Item7Rect, 100, 100, 100);
+			Item7Rect = Item6Pos; SDL_Rect* skull = new SDL_Rect();
+			skull->x = 219;
+			skull->y = 130;
+			skull->w = 70;
+			skull->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item7Rect.x + 10, Item7Rect.y - 5, skull);
 		}
 		else if (item1state && !item2state && item3state && item4state && item5state && item6state && item7state)
 		{
-			Item7Rect = Item6Pos;
-			app->render->DrawRectangle(Item7Rect, 100, 100, 100);
+			Item7Rect = Item6Pos; SDL_Rect* skull = new SDL_Rect();
+			skull->x = 219;
+			skull->y = 130;
+			skull->w = 70;
+			skull->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item7Rect.x + 10, Item7Rect.y - 5, skull);
 		}
 		else if (item1state && item2state && !item3state && item4state && item5state && item6state && item7state)
 		{
-			Item7Rect = Item6Pos;
-			app->render->DrawRectangle(Item7Rect, 100, 100, 100);
+			Item7Rect = Item6Pos; SDL_Rect* skull = new SDL_Rect();
+			skull->x = 219;
+			skull->y = 130;
+			skull->w = 70;
+			skull->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item7Rect.x + 10, Item7Rect.y - 5, skull);
 		}
 		else if (item1state && item2state && item3state && !item4state && item5state && item6state && item7state)
 		{
-			Item7Rect = Item6Pos;
-			app->render->DrawRectangle(Item7Rect, 100, 100, 100);
+			Item7Rect = Item6Pos; SDL_Rect* skull = new SDL_Rect();
+			skull->x = 219;
+			skull->y = 130;
+			skull->w = 70;
+			skull->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item7Rect.x + 10, Item7Rect.y - 5, skull);
 		}
 		else if (item1state && item2state && item3state && item4state && !item5state && item6state && item7state)
 		{
-			Item7Rect = Item6Pos;
-			app->render->DrawRectangle(Item7Rect, 100, 100, 100);
+			Item7Rect = Item6Pos; SDL_Rect* skull = new SDL_Rect();
+			skull->x = 219;
+			skull->y = 130;
+			skull->w = 70;
+			skull->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item7Rect.x + 10, Item7Rect.y - 5, skull);
 		}
 		else if (item1state && item2state && item3state && item4state && item5state && !item6state && item7state)
 		{
-			Item7Rect = Item6Pos;
-			app->render->DrawRectangle(Item7Rect, 100, 100, 100);
+			Item7Rect = Item6Pos; SDL_Rect* skull = new SDL_Rect();
+			skull->x = 219;
+			skull->y = 130;
+			skull->w = 70;
+			skull->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item7Rect.x + 10, Item7Rect.y - 5, skull);
 		}
 		else if (item1state && item2state && item3state && item4state && item5state && item6state && item7state)
 		{
-			Item7Rect = Item7Pos;
-			app->render->DrawRectangle(Item7Rect, 100, 100, 100);
+			Item7Rect = Item7Pos; SDL_Rect* skull = new SDL_Rect();
+			skull->x = 219;
+			skull->y = 130;
+			skull->w = 70;
+			skull->h = 86;
+			app->render->DrawTexture(app->characterMenu->items, Item7Rect.x + 10, Item7Rect.y - 5, skull);
 		}
 		else
 		{
@@ -918,7 +1461,7 @@ bool CharacterMenu_Screen::Update(float dt)
 		sprintf_s(Mana4, "mana %.2f", app->player->P4.mana);
 		app->fonts->DrawTxt(10, 70, FText, Mana4);
 	}
-	if (typingTxt)
+	if (typingTxt && !typingTxt2)
 	{
 		sprintf_s(adviceTxt, "try to use this item in a fight to run away");
 		app->fonts->DrawTxt(390, 620, FText, adviceTxt);
@@ -927,10 +1470,20 @@ bool CharacterMenu_Screen::Update(float dt)
 			TxtCont++;
 		}
 	}
+	if (typingTxt2 && !typingTxt)
+	{
+		sprintf_s(adviceTxt, "this skull seems to be used in an altar");
+		app->fonts->DrawTxt(430, 620, FText, adviceTxt);
+		if (TxtCont < 2)
+		{
+			TxtCont++;
+		}
+	}
 
-	if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_UP && typingTxt && TxtCont == 2)
+	if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_UP && (typingTxt || typingTxt2) && TxtCont == 2)
 	{
 		typingTxt = false;
+		typingTxt2 = false;
 		TxtCont = 0;
 	}
 
@@ -962,8 +1515,8 @@ void CharacterMenu_Screen::Menu()
 	Item3 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 56, "item3", { -app->render->camera.x + app->win->GetWidth() / 2 + 91, -app->render->camera.y + app->win->GetHeight() / 2 - 160, 70, 70 }, this);
 	Item4 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 57, "item4", { -app->render->camera.x + app->win->GetWidth() / 2 + 186, -app->render->camera.y + app->win->GetHeight() / 2 - 160, 70, 70 }, this);
 	Item5 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 58, "item5", { -app->render->camera.x + app->win->GetWidth() / 2 + 281, -app->render->camera.y + app->win->GetHeight() / 2 - 160, 70, 70 }, this);
-	Item6 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 59, "Key", { -app->render->camera.x + app->win->GetWidth() / 2 - 99, -app->render->camera.y + app->win->GetHeight() / 2 - 100 + 95 + 95, 70, 70 }, this);
-	Item7 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 60, "item7", { -app->render->camera.x + app->win->GetWidth() / 2 - 4, -app->render->camera.y + app->win->GetHeight() / 2 - 100 + 95 + 95, 70, 70 }, this);
+	Item6 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 59, "item6", { -app->render->camera.x + app->win->GetWidth() / 2 - 99, -app->render->camera.y + app->win->GetHeight() / 2 - 64, 70, 70 }, this);
+	Item7 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 60, "item7", { -app->render->camera.x + app->win->GetWidth() / 2 - 4, -app->render->camera.y + app->win->GetHeight() / 2 - 64, 70, 70 }, this);
 
 	Character1->state = GuiControlState::NORMAL;
 	Character2->state = GuiControlState::NORMAL;
@@ -1115,10 +1668,44 @@ bool CharacterMenu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 				}
 				else if (control->id == 54 && !item1state && !item2state && !item3state && !item4state && item5state)
 				{
-					typingTxt = true;					
+					if (app->BTSystem->battle == true)
+					{
+						app->BTSystem->transitionRep = 1;
+						app->BTSystem->Delay = false;
+						app->BTSystem->InventoryEnable = false;
+						app->BTSystem->battleEnd = true;
+						Character1->state = GuiControlState::DISABLED;
+						Character2->state = GuiControlState::DISABLED;
+						Character3->state = GuiControlState::DISABLED;
+						Character4->state = GuiControlState::DISABLED;
+
+						Item1->state = GuiControlState::DISABLED;
+						Item2->state = GuiControlState::DISABLED;
+						Item3->state = GuiControlState::DISABLED;
+						Item4->state = GuiControlState::DISABLED;
+						Item5->state = GuiControlState::DISABLED;
+						Item6->state = GuiControlState::DISABLED;
+						Item7->state = GuiControlState::DISABLED;
+						app->BTSystem->CloseInventory->state = GuiControlState::DISABLED;
+
+						exitInventory = true;
+						inventory = false;
+						smoke--;
+					}
+					else if (app->BTSystem->battle == false)
+					{
+						typingTxt = true;
+					}
 
 					buttonCont = 0;
 				}
+				else if (control->id == 54 && !item1state && !item2state && !item3state && !item4state && !item5state && item7state)
+				{
+					typingTxt2 = true;
+
+					buttonCont = 0;
+				}
+
 				//------------------2nd grid pos----------------------
 				if (control->id == 55 && healing > 0 && item1state && item2state)
 				{
@@ -1189,9 +1776,42 @@ bool CharacterMenu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 					}
 					buttonCont = 0;
 				}
-				else if (control->id == 55 && item1state && !item2state && !item3state && !item4state && item5state || control->id == 55 && increaseHP > 0 && !item1state && item2state && !item3state && !item4state && item5state ||	control->id == 55 && increaseHP > 0 && !item1state && !item2state && item3state && !item4state && item5state ||	control->id == 55 && increaseHP > 0 && !item1state && !item2state && !item3state && item4state && item5state)
+				else if (control->id == 55 && item1state && !item2state && !item3state && !item4state && item5state || control->id == 55 && !item1state && item2state && !item3state && !item4state && item5state ||	control->id == 55 && !item1state && !item2state && item3state && !item4state && item5state ||	control->id == 55 && !item1state && !item2state && !item3state && item4state && item5state)
 				{
-					typingTxt = true;
+					if (app->BTSystem->battle == true)
+					{
+						app->BTSystem->transitionRep = 1;
+						app->BTSystem->Delay = false;
+						app->BTSystem->InventoryEnable = false;
+						app->BTSystem->battleEnd = true;
+						Character1->state = GuiControlState::DISABLED;
+						Character2->state = GuiControlState::DISABLED;
+						Character3->state = GuiControlState::DISABLED;
+						Character4->state = GuiControlState::DISABLED;
+
+						Item1->state = GuiControlState::DISABLED;
+						Item2->state = GuiControlState::DISABLED;
+						Item3->state = GuiControlState::DISABLED;
+						Item4->state = GuiControlState::DISABLED;
+						Item5->state = GuiControlState::DISABLED;
+						Item6->state = GuiControlState::DISABLED;
+						Item7->state = GuiControlState::DISABLED;
+						app->BTSystem->CloseInventory->state = GuiControlState::DISABLED;
+
+						exitInventory = true;
+						inventory = false;
+						smoke--;
+					}
+					else if (app->BTSystem->battle == false)
+					{
+						typingTxt = true;
+					}
+
+					buttonCont = 0;
+				}
+				else if (control->id == 55 && !item1state && !item2state && !item3state && !item4state && item5state && item7state ||control->id == 55 && !item1state && !item2state && !item3state && item4state && !item5state && item7state ||control->id == 55 && !item1state && !item2state && item3state && !item4state && !item5state && item7state ||control->id == 55 && !item1state && item2state && !item3state && !item4state && !item5state && item7state ||control->id == 55 && item1state && !item2state && !item3state && !item4state && !item5state && item7state)
+				{
+					typingTxt2 = true;
 
 					buttonCont = 0;
 				}
@@ -1240,9 +1860,42 @@ bool CharacterMenu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 					}
 					buttonCont = 0;
 				}
-				else if (control->id == 56 && increaseHP > 0 && item1state && item2state && !item3state && !item4state && item5state|| control->id == 56 && increaseHP > 0 && item1state && !item2state && item3state && !item4state && item5state || control->id == 56 && increaseHP > 0 && item1state && !item2state && !item3state && item4state && item5state || control->id == 56 && increaseHP > 0 && !item1state && item2state && !item3state && item4state && item5state || control->id == 56 && increaseHP > 0 && !item1state && item2state && item3state && !item4state && item5state || control->id == 56 && increaseHP > 0 && !item1state && !item2state && item3state && item4state && item5state)
+				else if (control->id == 56 && item1state && item2state && !item3state && !item4state && item5state|| control->id == 56 && item1state && !item2state && item3state && !item4state && item5state || control->id == 56 && item1state && !item2state && !item3state && item4state && item5state || control->id == 56 && !item1state && item2state && !item3state && item4state && item5state || control->id == 56 && !item1state && item2state && item3state && !item4state && item5state || control->id == 56 && !item1state && !item2state && item3state && item4state && item5state)
 				{
-					typingTxt = true;
+					if (app->BTSystem->battle == true)
+					{
+						app->BTSystem->transitionRep = 1;
+						app->BTSystem->Delay = false;
+						app->BTSystem->InventoryEnable = false;
+						app->BTSystem->battleEnd = true;
+						Character1->state = GuiControlState::DISABLED;
+						Character2->state = GuiControlState::DISABLED;
+						Character3->state = GuiControlState::DISABLED;
+						Character4->state = GuiControlState::DISABLED;
+
+						Item1->state = GuiControlState::DISABLED;
+						Item2->state = GuiControlState::DISABLED;
+						Item3->state = GuiControlState::DISABLED;
+						Item4->state = GuiControlState::DISABLED;
+						Item5->state = GuiControlState::DISABLED;
+						Item6->state = GuiControlState::DISABLED;
+						Item7->state = GuiControlState::DISABLED;
+						app->BTSystem->CloseInventory->state = GuiControlState::DISABLED;
+
+						exitInventory = true;
+						inventory = false;
+						smoke--;
+					}
+					else if (app->BTSystem->battle == false)
+					{
+						typingTxt = true;
+					}
+
+					buttonCont = 0;
+				}
+				else if (control->id == 56 && item1state && !item2state && !item3state && !item4state && item5state && item7state || control->id == 56 && item1state && !item2state && !item3state && item4state && !item5state && item7state || control->id == 56 && item1state && !item2state && item3state && !item4state && !item5state && item7state || control->id == 56 && item1state && item2state && !item3state && !item4state && !item5state && item7state || control->id == 56 && !item1state && item2state && item3state && !item4state && !item5state && item7state ||	control->id == 56 && !item1state && item2state && !item3state && item4state && !item5state && item7state ||	control->id == 56 && !item1state && item2state && !item3state && !item4state && item5state && item7state ||	control->id == 56 && !item1state && !item2state && item3state && !item4state && item5state && item7state ||	control->id == 56 && !item1state && !item2state && item3state && item4state && !item5state && item7state ||	control->id == 56 && !item1state && !item2state && !item3state && item4state && item5state && item7state)
+				{
+					typingTxt2 = true;
 
 					buttonCont = 0;
 				}
@@ -1274,7 +1927,40 @@ bool CharacterMenu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 				}
 				else if (control->id == 57 && !item1state && item2state && item3state && item4state && item5state || control->id == 57 && item1state && !item2state && item3state && item4state && item5state || control->id == 57 && item1state && item2state && !item3state && item4state && item5state || control->id == 57 && item1state && item2state && item3state && !item4state && item5state)
 				{
-					typingTxt = true;
+					if (app->BTSystem->battle == true)
+					{
+						app->BTSystem->transitionRep = 1;
+						app->BTSystem->Delay = false;
+						app->BTSystem->InventoryEnable = false;
+						app->BTSystem->battleEnd = true;
+						Character1->state = GuiControlState::DISABLED;
+						Character2->state = GuiControlState::DISABLED;
+						Character3->state = GuiControlState::DISABLED;
+						Character4->state = GuiControlState::DISABLED;
+
+						Item1->state = GuiControlState::DISABLED;
+						Item2->state = GuiControlState::DISABLED;
+						Item3->state = GuiControlState::DISABLED;
+						Item4->state = GuiControlState::DISABLED;
+						Item5->state = GuiControlState::DISABLED;
+						Item6->state = GuiControlState::DISABLED;
+						Item7->state = GuiControlState::DISABLED;
+						app->BTSystem->CloseInventory->state = GuiControlState::DISABLED;
+
+						exitInventory = true;
+						inventory = false;
+						smoke--;
+					}
+					else if (app->BTSystem->battle == false)
+					{
+						typingTxt = true;
+					}
+
+					buttonCont = 0;
+				}
+				else if (control->id == 57 && item1state && item2state && item3state && !item4state && !item5state && item7state ||control->id == 57 && item1state && item2state && !item3state && item4state && !item5state && item7state ||control->id == 57 && item1state && item2state && !item3state && !item4state && item5state && item7state ||control->id == 57 && item1state && !item2state && item3state && item4state && !item5state && item7state ||control->id == 57 && item1state && !item2state && item3state && !item4state && item5state && item7state ||control->id == 57 && item1state && !item2state && !item3state && item4state && item5state && item7state ||control->id == 57 && !item1state && item2state && item3state && !item4state && item5state && item7state ||control->id == 57 && !item1state && item2state && item3state && item4state && !item5state && item7state ||control->id == 57 && !item1state && item2state && !item3state && item4state && item5state && item7state || control->id == 57 && !item1state && !item2state && item3state && item4state && item5state && item7state)
+				{
+					typingTxt2 = true;
 
 					buttonCont = 0;
 				}
@@ -1282,10 +1968,52 @@ bool CharacterMenu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 				//------------------5th grid pos----------------------
 				if (control->id == 58 && item1state && item2state && item3state && item4state  && item5state)
 				{
-					typingTxt = true;
+					if (app->BTSystem->battle == true)
+					{
+						app->BTSystem->transitionRep = 1;
+						app->BTSystem->Delay = false;
+						app->BTSystem->InventoryEnable = false;
+						app->BTSystem->battleEnd = true;		
+						Character1->state = GuiControlState::DISABLED;
+						Character2->state = GuiControlState::DISABLED;
+						Character3->state = GuiControlState::DISABLED;
+						Character4->state = GuiControlState::DISABLED;
+
+						Item1->state = GuiControlState::DISABLED;
+						Item2->state = GuiControlState::DISABLED;
+						Item3->state = GuiControlState::DISABLED;
+						Item4->state = GuiControlState::DISABLED;
+						Item5->state = GuiControlState::DISABLED;
+						Item6->state = GuiControlState::DISABLED;
+						Item7->state = GuiControlState::DISABLED;
+						app->BTSystem->CloseInventory->state = GuiControlState::DISABLED;
+
+						exitInventory = true;
+						inventory = false;
+						smoke--;
+					}
+					else if (app->BTSystem->battle == false)
+					{
+						typingTxt = true;
+					}
 
 					buttonCont = 0;
 				}
+				else if (control->id == 58 && item1state && item2state && item3state && item4state && !item5state && item7state || control->id == 58 && item1state && item2state && item3state && !item4state && item5state && item7state || control->id == 58 && item1state && item2state && !item3state && item4state && item5state && item7state || control->id == 58 && item1state && !item2state && item3state && item4state && item5state && item7state || control->id == 58 && !item1state && item2state && item3state && item4state && item5state && item7state)
+				{
+					typingTxt2 = true;
+
+					buttonCont = 0;
+				}
+
+				//------------------6th grid pos----------------------
+				if (control->id == 59 && item1state && item2state && item3state && item4state && item5state && item7state)
+				{
+					typingTxt2 = true;
+
+					buttonCont = 0;
+				}
+
 				default: break;
 			}
 		}

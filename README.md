@@ -63,6 +63,7 @@ entering an infinite time loop.
 
  -Left Click: Choose player, Enemy and Battle menu
  
+ -Left Click + Control (With Gode Mode on Fight): Instakill Someone
 
 ## Features:
 In this game is a turn base rpg where you will have to be careful

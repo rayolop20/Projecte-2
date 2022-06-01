@@ -30,6 +30,8 @@ struct Skeleton
 	int numEnemies = 3;
 	bool poisoned = false;
 	bool onFire = false;
+	bool Shit = false;
+	bool atack = false;
 };
 
 class SkeletonEnem : public Entity
@@ -93,6 +95,30 @@ public:
 	Animation rightAnim;
 	Animation leftAnim;
 	Animation deadAnim;
+
+	Animation* currentAttack1S = nullptr;
+	SDL_Texture* Skeletonpire1A = nullptr;
+	SDL_Rect SkeletonAR;
+	Animation SAttackAnim1;
+	Animation SidleAttack1;
+
+	Animation* currentHit1S = nullptr;
+	SDL_Texture* SkeletonH1A = nullptr;
+	SDL_Rect SkeletonH1AR;
+	Animation ShitAnim1;
+	Animation SidleHit1;
+
+	Animation* currentDead1S = nullptr;
+	SDL_Texture* SkeletonD1A = nullptr;
+	SDL_Rect SkeletonD1AR;
+	Animation SdeadAnim1;
+	Animation SidleDead1;
+
+	Animation* currentA1S = nullptr;
+	SDL_Texture* SkeletonA1A = nullptr;
+	SDL_Rect SkeletonA1AR;
+	Animation SAAnim1;
+	Animation SidleA1;
 
 	
 

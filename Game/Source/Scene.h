@@ -143,12 +143,38 @@ public:
 	bool prepared = false;
 
 	int xCont = 0;
+	int Open_Door = 1;
+
+	bool tester1 = NULL;
+	bool tester2 = NULL;
+	bool tester3 = NULL;
+	bool tester4 = NULL;
 private:
 
 	SDL_Texture* img;
 
 	SDL_Texture* pathTex;
+	SDL_Texture* torch1Texture;
+	SDL_Texture* torch1Texture1;
+	SDL_Texture* torch1Texture2;
+	SDL_Texture* torch1Texture3;
+	SDL_Texture* torch1Texture4;
+	SDL_Texture* torch2Texture;
+	SDL_Texture* torch3Texture;
+	SDL_Texture* torch4Texture;
+	SDL_Texture* torch5Texture;
+	SDL_Texture* torch6Texture;
+	SDL_Texture* torch7Texture;
 	SDL_Texture* originTex;
+	SDL_Texture* pressed;
+	SDL_Texture* nonPressed;
+	SDL_Texture* greyButton;
+	SDL_Texture* greenButton;
+	SDL_Texture* blueButton;
+	SDL_Texture* redButton;
+	SDL_Texture* purpleButton;
+	SDL_Texture* turquoiseButton;
+	SDL_Texture* yellowButton;
 	// L13: TODO 2: Declare an Item and create it using the EntityManager
 
 	// L14: TODO 2: Declare a GUI Button and create it using the GuiManager
@@ -156,9 +182,14 @@ private:
 	GuiButton* btn2;
 
 	SDL_Rect block;
- 
+
 	iPoint origin;
 	bool originSelected = false;
+
+	int Puzle_Fail = 1;
+	int Pressure_plate = 1;
+	int Puzle_Complete = 1;
+
 };
 
 #endif // __SCENE_H__

@@ -11,6 +11,7 @@
 #include "Map.h"
 #include "Window.h"
 #include "Menu.h"
+#include "Particles.h"
 
 #include "Log.h"
 #include "DynArray.h"
@@ -20,12 +21,45 @@
 ZombieEnem::ZombieEnem() :Entity(EntityType::ZOMBIE)
 {
 	name.Create("VampirEnem");
+
+	ZidleAttack1.PushBack({0, 0, 160, 192});
+	ZidleAttack1.PushBack({160, 0, 160, 192});
+	ZidleAttack1.PushBack({320, 0, 160, 192});
+	ZidleAttack1.PushBack({480, 0, 160, 192});
+	ZidleAttack1.PushBack({640, 0, 160, 192});
+	ZidleAttack1.PushBack({800, 0, 160, 192});
+	ZidleAttack1.loop = true;
+	ZidleAttack1.speed = 0.01f;
+	
+	ZidleHit1.PushBack({0, 211, 160, 192});
+	ZidleHit1.PushBack({160, 211, 160, 192});
+	ZidleHit1.PushBack({320, 211, 160, 192});
+	ZidleHit1.PushBack({320, 211, 160, 192});
+	ZidleHit1.loop = false;
+	ZidleHit1.speed = 0.01f;
+	
+	ZidleDead1.PushBack({0, 404, 160, 192});
+	ZidleDead1.PushBack({160, 404, 160, 192});
+	ZidleDead1.PushBack({320, 404, 160, 192});
+	ZidleDead1.PushBack({320, 404, 160, 192});
+	ZidleDead1.loop = false;
+	ZidleDead1.speed = 0.01f;
+
+	ZidleA1.PushBack({0, 635, 160, 192});
+	ZidleA1.PushBack({160, 635, 160, 192});
+	ZidleA1.PushBack({320, 635, 160, 192});
+	ZidleA1.PushBack({320, 635, 160, 192});
+	ZidleA1.PushBack({480, 635, 160, 192});
+	ZidleA1.PushBack({640, 635, 160, 192});
+	ZidleA1.PushBack({640, 635, 160, 192});
+	ZidleA1.loop = false;
+	ZidleA1.speed = 0.01f;
+	
+	
+	//movement
 	idleAnim.PushBack({ 45, 18, 36, 102 });
 	idleAnim.loop = true;
 	idleAnim.speed = 0.001f;
-
-	name.Create("players");
-	
 
 	downAnim.PushBack({ 45, 18, 36, 102 });
 	downAnim.PushBack({ 168,18, 41, 104 });
@@ -98,7 +132,7 @@ bool ZombieEnem::Start()
 {
 
 	TextureZombie = app->tex->Load("Assets/Textures/Enem/zombie.png");
-	zombieEnem = app->tex->Load("Assets/Textures/Enem/combat_zombie.png");
+	zombieEnem = app->tex->Load("Assets/Textures/Enem/zombie_idle_animation.png");
 	selectZombie = app->tex->Load("Assets/Textures/UI/choseplayers.png");
 
 
@@ -107,9 +141,14 @@ bool ZombieEnem::Start()
 		currentAnimation[i] = &idleAnim;
 	}
 
-	Zbie[0] = CreateZombie(/*Vpir->Pos.x, Vpir->Pos.x,*/960, 2336, TextureZombie);
-	Zbie[10] = CreateZombie(/*Vpir->Pos.x, Vpir->Pos.x,*/960, 1920, TextureZombie);
-	Zbie[20] = CreateZombie(/*Vpir->Pos.x, Vpir->Pos.x,*/928, 704, TextureZombie);
+	Zbie[0] = CreateZombie(960, 2336, TextureZombie);
+	Zbie[10] = CreateZombie(960, 1920, TextureZombie);
+	Zbie[20] = CreateZombie(928, 608, TextureZombie);
+
+	currentAttack1Z = &ZidleAttack1;
+	currentHit1Z = &ZidleHit1;
+	currentDead1Z = &ZidleDead1;
+	currentA1Z = &ZidleA1;
 
 	return false;
 }
@@ -146,19 +185,6 @@ bool ZombieEnem::Update(float dt)
 	}
 	timer3 = SDL_GetTicks() / 10;
 
-	/*if (app->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN)
-	{
-		PathFindVamp(VampireNum);
-	}
-
-	if (app->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
-	{
-		if (pathfindingaux == true) {
-			pathfindingtimer = timer3;
-			pathfindingaux = false;
-		}
-		path = true;
-	}*/
 	for (int i = 0; i < NUM_ZOMBIE; i++)
 	{
 		currentAnimation[i]->Update();
@@ -167,23 +193,11 @@ bool ZombieEnem::Update(float dt)
 		{
 			Zbie[i].dead = true;
 			Zbie[i].colliderZ->pendingToDelete = true;
+
 		}
 	}
 	timer3 = SDL_GetTicks() / 10;
 
-	/*if (app->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN)
-	{
-		PathFindVamp(VampireNum);
-	}
-
-	if (app->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
-	{
-		if (pathfindingaux == true) {
-			pathfindingtimer = timer3;
-			pathfindingaux = false;
-		}
-		path = true;
-	}*/
 	for (int i = 0; i < NUM_ZOMBIE; i++)
 	{
 		currentAnimation[i]->Update();
@@ -199,6 +213,7 @@ bool ZombieEnem::Update(float dt)
 		Zbie[i].colliderZ->SetPos(Zbie[i].Pos.x, Zbie[i].Pos.y);
 		Zbie[i].colliderS->SetPos(Zbie[i].Pos.x - 168, Zbie[i].Pos.y - 168);
 	}
+
 	return true;
 }
 
@@ -206,20 +221,30 @@ bool ZombieEnem::PostUpdate()
 {
 
 	LOG("FUNCIONA?");
+	bool ret = true;
+
+	zombie1AR = currentAttack1Z->GetCurrentFrame();
+	zombieH1AR = currentHit1Z->GetCurrentFrame();
+	zombieD1AR = currentDead1Z->GetCurrentFrame();
+	zombieA1AR = currentA1Z->GetCurrentFrame();
+	app->particle->fireparticv = app->particle->currentFire->GetCurrentFrame();
+
 	for (int i = 0; i < NUM_ZOMBIE; i++)
 	{
 		if (Zbie[i].dead == false && app->menu->config == false && app->BTSystem->battle == false)
 		{
 			app->render->DrawTexture(Zbie[i].zombieT, Zbie[i].Pos.x, Zbie[i].Pos.y, &(currentAnimation[i]->GetCurrentFrame()));
 		}
-		currentAnimation[i]->Update();
 	}
-	return true;
+
+
+	return ret;
 }
 
 void ZombieEnem::Combat() {
 	if (app->BTSystem->Zombiebattle == true) {
 
+		//currentAtackAnimation 
 		if (app->BTSystem->alliesDead == 0) {
 			if (app->player->P1.IsAlive == false) {
 				app->BTSystem->alliesDead++;
@@ -279,6 +304,7 @@ void ZombieEnem::Combat() {
 				Zbie[randomNumber2].hp -= app->player->P1.damage2 + app->player->P1.damage;
 				Zbie[randomNumber2_].hp -= app->player->P1.damage2 + app->player->P1.damage;
 				Zbie[app->BTSystem->ZombieTarget].hp -= app->player->P1.damage2 + app->player->P1.damage;
+				Zbie[app->BTSystem->ZombieTarget].Zhit = true;
 				randomNumber = (rand() % 100) + 1;
 
 			} while (randomNumber <= app->player->P1.speed + app->player->P1.speed2);
@@ -578,10 +604,50 @@ void ZombieEnem::DrawEnemies() {
 					Choose->h = 110;
 					app->render->DrawTexture(selectZombie, app->player->P1.position.x + 395, app->player->P1.position.y - 335 + 120 * i, Choose);
 				}
-				SDL_Rect Enem1 = { app->player->P1.position.x + 400, app->player->P1.position.y - 330 + 120 * i, 100, 100 };
-				app->render->DrawTexture(zombieEnem, app->player->P1.position.x + 350, app->player->P1.position.y - 330 + 100 * i);
+				if (Zbie[i].Zhit == false && Zbie[i].atack == false)
+				{
+					SDL_Rect Enem1 = { app->player->P1.position.x + 400, app->player->P1.position.y - 330 + 120 * i, 100, 100 };
+					currentAnimation[i] = &ZidleAttack1;
+					app->render->DrawTexture(zombieEnem, app->player->P1.position.x + 350, app->player->P1.position.y - 330 + 100 * i, &zombie1AR);
+					currentAnimation[i]->Update();
+				}
+				if (Zbie[i].Zhit == true)
+				{
+					currentAnimation[i] = &ZidleHit1;;
+					app->render->DrawTexture(zombieEnem, app->player->P1.position.x + 350, app->player->P1.position.y - 330 + 100 * i, &zombieH1AR);
+					currentAnimation[i]->Update();
+					if (ZidleHit1.currentFrame >= 3.0) {
+						ZidleHit1.currentFrame = 0;
+						Zbie[i].Zhit = false;
+					}
+				}
+				if (Zbie[i].atack == true)
+				{
+					currentAnimation[i] = &ZidleA1;;
+					app->render->DrawTexture(zombieEnem, app->player->P1.position.x + 350, app->player->P1.position.y - 330 + 100 * i, &zombieA1AR);
+					currentAnimation[i]->Update();
+					if (ZidleA1.currentFrame >= 6.0) {
+						ZidleA1.currentFrame = 0;
+						Zbie[i].atack = false;
+					}
+				}
+				
+				if (Zbie[i].onFire == true && app->menu->config == false && app->BTSystem->battle == true)
+				{
+					app->particle->currentAnimationF[i] = &app->particle->fire_particles;
+					app->render->DrawTexture(app->particle->firepart, app->player->P1.position.x + 350, app->player->P1.position.y - 330 + 100 * i, &app->particle->fireparticv);
+					app->particle->currentAnimationF[i]->Update();
+				}
+			
+			}
+			if (Zbie[i].dead == true)
+			{
+				currentAnimation[i] = &ZidleDead1;;
+				app->render->DrawTexture(zombieEnem, app->player->P1.position.x + 350, app->player->P1.position.y - 330 + 100 * i, &zombieD1AR);
+				currentAnimation[i]->Update();
 			}
 		}
+		
 		app->guiManager->Draw();
 	}
 }
@@ -689,6 +755,7 @@ void ZombieEnem::EnemyPhase() {
 						randomNumber = (rand() % 100) + 1;
 						if (app->player->godMode == false) {
 							app->player->P1.hp -= Zbie[app->BTSystem->playerTarget].damage;
+							Zbie[i].atack = true;
 						}
 					} while (randomNumber <= Zbie[app->BTSystem->playerTarget].speed);
 					app->BTSystem->PlayerTurn = true;
@@ -699,6 +766,7 @@ void ZombieEnem::EnemyPhase() {
 						randomNumber = (rand() % 100) + 1;
 						if (app->player->godMode == false) {
 							app->player->P2.hp -= Zbie[app->BTSystem->playerTarget].damage;
+							Zbie[i].atack = true;
 						}
 					} while (randomNumber <= Zbie[app->BTSystem->playerTarget].speed);
 					app->BTSystem->PlayerTurn = true;
@@ -710,6 +778,7 @@ void ZombieEnem::EnemyPhase() {
 						randomNumber = (rand() % 100) + 1;
 						if (app->player->godMode == false) {
 							app->player->P3.hp -= Zbie[app->BTSystem->playerTarget].damage;
+							Zbie[i].atack = true;
 						}
 					} while (randomNumber <= Zbie[app->BTSystem->playerTarget].speed);
 					app->BTSystem->PlayerTurn = true;
@@ -721,6 +790,7 @@ void ZombieEnem::EnemyPhase() {
 						randomNumber = (rand() % 100) + 1;
 						if (app->player->godMode == false) {
 							app->player->P4.hp -= Zbie[app->BTSystem->playerTarget].damage;
+							Zbie[i].atack = true;
 						}
 					} while (randomNumber <= Zbie[app->BTSystem->playerTarget].speed);
 					app->BTSystem->PlayerTurn = true;
@@ -749,6 +819,10 @@ void ZombieEnem::CheckEnemy() {
 			}
 			if (Zbie[i].onFire == true && app->BTSystem->SpecialAttackEnable == false) {
 				Zbie[i].hp -= 10;
+			}
+			else
+			{
+				Zbie[i].onFire = false;
 			}
 			if (app->BTSystem->onFireCount != 0 && Zbie[WhichZombie].onFire == true) {
 				app->BTSystem->onFireCount++;

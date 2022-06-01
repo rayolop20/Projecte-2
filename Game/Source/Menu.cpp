@@ -217,17 +217,17 @@ bool Menu_Screen::Update(float dt)
 			app->render->DrawTexture(app->menu->options, -app->render->camera.x + (app->win->GetWidth() / 2) + 190, -app->render->camera.y + 500, OptionsOff);
 			app->render->VsyncActive = false;
 		}
-		app->menu->btnFullscreen->bounds.x = -app->render->camera.x + (app->win->GetWidth() / 2) + 190;
-		app->menu->btnFullscreen->bounds.y = -app->render->camera.y + 240;
-		app->menu->btnFullscreen->state = GuiControlState::NORMAL;
-		app->menu->btnFPS->bounds.x = -app->render->camera.x + (app->win->GetWidth() / 2) + 175;
-		app->menu->btnFPS->bounds.y = -app->render->camera.y + 375;
-		app->menu->btnFPS->state = GuiControlState::NORMAL;
-		app->menu->btnVsync->bounds.x = -app->render->camera.x + (app->win->GetWidth() / 2) + 175;
-		app->menu->btnVsync->bounds.y = -app->render->camera.y + 500;
-		app->menu->btnVsync->state = GuiControlState::NORMAL;
+		btnFullscreen->bounds.x = -app->render->camera.x + (app->win->GetWidth() / 2) + 190;
+		btnFullscreen->bounds.y = -app->render->camera.y + 240;
+		btnFullscreen->state = GuiControlState::NORMAL;
+		btnFPS->bounds.x = -app->render->camera.x + (app->win->GetWidth() / 2) + 175;
+		btnFPS->bounds.y = -app->render->camera.y + 375;
+		btnFPS->state = GuiControlState::NORMAL;
+		btnVsync->bounds.x = -app->render->camera.x + (app->win->GetWidth() / 2) + 175;
+		btnVsync->bounds.y = -app->render->camera.y + 500;
+		btnVsync->state = GuiControlState::NORMAL;
 		Volume->Draw(true, app->render, app->input);
-		app->menu->Volume->state = GuiControlState::NORMAL;
+		Volume->state = GuiControlState::NORMAL;
 
 	}
 	//logo i fons de pantalla

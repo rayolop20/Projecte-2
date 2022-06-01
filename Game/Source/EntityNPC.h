@@ -21,6 +21,7 @@ struct NPC
 	bool Destroyed = false;
 	uint vCount = 0;
 	bool dead = false;
+	bool opened = false;
 };
 
 class EntityNPC : public Entity
@@ -65,6 +66,9 @@ public:
 	SDL_Texture* TextureNPC4 = nullptr;
 	SDL_Texture* TextureNPC5 = nullptr;
 	SDL_Texture* DialogueBox = nullptr;
+	SDL_Texture* DialogueBoxHint = nullptr;
+	SDL_Texture* ChestT = nullptr;
+	SDL_Texture* OpenChestT = nullptr;
 
 	NPC npc[NUM_NPC] = { nullptr };
 
@@ -95,6 +99,7 @@ public:
 	SDL_Texture* door3 = nullptr;
 	Collider* porta_1;
 	Collider* porta_2;
+	Collider* Chest;
 
 	float timerNPC = 0.0;
 	float timerNPC2 = 0.0;
@@ -108,7 +113,9 @@ public:
 	char Text3[150] = { "\0" };
 	char Text4[150] = { "\0" };
 	char Text5[150] = { "\0" };
-
+private:
+	int Altar_AudioFX = 1;
+	bool open = false;
 };
 
 #endif // __ENTITYNPC_H__

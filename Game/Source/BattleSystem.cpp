@@ -22,56 +22,22 @@
 #include "Log.h"
 #include <time.h>
 
-qteAnimation::qteAnimation() : Module()
-{
-	name.Create("qteAnimation");
-	qte1.PushBack({ 65, 47, 60, 60 });
-	qte1.PushBack({ 206, 43, 60, 60 });
-	qte1.PushBack({ 348, 44, 60, 60 });
-	qte1.PushBack({ 488, 44, 60, 60 });
-	qte1.PushBack({ 620, 40, 70, 70 });
-	qte1.PushBack({ 47, 158, 70, 70 });
-	qte1.PushBack({ 195, 155, 70, 70 });
-	qte1.PushBack({ 335, 155, 70, 70 });
-	qte1.PushBack({ 482, 155, 70, 70 });
-	qte1.PushBack({ 625, 155, 70, 70 });
-	qte1.PushBack({ 0, 0, 0, 0 });
-	qte1.loop = false;
-	qte1.speed = 0.005f;
-
-
-	qte2.PushBack({ 51, 36, 301, 63 });
-	qte2.PushBack({ 579, 36, 301, 63 });
-	qte2.PushBack({ 51, 186, 301, 63 });
-	qte2.PushBack({ 579, 186, 301, 63 });
-	qte2.PushBack({ 51, 336, 301, 63 });
-	qte2.PushBack({ 579, 336, 301, 63 });
-	qte2.PushBack({ 51, 486, 301, 63 });
-	qte2.PushBack({ 579, 486, 301, 63 });
-	qte2.loop = true;
-	qte2.speed = 0.005f;
-
-	/*qte2fx.PushBack({ , , , 77 });
-	qte2fx.PushBack({ , , , 77 });
-	qte2fx.PushBack({ , , , 77 });
-	qte2fx.PushBack({ , , , 77 });
-	qte2fx.PushBack({ , , , 77 });
-	qte2fx.PushBack({ , , , 77 });
-	qte2fx.PushBack({ , , , 77 });
-	qte2fx.PushBack({ , , , 77 });
-	qte2fx.loop = false;
-	qte2fx.speed = 0.005f;*/
-};
-
 
 battleSystem::battleSystem() : Module()
 {
 
 	name.Create("battleSystem");
 
-	idleAttack1.PushBack({ 0, 0, 160, 192 });
+	idleAttack1.PushBack({ 0, 202, 160, 192 });
+	idleAttack1.PushBack({ 160, 202, 160, 192 });
+	idleAttack1.PushBack({ 320, 202, 160, 192 });
+	idleAttack1.PushBack({ 480, 202, 160, 192 });
+	idleAttack1.PushBack({ 640, 202, 160, 192 });
+	idleAttack1.PushBack({ 800, 202, 160, 192 });
+	idleAttack1.PushBack({ 960, 202, 160, 192 });
 	idleAttack1.loop = true;
-	idleAttack1.speed = 0.001f;
+	idleAttack1.speed = 0.08f;
+
 	AttackAnim1.PushBack({ 0, 0, 160, 192 });
 	AttackAnim1.PushBack({ 160, 0, 160, 192 });
 	AttackAnim1.PushBack({ 320, 0, 160, 192 });
@@ -79,10 +45,17 @@ battleSystem::battleSystem() : Module()
 	AttackAnim1.PushBack({ 640, 0, 160, 192 });
 	AttackAnim1.loop = false;
 	AttackAnim1.speed = 0.08f;
-	
-	idleAttack2.PushBack({ 0, 0, 160, 192 });
+
+	idleAttack2.PushBack({ 0, 225, 160, 192 });
+	idleAttack2.PushBack({ 160, 225, 160, 192 });
+	idleAttack2.PushBack({ 320, 225, 160, 192 });
+	idleAttack2.PushBack({ 480, 225, 160, 192 });
+	idleAttack2.PushBack({ 640, 225, 160, 192 });
+	idleAttack2.PushBack({ 800, 225, 160, 192 });
+	idleAttack2.PushBack({ 960, 225, 160, 192 });
 	idleAttack2.loop = true;
-	idleAttack2.speed = 0.001f;
+	idleAttack2.speed = 0.08f;
+
 	AttackAnim2.PushBack({ 0, 0, 160, 192 });
 	AttackAnim2.PushBack({ 160, 0, 160, 192 });
 	AttackAnim2.PushBack({ 320, 0, 160, 192 });
@@ -90,10 +63,17 @@ battleSystem::battleSystem() : Module()
 	AttackAnim2.PushBack({ 640, 0, 160, 192 });
 	AttackAnim2.loop = false;
 	AttackAnim2.speed = 0.08f;
-	
-	idleAttack3.PushBack({ 0, 0, 160, 192 });
+
+	idleAttack3.PushBack({ 0, 195, 160, 192 });
+	idleAttack3.PushBack({ 160, 195, 160, 192 });
+	idleAttack3.PushBack({ 320, 195, 160, 192 });
+	idleAttack3.PushBack({ 480, 195, 160, 192 });
+	idleAttack3.PushBack({ 640, 195, 160, 192 });
+	idleAttack3.PushBack({ 800, 195, 160, 192 });
+	idleAttack3.PushBack({ 960, 195, 160, 192 });
 	idleAttack3.loop = true;
-	idleAttack3.speed = 0.001f;
+	idleAttack3.speed = 0.08f;
+
 	AttackAnim3.PushBack({ 0, 0, 160, 192 });
 	AttackAnim3.PushBack({ 160, 0, 160, 192 });
 	AttackAnim3.PushBack({ 320, 0, 160, 192 });
@@ -102,11 +82,18 @@ battleSystem::battleSystem() : Module()
 	AttackAnim3.PushBack({ 800, 0, 160, 192 });
 	AttackAnim3.loop = false;
 	AttackAnim3.speed = 0.08f;
-	
-	
-	idleAttack4.PushBack({ 0, 0, 160, 192 });
+
+
+	idleAttack4.PushBack({ 0, 205, 160, 192 });
+	idleAttack4.PushBack({ 160, 205, 160, 192 });
+	idleAttack4.PushBack({ 320, 205, 160, 192 });
+	idleAttack4.PushBack({ 480, 205, 160, 192 });
+	idleAttack4.PushBack({ 640, 205, 160, 192 });
+	idleAttack4.PushBack({ 800, 205, 160, 192 });
+	idleAttack4.PushBack({ 960, 205, 160, 192 });
 	idleAttack4.loop = true;
-	idleAttack4.speed = 0.001f;
+	idleAttack4.speed = 0.08f;
+
 	AttackAnim4.PushBack({ 0, 0, 160, 192 });
 	AttackAnim4.PushBack({ 160, 0, 160, 192 });
 	AttackAnim4.PushBack({ 320, 0, 160, 192 });
@@ -114,10 +101,17 @@ battleSystem::battleSystem() : Module()
 	AttackAnim4.PushBack({ 640, 0, 160, 192 });
 	AttackAnim4.loop = false;
 	AttackAnim4.speed = 0.08f;
-	
-	idleAttack5.PushBack({ 0, 0, 160, 192 });
+
+	idleAttack5.PushBack({ 0, 217, 160, 192 });
+	idleAttack5.PushBack({ 160, 217, 160, 192 });
+	idleAttack5.PushBack({ 320, 217, 160, 192 });
+	idleAttack5.PushBack({ 480, 217, 160, 192 });
+	idleAttack5.PushBack({ 640, 217, 160, 192 });
+	idleAttack5.PushBack({ 800, 217, 160, 192 });
+	idleAttack5.PushBack({ 960, 217, 160, 192 });
 	idleAttack5.loop = true;
-	idleAttack5.speed = 0.001f;
+	idleAttack5.speed = 0.08f;
+
 	AttackAnim5.PushBack({ 0, 0, 160, 192 });
 	AttackAnim5.PushBack({ 160, 0, 160, 192 });
 	AttackAnim5.PushBack({ 320, 0, 160, 192 });
@@ -135,7 +129,7 @@ battleSystem::battleSystem() : Module()
 	HitAnim1.PushBack({ 480, 0, 160, 192 });
 	HitAnim1.loop = false;
 	HitAnim1.speed = 0.1f;
-	
+
 	idleHit2.PushBack({ 0, 0, 160, 192 });
 	idleHit2.loop = false;
 	idleHit2.speed = 0.001f;
@@ -145,7 +139,7 @@ battleSystem::battleSystem() : Module()
 	HitAnim2.PushBack({ 480, 0, 160, 192 });
 	HitAnim2.loop = false;
 	HitAnim2.speed = 0.1f;
-	
+
 	idleHit3.PushBack({ 0, 0, 160, 192 });
 	idleHit3.loop = false;
 	idleHit3.speed = 0.001f;
@@ -159,6 +153,7 @@ battleSystem::battleSystem() : Module()
 	idleHit4.PushBack({ 0, 0, 160, 192 });
 	idleHit4.loop = false;
 	idleHit4.speed = 0.001f;
+
 	HitAnim4.PushBack({ 0, 0, 160, 192 });
 	HitAnim4.PushBack({ 160, 0, 160, 192 });
 	HitAnim4.PushBack({ 320, 0, 160, 192 });
@@ -175,42 +170,99 @@ battleSystem::battleSystem() : Module()
 	HitAnim5.PushBack({ 480, 0, 160, 192 });
 	HitAnim5.loop = false;
 	HitAnim5.speed = 0.1f;
-	
+
 	idleDeath3.PushBack({ 0, 0, 160, 192 });
 	idleDeath3.loop = false;
 	idleDeath3.speed = 0.001f;
+
 	DeathAnim3.PushBack({ 0, 0, 160, 192 });
 	DeathAnim3.PushBack({ 160, 0, 160, 192 });
 	DeathAnim3.PushBack({ 320, 0, 160, 192 });
-	DeathAnim3.PushBack({ 480, 0, 160, 192 });
 	DeathAnim3.loop = false;
-	DeathAnim3.speed = 0.1f;
-	
-	
-	/*idle1.PushBack({62, 25, 85, 149});
-	idle1.loop = false;
-	idle1.speed = 0.001f;
+	DeathAnim3.speed = 0.06f;
+
+	DeathAnim2.PushBack({ 0, 0, 160, 192 });
+	DeathAnim2.PushBack({ 160, 0, 160, 192 });
+	DeathAnim2.loop = false;
+	DeathAnim2.speed = 0.03f;
+
+	DeathAnim4.PushBack({ 0, 0, 160, 192 });
+	DeathAnim4.PushBack({ 160, 0, 160, 192 });
+	DeathAnim4.loop = false;
+	DeathAnim4.speed = 0.03f;
+
+	DeathAnim5.PushBack({ 0, 0, 160, 192 });
+	DeathAnim5.PushBack({ 160, 0, 160, 192 });
+	DeathAnim5.loop = false;
+	DeathAnim5.speed = 0.03f;
 
 
-	idle2.PushBack({ 37, 21, 102, 150 });
-	idle2.loop = false;
-	idle2.speed = 0.001f;
-	
-	idle3.PushBack({ 1, 58, 126, 130 });
-	idle3.loop = false;
-	idle3.speed = 0.001f;
+	name.Create("qteAnimation");
+	qte1.PushBack({ 65, 47, 60, 60 });
+	qte1.PushBack({ 206, 43, 60, 60 });
+	qte1.PushBack({ 348, 44, 60, 60 });
+	qte1.PushBack({ 488, 44, 60, 60 });
+	qte1.PushBack({ 620, 40, 70, 70 });
+	qte1.PushBack({ 47, 158, 70, 70 });
+	qte1.PushBack({ 195, 155, 70, 70 });
+	qte1.PushBack({ 335, 155, 70, 70 });
+	qte1.PushBack({ 482, 155, 70, 70 });
+	qte1.PushBack({ 625, 155, 70, 70 });
+	qte1.PushBack({ 0, 0, 0, 0 });
+	qte1.loop = true;
+	qte1.speed = 0.25f;
 
-	idle4.PushBack({ 14, 8, 141, 182 });
-	idle4.loop = false;
-	idle4.speed = 0.001f;
 
-	Atack_1.PushBack({ 62, 25, 85, 149 });
-	Atack_1.PushBack({ 192, 59, 86, 115 });
-	Atack_1.PushBack({ 328, 64, 128, 110 });
-	Atack_1.PushBack({ 464, 59, 86, 115 });
-	Atack_1.PushBack({ 606, 25, 85, 149 });
-	Atack_1.loop = false;
-	Atack_1.speed = 0.05f;*/
+	qte2.PushBack({ 51, 36, 301, 63 });
+	qte2.PushBack({ 579, 36, 301, 63 });
+	qte2.PushBack({ 51, 186, 301, 63 });
+	qte2.PushBack({ 579, 186, 301, 63 });
+	qte2.PushBack({ 51, 336, 301, 63 });
+	qte2.PushBack({ 579, 336, 301, 63 });
+	qte2.PushBack({ 51, 486, 301, 63 });
+	qte2.PushBack({ 579, 486, 301, 63 });
+	qte2.loop = true;
+	qte2.speed = 0.5f;
+
+	qte2fx.PushBack({ 38, 32, 70, 77 });
+	qte2fx.PushBack({ 170, 32, 70, 77 });
+	qte2fx.PushBack({ 324, 32, 70, 77 });
+	qte2fx.PushBack({ 480, 32, 70, 77 });
+	qte2fx.PushBack({ 635, 32, 70, 77 });
+	qte2fx.PushBack({ 783, 32, 70, 77 });
+	qte2fx.PushBack({ 38, 110, 70, 77 });
+	qte2fx.PushBack({ 180, 110, 70, 77 });
+	qte2fx.PushBack({ 324, 110, 70, 77 });
+	qte2fx.PushBack({ 490, 110, 70, 77 });
+	qte2fx.loop = true;
+	qte2fx.speed = 0.25f;
+
+	qte2fx2.PushBack({ 38, 400, 70, 77 });
+	qte2fx2.PushBack({170, 400, 70, 77 });
+	qte2fx2.PushBack({ 324, 400, 70, 77 });
+	qte2fx2.PushBack({ 480, 400, 70, 77 });
+	qte2fx2.PushBack({ 635, 400, 70, 77 });
+	qte2fx2.PushBack({ 783, 400, 70, 77 });
+	qte2fx2.PushBack({ 38, 540, 70, 77 });
+	qte2fx2.PushBack({ 180, 540, 70, 77 });
+	qte2fx2.PushBack({ 324, 540, 70, 77 });
+	qte2fx2.PushBack({ 490, 540, 70, 77 });
+	qte2fx2.loop = true;
+	qte2fx2.speed = 0.25f;
+
+	qte3.PushBack({ 5, 7, 350, 40 });
+	qte3.loop = true;
+	qte3.speed = 0.25f;
+
+	qte32.PushBack({ 24, 63, 25, 25 });
+	qte32.loop = true;
+	qte32.speed = 0.25f;
+
+	qte33.PushBack({ 76, 55, 30, 42 });
+	qte33.loop = true;
+	qte33.speed = 0.25f;
+
+
 }
 
 // Destructor
@@ -267,13 +319,24 @@ bool battleSystem::Start()
 		poisonCount[i] = 0;
 	}
 	// L03: DONE: Load map
+	Hitdmg = app->audio->LoadFx("Assets/Audio/Fx/hit_dmg.wav");
+	Shot = app->audio->LoadFx("Assets/Audio/Fx/shot.wav");
+	Bite_Dog = app->audio->LoadFx("Assets/Audio/Fx/bite_dog.wav");
+	Knive = app->audio->LoadFx("Assets/Audio/Fx/knive.wav");
+
 	selectPlayer = app->tex->Load("Assets/Textures/UI/choseplayers.png");
 	Tutorial = app->tex->Load("Assets/Textures/UI/qte_tutorial.png");
-	QTE4 = app->tex->Load("Assets/Textures/UI/qte4.png");
-	PopQTE2 = app->tex->Load("Assets/Textures/UI/qte1_1.png");
+	QTE4A = app->tex->Load("Assets/Textures/UI/qte4.png");
+	PopQTE2 = app->tex->Load("Assets/Textures/UI/qte1_2.png");
 	quitCross = app->tex->Load("Assets/Textures/UI/quit_cross.png");
 	battle_screen = app->tex->Load("Assets/Textures/UI/battle_bg.png");
 	loose = app->tex->Load("Assets/Textures/Assets/pantalla_derrota.png");
+	qte2T = app->tex->Load("Assets/Textures/UI/qte2.png");
+	qte2fxT = app->tex->Load("Assets/Textures/UI/qte2_fx.png");
+	qte3T = app->tex->Load("Assets/Textures/UI/qt3.png");
+	qte3T2 = app->tex->Load("Assets/Textures/UI/qt3.png");
+	qte3T3 = app->tex->Load("Assets/Textures/UI/qt3.png");
+
 
 	currentAttack1 = &idleAttack1;
 	currentAttack2 = &idleAttack2;
@@ -288,13 +351,16 @@ bool battleSystem::Start()
 	currentHit5 = &idleHit5;
 
 	currentDeath3 = &idleDeath3;
+	currentDeath2 = &idleDeath2;
+	currentDeath4 = &idleDeath4;
+	currentDeath5 = &idleDeath5;
 
 	player1A = app->tex->Load("Assets/Textures/Soldiers/soldier_britain_attack_animation.png");
 	player2A = app->tex->Load("Assets/Textures/Soldiers/american_dogmaster_attack_animation.png");
 	player3A = app->tex->Load("Assets/Textures/Soldiers/russian_attack_animation.png");
 	player4A = app->tex->Load("Assets/Textures/Soldiers/characters_italian_attack_animation.png");
 	player5A = app->tex->Load("Assets/Textures/Soldiers/french_attack_animation.png");
-	
+
 	player1H = app->tex->Load("Assets/Textures/Soldiers/britain_hit_animation.png");
 	player2H = app->tex->Load("Assets/Textures/Soldiers/american_dogmaster_hit_animation.png");
 	player3H = app->tex->Load("Assets/Textures/Soldiers/russian_hit_animation.png");
@@ -302,7 +368,10 @@ bool battleSystem::Start()
 	player5H = app->tex->Load("Assets/Textures/Soldiers/french_hit_animation.png");
 
 	player3D = app->tex->Load("Assets/Textures/Soldiers/russian_death_animation.png");
-	
+	player2D = app->tex->Load("Assets/Textures/Soldiers/american_dogmaster_death_animation.png");
+	player4D = app->tex->Load("Assets/Textures/Soldiers/italian_death_animation.png");
+	player5D = app->tex->Load("Assets/Textures/Soldiers/french_death_animation.png");
+
 	//L13: TODO 2: Declare an Item and create it using the EntityManager
 	VampirEnem* Vampir = (VampirEnem*)app->entityManager->CreateEntity(EntityType::VAMPYR, 0, { 0,0 });
 	ZombieEnem* Zombies = (ZombieEnem*)app->entityManager->CreateEntity(EntityType::ZOMBIE, 0, { 0,0 });
@@ -319,13 +388,23 @@ bool battleSystem::Start()
 	currentAnimation3 = &idle3;
 	currentAnimation4 = &idle4;
 
+	currentQTE1 = &qte1;
+	currentQTE2 = &qte2;
+	currentQTE2fx = &qte2fx;
+	currentQTE2fx2 = &qte2fx2;
+	currentQTE3 = &qte3;
+	currentQTE32 = &qte32;
+	currentQTE33 = &qte33;
+	currentQTE4 = &qte4;
+
+
 	return true;
 }
 
 // Called each loop iteration
 bool battleSystem::PreUpdate()
 {
-	
+
 	return true;
 }
 
@@ -388,7 +467,7 @@ bool battleSystem::Update(float dt)
 		Run->bounds.y = app->player->P1.position.y + 285;
 		Run->bounds.w = 150;
 		Run->bounds.h = 61;
-		//SDL_Rect battle_screen = { app->player->P1.position.x - 640 + 32,app->player->P1.position.y - 360 + 32,1280,720 };		
+		//SDL_Rect battle_screen = { app->player->P1.position.x - 640 + 32,app->player->P1.position.y - 360 + 32,1280,720 };
 		app->render->DrawTexture(battle_screen, app->player->P1.position.x - 640 + 32, app->player->P1.position.y - 360 + 32);
 		MiniPlayerButton1->state = GuiControlState::NORMAL;
 		MiniPlayerButton2->state = GuiControlState::NORMAL;
@@ -412,7 +491,7 @@ bool battleSystem::Update(float dt)
 
 		DrawHpBars();
 		if (PlayerTurn == true) {
-			
+
 			Attack->state = GuiControlState::NORMAL;
 			SpecialAttack->state = GuiControlState::NORMAL;
 			Inventory->state = GuiControlState::NORMAL;
@@ -424,10 +503,10 @@ bool battleSystem::Update(float dt)
 				ChoosePlayer();
 			}
 		}
-		
+
 	}
 	else if(battleAux == true){
-		
+
 		AttackPlayer = 0;
 		for (int i = 0; i < 4; i++) {
 			waitPlayer[i] = 0;
@@ -446,6 +525,9 @@ bool battleSystem::Update(float dt)
 	}
 	else {
 		SpawnedEnemies = false;
+		Zombiebattle = false;
+		Skeletonbattle = false;
+		Vampirebattle = false;
 		MiniPlayerButton1->bounds.w = 0;
 		MiniPlayerButton1->bounds.h = 0;
 		MiniPlayerButton2->bounds.w = 0;
@@ -506,10 +588,10 @@ bool battleSystem::Update(float dt)
 			Run->state = GuiControlState::NORMAL;
 		}
 	}
-	
+
 	//Draw Entities
-	//L13 
-	//L13 
+	//L13
+	//L13
 	app->entityManager->Draw();
 
 	if (InventoryEnable) {
@@ -546,7 +628,19 @@ bool battleSystem::Update(float dt)
 		invenCont = 0;
 	}
 	if (app->BTSystem->StatsEnable == true) {
+
 	CloseStatsMenu->state = GuiControlState::NORMAL;
+	MiniPlayerButton1->state = GuiControlState::DISABLED;
+	MiniPlayerButton2->state = GuiControlState::DISABLED;
+	MiniPlayerButton3->state = GuiControlState::DISABLED;
+	MiniPlayerButton4->state = GuiControlState::DISABLED;
+	Attack->state = GuiControlState::DISABLED;
+	Attack1->state = GuiControlState::DISABLED;
+	Attack2->state = GuiControlState::DISABLED;
+	SpecialAttack->state = GuiControlState::DISABLED;
+	Inventory->state = GuiControlState::DISABLED;
+	StatsMenu->state = GuiControlState::DISABLED;
+	Run->state = GuiControlState::DISABLED;
 	}
 	if (debug == true) {
 		//Debug Collisions
@@ -578,7 +672,7 @@ bool battleSystem::Update(float dt)
 	AttackAnimations();
 
 	HitPlayersAnimations();
-	
+
 	DeathPlayersAnimations();
 
 	if (app->player->P1.IsAlive == false) {
@@ -594,6 +688,7 @@ bool battleSystem::Update(float dt)
 	{
 		transitionLock = true;
 	}
+
 
 	return true;
 }
@@ -614,6 +709,18 @@ bool battleSystem::PostUpdate()
 	player5HR = currentHit5->GetCurrentFrame();
 
 	player3DR = currentDeath3->GetCurrentFrame();
+	player2DR = currentDeath2->GetCurrentFrame();
+	player4DR = currentDeath4->GetCurrentFrame();
+	player5DR = currentDeath5->GetCurrentFrame();
+
+	qte1R = currentQTE1->GetCurrentFrame();
+	qte2R = currentQTE2->GetCurrentFrame();
+	qte2fxR = currentQTE2fx->GetCurrentFrame();
+	qte2fxR2 = currentQTE2fx2->GetCurrentFrame();
+	qte3R = currentQTE3->GetCurrentFrame();
+	qte3R2 = currentQTE32->GetCurrentFrame();
+	qte3R3 = currentQTE33->GetCurrentFrame();
+
 
 	if (battleTransition && app->player->P1.IsAlive && transitionRep == 1)
 	{
@@ -624,10 +731,10 @@ bool battleSystem::PostUpdate()
 
 			app->render->DrawRectangle(Curtain1, 10, 10, 10);
 			app->render->DrawRectangle(Curtain2, 10, 10, 10);
-			curtainCont += 20;			
+			curtainCont += 20;
 		}
 		else if (curtainBounce)
-		{			
+		{
 			Curtain1 = { -app->render->camera.x - curtainCont, -app->render->camera.y, app->win->GetWidth() / 2, app->win->GetHeight() };
 			Curtain2 = { -app->render->camera.x + app->win->GetWidth() / 2 + curtainCont, -app->render->camera.y, app->win->GetWidth() / 2, app->win->GetHeight() };
 
@@ -635,7 +742,7 @@ bool battleSystem::PostUpdate()
 			app->render->DrawRectangle(Curtain2, 10, 10, 10);
 			curtainCont+=20;
 		}
-		
+
 		if (Curtain1.x >= (-app->render->camera.x) && !curtainBounce)
 		{
 			curtainBounce = true;
@@ -684,6 +791,7 @@ bool battleSystem::PostUpdate()
 			curtainBounce = true;
 			curtainCont = 0;
 			battle = false;
+			InventoryEnable = false;
 		}
 		else if (Curtain1.x <= (-app->render->camera.x - app->win->GetWidth() / 2) && curtainBounce)
 		{
@@ -711,13 +819,13 @@ bool battleSystem::PostUpdate()
 		app->render->DrawTexture(AttackTextureP2, app->player->P1.position.x - 420, app->player->P1.position.y - 220 + 130, &Player2);
 		currentAnimation->Update();
 	}
-	
+
 	if (battle == true && app->player->P1.IsAlive == true) {
 		Player3 = currentAnimation3->GetCurrentFrame();
 		app->render->DrawTexture(AttackTextureP3, app->player->P1.position.x - 420 + 120, app->player->P1.position.y - 220 + 260, &Player3);
 		currentAnimation->Update();
 	}
-	
+
 	if (battle == true && app->player->P1.IsAlive == true) {
 		Player4 = currentAnimation4->GetCurrentFrame();
 		app->render->DrawTexture(AttackTextureP4, app->player->P1.position.x - 420, app->player->P1.position.y - 220 + 390, &Player4);
@@ -738,6 +846,7 @@ void battleSystem::AttackAnimations() {
 		currentAttack1 = &AttackAnim1;
 		app->render->DrawTexture(player1A, app->player->P1.position.x - 420 + 100, app->player->P1.position.y - 320, &player1AR);
 		currentAttack1->Update();
+		app->audio->PlayFx(Shot);
 		if (AttackAnim1.currentFrame >= 4.0) {
 			AttackAnim1.currentFrame = 0.0;
 			puta1 = false;
@@ -748,6 +857,7 @@ void battleSystem::AttackAnimations() {
 	else if (battle == true && playerTarget != 1) {
 		puta1 = false;
 		currentAttack1 = &idleAttack1;
+		currentAttack1->Update();
 		app->render->DrawTexture(player1A, app->player->P1.position.x - 420 + 100, app->player->P1.position.y - 320, &player1AR);
 	}
 
@@ -755,6 +865,7 @@ void battleSystem::AttackAnimations() {
 		currentAttack2 = &AttackAnim2;
 		app->render->DrawTexture(player2A, app->player->P1.position.x - 450, app->player->P1.position.y - 320 + 130, &player2AR);
 		currentAttack2->Update();
+		app->audio->PlayFx(Bite_Dog);
 		if (AttackAnim2.currentFrame >= 4.0) {
 			AttackAnim2.currentFrame = 0.0;
 			PlayerTurn = false;
@@ -765,12 +876,14 @@ void battleSystem::AttackAnimations() {
 	else if (battle == true && app->player->P2.IsAlive == true && playerTarget != 2) {
 		puta2 = false;
 		currentAttack2 = &idleAttack2;
+		currentAttack2->Update();
 		app->render->DrawTexture(player2A, app->player->P1.position.x - 450, app->player->P1.position.y - 320 + 130, &player2AR);
 	}
 	if (puta3 == true && AttackPlayer == 3 && battle == true) {//British
 		currentAttack3 = &AttackAnim3;
 		app->render->DrawTexture(player3A, app->player->P1.position.x - 450 + 120, app->player->P1.position.y - 320 + 260, &player3AR);
 		currentAttack3->Update();
+		app->audio->PlayFx(Shot);
 		if (AttackAnim3.currentFrame >= 5.0) {
 			AttackAnim3.currentFrame = 0.0;
 			PlayerTurn = false;
@@ -781,12 +894,14 @@ void battleSystem::AttackAnimations() {
 	else if (battle == true && app->player->P3.IsAlive == true && playerTarget != 3) {
 		puta3 = false;
 		currentAttack3 = &idleAttack3;
+		currentAttack3->Update();
 		app->render->DrawTexture(player3A, app->player->P1.position.x - 450 + 120, app->player->P1.position.y - 320 + 260, &player3AR);
 	}
 	if (puta4 == true && AttackPlayer == 4 && battle1 == true && hit == false) {//Italian
 		currentAttack4 = &AttackAnim4;
 		app->render->DrawTexture(player4A, app->player->P1.position.x - 450, app->player->P1.position.y - 320 + 390, &player4AR);
 		currentAttack4->Update();
+		app->audio->PlayFx(Shot);
 		if (AttackAnim4.currentFrame >= 4.0) {
 			PlayerTurn = false;
 			AttackAnim4.currentFrame = 0;
@@ -797,12 +912,14 @@ void battleSystem::AttackAnimations() {
 	else if (battle == true && app->player->P4.IsAlive == true && battle1 == true && playerTarget != 4) {
 		puta4 = false;
 		currentAttack4 = &idleAttack4;
+		currentAttack4->Update();
 		app->render->DrawTexture(player4A, app->player->P1.position.x - 450, app->player->P1.position.y - 320 + 390, &player4AR);
 	}
 	if (puta4 == true && AttackPlayer == 4 && battle1 == false && hit == false) {//Italian
 		currentAttack5 = &AttackAnim5;
 		app->render->DrawTexture(player5A, app->player->P1.position.x - 450, app->player->P1.position.y - 320 + 390, &player5AR);
 		currentAttack5->Update();
+		app->audio->PlayFx(Knive);
 		if (AttackAnim5.currentFrame >= 4.0) {
 			PlayerTurn = false;
 			AttackAnim5.currentFrame = 0;
@@ -813,6 +930,7 @@ void battleSystem::AttackAnimations() {
 	else if (battle == true && app->player->P4.IsAlive == true && battle1 == false && playerTarget != 4) {
 		puta4 = false;
 		currentAttack5 = &idleAttack5;
+		currentAttack5->Update();
 		app->render->DrawTexture(player5A, app->player->P1.position.x - 450, app->player->P1.position.y - 320 + 390, &player5AR);
 	}
 }
@@ -822,6 +940,7 @@ void battleSystem::HitPlayersAnimations() {
 		currentHit1 = &HitAnim1;
 		app->render->DrawTexture(player1H, app->player->P1.position.x - 420 + 100, app->player->P1.position.y - 320, &player1HR);
 		currentHit1->Update();
+		app->audio->PlayFx(Hitdmg);
 		if (HitAnim1.currentFrame >= 3.0) {
 			HitAnim1.currentFrame = 0.0;
 			playerTarget = 0;
@@ -833,6 +952,7 @@ void battleSystem::HitPlayersAnimations() {
 		currentHit2 = &HitAnim2;
 		app->render->DrawTexture(player2H, app->player->P1.position.x - 450, app->player->P1.position.y - 320 + 130, &player2HR);
 		currentHit2->Update();
+		app->audio->PlayFx(Hitdmg);
 		if (HitAnim2.currentFrame >= 3.0) {
 			HitAnim2.currentFrame = 0.0;
 			playerTarget = 0;
@@ -844,6 +964,7 @@ void battleSystem::HitPlayersAnimations() {
 		currentHit3 = &HitAnim3;
 		app->render->DrawTexture(player3H, app->player->P1.position.x - 450 + 120, app->player->P1.position.y - 320 + 260, &player3HR);
 		currentHit3->Update();
+		app->audio->PlayFx(Hitdmg);
 		if (HitAnim3.currentFrame >= 3.0) {
 			HitAnim3.currentFrame = 0.0;
 			playerTarget = 0;
@@ -855,6 +976,7 @@ void battleSystem::HitPlayersAnimations() {
 		currentHit4 = &HitAnim4;
 		app->render->DrawTexture(player4H, app->player->P1.position.x - 450, app->player->P1.position.y - 320 + 390, &player4HR);
 		currentHit4->Update();
+		app->audio->PlayFx(Hitdmg);
 		if (HitAnim4.currentFrame >= 3.0) {
 			HitAnim4.currentFrame = 0.0;
 			playerTarget = 0;
@@ -866,6 +988,7 @@ void battleSystem::HitPlayersAnimations() {
 		currentHit5 = &HitAnim5;
 		app->render->DrawTexture(player5H, app->player->P1.position.x - 450, app->player->P1.position.y - 320 + 390, &player5HR);
 		currentHit5->Update();
+		app->audio->PlayFx(Hitdmg);
 		if (HitAnim5.currentFrame >= 3.0) {
 			HitAnim5.currentFrame = 0.0;
 			playerTarget = 0;
@@ -875,10 +998,29 @@ void battleSystem::HitPlayersAnimations() {
 }
 
 void battleSystem::DeathPlayersAnimations() {
-	if (russianDead == true) {
+
+	if (DogDead == true && battle == true) {
+		currentDeath2 = &DeathAnim2;
+		app->render->DrawTexture(player2D, app->player->P1.position.x - 450, app->player->P1.position.y - 320 + 130, &player2DR);
+		currentDeath2->Update();
+	}
+
+	if (russianDead == true && battle == true) {
 		currentDeath3 = &DeathAnim3;
 		app->render->DrawTexture(player3D, app->player->P1.position.x - 450 + 120, app->player->P1.position.y - 320 + 260, &player3DR);
 		currentDeath3->Update();
+	}
+
+	if (italianDead == true && battle == true && Alfrench == false) {
+		currentDeath4 = &DeathAnim4;
+		app->render->DrawTexture(player4D, app->player->P1.position.x - 450, app->player->P1.position.y - 320 + 390, &player4DR);
+		currentDeath4->Update();
+	}
+
+	if (battle == true && FrenchDead == true) {
+		currentDeath5 = &DeathAnim5;
+		app->render->DrawTexture(player5D, app->player->P1.position.x - 450, app->player->P1.position.y - 320 + 390, &player5DR);
+		currentDeath5->Update();
 	}
 
 }
@@ -890,7 +1032,7 @@ void battleSystem::AttackPhase() {
 	Attack2->state = GuiControlState::NORMAL;
 	AttackPhaseActive = true;
 	AttackPhaseEnable = true;
-	
+
 }
 void battleSystem::AttackPhaseDisabled() {
 	Attack1->state = GuiControlState::DISABLED;
@@ -912,7 +1054,7 @@ void battleSystem::AttackPhaseDisabled() {
 		playerTarget = 0;
 		puta4 = true;
 	}
-	
+
 }
 void battleSystem::AttackPhaseDisabled2() {
 	Attack1->state = GuiControlState::DISABLED;
@@ -1024,6 +1166,9 @@ void battleSystem::SpecialAttackPhase() {
 	if (randomAttack == 1) {//QTE 1
 		timer1 = SDL_GetTicks() / 1000;
 		if (AttackAux == 0){
+			/*currentQTE2 = &qte2;
+			currentQTE2->Update();
+			app->render->DrawTexture(qte2T, app->player->P1.position.x - 119, app->player->P1.position.y + 200, &qte2R);*/
 			SDL_Rect* Tutorial1 = new SDL_Rect();
 			Tutorial1->x = 0;
 			Tutorial1->y = 0;
@@ -1034,12 +1179,40 @@ void battleSystem::SpecialAttackPhase() {
 		if (AttackAux == 0 && app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
 			timer1_ = timer1;
 			AttackAux = 1;
+			go = 1;
+		}
+		if (AttackAux <= 100 && go == 0) {
+			currentQTE2 = &qte2;
+			currentQTE2->Update();
+			app->render->DrawTexture(qte2T, app->player->P1.position.x - 110, app->player->P1.position.y + 25, &qte2R);
+
+			currentQTE2fx = &qte2fx;
+			currentQTE2fx->Update();
+			app->render->DrawTexture(qte2fxT, app->player->P1.position.x + 205, app->player->P1.position.y + 25, &qte2fxR);
+
+			currentQTE2fx2 = &qte2fx2;
+			currentQTE2fx2->Update();
+			app->render->DrawTexture(qte2fxT, app->player->P1.position.x - 200, app->player->P1.position.y + 25, &qte2fxR2);
+		}
+		if (AttackAux <= 100 && go == 1) {
+			currentQTE2 = &qte2;
+			currentQTE2->Update();
+			app->render->DrawTexture(qte2T, app->player->P1.position.x - 110, app->player->P1.position.y + 200, &qte2R);
+
+			currentQTE2fx = &qte2fx;
+			currentQTE2fx->Update();
+			app->render->DrawTexture(qte2fxT, app->player->P1.position.x + 205, app->player->P1.position.y + 200, &qte2fxR);
+
+			currentQTE2fx2 = &qte2fx2;
+			currentQTE2fx2->Update();
+			app->render->DrawTexture(qte2fxT, app->player->P1.position.x - 200, app->player->P1.position.y + 200, &qte2fxR2);
 		}
 		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
 			AttackAux+=2;
 		}
 		if (AttackAux > 100) {
     		AttackAux = 100;
+			go = 0;
 		}
 		if (timer1 > timer1_ + 5 && AttackAux != 0) {
 			randomAttack = 0;
@@ -1069,9 +1242,23 @@ void battleSystem::SpecialAttackPhase() {
 		if (AttackAux == 0 && app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
 			timer1_ = timer1;
 			AttackAux = 1;
+			go = 1;
 		}
-		if (AttackAux != 0) {
-			app->render->DrawTexture(PopQTE2, POSQTE2X - 6, POSQTE2Y - 6);
+		/*if (AttackAux != 0) {
+			currentQTE1 = &qte1;
+			currentQTE2->Update();
+			app->render->DrawTexture(PopQTE2, POSQTE2X - 6, POSQTE2Y - 6, &qte1R);
+			//app->render->DrawTexture(PopQTE2, POSQTE2X - 6, POSQTE2Y - 6);
+		}*/
+		if (AttackAux <= 100 && go == 0) {
+			currentQTE1 = &qte1;
+			currentQTE1->Update();
+			app->render->DrawTexture(PopQTE2, app->player->P1.position.x - 119, app->player->P1.position.y + 25, &qte1R);
+		}
+		if (AttackAux <= 100 && go == 1) {
+			currentQTE1 = &qte1;
+			currentQTE1->Update();
+			app->render->DrawTexture(PopQTE2, POSQTE2X - 6, POSQTE2Y - 6, &qte1R);
 		}
 		randomx = (rand() % 500);
 		randomy = (rand() % 300);
@@ -1087,6 +1274,7 @@ void battleSystem::SpecialAttackPhase() {
 
 		if (AttackAux > 100) {
 			AttackAux = 100 ;
+			go = 0;
 		}
 		if (timer1 > timer1_ + 5 && AttackAux != 0) {
 			randomAttack = 0;
@@ -1123,9 +1311,25 @@ void battleSystem::SpecialAttackPhase() {
 			AttackAux = 1;
 			randomtargetRect = (rand() % 185) + 165;
 			randomtargetRect_ = randomtargetRect;
+			go = 1;
+		}
+		if (AttackAux <= 100 && go == 1) {
+			currentQTE3 = &qte3;
+			currentQTE3->Update();
+			app->render->DrawTexture(qte3T, app->player->P1.position.x - 125, app->player->P1.position.y + 200, &qte3R);
+
+			currentQTE33 = &qte33;
+			currentQTE33->Update();
+			app->render->DrawTexture(qte3T3, randomtargetRect_ + app->player->P1.position.x - 125 - 115, app->player->P1.position.y + 200, &qte3R3);
+
+			currentQTE32 = &qte32;
+			currentQTE32->Update();
+			app->render->DrawTexture(qte3T2, timer1_ + app->player->P1.position.x - 95, app->player->P1.position.y + 207, &qte3R2);
+
 		}
 		if (AttackAux != 0) {
 			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && timer1 > _timer1_ + 0.25) {
+				go = 0;
 				finalpos = timer1_ + app->player->P1.position.x - 125;
 				if (finalpos > randomtargetRect_ + app->player->P1.position.x - 125  - 115 && finalpos < randomtargetRect_ + app->player->P1.position.x - 125 - 115 + 30) {
 					AttackAux = 100;
@@ -1150,15 +1354,15 @@ void battleSystem::SpecialAttackPhase() {
 			else {
 				rectDirection = false;
 			}
-			
-			SDL_Rect largeRect = { app->player->P1.position.x - 125,app->player->P1.position.y + 200,300,40 };
+
+			/*SDL_Rect largeRect = { app->player->P1.position.x - 125,app->player->P1.position.y + 200,300,40 };
 			app->render->DrawRectangle(largeRect, 0, 250, 0);
 			SDL_Rect targetRect2 = { randomtargetRect_  + app->player->P1.position.x - 155 - 115,app->player->P1.position.y + 200,90,40 };
 			app->render->DrawRectangle(targetRect2, 255, 128, 0);
 			SDL_Rect targetRect = { randomtargetRect_ + app->player->P1.position.x - 125 - 115,app->player->P1.position.y + 200,30,40 };
 			app->render->DrawRectangle(targetRect, 250, 250, 0);
 			SDL_Rect PointRect = {timer1_ + app->player->P1.position.x - 125,app->player->P1.position.y + 210,20,20 };
-			app->render->DrawRectangle(PointRect, 250, 0, 0);
+			app->render->DrawRectangle(PointRect, 250, 0, 0);*/
 			if (AttackAux == 25 || AttackAux == 50 || AttackAux == 100) {
 				for (int i = 0; i <= 4; i++) {
 					if (app->BTSystem->waitPlayer[i] != 0) {
@@ -1198,7 +1402,7 @@ void battleSystem::SpecialAttackPhase() {
 			QTE4_->y = 0;
 			QTE4_->w = 64;
 			QTE4_->h = 64;
-			app->render->DrawTexture(QTE4, app->player->P1.position.x, app->player->P1.position.y - 64, QTE4_);
+			app->render->DrawTexture(QTE4A, app->player->P1.position.x, app->player->P1.position.y - 64, QTE4_);
 			if (app->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN && randomLetterGenerator == 1) {
 				AttackAux += 10;
 				LetterGenerator = true;
@@ -1418,12 +1622,12 @@ void battleSystem::DrawHpBars() {
 			app->render->DrawRectangle(bar4_, 0, 0, 255);
 		}
 	}
-	
+
 }
 
 bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 {
-	
+
 	switch (control->type)
 	{
 	case GuiControlType::BUTTON:
@@ -1438,7 +1642,6 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 		{
 			AttackPhase();
 			AttackPhaseEnable = true;
-			//Atack_1.Reset();
 
 		}
 		if (AttackPhaseActive == false && AttackPhaseEnable == true) {
@@ -1450,7 +1653,7 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 			AttackType = 1;
 			AttackPhaseDisabled();
 			AttackPhaseEnable = false;
-			//currentAnimation = &Atack_1;
+
 
 		}
 		//atack 2
@@ -1459,7 +1662,7 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 			AttackType = 2;
 			AttackPhaseDisabled();
 			AttackPhaseEnable = false;
-			//currentAnimation = &Atack_1;
+
 		}
 		if (control->id == 34 && AttackPlayer == 1 && (VampireTarget != 0 || ZombieTarget != 0 || SkeletonTarget != 0) && SpecialAttackEnable == false && app->player->P1.mana >= 60)
 		{
@@ -1487,9 +1690,10 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 			InventoryEnable = true;
 			CloseInventory->state = GuiControlState::NORMAL;
 		}
-		if (control->id == 36 && battle == true) {
+		if (control->id == 36 && battle == true && app->characterMenu->smoke > 0) {
 			battleEnd = true;
 			app->BTSystem->transitionRep = 1;
+			app->characterMenu->smoke--;
 			Delay = false;
 			Zombiebattle = false;
 			Vampirebattle = false;
@@ -1569,6 +1773,7 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 		}
 		if (control->id == 65)
 		{
+
 			StatsEnable = true;
 			app->statsMenu->Enable();
 			MiniPlayerButton1->state = GuiControlState::DISABLED;
@@ -1585,6 +1790,7 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 		}
 		if (control->id == 66)
 		{
+		
 			StatsEnable = false;
 			app->statsMenu->Disable();
 			MiniPlayerButton1->state = GuiControlState::NORMAL;
@@ -1600,10 +1806,10 @@ bool battleSystem::OnGuiMouseClickEvent(GuiControl* control)
 			Run->state = GuiControlState::NORMAL;
 			CloseStatsMenu->state = GuiControlState::DISABLED;
 		}
-	
+
 	}
 	}
-	
+
 	return false;
 }
 
@@ -1615,14 +1821,15 @@ void battleSystem::CheckAllies() {
 			waitPlayer[2] = 0;
 			waitPlayer[3] = 0;
 		}
-		if (app->player->P2.hp <= 0 && app->player->P2.IsAlive) {
+		if (app->player->P2.hp <= 0 ) {
+			DogDead = true;
 			app->player->P2.IsAlive = false;
 			waitPlayer[0] = 0;
 			waitPlayer[1] = 0;
 			waitPlayer[2] = 0;
 			waitPlayer[3] = 0;
 		}
-		if (app->player->P3.hp <= 0 && app->player->P3.IsAlive) {
+		if (app->player->P3.hp <= 0) {
 			app->player->P3.IsAlive = false;
 			russianDead = true;
 			waitPlayer[0] = 0;
@@ -1630,8 +1837,13 @@ void battleSystem::CheckAllies() {
 			waitPlayer[2] = 0;
 			waitPlayer[3] = 0;
 		}
-		if (app->player->P4.hp <= 0 && app->player->P4.IsAlive) {
+		if (app->player->P4.hp <= 0 ) {
 			app->player->P4.IsAlive = false;
+			italianDead = true;
+			if (Alfrench == true)
+			{
+				FrenchDead = true;
+			}
 			waitPlayer[0] = 0;
 			waitPlayer[1] = 0;
 			waitPlayer[2] = 0;

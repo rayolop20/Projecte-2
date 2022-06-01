@@ -19,6 +19,8 @@
 #include "GameMenu.h"
 #include "StatsMenu.h"
 #include "AssetsManager.h"
+#include "Mouse.h"
+#include "Particles.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -38,6 +40,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	render = new Render();
 	tex = new Textures();
 	audio = new Audio();
+	particle = new Particle();
 	scene = new Scene();
 	map = new Map();
 	guiManager = new GuiManager();
@@ -53,30 +56,32 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	gameMenu = new GameMenu_Screen();
 	statsMenu = new StatsMenu_Screen();
 	assetManager = new ModuleAssetsManager();
+	mouse = new Mouse();
+
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
 	AddModule(assetManager);
 	AddModule(win);
 	AddModule(input);
 	AddModule(tex);
-	AddModule(audio);//20  Mb
+	AddModule(audio);
 	AddModule(guiManager);
-	AddModule(pathfinding); // 17Mb
+	AddModule(pathfinding); 
 	AddModule(fonts);
-	AddModule(scene);//22Mb
-	AddModule(BTSystem); //aquest junt amb el entity manager crea 306 MB
-	AddModule(map);//21 Mb
-	AddModule(player); //23mb
+	AddModule(scene);
+	AddModule(BTSystem); 
+	AddModule(map);
+	AddModule(player); 
+	AddModule(particle);
 	AddModule(entityManager);
-	AddModule(menu); //(112 Mb)
+	AddModule(menu); 
 	AddModule(collisions);
-	AddModule(gameMenu); // 84 Mb de memoria
+	AddModule(gameMenu); 
 	AddModule(statsMenu);
-
-	AddModule(characterMenu); // genera memory leacks sempre k es clica la I (120mb)
-
-	// Render last to swap buffer
+	AddModule(mouse);
+	AddModule(characterMenu); 
 	AddModule(render);
+
 }
 
 // Destructor

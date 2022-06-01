@@ -59,6 +59,7 @@ public:
 	bool item7state = false;
 
 	bool typingTxt = false;
+	bool typingTxt2 = false;
 
 	SDL_Texture* inventoryTex = nullptr;
 	SDL_Texture* inventoryTexBack = nullptr;
@@ -73,12 +74,14 @@ public:
 	SDL_Texture* italianNpc = nullptr;
 	SDL_Texture* items = nullptr;
 
-	int increaseDmg = 2;
-	int increaseSpeed = 2;
-	int increaseMana = 2;
-	int healing = 2;
-	int increaseHP = 2;
+
+	int increaseDmg = 0;
+	int increaseSpeed = 0;
+	int increaseMana = 0;
+	int healing = 0;
+	int increaseHP = 0;
 	bool skeletonHead = false;
+	int smoke = 0;
 
 	GuiButton* Character1;
 	GuiButton* Character2;

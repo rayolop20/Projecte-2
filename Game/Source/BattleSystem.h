@@ -7,24 +7,6 @@
 
 struct SDL_Texture;
 
-class qteAnimation : public Module
-{
-public:
-	// Constructor
-	qteAnimation();
-
-	// Destructor
-	~qteAnimation();
-
-	Animation* qte1Animation = nullptr;
-	Animation* qte2Animation;
-	Animation* qte2Animationfx;
-
-	Animation qte1;
-	Animation qte2;
-	Animation qte2fx;
-};
-
 class battleSystem : public Module
 {
 public:
@@ -192,7 +174,7 @@ public:
 	SDL_Texture* Tutorial;
 	SDL_Texture* PopQTE2 = nullptr;
 	SDL_Texture* quitCross = nullptr;
-	SDL_Texture* QTE4;
+	SDL_Texture* QTE4A;
 	SDL_Texture* loose;
 
 
@@ -267,10 +249,81 @@ public:
 	Animation DeathAnim3;
 	Animation idleDeath3;
 
-	int transitionRep = 0;
+	bool DogDead = false;
+	Animation* currentDeath2 = nullptr;
+	SDL_Texture* player2D = nullptr;
+	SDL_Rect player2DR;
+	Animation DeathAnim2;
+	Animation idleDeath2;
 
+	bool italianDead = false;
+	Animation* currentDeath4 = nullptr;
+	SDL_Texture* player4D = nullptr;
+	SDL_Rect player4DR;
+	Animation DeathAnim4;
+	Animation idleDeath4;
+	
+	bool FrenchDead = false;
+	Animation* currentDeath5 = nullptr;
+	SDL_Texture* player5D = nullptr;
+	SDL_Rect player5DR;
+	Animation DeathAnim5;
+	Animation idleDeath5;
+
+	int transitionRep = 0;
+	bool Alfrench = false;
 	bool transitionLock = true;
 	bool battleEnd = false;
+	bool transitionEnd = false;
+
+	Animation qte1;
+
+	Animation qte2;
+
+	Animation qte2fx;
+	Animation qte2fx2;
+
+	Animation qte3;
+	Animation qte32;
+	Animation qte33;
+
+	Animation qte4;
+
+	Animation* currentQTE1 = nullptr;
+
+	Animation* currentQTE2 = nullptr;
+	Animation* currentQTE2fx = nullptr;
+	Animation* currentQTE2fx2 = nullptr;
+
+	Animation* currentQTE3 = nullptr;
+	Animation* currentQTE32 = nullptr;
+	Animation* currentQTE33 = nullptr;
+
+	Animation* currentQTE4 = nullptr;
+
+
+
+	SDL_Rect qte1R;
+
+	SDL_Texture* qte2T = nullptr;
+	SDL_Rect qte2R;
+
+	SDL_Texture* qte2fxT = nullptr;
+	SDL_Rect qte2fxR;
+
+	SDL_Texture* qte2fxT2 = nullptr;
+	SDL_Rect qte2fxR2;
+
+	SDL_Texture* qte3T2 = nullptr;
+	SDL_Rect qte3R2;
+
+	SDL_Texture* qte3T3 = nullptr;
+	SDL_Rect qte3R3;
+
+	SDL_Texture* qte3T = nullptr;
+	SDL_Rect qte3R;
+
+	int go = 0;
 
 private:
 
@@ -301,8 +354,12 @@ private:
 	Animation deadAnim;
 
 	bool curtainBounce = false;
-	bool transitionEnd = false;
 	int curtainCont = 0;
+
+	int Hitdmg = 1;
+	int Shot = 1;
+	int Bite_Dog = 1;
+	int Knive = 1;
 };
 
 #endif // __BATTLESYSTEM_H__

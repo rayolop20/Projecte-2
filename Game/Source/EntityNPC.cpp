@@ -10,6 +10,7 @@
 #include "Map.h"
 #include "Menu.h"
 #include "EntityNPC.h"
+#include "StatsMenu.h"
 #include "Window.h"
 #include "Fonts.h"
 #include "CharacterMenu.h"
@@ -26,6 +27,10 @@ EntityNPC::EntityNPC() :Entity(EntityType::NPC)
 	idle1.PushBack({ 39, 34, 46, 75 });
 	idle1.loop = true;
 	idle1.speed = 0.001f;
+	
+	idle2.PushBack({ 46, 38, 37, 65 });
+	idle2.loop = true;
+	idle2.speed = 0.001f;
 	
 	idle2.PushBack({ 46, 38, 37, 65 });
 	idle2.loop = true;
@@ -75,6 +80,11 @@ bool EntityNPC::Start()
 	TextureNPC = app->tex->Load("Assets/Textures/NPC/npc1.png");
 	TextureNPC2 = app->tex->Load("Assets/Textures/NPC/npc2.png");
 	DialogueBox = app->tex->Load("Assets/Textures/UI/text_box.png");
+	DialogueBoxHint = app->tex->Load("Assets/Textures/UI/puzzle3_hint.png");
+	ChestT = app->tex->Load("Assets/Textures/Assets/chest2.png");
+	OpenChestT = app->tex->Load("Assets/Textures/Assets/open_chest.png");
+	//audio
+	Altar_AudioFX = app->audio->LoadFx("Assets/Audio/Fx/Altar_AudioFX.wav");
 
 	//text
 	char lookupTable[] = { "! @,_./0123456789$;< ?abcdefghijklmnopqrstuvwxyz" };
@@ -91,11 +101,17 @@ bool EntityNPC::Start()
 		npc[0] = CreateNPC(1050, 1364, app->characterMenu->frenchNpc);
 		npc[1] = CreateNPC(957, 232, TextureNPC);
 		npc[2] = CreateNPC(1357, 1937, TextureNPC2);
-		npc[3] = CreateNPC(1357, 1500, TextureNPC4);
-		npc[4] = CreateNPC(1657, 1500, TextureNPC5);
+		npc[3] = CreateNPC(1410, 1343, TextureNPC4);
+		npc[4] = CreateNPC(118, 1341, TextureNPC5);
+		npc[5] = CreateNPC(760, 2236, ChestT);
+		npc[6] = CreateNPC(560, 2236, ChestT);
+	
+	
 	
 	porta_1 = app->collisions->AddCollider({ 1312, 1664, 96, 64 }, Collider::Type::KEY_SENSOR, (Module*)app->entityManager);
 	porta_2 = app->collisions->AddCollider({ 1504, 2304,64, 96 }, Collider::Type::KEY_SENSOR, (Module*)app->entityManager);
+	//Chest = app->collisions->AddCollider({ 1504, 2304,64, 96 }, Collider::Type::KEY_SENSOR, (Module*)app->entityManager);
+
 
 	return false;
 }
@@ -117,6 +133,12 @@ bool EntityNPC::Update(float dt)
 
 	if (app->player->P2.IsAlive == true && app->player->P3.IsAlive == true && app->player->P4.IsAlive == true) {
 		porta_2->pendingToDelete = true;
+		if (open == false)
+		{
+			app->audio->PlayFx(app->scene->Open_Door);
+		}
+		open = true;
+	
 	}
 	else if(app->menu->config == false && app->BTSystem->battle == false && app->BTSystem->battle1 == true){
 		app->render->DrawTexture(door3, 1536, 2304);
@@ -138,7 +160,7 @@ bool EntityNPC::Update(float dt)
 			npc[i].colliderNPC->pendingToDelete = true;
 		}
 	}
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < 7; i++)
 	{
 		npc[i].colliderNPC->SetPos(npc[i].Pos.x, npc[i].Pos.y);
 		npc[i].colliderSNPC->SetPos(npc[i].Pos.x - 32, npc[i].Pos.y - 32);
@@ -350,6 +372,8 @@ bool EntityNPC::Update(float dt)
 				timerNPC_ = timerNPC;
 				Dialogue1 = false;
 				app->scene->paused = false;
+				app->BTSystem->Alfrench = true;
+				app->statsMenu->IsPJ4 = false;
 			}
 		}
 
@@ -365,15 +389,13 @@ bool EntityNPC::Update(float dt)
 			sprintf_s(Text3, "injuries, i do not remember where it is, but I think this");
 			sprintf_s(Text4, " key may be a clue");
 			app->player->door3active = true;
-			app->characterMenu->Item6->state = GuiControlState::NORMAL;
+			app->audio->PlayFx(app->scene->Open_Door);
+			//app->characterMenu->Item6->state = GuiControlState::NORMAL;
 			app->characterMenu->item6state = true;
 			app->fonts->DrawTxt(250, 502, FText, Text1);
 			app->fonts->DrawTxt(250, 542, FText, Text2);
 			app->fonts->DrawTxt(250, 582, FText, Text3);
 			app->fonts->DrawTxt(250, 622, FText, Text4);
-			//Hey, luck I found you, I have lost my wife who is a nurse,
-			//if you help me find her, she may help you with your
-			//injuries, I do not remember where it is, but I think this key may be a clue
 			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && timerNPC2 > timerNPC2_ + 2) {
 				Dialogue2 = false;
 				app->scene->paused = false;
@@ -383,7 +405,6 @@ bool EntityNPC::Update(float dt)
 		}
 		if (Dialogue2Count == 2 && app->player->P1.medkit == false) {
 			app->render->DrawTexture(DialogueBox, app->player->P1.position.x - 360, app->player->P1.position.y + 160);
-			//What? You did not find her?! I am sure this key must open some door...
 			sprintf_s(Text1, "what? you did not find her?! i am sure this key must open some door...");
 			app->fonts->DrawTxt(250, 502, FText, Text1);
 
@@ -467,20 +488,26 @@ bool EntityNPC::Update(float dt)
 	//dialogue 4
 	if (Dialogue4 == true)
 	{
+		app->scene->paused = true;
+		app->render->DrawTexture(DialogueBoxHint, app->player->P1.position.x - 560, app->player->P1.position.y + 160);
+		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+			app->scene->paused = false;
+			Dialogue4 = false;
+		}
 		app->scene->Quest3active = true;
 	}
 	//dialogue 5
 	if (Dialogue5 == true)
 	{
 		app->scene->paused = true;
-
+		app->audio->PlayFx(Altar_AudioFX);
 		if (app->characterMenu->skeletonHead == false) {
 			app->render->DrawTexture(DialogueBox, app->player->P1.position.x - 360, app->player->P1.position.y + 160);
-			sprintf_s(Text1, "Only the chosen one can obtain this...");
+			sprintf_s(Text1, "only the chosen one can obtain this...");
 			sprintf_s(Text2, "if u are the Chosen one u know what i need");
 			app->fonts->DrawTxt(250, 502, FText, Text1);
 			app->fonts->DrawTxt(250, 542, FText, Text2);
-			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN) {
 				Dialogue5 = false;
 				app->scene->paused = false;
 			}
@@ -498,14 +525,27 @@ bool EntityNPC::Update(float dt)
 				app->scene->paused = false;
 			}
 			if (app->input->GetKey(SDL_SCANCODE_Y) == KEY_DOWN) {
+				app->characterMenu->skeletonHead = false;
+				app->characterMenu->item7state = false;
 				Dialogue5 = false;
 				app->scene->paused = false;
 				FinishQ5 = true;
+				app->player->P1.damage += 5;
+				app->player->P2.damage += 5;
+				app->player->P3.damage += 5;
+				app->player->P4.damage += 5;
 				//afegir suma variables personatge
+
 			}
 		}
-	}
 
+	}
+	/*if (npc[5].opened == true)
+	{
+
+		app->render->DrawTexture(OpenChestT,760, 2236);
+	}
+	*/
 	return true;
 }
 
@@ -564,12 +604,31 @@ void EntityNPC::OnCollision(Collider* c1, Collider* c2)
 					}
 				}
 				
-				if (i == 4) {
+				if (i == 4 && FinishQ5 == false) {
 					Dialogue5 = true;
 					if (Dialogue5Count == 0) {
 						Dialogue5Count = 1;
 					}
 				}
+			}
+		}
+		if (c2->type == Collider::Type::PLAYER && app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
+		{
+
+			if (i == 5 && npc[5].opened == false) {
+
+				app->characterMenu->smoke += 3;
+				npc[5].opened = true;
+			}
+
+			if (i == 6 && npc[6].opened == false) {
+
+				app->characterMenu->smoke += 3;
+				app->characterMenu->increaseDmg += 3;
+				app->characterMenu->increaseHP+= 3;
+				app->characterMenu->increaseMana += 3;
+				app->characterMenu->increaseSpeed += 3;
+				npc[6].opened = true;
 			}
 		}
 	}

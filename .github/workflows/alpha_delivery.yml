@@ -26,4 +26,4 @@ jobs:
           name: Blood War Alpha
          
           artifacts: "Explosive_RPG-Blood_War_Alpha.zip"
-          token: ${{ secrets.GITHUB_TOKEN }}
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
