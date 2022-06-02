@@ -11,37 +11,37 @@ As a consequence of the base plot being an excuse for our characters to have an 
 ## WHO WE ARE?
 ### Team Members
 **Pau Olmos**
+* Lead & Code
+* Github: [PauOlmos](https://github.com/PauOlmos)
 
-Lead & Code
-Github: PauOlmos
 **Andreu Landa**
+* Code
+* Github: [Landama01](https://github.com/Landama01)
 
-Code
-Github: Landama01
 **Pol Maresch**
+* Code
+* Github: [rayolop20](https://github.com/rayolop20)
 
-Code
-Github: rayolop20
 **Alex Garcia**
+* Code
+* Github: [MaralGS](https://github.com/MaralGS)
 
-Code
-Github: MaralGS
 **Joan Damià**
+* Design
+* Github: [JoanDamia](https://github.com/JoanDamia)
 
-Design
-Github: JoanDamia
 **Miguel Rodriguez**
+* Art
+* Github: [Bankaster](https://github.com/Bankaster)
 
-Art
-Github: Bankaster
 **Angel Consola**
+* UI/UX
+* Github: [DarkAvanger](https://github.com/DarkAvanger)
 
-UI/UX
-Github: DarkAvanger
 **Yunqian Ao**
+* Art
+* Github: [YunqianAo](https://github.com/YunqianAo)
 
-Art
-Github: YunqianAo
 
 ## Welcome to GitHub Pages
 
