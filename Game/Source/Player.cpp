@@ -1,5 +1,4 @@
 #include "Player.h"
-
 #include "App.h"
 #include "Textures.h"
 #include "Animation.h"

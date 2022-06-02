@@ -21,12 +21,28 @@ Particle::Particle() : Module()
 	fire_particles.loop = true;
 	fire_particles.speed = 0.1f;
 	
-	Venom_particles.PushBack({ 0,4,136,132 });
-	Venom_particles.PushBack({ 154,4,132,128 });
-	Venom_particles.PushBack({ 313,4,127,123 });
-	Venom_particles.PushBack({ 467,0,127,123 });
+	Venom_particles.PushBack({ 0,0,160,192 });
+	Venom_particles.PushBack({ 160,0,160,192 });
+	Venom_particles.PushBack({ 320,0,160,192 });
+	Venom_particles.PushBack({ 480,0,160,192 });
+	Venom_particles.PushBack({ 640,0,160,192 });
+	Venom_particles.PushBack({ 800,0,160,192 });
+	Venom_particles.PushBack({ 960,0,160,192 });
+	Venom_particles.PushBack({ 1120,0,160,192 });
+	Venom_particles.PushBack({ 1280,0,160,192 });
+	Venom_particles.PushBack({ 1440,0,160,192 });
+	Venom_particles.PushBack({ 1600,0,160,192 });
+	Venom_particles.PushBack({ 1760,0,160,192 });
+	Venom_particles.PushBack({ 1920,0,160,192 });
+	Venom_particles.PushBack({ 2080,0,160,192 });
+	Venom_particles.PushBack({ 2240,0,160,192 });
+	Venom_particles.PushBack({ 2400,0,160,192 });
+	Venom_particles.PushBack({ 2560,0,160,192 });
+	Venom_particles.PushBack({ 2720,0,160,192 });
+	Venom_particles.PushBack({ 2880,0,160,192 });
+	Venom_particles.PushBack({ 3040,0,160,192 });
 	Venom_particles.loop = true;
-	Venom_particles.speed = 0.1f;
+	Venom_particles.speed = 0.2f;
 
 
 
@@ -42,7 +58,7 @@ Particle::~Particle()
 bool Particle::Start()
 {
 	firepart = app->tex->Load("Assets/Particles/fire_particle.png");
-	Venompart = app->tex->Load("Assets/Particles/venom_particle.png");
+	Venompart = app->tex->Load("Assets/Particles/poison_particle.png");
 
 	currentFire = &fire_particles;
 	currentVenom = &Venom_particles;
