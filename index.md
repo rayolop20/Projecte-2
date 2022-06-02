@@ -42,7 +42,14 @@ As a consequence of the base plot being an excuse for our characters to have an 
 * Art
 * Github: [YunqianAo](https://github.com/YunqianAo)
 
+## Controls
 
+The game will be based on keyboard controls: 
+* -W up
+* -A left
+* -S down
+* -D right
+* -E Interact
 ## Welcome to GitHub Pages
 
 You can use the [editor on GitHub](https://github.com/rayolop20/Projecte-2/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
