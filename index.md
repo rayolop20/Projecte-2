@@ -45,11 +45,35 @@ As a consequence of the base plot being an excuse for our characters to have an 
 ## Controls
 
 The game will be based on keyboard controls: 
-* -W up
-* -A left
-* -S down
-* -D right
-* -E Interact
+ -A Key: Move Left
+ 
+ -D key: Move Right 
+ 
+ -W key: Move Up
+ 
+ -S key: Move Down 
+
+ -I key: Inventory
+
+ -E key: Interact 
+
+ -Space key: Pass Text
+
+ -ESC key: Open Option Menu
+
+ -Left Click: All Menus
+
+ -F1 Key: Load Game
+
+ -F2 Key: Save Game
+ 
+ -F9 Key: Show Coliders
+
+ -F10 Key: God Mode
+
+ -Left Click: Choose player, Enemy and Battle menu
+ 
+ -Left Click + Control (With Gode Mode on Fight): Instakill Someone
 ## GAMEPLAY TRAILER
 
 ## Welcome to GitHub Pages
