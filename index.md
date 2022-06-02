@@ -45,6 +45,7 @@ As a consequence of the base plot being an excuse for our characters to have an 
 ## Controls
 
 The game will be based on keyboard controls: 
+
  -A Key: Move Left
  
  -D key: Move Right 
