@@ -1,7 +1,7 @@
 # Blood war (Projecte 2)
 ### Made by Explosive RPG
 ## Logo
-![Image]()
+![Image](https://github.com/rayolop20/Projecte-2/blob/main/Docs/Wiki_Files/logo_projecte.png?raw=true)
 ## Welcome to GitHub Pages
 
 You can use the [editor on GitHub](https://github.com/rayolop20/Projecte-2/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
