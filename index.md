@@ -50,6 +50,8 @@ The game will be based on keyboard controls:
 * -S down
 * -D right
 * -E Interact
+## GAMEPLAY TRAILER
+
 ## Welcome to GitHub Pages
 
 You can use the [editor on GitHub](https://github.com/rayolop20/Projecte-2/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
