@@ -1,5 +1,5 @@
 # Blood war (Projecte 2)
-### Made by Explosive RPG
+### _Made by Explosive RPG_
 ## Logo
 ![Image](https://github.com/rayolop20/Projecte-2/blob/main/Docs/Wiki_Files/logo_projecte.png?raw=true)
 ## Description
