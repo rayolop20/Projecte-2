@@ -688,7 +688,7 @@ void SkeletonEnem::DrawEnemies() {
 				if (Ston[i].onFire == true && app->menu->config == false && app->BTSystem->battle == true)
 				{
 					app->particle->currentAnimationF[i] = &app->particle->fire_particles;
-					app->render->DrawTexture(app->particle->firepart, app->player->P1.position.x + 350, app->player->P1.position.y - 330 + 100 * i, &app->particle->fireparticv);
+					app->render->DrawTexture(app->particle->firepart, app->player->P1.position.x + 395, app->player->P1.position.y - 320 + 100 * i, &app->particle->fireparticv);
 					app->particle->currentAnimationF[i]->Update();
 				}
 				

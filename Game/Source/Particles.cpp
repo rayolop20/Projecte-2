@@ -14,12 +14,16 @@ Particle::Particle() : Module()
 {
 	name.Create("particles");
 
-	fire_particles.PushBack({ 0,0,130,150 });
+	/*fire_particles.PushBack({ 0,0,130,150 });
 	fire_particles.PushBack({ 180,0,130,150 });
 	fire_particles.PushBack({ 360,0,130,150 });
-	fire_particles.PushBack({ 520,0,130,150 });
+	fire_particles.PushBack({ 520,0,130,150 });*/
+	fire_particles.PushBack({ 0,0,33,150 });
+	fire_particles.PushBack({ 60,0,36,150 });
+	fire_particles.PushBack({ 130,0,47,150 });
+	fire_particles.PushBack({ 194,0,54,150 });
 	fire_particles.loop = true;
-	fire_particles.speed = 0.1f;
+	fire_particles.speed = 0.025f;
 	
 	Venom_particles.PushBack({ 0,0,160,192 });
 	Venom_particles.PushBack({ 160,0,160,192 });
