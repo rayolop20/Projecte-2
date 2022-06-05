@@ -63,6 +63,8 @@ bool Menu_Screen::Start()
 
 	pointA = { -20, 0 };
 	pointB = { 2, 0 };
+	MenuA = {0 , 0};
+	MenuB = {5, 0};
 	easing_active = true;
 	app->render->camera.x -= 500;
 	}
@@ -84,6 +86,10 @@ bool Menu_Screen::Start()
 	Volume->maxValue = app->audio->maxMusicValue;
 	Volume->minValue = 0;
 	
+	OptionsTxt->x = 0;
+	OptionsTxt->y = 0;
+	OptionsTxt->w = 0;
+	OptionsTxt->h = 559;
 
 	btnFPS->state = GuiControlState::DISABLED;
 	btnConfigBack->state = GuiControlState::DISABLED;
@@ -168,14 +174,20 @@ bool Menu_Screen::Update(float dt)
 	if (easing_active == true) {
 		app->render->camera.x -= EaseCameraBetweenPoints(pointA, pointB) * dt;
 	}
-
+	if (app->menu->config == false && easing_active == false) {
+		app->render->DrawTexture(app->menu->options, 215, 65, OptionsTxt);
+		if (OptionsTxt->w <= 918 && OptionsTxt->w >= 0) {
+			OptionsTxt->w -= EaseCameraBetweenPoints(MenuA, MenuB) * dt;
+		}
+	}
 	if (app->menu->config == true) {
-
-		SDL_Rect* OptionsTxt = new SDL_Rect();
+		
+		/*SDL_Rect* OptionsTxt = new SDL_Rect();
 		OptionsTxt->x = 0;
 		OptionsTxt->y = 0;
-		OptionsTxt->w = 918;
+		OptionsTxt->w = 0;
 		OptionsTxt->h = 559;
+		*/
 		SDL_Rect* OptionsOn = new SDL_Rect();
 		OptionsOn->x = 8;
 		OptionsOn->y = 650;
@@ -197,7 +209,17 @@ bool Menu_Screen::Update(float dt)
 		Options30->w = 263;
 		Options30->h = 78;
 
-
+		if (OptionsTxt->w < 918 && OptionsTxt->w >= 0) {
+			OptionsTxt->w += EaseCameraBetweenPoints(MenuA, MenuB) * dt;
+		}
+		if (OptionsTxt->w < 0) {
+			OptionsTxt->w ++;
+		}
+		else if (OptionsTxt->w > 918)
+		{
+			OptionsTxt->w--;
+		}
+	
 		app->render->DrawTexture(app->menu->options, 215, 65, OptionsTxt);
 		app->menu->btnConfigBack->bounds.x = -app->render->camera.x + (app->win->GetWidth() / 2) - 150;
 		app->menu->btnConfigBack->bounds.y = -app->render->camera.y + 650;

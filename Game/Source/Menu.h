@@ -77,6 +77,7 @@ public:
 
 	SDL_Texture* options = nullptr;
 	SDL_Texture* creditsTexture = nullptr;
+	SDL_Rect* OptionsTxt = new SDL_Rect();
 
 	float timerCredits = 0;
 	float timerCreditsaux = 0;
@@ -108,6 +109,9 @@ private:
 
 	iPoint pointA;
 	iPoint pointB;
+
+	iPoint MenuA;
+	iPoint MenuB;
 
 	int iterations;
 	int total_iterations;
