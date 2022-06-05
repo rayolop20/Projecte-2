@@ -23,7 +23,7 @@ Particle::Particle() : Module()
 	fire_particles.PushBack({ 130,0,47,150 });
 	fire_particles.PushBack({ 194,0,54,150 });
 	fire_particles.loop = true;
-	fire_particles.speed = 0.025f;
+	fire_particles.speed = 0.05f;
 	
 	Venom_particles.PushBack({ 0,0,160,192 });
 	Venom_particles.PushBack({ 160,0,160,192 });
