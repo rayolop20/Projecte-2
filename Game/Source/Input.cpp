@@ -7,7 +7,6 @@
 
 #include "SDL/include/SDL.h"
 
-#define MAX_KEYS 300
 
 Input::Input() : Module()
 {
@@ -16,6 +15,14 @@ Input::Input() : Module()
 	keyboard = new KeyState[MAX_KEYS];
 	memset(keyboard, KEY_IDLE, sizeof(KeyState) * MAX_KEYS);
 	memset(mouseButtons, KEY_IDLE, sizeof(KeyState) * NUM_MOUSE_BUTTONS);
+	memset(&pads[0], 0, sizeof(GamePad) * MAX_PADS);
+
+	for (int i = 0; i < MAX_PADS; ++i)
+	{
+		GamePad& pad = pads[i];
+
+		memset(pad.padButtons, KEY_IDLE, sizeof(KeyState) * NUM_PAD_BUTTONS);
+	}
 }
 
 // Destructor
@@ -81,6 +88,20 @@ bool Input::PreUpdate()
 			mouseButtons[i] = KEY_IDLE;
 	}
 
+	for (int i = 0; i < MAX_PADS; ++i)
+	{
+		GamePad& pad = pads[i];
+
+		for (int i = 0; i < NUM_PAD_BUTTONS; ++i)
+		{
+			if (pad.padButtons[i] == KEY_DOWN)
+				pad.padButtons[i] = KEY_REPEAT;
+
+			if (pad.padButtons[i] == KEY_UP)
+				pad.padButtons[i] = KEY_IDLE;
+		}
+	}
+
 	while(SDL_PollEvent(&event) != 0)
 	{
 		switch(event.type)
@@ -88,6 +109,15 @@ bool Input::PreUpdate()
 			case SDL_QUIT:
 				windowEvents[WE_QUIT] = true;
 			break;
+
+			case(SDL_CONTROLLERDEVICEADDED):
+				HandleDeviceConnection(event.cdevice.which);
+				break;
+
+			case(SDL_CONTROLLERDEVICEREMOVED):
+
+				HandleDeviceRemoval(event.cdevice.which);
+				break;
 
 			case SDL_WINDOWEVENT:
 				switch(event.window.event)
@@ -128,7 +158,29 @@ bool Input::PreUpdate()
 				//LOG("Mouse motion x %d y %d", mouse_motion_x, mouse_motion_y);
 			break;
 		}
+
+		for (int i = 0; i < MAX_PADS; ++i)
+		{
+			GamePad& pad = pads[i];
+
+			if (pad.enabled == true)
+			{
+				switch (event.type)
+				{
+				case SDL_CONTROLLERBUTTONDOWN:
+					pad.padButtons[event.cbutton.button] = KEY_DOWN;
+					break;
+
+				case SDL_CONTROLLERBUTTONUP:
+					pad.padButtons[event.cbutton.button] = KEY_UP;
+					break;
+				default:break;
+				}
+			}
+		}
 	}
+
+	UpdateGamepadsInput();
 
 	return true;
 }
@@ -138,6 +190,21 @@ bool Input::CleanUp()
 {
 	LOG("Quitting SDL event subsystem");
 	SDL_QuitSubSystem(SDL_INIT_EVENTS);
+
+	for (uint i = 0; i < MAX_PADS; ++i)
+	{
+		if (pads[i].haptic != nullptr)
+		{
+			SDL_HapticStopAll(pads[i].haptic);
+			SDL_HapticClose(pads[i].haptic);
+		}
+		if (pads[i].controller != nullptr) SDL_GameControllerClose(pads[i].controller);
+	}
+
+	SDL_QuitSubSystem(SDL_INIT_HAPTIC);
+	SDL_QuitSubSystem(SDL_INIT_GAMECONTROLLER);
+	SDL_QuitSubSystem(SDL_INIT_EVENTS);
+
 	return true;
 }
 
@@ -157,4 +224,76 @@ void Input::GetMouseMotion(int& x, int& y)
 {
 	x = mouseMotionX;
 	y = mouseMotionY;
+}
+
+void Input::HandleDeviceConnection(int index)
+{
+	if (SDL_IsGameController(index))
+	{
+		for (int i = 0; i < MAX_PADS; ++i)
+		{
+			GamePad& pad = pads[i];
+
+			if (pad.enabled == false)
+			{
+				if (pad.controller = SDL_GameControllerOpen(index))
+				{
+					LOG("Found a gamepad with id %i named %s", i, SDL_GameControllerName(pad.controller));
+					pad.enabled = true;
+					pad.l_dz = pad.r_dz = 0.1f;
+					pad.haptic = SDL_HapticOpen(index);
+					if (pad.haptic != nullptr)
+						LOG("... gamepad has force feedback capabilities");
+					pad.index = SDL_JoystickInstanceID(SDL_GameControllerGetJoystick(pad.controller));
+				}
+			}
+		}
+	}
+}
+
+void Input::HandleDeviceRemoval(int index)
+{
+	for (int i = 0; i < MAX_PADS; ++i)
+	{
+		GamePad& pad = pads[i];
+		if (pad.enabled && pad.index == index)
+		{
+			SDL_HapticClose(pad.haptic);
+			SDL_GameControllerClose(pad.controller);
+			memset(&pad, 0, sizeof(GamePad));
+		}
+	}
+}
+
+void Input::UpdateGamepadsInput()
+{
+	for (int i = 0; i < MAX_PADS; ++i)
+	{
+		GamePad& pad = pads[i];
+
+		if (pad.enabled == true)
+		{
+			pad.l2 = float(SDL_GameControllerGetAxis(pad.controller, SDL_CONTROLLER_AXIS_TRIGGERLEFT)) / 32767.0f;
+			pad.r2 = float(SDL_GameControllerGetAxis(pad.controller, SDL_CONTROLLER_AXIS_TRIGGERRIGHT)) / 32767.0f;
+
+			pad.l_x = float(SDL_GameControllerGetAxis(pad.controller, SDL_CONTROLLER_AXIS_LEFTX)) / 32767.0f;
+			pad.l_y = float(SDL_GameControllerGetAxis(pad.controller, SDL_CONTROLLER_AXIS_LEFTY)) / 32767.0f;
+			pad.r_x = float(SDL_GameControllerGetAxis(pad.controller, SDL_CONTROLLER_AXIS_RIGHTX)) / 32767.0f;
+			pad.r_y = float(SDL_GameControllerGetAxis(pad.controller, SDL_CONTROLLER_AXIS_RIGHTY)) / 32767.0f;
+
+			pad.l_x = (fabsf(pad.l_x) > pad.l_dz) ? pad.l_x : 0.0f;
+			pad.l_y = (fabsf(pad.l_y) > pad.l_dz) ? pad.l_y : 0.0f;
+			pad.r_x = (fabsf(pad.r_x) > pad.r_dz) ? pad.r_x : 0.0f;
+			pad.r_y = (fabsf(pad.r_y) > pad.r_dz) ? pad.r_y : 0.0f;
+
+			if (pad.rumble_countdown > 0)
+				pad.rumble_countdown--;
+		}
+	}
+}
+
+bool Input::joystickState()
+{
+	if (pads->l_x != 0 && pads->l_y != 0) return true;
+	else if (GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT || GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT || GetKey(SDL_SCANCODE_UP) == KEY_REPEAT || GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT) return false;
 }
