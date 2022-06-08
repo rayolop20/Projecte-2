@@ -25,6 +25,7 @@ public:
 
 	Animation* currentAnimationF[NUM_ZOMBIEF] = { nullptr };
 	Animation* currentAnimationV[NUM_ZOMBIEV] = { nullptr };
+	Animation* currentAnimationB = { nullptr };
 
 	SDL_Texture* firepart = nullptr;
 	Animation fire_particles;
@@ -35,6 +36,12 @@ public:
 	Animation Venom_particles;
 	SDL_Rect Venomparticv;
 	Animation* currentVenom = nullptr;
+	
+	SDL_Texture* Bloodpart = nullptr;
+	Animation Blood_particles;
+	SDL_Rect Bloodparticv;
+	Animation* currentBlood = nullptr;
+
 private:
 
 

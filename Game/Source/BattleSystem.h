@@ -325,6 +325,11 @@ public:
 
 	int go = 0;
 
+	bool hitBlood1 = false;
+	bool hitBlood2 = false;
+	bool hitBlood3 = false;
+	bool hitBlood4 = false;
+	bool hitBlood5 = false;
 private:
 
 	SDL_Rect Player1;

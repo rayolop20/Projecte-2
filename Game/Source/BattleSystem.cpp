@@ -16,6 +16,7 @@
 #include "Scene.h"
 #include "CharacterMenu.h"
 #include "StatsMenu.h"
+#include "Particles.h"
 #include "Menu.h"
 
 #include "Defs.h"
@@ -721,6 +722,8 @@ bool battleSystem::PostUpdate()
 	qte3R2 = currentQTE32->GetCurrentFrame();
 	qte3R3 = currentQTE33->GetCurrentFrame();
 
+	app->particle->Bloodparticv = app->particle->currentBlood->GetCurrentFrame();
+
 
 	if (battleTransition && app->player->P1.IsAlive && transitionRep == 1)
 	{
@@ -940,6 +943,7 @@ void battleSystem::HitPlayersAnimations() {
 		currentHit1 = &HitAnim1;
 		app->render->DrawTexture(player1H, app->player->P1.position.x - 420 + 100, app->player->P1.position.y - 320, &player1HR);
 		currentHit1->Update();
+		hitBlood1 = true;
 		app->audio->PlayFx(Hitdmg);
 		if (HitAnim1.currentFrame >= 3.0) {
 			HitAnim1.currentFrame = 0.0;
@@ -948,10 +952,22 @@ void battleSystem::HitPlayersAnimations() {
 		}
 	}
 
+	if (hitBlood1 == true) {
+		app->particle->currentAnimationB = &app->particle->Blood_particles;
+		app->render->DrawTexture(app->particle->Bloodpart, app->player->P1.position.x - 420 + 100, app->player->P1.position.y - 320, &app->particle->Bloodparticv);
+		app->particle->currentAnimationB->Update();
+		if (app->particle->Blood_particles.currentFrame >= 7)
+		{
+			app->particle->Blood_particles.currentFrame = 0.0;
+			hitBlood1 = false;
+		}
+	}
+
 	if (hit == false && playerTarget == 2 && battle == true && app->player->P2.IsAlive == true) {//British
 		currentHit2 = &HitAnim2;
 		app->render->DrawTexture(player2H, app->player->P1.position.x - 450, app->player->P1.position.y - 320 + 130, &player2HR);
 		currentHit2->Update();
+		hitBlood2 = true;
 		app->audio->PlayFx(Hitdmg);
 		if (HitAnim2.currentFrame >= 3.0) {
 			HitAnim2.currentFrame = 0.0;
@@ -960,10 +976,22 @@ void battleSystem::HitPlayersAnimations() {
 		}
 	}
 
+	if (hitBlood2 == true) {
+		app->particle->currentAnimationB = &app->particle->Blood_particles;
+		app->render->DrawTexture(app->particle->Bloodpart, app->player->P1.position.x - 450, app->player->P1.position.y - 320 + 130, &app->particle->Bloodparticv);
+		app->particle->currentAnimationB->Update();
+		if (app->particle->Blood_particles.currentFrame >= 7)
+		{
+			app->particle->Blood_particles.currentFrame = 0.0;
+			hitBlood2 = false;
+		}
+	}
+
 	if (hit == false && playerTarget == 3 && battle == true && app->player->P3.IsAlive == true) {//British
 		currentHit3 = &HitAnim3;
 		app->render->DrawTexture(player3H, app->player->P1.position.x - 450 + 120, app->player->P1.position.y - 320 + 260, &player3HR);
 		currentHit3->Update();
+		hitBlood3 = true;
 		app->audio->PlayFx(Hitdmg);
 		if (HitAnim3.currentFrame >= 3.0) {
 			HitAnim3.currentFrame = 0.0;
@@ -972,10 +1000,22 @@ void battleSystem::HitPlayersAnimations() {
 		}
 	}
 
+	if (hitBlood3 == true) {
+		app->particle->currentAnimationB = &app->particle->Blood_particles;
+		app->render->DrawTexture(app->particle->Bloodpart, app->player->P1.position.x - 450 + 120, app->player->P1.position.y - 320 + 260, &app->particle->Bloodparticv);
+		app->particle->currentAnimationB->Update();
+		if (app->particle->Blood_particles.currentFrame >= 7)
+		{
+			app->particle->Blood_particles.currentFrame = 0.0;
+			hitBlood3 = false;
+		}
+	}
+
 	if (hit == false && playerTarget == 4 && battle == true && app->player->P4.IsAlive == true && battle1 == true) {//British
 		currentHit4 = &HitAnim4;
 		app->render->DrawTexture(player4H, app->player->P1.position.x - 450, app->player->P1.position.y - 320 + 390, &player4HR);
 		currentHit4->Update();
+		hitBlood4 = true;
 		app->audio->PlayFx(Hitdmg);
 		if (HitAnim4.currentFrame >= 3.0) {
 			HitAnim4.currentFrame = 0.0;
@@ -984,15 +1024,38 @@ void battleSystem::HitPlayersAnimations() {
 		}
 	}
 
+	if (hitBlood4 == true) {
+		app->particle->currentAnimationB = &app->particle->Blood_particles;
+		app->render->DrawTexture(app->particle->Bloodpart, app->player->P1.position.x - 450, app->player->P1.position.y - 320 + 390, &app->particle->Bloodparticv);
+		app->particle->currentAnimationB->Update();
+		if (app->particle->Blood_particles.currentFrame >= 7)
+		{
+			app->particle->Blood_particles.currentFrame = 0.0;
+			hitBlood4 = false;
+		}
+	}
+
 	if (hit == false && playerTarget == 4 && battle == true && app->player->P4.IsAlive == true && battle1 == false) {//British
 		currentHit5 = &HitAnim5;
 		app->render->DrawTexture(player5H, app->player->P1.position.x - 450, app->player->P1.position.y - 320 + 390, &player5HR);
 		currentHit5->Update();
+		hitBlood5 = true;
 		app->audio->PlayFx(Hitdmg);
 		if (HitAnim5.currentFrame >= 3.0) {
 			HitAnim5.currentFrame = 0.0;
 			playerTarget = 0;
 			hit = false;
+		}
+	}
+
+	if (hitBlood5 == true) {
+		app->particle->currentAnimationB = &app->particle->Blood_particles;
+		app->render->DrawTexture(app->particle->Bloodpart, app->player->P1.position.x - 450, app->player->P1.position.y - 320 + 390, &app->particle->Bloodparticv);
+		app->particle->currentAnimationB->Update();
+		if (app->particle->Blood_particles.currentFrame >= 7)
+		{
+			app->particle->Blood_particles.currentFrame = 0.0;
+			hitBlood5 = false;
 		}
 	}
 }

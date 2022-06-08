@@ -14,10 +14,6 @@ Particle::Particle() : Module()
 {
 	name.Create("particles");
 
-	/*fire_particles.PushBack({ 0,0,130,150 });
-	fire_particles.PushBack({ 180,0,130,150 });
-	fire_particles.PushBack({ 360,0,130,150 });
-	fire_particles.PushBack({ 520,0,130,150 });*/
 	fire_particles.PushBack({ 0,0,33,150 });
 	fire_particles.PushBack({ 60,0,36,150 });
 	fire_particles.PushBack({ 130,0,47,150 });
@@ -48,7 +44,16 @@ Particle::Particle() : Module()
 	Venom_particles.loop = true;
 	Venom_particles.speed = 0.2f;
 
-
+	Blood_particles.PushBack({ 0,0,160,192 });
+	Blood_particles.PushBack({ 160,0,160,192 });
+	Blood_particles.PushBack({ 320,0,160,192 });
+	Blood_particles.PushBack({ 480,0,160,192 });
+	Blood_particles.PushBack({ 640,0,160,192 });
+	Blood_particles.PushBack({ 800,0,160,192 });
+	Blood_particles.PushBack({ 960,0,160,192 });
+	Blood_particles.PushBack({ 1120,0,160,192 });
+	Blood_particles.loop = false;
+	Blood_particles.speed = 0.2f;
 
 }
 
@@ -63,9 +68,11 @@ bool Particle::Start()
 {
 	firepart = app->tex->Load("Assets/Particles/fire_particle.png");
 	Venompart = app->tex->Load("Assets/Particles/poison_particle.png");
+	Bloodpart = app->tex->Load("Assets/Particles/blood_particle.png");
 
 	currentFire = &fire_particles;
 	currentVenom = &Venom_particles;
+	currentBlood = &Blood_particles;
 
 	return true;
 }
