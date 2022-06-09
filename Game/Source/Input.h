@@ -5,10 +5,8 @@
 
 //#define NUM_KEYS 352
 #define NUM_MOUSE_BUTTONS 5
-#define NUM_PAD_BUTTONS 15
+#define MAX_BUTTONS 15
 //#define LAST_KEYS_PRESSED_BUFFER 50
-#define MAX_KEYS 300
-#define MAX_PADS 1
 
 struct SDL_Rect;
 struct _SDL_GameController;
@@ -30,26 +28,41 @@ enum KeyState
 	KEY_UP
 };
 
-struct GamePad
+class GamePad
 {
-	//Input data
-	KeyState padButtons[NUM_PAD_BUTTONS];
+public:
+	GamePad();
+	virtual ~GamePad();
 
-	KeyState GetPadKey(int id) const
+	inline KeyState GetButton(int id) const
 	{
-		return padButtons[id];
+		if (this != nullptr) return buttons[id];
 	}
 
+	void HandleDeviceConnection(int index);
+
+	void HandleDeviceRemoval(int index);
+
+	void UpdateGamepadInput();
+
+	bool ShakeController(int id, int duration, float strength = 0.5f);
+	const char* GetControllerName(int id) const;
+
+public:
+	bool start, back, guide;
+	bool x, y, a, b, l1, r1, l3, r3;
+	bool up, down, left, right;
 	float l2, r2;
 	float l_x, l_y, r_x, r_y, l_dz, r_dz;
 
-	//Controller data
+	KeyState* buttons;
+	SDL_GameControllerButton btns[MAX_BUTTONS];
+
 	bool enabled;
 	int index;
 	_SDL_GameController* controller;
 	_SDL_Haptic* haptic;
 
-	//Rumble controller
 	int rumble_countdown;
 	float rumble_strength;
 };
@@ -94,15 +107,7 @@ public:
 	void GetMousePosition(int &x, int &y);
 	void GetMouseMotion(int& x, int& y);
 
-	void HandleDeviceConnection(int index);
-
-	void HandleDeviceRemoval(int index);
-
-	void UpdateGamepadsInput();
-
-	bool joystickState();
-
-	GamePad pads[MAX_PADS];
+	GamePad* Pad;
 
 private:
 	bool windowEvents[WE_COUNT];
