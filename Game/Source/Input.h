@@ -3,6 +3,8 @@
 
 #include "Module.h"
 
+#include "SDL/include/SDL.h"
+
 //#define NUM_KEYS 352
 #define NUM_MOUSE_BUTTONS 5
 #define MAX_BUTTONS 15

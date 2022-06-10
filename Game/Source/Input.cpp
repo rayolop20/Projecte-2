@@ -12,6 +12,7 @@
 
 GamePad::GamePad()
 {
+
 	buttons = new KeyState[MAX_BUTTONS];
 	memset(buttons, KEY_IDLE, sizeof(KeyState) * MAX_BUTTONS);
 
