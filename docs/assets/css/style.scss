@@ -125,12 +125,12 @@ code, pre {
   margin-bottom: 30px;
   font-family: 'Arial', Arial, serif;
   font-size: 13px;
-  color: #fafafa;
+  color: #transparent;
 }
 
 code {
   padding: 0 3px;
-  background-color: #000000;
+  background-color: #transparent;
   border: solid 1px #000000;
 }
 
@@ -138,7 +138,7 @@ pre {
   padding: 20px;
   overflow: auto;
   text-shadow: none;
-  background: #000000;
+  background: #transparent;
   border: solid 1px #000000;
 }
 pre code {
