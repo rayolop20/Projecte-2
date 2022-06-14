@@ -680,7 +680,7 @@ bool battleSystem::Update(float dt)
 		app->player->P1.position.x = -2000;
 		app->player->P1.position.y = -2000;
 		app->render->DrawTexture(loose, app->player->P1.position.x - 640 + 32, app->player->P1.position.y - 360 + 32);
-		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) {
+		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN || (app->input->Pad->GetButton(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN)) {
 			return false;
 		}
 	}
@@ -1239,7 +1239,7 @@ void battleSystem::SpecialAttackPhase() {
 			Tutorial1->h = 434;
 			app->render->DrawTexture(Tutorial, app->player->P1.position.x - 238, app->player->P1.position.y- 200,Tutorial1);
 		}
-		if (AttackAux == 0 && app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+		if (AttackAux == 0 && ((app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) || (app->input->Pad->GetButton(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN))) {
 			timer1_ = timer1;
 			AttackAux = 1;
 			go = 1;
@@ -1270,7 +1270,7 @@ void battleSystem::SpecialAttackPhase() {
 			currentQTE2fx2->Update();
 			app->render->DrawTexture(qte2fxT, app->player->P1.position.x - 200, app->player->P1.position.y + 200, &qte2fxR2);
 		}
-		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || app->input->Pad->GetButton(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN) {
 			AttackAux+=2;
 		}
 		if (AttackAux > 100) {
@@ -1302,7 +1302,7 @@ void battleSystem::SpecialAttackPhase() {
 			Tutorial2->h = 434;
 			app->render->DrawTexture(Tutorial, app->player->P1.position.x - 238, app->player->P1.position.y - 200, Tutorial2);
 		}
-		if (AttackAux == 0 && app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+		if (AttackAux == 0 && ((app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) || (app->input->Pad->GetButton(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN))) {
 			timer1_ = timer1;
 			AttackAux = 1;
 			go = 1;
@@ -1369,7 +1369,7 @@ void battleSystem::SpecialAttackPhase() {
 			app->render->DrawTexture(Tutorial, app->player->P1.position.x - 238, app->player->P1.position.y - 200, Tutorial3);
 		}
 		randomtargetRect = (rand() % 185) + 165;
- 		if (AttackAux == 0 && app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+ 		if (AttackAux == 0 && ((app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) || (app->input->Pad->GetButton(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN))) {
 			_timer1_ = timer1;
 			AttackAux = 1;
 			randomtargetRect = (rand() % 185) + 165;
@@ -1391,7 +1391,7 @@ void battleSystem::SpecialAttackPhase() {
 
 		}
 		if (AttackAux != 0) {
-			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && timer1 > _timer1_ + 0.25) {
+			if (((app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) || (app->input->Pad->GetButton(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN)) && timer1 > _timer1_ + 0.25) {
 				go = 0;
 				finalpos = timer1_ + app->player->P1.position.x - 125;
 				if (finalpos > randomtargetRect_ + app->player->P1.position.x - 125  - 115 && finalpos < randomtargetRect_ + app->player->P1.position.x - 125 - 115 + 30) {
@@ -1450,7 +1450,7 @@ void battleSystem::SpecialAttackPhase() {
 			Tutorial4->h = 434;
 			app->render->DrawTexture(Tutorial, app->player->P1.position.x - 238, app->player->P1.position.y - 200, Tutorial4);
 		}
-		if (AttackAux == 0 && app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+		if (AttackAux == 0 && ((app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) || (app->input->Pad->GetButton(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN))) {
 			timer1_ = timer1;
 			AttackAux = 1;
 			LetterGenerator = true;
