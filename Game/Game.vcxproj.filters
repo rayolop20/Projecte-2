@@ -170,9 +170,7 @@
     <ClInclude Include="Source\EasingFunctions.h">
       <Filter>Utils</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h">
-      <Filter>Icono</Filter>
-    </ClInclude>
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">
@@ -201,13 +199,9 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\..\..\..\Desktop\Icon.ico">
-      <Filter>Icono</Filter>
-    </Image>
+    <ResourceCompile Include="Resource.rc" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="Resource.rc">
-      <Filter>Icono</Filter>
-    </ResourceCompile>
+    <Image Include="..\Output\Icon\Icon.ico" />
   </ItemGroup>
 </Project>
