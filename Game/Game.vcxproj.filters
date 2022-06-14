@@ -170,6 +170,9 @@
     <ClInclude Include="Source\EasingFunctions.h">
       <Filter>Utils</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>External\Resources</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">
@@ -193,5 +196,18 @@
     <Filter Include="Menus">
       <UniqueIdentifier>{ee317083-3136-4561-815e-6a88540cff7d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="External\Resources">
+      <UniqueIdentifier>{90160c4a-f4d6-4f1b-8124-8dce017380e5}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\Output\Icon.ico">
+      <Filter>External\Resources</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource.rc">
+      <Filter>External\Resources</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>
