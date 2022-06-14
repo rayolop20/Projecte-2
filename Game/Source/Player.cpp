@@ -380,7 +380,7 @@ bool Player::Update(float dt)
 					}
 				}
 
-				if (app->input->GetKey(SDL_SCANCODE_D) == KEY_UP && P1.IsAlive == true)
+				if ((app->input->GetKey(SDL_SCANCODE_D) == KEY_UP || (app->input->Pad->GetButton(SDL_CONTROLLER_BUTTON_DPAD_RIGHT) == KEY_UP) || (app->input->Pad->l_x == 0)) && P1.IsAlive == true)
 				{
 					P1.moveXA = false;
 					currentAnim1 = &idleAnim1;
@@ -419,7 +419,7 @@ bool Player::Update(float dt)
 					}
 				}
 
-				if (app->input->GetKey(SDL_SCANCODE_A) == KEY_UP && P1.IsAlive == true)
+				if ((app->input->GetKey(SDL_SCANCODE_A) == KEY_UP || (app->input->Pad->GetButton(SDL_CONTROLLER_BUTTON_DPAD_LEFT) == KEY_UP) || (app->input->Pad->l_x == 0)) && P1.IsAlive == true)
 				{
 					P1.moveXD = false;
 					currentAnim1 = &idleAnim1;
@@ -455,7 +455,7 @@ bool Player::Update(float dt)
 
 				}
 
-				if (app->input->GetKey(SDL_SCANCODE_W) == KEY_UP && P1.IsAlive == true)
+				if ((app->input->GetKey(SDL_SCANCODE_W) == KEY_UP || (app->input->Pad->GetButton(SDL_CONTROLLER_BUTTON_DPAD_UP) == KEY_UP) || (app->input->Pad->l_x == 0)) && P1.IsAlive == true)
 				{
 					P1.moveYS = false;
 					currentAnim1 = &upAnim1;
@@ -491,7 +491,7 @@ bool Player::Update(float dt)
 					
 				}
 
-				if (app->input->GetKey(SDL_SCANCODE_S) == KEY_UP && P1.IsAlive == true)
+				if ((app->input->GetKey(SDL_SCANCODE_S) == KEY_UP || (app->input->Pad->GetButton(SDL_CONTROLLER_BUTTON_DPAD_DOWN) == KEY_UP) || (app->input->Pad->l_x == 0)) && P1.IsAlive == true)
 				{
 					P1.moveYW = false;
 					currentAnim1 = &idleAnim1;
