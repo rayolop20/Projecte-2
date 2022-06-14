@@ -44,9 +44,44 @@ bool Mouse::Start()
 
 bool Mouse::Update(float dt)
 {
-	SDL_GetMouseState(&cursor.x, &cursor.y);
-	point.x = cursor.x;
-	point.y = cursor.y;
+	if (MouseOn)
+	{
+		SDL_GetMouseState(&cursor.x, &cursor.y);
+		point.x = cursor.x;
+		point.y = cursor.y;
+	}
+
+	if (ControllerOn)
+		MouseOn = false;
+	if (MouseOn)
+		ControllerOn = false;
+
+	if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT || (app->input->Pad->GetButton(SDL_CONTROLLER_BUTTON_DPAD_LEFT) == KEY_REPEAT) || (app->input->Pad->l_x < -0.5))
+	{
+		cursor.x -= mouseV;
+		ControllerOn = true;
+	}
+	if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT || (app->input->Pad->GetButton(SDL_CONTROLLER_BUTTON_DPAD_RIGHT) == KEY_REPEAT) || (app->input->Pad->l_x > 0.5))
+	{
+		cursor.x += mouseV;
+		ControllerOn = true;
+	}
+	if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT || (app->input->Pad->GetButton(SDL_CONTROLLER_BUTTON_DPAD_UP) == KEY_REPEAT) || (app->input->Pad->l_y < -0.5))
+	{
+		cursor.y -= mouseV;
+		ControllerOn = true;
+	}
+	if (app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT || (app->input->Pad->GetButton(SDL_CONTROLLER_BUTTON_DPAD_UP) == KEY_REPEAT) || (app->input->Pad->l_y > 0.5))
+	{
+		cursor.y += mouseV;
+		ControllerOn = true;
+	}
+
+	if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_DOWN)
+	{
+		MouseOn = true;
+		ControllerOn = false;
+	}
 
 	Draw();
 

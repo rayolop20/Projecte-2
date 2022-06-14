@@ -127,7 +127,7 @@ bool CharacterMenu_Screen::Update(float dt)
 	app->input->GetMousePosition(mouseX, mouseY);
 
 
-	if (app->BTSystem->InventoryEnable == false && app->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN && blockExit || app->BTSystem->InventoryEnable)
+	if (app->BTSystem->InventoryEnable == false && (app->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN || app->input->Pad->GetButton(SDL_CONTROLLER_BUTTON_Y) == KEY_DOWN) && blockExit || app->BTSystem->InventoryEnable)
 	{
 		app->BTSystem->AttackPhaseEnable = false;
 		app->BTSystem->AttackPhaseActive = false;
@@ -136,7 +136,7 @@ bool CharacterMenu_Screen::Update(float dt)
 		buttonCont = 0;
 	}
 
-	if (app->BTSystem->InventoryEnable == false && app->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN && app->scene->xCont == 1 && !blockExit  && app->scene->xCont == 1 && !blockExit)
+	if (app->BTSystem->InventoryEnable == false && (app->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN || app->input->Pad->GetButton(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) && app->scene->xCont == 1 && !blockExit  && app->scene->xCont == 1 && !blockExit)
 	{
 
 		Character1->state = GuiControlState::DISABLED;
