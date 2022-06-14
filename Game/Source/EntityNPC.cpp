@@ -105,6 +105,12 @@ bool EntityNPC::Start()
 		npc[4] = CreateNPC(118, 1341, TextureNPC5);
 		npc[5] = CreateNPC(760, 2236, ChestT);
 		npc[6] = CreateNPC(560, 2236, ChestT);
+		npc[7] = CreateNPC(1357, 2018, ChestT);
+		npc[8] = CreateNPC(445, 1856, ChestT);	
+		npc[9] = CreateNPC(1555, 1115, ChestT);	
+		npc[10] = CreateNPC(1753, 1115, ChestT);	
+		npc[11] = CreateNPC(862, 194, ChestT);	
+		npc[12] = CreateNPC(244, 1346, ChestT);	
 	
 	
 	
@@ -160,7 +166,7 @@ bool EntityNPC::Update(float dt)
 			npc[i].colliderNPC->pendingToDelete = true;
 		}
 	}
-	for (int i = 0; i < 7; i++)
+	for (int i = 0; i < 13; i++)
 	{
 		npc[i].colliderNPC->SetPos(npc[i].Pos.x, npc[i].Pos.y);
 		npc[i].colliderSNPC->SetPos(npc[i].Pos.x - 32, npc[i].Pos.y - 32);
@@ -540,12 +546,14 @@ bool EntityNPC::Update(float dt)
 		}
 
 	}
-	/*if (npc[5].opened == true)
+	
+	for (int i = 0; i < NUM_NPC; i++)
 	{
-
-		app->render->DrawTexture(OpenChestT,760, 2236);
+		if (npc[i].opened == true)
+		{
+			npc[i].Destroyed = true;
+		}
 	}
-	*/
 	return true;
 }
 
@@ -611,26 +619,87 @@ void EntityNPC::OnCollision(Collider* c1, Collider* c2)
 					}
 				}
 			}
-		}
-		if (c2->type == Collider::Type::PLAYER && app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
-		{
+			if (c2->type == Collider::Type::PLAYER && app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
+			{
 
-			if (i == 5 && npc[5].opened == false) {
+				if (i == 5 && npc[5].opened == false) {
 
-				app->characterMenu->smoke += 3;
-				npc[5].opened = true;
+
+					app->characterMenu->smoke += 3;
+					npc[5].opened = true;
+
+
+				}
+
+				if (i == 6 && npc[6].opened == false) {
+					app->characterMenu->increaseDmg += 1;
+					app->characterMenu->increaseHP += 1;
+					app->characterMenu->increaseMana += 1;
+					app->characterMenu->healing += 1;
+					npc[6].opened = true;
+				}
+				if (i == 7 && npc[7].opened == false) {
+
+
+					app->characterMenu->increaseDmg += 2;
+					app->characterMenu->healing += 2;
+					npc[7].opened = true;
+
+
+				}
+				if (i == 8 && npc[8].opened == false) {
+
+					app->characterMenu->increaseMana += 1;
+					app->characterMenu->increaseHP += 1;
+					app->characterMenu->healing += 2;
+					npc[8].opened = true;
+
+
+				}
+				if (i == 9 && npc[9].opened == false) {
+
+
+					app->characterMenu->smoke += 1;
+					app->characterMenu->healing += 2;
+					app->characterMenu->increaseDmg += 2;
+					npc[9].opened = true;
+
+
+				}
+				if (i == 10 && npc[10].opened == false) {
+
+
+					app->characterMenu->increaseDmg += 1;
+					app->characterMenu->increaseHP += 2;
+					app->characterMenu->increaseMana += 2;
+					npc[10].opened = true;
+
+
+				}
+				if (i == 11 && npc[11].opened == false) {
+
+
+					app->characterMenu->smoke += 1;
+					app->characterMenu->healing += 1;
+					app->characterMenu->increaseHP += 1;
+					app->characterMenu->increaseMana += 1;
+					npc[11].opened = true;
+
+
+				}
+				if (i == 12 && npc[12].opened == false) {
+
+
+					app->characterMenu->healing += 2;
+					app->characterMenu->increaseHP += 1;
+					app->characterMenu->increaseMana += 1;
+					npc[12].opened = true;
+
+
+				}
 			}
-
-			if (i == 6 && npc[6].opened == false) {
-
-				app->characterMenu->smoke += 3;
-				app->characterMenu->increaseDmg += 3;
-				app->characterMenu->increaseHP+= 3;
-				app->characterMenu->increaseMana += 3;
-				app->characterMenu->increaseSpeed += 3;
-				npc[6].opened = true;
-			}
 		}
+		
 	}
 
 }
