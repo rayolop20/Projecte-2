@@ -46,7 +46,7 @@ entering an infinite time loop.
 
  -E key: Interact 
 
- -Space key: Pass Text
+ -Space key: Pass Text/Close Objects Obtained
 
  -ESC key: Open Option Menu
 
@@ -75,5 +75,7 @@ to defend yourself against the monsters that live there.
 
 At the same time you will also have different loot scattered 
 around the map with which you can improve your allies and then be able to beat the game.
+
+
 
 
