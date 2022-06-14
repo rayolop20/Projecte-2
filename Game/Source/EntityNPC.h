@@ -22,6 +22,7 @@ struct NPC
 	uint vCount = 0;
 	bool dead = false;
 	bool opened = false;
+	bool img = true;
 };
 
 class EntityNPC : public Entity
@@ -69,6 +70,15 @@ public:
 	SDL_Texture* DialogueBoxHint = nullptr;
 	SDL_Texture* ChestT = nullptr;
 	SDL_Texture* OpenChestT = nullptr;
+	SDL_Texture* Chest5 = nullptr;
+	SDL_Texture* Chest6 = nullptr;
+	SDL_Texture* Chest7 = nullptr;
+	SDL_Texture* Chest8 = nullptr;
+	SDL_Texture* Chest9 = nullptr;
+	SDL_Texture* Chest10 = nullptr;
+	SDL_Texture* Chest11 = nullptr;
+	SDL_Texture* Chest12 = nullptr;
+
 
 	NPC npc[NUM_NPC] = { nullptr };
 
