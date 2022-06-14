@@ -207,7 +207,10 @@ bool Scene::Update(float dt)
 		}
 
 
-
+		if (app->menu->config == false) {
+			
+				OptionsTxt->w = 0;
+			}
 
 		if (app->menu->config == true) {
 

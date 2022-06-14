@@ -398,10 +398,10 @@ bool battleSystem::Start()
 	currentQTE33 = &qte33;
 	currentQTE4 = &qte4;
 
-	/*
+	
 	MenuA = { 0 , 0 };
 	MenuB = { 5, 0 };
-	*/
+	
 	return true;
 }
 
@@ -693,13 +693,13 @@ bool battleSystem::Update(float dt)
 		transitionLock = true;
 	}
 	if (StatsEnable == false) {
-	/*
+	
 			app->statsMenu->StatsPJ1->w = 0;
 			app->statsMenu->StatsPJ2->w = 0;
 			app->statsMenu->StatsPJ3->w = 0;
 			app->statsMenu->StatsPJ4->w = 0;
 			app->statsMenu->StatsPJ5->w = 0;
-			*/
+			
 	}
 
 	return true;

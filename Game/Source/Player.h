@@ -224,7 +224,7 @@ public:
 	iPoint pointA;
 	iPoint pointB;
 
-	int iterations;
+	int iterations = 0;
 	int total_iterations;
 	bool easing_active;
 	float speedX, speedY;

@@ -66,6 +66,7 @@ bool Menu_Screen::Start()
 	MenuA = {0 , 0};
 	MenuB = {5, 0};
 	easing_active = true;
+	app->render->camera.x = -500;
 	}
 	EnterLogo = app->audio->LoadFx("Assets/Audio/Fx/enter_logo.wav");
 	fonsMenu = app->tex->Load("Assets/Textures/Assets/game_title.png");
@@ -170,7 +171,9 @@ bool Menu_Screen::Update(float dt)
 		controlCursor = true;
 	}
 
-		
+	if (easing_active == true) {
+		app->render->camera.x -= EaseCameraBetweenPoints(pointA, pointB) * dt;
+	}
 	if (app->menu->config == false && easing_active == false) {
 		app->render->DrawTexture(app->menu->options, 215, 65, OptionsTxt);
 		if (OptionsTxt->w <= 918 && OptionsTxt->w >= 0) {

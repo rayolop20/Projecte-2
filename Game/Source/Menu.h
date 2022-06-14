@@ -115,9 +115,9 @@ private:
 	iPoint MenuA;
 	iPoint MenuB;
 
-	int iterations;
+	int iterations = 0;
 	int total_iterations;
-	bool easing_active = false;
+	bool easing_active = true;
 	float speedX, speedY;
 
 	EasingFunctions function;
