@@ -117,7 +117,7 @@ private:
 
 	int iterations = 0;
 	int total_iterations;
-	bool easing_active = true;
+	bool easing_active = false;
 	float speedX, speedY;
 
 	EasingFunctions function;
