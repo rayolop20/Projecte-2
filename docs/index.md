@@ -85,7 +85,7 @@ around the map with which you can improve your allies and then be able to beat t
 -Left Click + Control (With Gode Mode on Fight): Instakill Someone
 
 ## GAMEPLAY TRAILER
-[Link](https://github.com/rayolop20/Projecte-2/blob/main/Docs/Wiki_Files/bc608f19fb3a23f399b32c975ae94218.mp4)
+[GAMEPLAY TRAILER VIDEO](https://github.com/rayolop20/Projecte-2/blob/main/Docs/Wiki_Files/bc608f19fb3a23f399b32c975ae94218.mp4)
 
 ## LAST RELEASE
 [Link](https://github.com/rayolop20/Projecte-2/releases/tag/v0.8)
