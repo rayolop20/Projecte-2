@@ -283,7 +283,6 @@ void Menu_Screen::CreditPhase() {
 		timerCreditsaux = timerCredits;
 		timerCreditCount = 1;
 	}
-	//app->render->DrawRectangle({0, 0, 200, 200}, 255, 255, 0);
 	app->render->DrawTexture(creditsTexture, 0, -(timerCredits - timerCreditsaux));
 	if ((timerCredits - timerCreditsaux) > 4000 || app->input->GetKey(SDL_SCANCODE_RETURN)==KEY_DOWN || app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || app->input->Pad->GetButton(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
  		credits = false;
@@ -483,26 +482,6 @@ bool Menu_Screen::CleanUp()
 	return true;
 }
 
-//no ens fa falta i ns pk
-	/*
-	void Menu_Screen::LoadTexFile(const pugi::xml_document& dataFile)
-	{
-		pugi::xml_node tex_node = dataFile.child("data").child("Textures").child("Assets");
-		//creditsTexture = app->tex->Load("Assets/Textures/UI/credits.png");
-
-	}
-
-	void Menu_Screen::LoadFxFile(const pugi::xml_document& dataFile)
-	{
-		pugi::xml_node fx_node = dataFile.child("data").child("fx");
-		app->audio->LoadFx(fx_node.attribute("file").as_string());
-	}
-
-	void Menu_Screen::LoadMusFile(const pugi::xml_document& dataFile)
-	{
-		pugi::xml_node mus_node = dataFile.child("data").child("mus");
-		app->audio->PlayMusic(mus_node.attribute("file").as_string());
-	}*/
 float Menu_Screen::EaseCameraBetweenPoints(iPoint posA, iPoint posB)
 {
 	float value = function.backEaseOut(iterations, posA.x, posB.x - posA.x, total_iterations);

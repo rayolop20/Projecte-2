@@ -287,7 +287,7 @@ bool Player::Start()
 bool Player::Update(float dt)
 {	
 
-	if (app->BTSystem->battle == false && app->menu->config == false && P1.IsAlive == true && app->scene->puzzle3Active == true) {
+	if (app->BTSystem->battle == false && app->menu->config == false && P1.IsAlive == true && app->scene->puzzle3Active == true && app->scene->Winends == false && app->scene->Winends == false) {
 		app->render->DrawTexture(darkness, P1.position.x - 608, P1.position.y - 360 + 32);
 	}
 	//imputs
@@ -299,19 +299,14 @@ bool Player::Update(float dt)
 	}
 	//Players
 	{
-		//player1 = { P1.position.x,P1.position.y, 64, 64 };
-		//app->render->DrawRectangle(player1, 200, 200, 200);
 		if (P2.IsAlive == true) {
 			player2 = { P2.position.x, P2.position.y, 42, 42 };
-			//app->render->DrawRectangle(player2, 100, 230, 200);
 		}
 		if (P3.IsAlive == true) {
 			player3 = { P3.position.x, P3.position.y, 42, 42 };
-			//app->render->DrawRectangle(player3, 100, 230, 200);
 		}
 		if (P4.IsAlive == true) {
 			player4 = { P4.position.x, P4.position.y, 42, 42 };
-			//app->render->DrawRectangle(player4, 100, 230, 200);
 		}
 	}
 
@@ -319,18 +314,18 @@ bool Player::Update(float dt)
 	// all textures
 	{
 		//player2
-		if (P2.P2Active == true && app->menu->config == false)
+		if (P2.P2Active == true && app->menu->config == false && app->scene->Winends == false)
 		{
 			app->render->DrawTexture(PE, P2.position.x - 20, P2.position.y - 100);
 		}
 		
 		//player3
-		if (P3.P3Active == true && app->menu->config == false)
+		if (P3.P3Active == true && app->menu->config == false && app->scene->Winends == false)
 		{
 			app->render->DrawTexture(PE, P3.position.x - 20, P3.position.y - 100);
 		}
 		//player4
-		if (P4.P4Active == true && app->menu->config == false)
+		if (P4.P4Active == true && app->menu->config == false && app->scene->Winends == false)
 		{
 			app->render->DrawTexture(PE, P4.position.x - 20, P4.position.y - 100);
 		}
@@ -533,45 +528,45 @@ bool Player::PostUpdate()
 		player4 = currentAnim4->GetCurrentFrame();
 		player3 = currentAnim3->GetCurrentFrame();
 		if (P1.moveYS == false) {
-			if (P4.IsAlive == true && app->BTSystem->battle1 == true) {
+			if (P4.IsAlive == true && app->BTSystem->battle1 == true && app->scene->Winends == false) {
 				app->render->DrawTexture(player4S, P4.position.x + 7, P4.position.y - 20, &player4);
 				currentAnim4->Update();
 			}
-			if (P4.IsAlive == true && app->BTSystem->battle1 == false) {
+			if (P4.IsAlive == true && app->BTSystem->battle1 == false && app->scene->Winends == false) {
 				app->render->DrawTexture(player5S, P4.position.x + 7, P4.position.y - 20, &player4);
 				currentAnim4->Update();
 			}
-			if (P3.IsAlive == true) {
+			if (P3.IsAlive == true && app->scene->Winends == false) {
 				app->render->DrawTexture(player3S, P3.position.x + 7, P3.position.y - 20, &player3);
 				currentAnim3->Update();
 			}
-			if (P2.IsAlive == true) {
+			if (P2.IsAlive == true && app->scene->Winends == false) {
 				app->render->DrawTexture(player2S, P2.position.x + 7, P2.position.y - 20, &player2);
 				currentAnim2->Update();
 			}
-			if (P1.IsAlive == true) {
+			if (P1.IsAlive == true && app->scene->Winends == false) {
 				app->render->DrawTexture(player1S, P1.position.x + 7, P1.position.y - 20, &player1);
 				currentAnim1->Update();
 			}
 		}
 		else {
-			if (P1.IsAlive == true) {
+			if (P1.IsAlive == true && app->scene->Winends == false) {
 				app->render->DrawTexture(player1S, P1.position.x + 7, P1.position.y - 20, &player1);
 				currentAnim1->Update();
 			}
-			if (P2.IsAlive == true) {
+			if (P2.IsAlive == true && app->scene->Winends == false) {
 				app->render->DrawTexture(player2S, P2.position.x + 7, P2.position.y - 20, &player2);
 				currentAnim2->Update();
 			}
-			if (P3.IsAlive == true) {
+			if (P3.IsAlive == true && app->scene->Winends == false) {
 				app->render->DrawTexture(player3S, P3.position.x + 7, P3.position.y - 20, &player3);
 				currentAnim3->Update();
 			}
-			if (P4.IsAlive == true && app->BTSystem->battle1 == true) {
+			if (P4.IsAlive == true && app->BTSystem->battle1 == true && app->scene->Winends == false) {
 				app->render->DrawTexture(player4S, P4.position.x + 7, P4.position.y - 20, &player4);
 				currentAnim4->Update();
 			}
-			if (P4.IsAlive == true && app->BTSystem->battle1 == false) {
+			if (P4.IsAlive == true && app->BTSystem->battle1 == false && app->scene->Winends == false) {
 				app->render->DrawTexture(player5S, P4.position.x + 7, P4.position.y - 20, &player4);
 				currentAnim4->Update();
 			}
@@ -591,6 +586,7 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 	{
 		if ((c1 == P1.Pcol))
 		{
+			
 			//walls
 			{
 				if (c1->type == Collider::Type::PLAYER && (c2->type == Collider::Type::WALLV || c2->type == Collider::Type::KEY_SENSOR))
@@ -1127,10 +1123,21 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 				else {
 					app->scene->tester4 = true;
 				}
+
+		
 				
 			}
 		}
 	}
+	
+	if ((c1 == P1.Pcol))
+	{
+		if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::WIN)
+		{
+ 			app->scene->Winends = true;
+		}
+	}
+
 }
 
 

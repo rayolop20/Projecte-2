@@ -42,6 +42,9 @@ Collisions::Collisions() : Module()
 	matrix[Collider::Type::PLAYER][Collider::Type::TORCH2] = true;
 	matrix[Collider::Type::PLAYER][Collider::Type::TORCH3] = true;
 	matrix[Collider::Type::PLAYER][Collider::Type::TORCH4] = true;
+	
+	matrix[Collider::Type::PLAYER][Collider::Type::WIN] = true;
+	matrix[Collider::Type::WIN][Collider::Type::PLAYER] = true;
 
 	matrix[Collider::Type::PLAYER][Collider::Type::KEY_SENSOR] = true;
 	matrix[Collider::Type::KEY_SENSOR][Collider::Type::PLAYER] = true;
@@ -265,6 +268,9 @@ void Collisions::DebugDraw()
 			break;
 		case Collider::Type::SENSOR_PLAYER4: // Blue
 			app->render->DrawRectangle(colliders[i]->rect, 0, 0, 255, alpha);
+			break;
+		case Collider::Type::WIN: // Blue
+			app->render->DrawRectangle(colliders[i]->rect, 0, 255, 255, alpha);
 			break;
 		}
 	}
