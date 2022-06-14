@@ -52,7 +52,7 @@ END
 
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
-IDI_ICON1               ICON                    "C:\\Users\\GU502\\Documents\\GitHub\\Projecte-2\\Output\\Icon\\Icon.ico"
+IDI_ICON1               ICON                    "C:\\Users\\GU502\\Desktop\\Icon.ico"
 
 #endif    // Español (España, alfabetización internacional) resources
 /////////////////////////////////////////////////////////////////////////////
