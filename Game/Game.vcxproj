@@ -123,6 +123,7 @@
     <ClCompile Include="Source\VampirEnem.cpp" />
     <ClCompile Include="Source\Window.cpp" />
     <ClCompile Include="Source\ZombieEnem.cpp" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="Source\Animation.h" />
     <ClInclude Include="Source\AssetsManager.h" />
     <ClInclude Include="Source\BattleSystem.h" />
@@ -172,6 +173,12 @@
     <ClInclude Include="Source\External\PugiXml\src\pugixml.hpp" />
     <ClCompile Include="Source\External\PugiXml\src\pugixml.cpp" />
     <ClInclude Include="Source\ZombieEnem.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\..\..\Desktop\Icon.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
