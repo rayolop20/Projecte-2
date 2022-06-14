@@ -37,10 +37,12 @@
 * Art
 * Github: [YunqianAo](https://github.com/YunqianAo)
 
+
 ## Description
 You play as a grup of soldiers of the first world war who are sent to a mysterious castle in search of a powerful German commander and kill him, once in the castle, the soldiers, fell into a trap, getting captured and sent to the castle dungeon.
 
 Now your goal is to eliminate the German commander and finish the curse that prevents them from escaping from the castle and repeat what happened over and over again if they die, entering an infinite time loop.
+
 
 ## Features:
 In this game is a turn base rpg where you will have to be careful
@@ -85,7 +87,7 @@ around the map with which you can improve your allies and then be able to beat t
 -Left Click + Control (With Gode Mode on Fight): Instakill Someone
 
 ## GAMEPLAY TRAILER
-[GAMEPLAY TRAILER VIDEO](https://youtu.be/9Fuw6SAkWlE)
+[![Image](https://github.com/rayolop20/Projecte-2/blob/main/Docs/Wiki_Files/link_trailer.png?raw=true)](https://youtu.be/9Fuw6SAkWlE)
 
 ## LAST RELEASE
 [Explosive_RPG-Blood_War_v0.8](https://github.com/rayolop20/Projecte-2/releases/tag/v0.8)

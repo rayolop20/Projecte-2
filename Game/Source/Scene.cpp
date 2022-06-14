@@ -55,6 +55,7 @@ bool Scene::Start()
 	Puzle_Complete = app->audio->LoadFx("Assets/Audio/Fx/puzzle_complete.wav");
 	
 	door = app->tex->Load("Assets/Textures/Assets/door.png");
+	Wintext = app->tex->Load("Assets/Textures/Assets/pantalla_victoria.png");
 	app->map->DColisions();
 	pathTex = app->tex->Load("Assets/Maps/path2.png");
 	torch1Texture = app->tex->Load("Assets/Textures/Assets/torch_grey.png");
@@ -94,6 +95,8 @@ bool Scene::Start()
 		Wall17 = app->collisions->AddCollider({ 1248,832,32,32 }, Collider::Type::WALLV, this);
 		Wall18 = app->collisions->AddCollider({ 1280,832,32,32 }, Collider::Type::WALLV, this);
 	}
+
+	app->collisions->AddCollider({ 32, 830,64, 96 }, Collider::Type::WIN,this);
 	return true;
 }
 
@@ -406,6 +409,17 @@ bool Scene::Update(float dt)
 			app->render->DrawTexture(torch7Texture, 65, 1447);
 			app->render->DrawTexture(torch7Texture, 572, 1855);
 		}
+
+		if (Winends == true)
+		{
+			app->player->P1.position.x = -2000;
+			app->player->P1.position.y = -2000;
+			app->render->DrawTexture(Wintext, app->player->P1.position.x - 640 + 32, app->player->P1.position.y - 360 + 32);
+			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+				return false;
+			}
+		}
+
 		return true;
 	}
 }

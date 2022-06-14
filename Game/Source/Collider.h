@@ -33,6 +33,7 @@ struct Collider
 		TORCH2,
 		TORCH3,
 		TORCH4,
+		WIN,
 		//Sensors
 		SENSOR,
 		SENSOR_PLAYER2,
