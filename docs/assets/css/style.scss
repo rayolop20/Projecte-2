@@ -8,8 +8,8 @@ body {
   font-size: 15px;
   font-weight: 400;
   line-height: 1.5;
-  color: #000000;
-  background: #fafafa 0 0 repeat;
+  color: #fafafa;
+  background: #000000 0 0 repeat;
 }
 
 p {
@@ -17,10 +17,10 @@ p {
 }
 
 a {
-  color: #000000;
+  color: #fafafa;
 }
 a:hover {
-  color: #000000;
+  color: #fafafa;
 }
 
 header {
@@ -100,7 +100,7 @@ a.button {
   font-family: 'Arial', Arial, serif;
   font-size: 23px;
   line-height: 1.2;
-  color: #000000;
+  color: #fafafa;
 }
 a.button small {
   display: block;
@@ -125,7 +125,7 @@ code, pre {
   margin-bottom: 30px;
   font-family: 'Arial', Arial, serif;
   font-size: 13px;
-  color: #000000;
+  color: #fafafa;
 }
 
 code {
@@ -143,7 +143,7 @@ pre {
 }
 pre code {
   padding: 0;
-  color: #000000;
+  color: #fafafa;
   background-color: #000000;
   border: none;
 }
@@ -193,7 +193,7 @@ form {
   font-family: 'Arial', Arial, serif;
   font-size: 2.8em;
   font-weight: normal;
-  color: #000000;
+  color: #fafafa;
   text-indent: 6px;
   letter-spacing: -1px;
 }
@@ -201,7 +201,7 @@ form {
 #main-content h1:before {
   padding-right: 0;
   margin-left: 0;
-  color: #000000;
+  color: #fafafa;
   content: "";
 }
 
@@ -210,14 +210,14 @@ form {
   font-family: 'Arial', Arial, serif;
   font-size: 22px;
   font-weight: bold;
-  color: #000000;
+  color: #fafafa;
   text-indent: 4px;
 }
 #main-content h2:before {
   padding-right: 0;
   margin-left: 0;
   content: "";
-  color: #000000;
+  color: #fafafa;
 }
 
 #main-content h3 {
@@ -226,7 +226,7 @@ form {
   font-family: 'Arial', Arial, serif;
   font-size: 18px;
   font-weight: bold;
-  color: #000000;
+  color: #fafafa;
   text-indent: 3px;
 }
 
@@ -234,7 +234,7 @@ form {
   padding-right: 0;
   margin-left: 0;
   content: "";
-  color: #000000;
+  color: #fafafa;
 }
 
 #main-content h4 {
@@ -242,7 +242,7 @@ form {
   font-family: 'Arial' Arial, serif;
   font-size: 15px;
   font-weight: bold;
-  color: #000000;
+  color: #fafafa;
   text-indent: 3px;
 }
 
@@ -250,35 +250,35 @@ h4:before {
   padding-right: 0;
   margin-left: 0;
   content: "";
-  color: #000000;
+  color: #fafafa;
 }
 
 #main-content h5 {
   margin-bottom: 8px;
   font-family: 'Arial', Arial, serif;
   font-size: 14px;
-  color: #000000;
+  color: #fafafa;
   text-indent: 3px;
 }
 h5:before {
   padding-right: 0;
   margin-left: 0;
   content: "";
-  color: #000000;
+  color: #fafafa;
 }
 
 #main-content h6 {
   margin-bottom: 8px;
   font-family: 'Arial' Arial, serif;
   font-size: .8em;
-  color: #000000;
+  color: #fafafa;
   text-indent: 3px;
 }
 h6:before {
   padding-right: 0;
   margin-left: 0;
   content: "";
-  color: #000000;
+  color: #fafafa;
 }
 
 p {
@@ -322,14 +322,14 @@ footer {
   padding-bottom: 30px;
   margin-top: 40px;
   font-size: 13px;
-  color: #000000;
+  color: #fafafa;
 }
 
 footer a {
-  color: #000000;
+  color: #fafafa;
 }
 footer a:hover {
-  color: #000000;
+  color: #fafafa;
 }
 
 /* MISC */
