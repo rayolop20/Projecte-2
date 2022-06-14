@@ -93,14 +93,7 @@ bool EntityNPC::Start()
 	door2 = app->tex->Load("Assets/Textures/Assets/door2.png");
 	door3 = app->tex->Load("Assets/Textures/Assets/door3.png");
 
-	Chest5 = app->tex->Load("Assets/Textures/UI/chest_5.png");
-	Chest6 = app->tex->Load("Assets/Textures/UI/chest_6.png");
-	Chest7 = app->tex->Load("Assets/Textures/UI/chest_7.png");
-	Chest8 = app->tex->Load("Assets/Textures/UI/chest_8.png");
-	Chest9 = app->tex->Load("Assets/Textures/UI/chest_9.png");
-	Chest10 = app->tex->Load("Assets/Textures/UI/chest_10.png");
-	Chest11 = app->tex->Load("Assets/Textures/UI/chest_11.png");
-	Chest12 = app->tex->Load("Assets/Textures/UI/chest_12.png");
+	ChestItems = app->tex->Load("Assets/Textures/UI/chests_items.png");
 
 	for (int i = 0; i < NUM_NPC; i++)
 	{
@@ -565,49 +558,81 @@ bool EntityNPC::Update(float dt)
 		}
 	}
 	if (npc[5].opened == true && npc[5].img == true) {
-		app->render->DrawTexture(Chest5, app->player->P1.position.x - 260, app->player->P1.position.y - 200);
+		chestitem->x = 8;
+		chestitem->y = 8;
+		chestitem->w = 209;
+		chestitem->h = 112;
+		app->render->DrawTexture(ChestItems, app->player->P1.position.x - 70, app->player->P1.position.y - 200, chestitem);
 		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
 			npc[5].img = false;
 		}
 	}
 	if (npc[6].opened == true && npc[6].img == true) {
-		app->render->DrawTexture(Chest6, app->player->P1.position.x - 260, app->player->P1.position.y - 200);
+		chestitem->x = 8;
+		chestitem->y = 151;
+		chestitem->w = 588;
+		chestitem->h = 112;
+		app->render->DrawTexture(ChestItems, app->player->P1.position.x - 260, app->player->P1.position.y - 200, chestitem);
 		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
 			npc[6].img = false;
 		}
 	}
 		if (npc[7].opened == true && npc[7].img == true) {
-			app->render->DrawTexture(Chest7, app->player->P1.position.x - 260, app->player->P1.position.y - 200);
+		chestitem->x = 8;
+		chestitem->y = 294;
+		chestitem->w = 341;
+		chestitem->h = 112;
+			app->render->DrawTexture(ChestItems, app->player->P1.position.x - 140, app->player->P1.position.y - 200, chestitem);
 			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
 				npc[7].img = false;
 			}
 		}
 		if (npc[8].opened == true && npc[8].img == true) {
-			app->render->DrawTexture(Chest8, app->player->P1.position.x - 260, app->player->P1.position.y - 200);
+			chestitem->x = 8;
+			chestitem->y = 437;
+			chestitem->w = 507;
+			chestitem->h = 112;
+			app->render->DrawTexture(ChestItems, app->player->P1.position.x - 210, app->player->P1.position.y - 200, chestitem);
 			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
 				npc[8].img = false;
 			}
 		}
 		if (npc[9].opened == true && npc[9].img == true) {
-			app->render->DrawTexture(Chest9, app->player->P1.position.x - 260, app->player->P1.position.y - 200);
+			chestitem->x = 8;
+			chestitem->y = 580;
+			chestitem->w = 507;
+			chestitem->h = 112;
+			app->render->DrawTexture(ChestItems, app->player->P1.position.x - 210, app->player->P1.position.y - 200, chestitem);
 			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
 				npc[9].img = false;
 			}
 		}
 		if (npc[10].opened == true && npc[10].img == true) {
-			app->render->DrawTexture(Chest10, app->player->P1.position.x - 260, app->player->P1.position.y - 200);
+			chestitem->x = 8;
+			chestitem->y = 723;
+			chestitem->w = 507;
+			chestitem->h = 112;
+			app->render->DrawTexture(ChestItems, app->player->P1.position.x - 210, app->player->P1.position.y - 200, chestitem);
 			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
 				npc[10].img = false;
 			}
 		}
 		if (npc[11].opened == true && npc[11].img == true) {
-			app->render->DrawTexture(Chest11, app->player->P1.position.x - 260, app->player->P1.position.y - 200);
+			chestitem->x = 8;
+			chestitem->y = 866;
+			chestitem->w = 588;
+			chestitem->h = 112;
+			app->render->DrawTexture(ChestItems, app->player->P1.position.x - 260, app->player->P1.position.y - 200, chestitem);
 			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
 				npc[11].img = false;
 			}
 		}
 		if (npc[12].opened == true && npc[12].img == true) {
-			app->render->DrawTexture(Chest12, app->player->P1.position.x - 260, app->player->P1.position.y - 200);
+			chestitem->x = 8;
+			chestitem->y = 1009;
+			chestitem->w = 507;
+			chestitem->h = 112;
+			app->render->DrawTexture(ChestItems, app->player->P1.position.x - 210, app->player->P1.position.y - 200, chestitem);
 			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
 				npc[12].img = false;
 			}
