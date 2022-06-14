@@ -32,6 +32,8 @@ struct Zombie
 	bool onFire = false;
 	bool Zhit = false;
 	bool atack = false;
+
+
 };
 
 class ZombieEnem : public Entity
@@ -135,10 +137,6 @@ public:
 	bool randomstats = true;
 	
 	int WhichZombie = NULL;
-
-
-
-
 };
 
 #endif // __ZOMBIEENEM_H__

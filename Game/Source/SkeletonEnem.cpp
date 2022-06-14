@@ -13,6 +13,7 @@
 #include "Menu.h"
 #include "CharacterMenu.h"
 #include "Particles.h"
+#include "Mouse.h"
 
 #include "Log.h"
 #include "DynArray.h"
@@ -713,10 +714,10 @@ void SkeletonEnem::DrawEnemies() {
 void SkeletonEnem::ChooseEnemy() {
 	if (app->BTSystem->Skeletonbattle == true) {
 		int x, y;
-		Uint32 buttons;
 		SDL_PumpEvents();  // make sure we have the latest mouse state.
 
-		buttons = SDL_GetMouseState(&x, &y);
+		x = app->mouse->cursor.x;
+		y = app->mouse->cursor.y;
 
 		for (int i = 1; i < Ston[WhichSkeleton].numEnemies + 1; i++) {
 			/*if (Vpir[i].dead == false && x >= 772 && x <= 772 + 50 && y >= 18 + 60*i && y <= 18 + 60 * i + 50 && app->input->GetMouseButtonDown(1) == KEY_DOWN && app->BTSystem->AttackPlayer != 0 && app->BTSystem->PlayerTurn == true) {
@@ -724,13 +725,13 @@ void SkeletonEnem::ChooseEnemy() {
 				//SDL_Rect Enem1 = { app->player->P1.position.x + 400, app->player->P1.position.y - 330 + 120 * i, 100, 100 };
 
 			}*/
-			if (Ston[i].dead == false && x > 1005 && x < 1110 && y > -5 + 120 * i && y < 115 + 120 * i + 100 && app->input->GetMouseButtonDown(1) == KEY_DOWN && app->BTSystem->AttackPlayer != 0 && app->BTSystem->PlayerTurn == true && app->BTSystem->SpecialAttackEnable == false) {
+			if (Ston[i].dead == false && x > 1005 && x < 1110 && y > -5 + 120 * i && y < 115 + 120 * i + 100 && (app->input->GetMouseButtonDown(1) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN || app->input->Pad->GetButton(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN) && app->BTSystem->AttackPlayer != 0 && app->BTSystem->PlayerTurn == true && app->BTSystem->SpecialAttackEnable == false) {
 				app->BTSystem->SkeletonTarget = i;
 				//SDL_Rect Enem1 = { app->player->P1.position.x + 500, app->player->P1.position.y - 330 + 120 * i, 100, 100 };
 			}
 		}
 		for (int i = 1; i < Ston[WhichSkeleton].numEnemies + 1; i++) {//
-			if (Ston[i].dead == false && x > 1005 && x < 1110 && y > -5 + 120 * i && y < 115 + 120 * i + 100 && app->input->GetMouseButtonDown(1) == KEY_DOWN && app->BTSystem->PlayerTurn == true && app->BTSystem->SpecialAttackEnable == false && app->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT && app->player->godMode == true) {
+			if (Ston[i].dead == false && x > 1005 && x < 1110 && y > -5 + 120 * i && y < 115 + 120 * i + 100 && (app->input->GetMouseButtonDown(1) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN || app->input->Pad->GetButton(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN) && app->BTSystem->PlayerTurn == true && app->BTSystem->SpecialAttackEnable == false && app->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT && app->player->godMode == true) {
 				//app->BTSystem->ZombieTarget = i;
 				Ston[i].hp = 0;
 			}
