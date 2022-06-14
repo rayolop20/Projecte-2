@@ -93,6 +93,15 @@ bool EntityNPC::Start()
 	door2 = app->tex->Load("Assets/Textures/Assets/door2.png");
 	door3 = app->tex->Load("Assets/Textures/Assets/door3.png");
 
+	Chest5 = app->tex->Load("Assets/Textures/UI/chest_5.png");
+	Chest6 = app->tex->Load("Assets/Textures/UI/chest_6.png");
+	Chest7 = app->tex->Load("Assets/Textures/UI/chest_7.png");
+	Chest8 = app->tex->Load("Assets/Textures/UI/chest_8.png");
+	Chest9 = app->tex->Load("Assets/Textures/UI/chest_9.png");
+	Chest10 = app->tex->Load("Assets/Textures/UI/chest_10.png");
+	Chest11 = app->tex->Load("Assets/Textures/UI/chest_11.png");
+	Chest12 = app->tex->Load("Assets/Textures/UI/chest_12.png");
+
 	for (int i = 0; i < NUM_NPC; i++)
 	{
 		currentAnimation[i] = &idle1;
@@ -133,7 +142,7 @@ bool EntityNPC::Update(float dt)
 		app->characterMenu->item6state = false;
 
 	}
-	else if (app->menu->config == false && app->BTSystem->battle == false){
+	else if (app->menu->config == false && app->BTSystem->battle == false) {
 		app->render->DrawTexture(door, 1312, 1664);
 	}
 
@@ -144,9 +153,9 @@ bool EntityNPC::Update(float dt)
 			app->audio->PlayFx(app->scene->Open_Door);
 		}
 		open = true;
-	
+
 	}
-	else if(app->menu->config == false && app->BTSystem->battle == false && app->BTSystem->battle1 == true){
+	else if (app->menu->config == false && app->BTSystem->battle == false && app->BTSystem->battle1 == true) {
 		app->render->DrawTexture(door3, 1536, 2304);
 
 	}
@@ -158,7 +167,7 @@ bool EntityNPC::Update(float dt)
 	for (int i = 0; i < NUM_NPC; i++)
 	{
 		currentAnimation[i]->Update();
-		
+
 
 		if (npc[i].Destroyed == true)
 		{
@@ -177,10 +186,10 @@ bool EntityNPC::Update(float dt)
 		if (Dialogue1Count == 1) {
 			app->render->DrawTexture(DialogueBox, app->player->P1.position.x - 360, app->player->P1.position.y + 160);
 			sprintf_s(Text1, "who is there?");
-			app->fonts->DrawTxt(300,  502, FText, Text1);
+			app->fonts->DrawTxt(300, 502, FText, Text1);
 
 			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && timerNPC > timerNPC_ + 2) {
-				Dialogue1Count=2;
+				Dialogue1Count = 2;
 				timerNPC_ = timerNPC;
 			}
 		}
@@ -190,7 +199,7 @@ bool EntityNPC::Update(float dt)
 			app->fonts->DrawTxt(190, 502, FText, Text1);
 
 			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && timerNPC > timerNPC_ + 2) {
-				Dialogue1Count=3;
+				Dialogue1Count = 3;
 				timerNPC_ = timerNPC;
 			}
 		}
@@ -459,7 +468,7 @@ bool EntityNPC::Update(float dt)
 			sprintf_s(Text1, "h...hey? who is there? please do not kill me...");
 			app->fonts->DrawTxt(300, 502, FText, Text1);
 			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && timerNPC3 > timerNPC3_ + 2) {
- 				Dialogue3Count = 2;
+				Dialogue3Count = 2;
 				timerNPC3_ = timerNPC3;
 			}
 		}
@@ -518,7 +527,7 @@ bool EntityNPC::Update(float dt)
 				app->scene->paused = false;
 			}
 		}
-		
+
 		if (app->characterMenu->skeletonHead == true && FinishQ5 == false) {
 			app->render->DrawTexture(DialogueBox, app->player->P1.position.x - 360, app->player->P1.position.y + 160);
 			sprintf_s(Text1, "oooh u are the Chosen one, can u give me the head?");
@@ -546,7 +555,8 @@ bool EntityNPC::Update(float dt)
 		}
 
 	}
-	
+
+
 	for (int i = 0; i < NUM_NPC; i++)
 	{
 		if (npc[i].opened == true)
@@ -554,6 +564,55 @@ bool EntityNPC::Update(float dt)
 			npc[i].Destroyed = true;
 		}
 	}
+	if (npc[5].opened == true && npc[5].img == true) {
+		app->render->DrawTexture(Chest5, app->player->P1.position.x - 260, app->player->P1.position.y - 200);
+		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+			npc[5].img = false;
+		}
+	}
+	if (npc[6].opened == true && npc[6].img == true) {
+		app->render->DrawTexture(Chest6, app->player->P1.position.x - 260, app->player->P1.position.y - 200);
+		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+			npc[6].img = false;
+		}
+	}
+		if (npc[7].opened == true && npc[7].img == true) {
+			app->render->DrawTexture(Chest7, app->player->P1.position.x - 260, app->player->P1.position.y - 200);
+			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+				npc[7].img = false;
+			}
+		}
+		if (npc[8].opened == true && npc[8].img == true) {
+			app->render->DrawTexture(Chest8, app->player->P1.position.x - 260, app->player->P1.position.y - 200);
+			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+				npc[8].img = false;
+			}
+		}
+		if (npc[9].opened == true && npc[9].img == true) {
+			app->render->DrawTexture(Chest9, app->player->P1.position.x - 260, app->player->P1.position.y - 200);
+			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+				npc[9].img = false;
+			}
+		}
+		if (npc[10].opened == true && npc[10].img == true) {
+			app->render->DrawTexture(Chest10, app->player->P1.position.x - 260, app->player->P1.position.y - 200);
+			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+				npc[10].img = false;
+			}
+		}
+		if (npc[11].opened == true && npc[11].img == true) {
+			app->render->DrawTexture(Chest11, app->player->P1.position.x - 260, app->player->P1.position.y - 200);
+			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+				npc[11].img = false;
+			}
+		}
+		if (npc[12].opened == true && npc[12].img == true) {
+			app->render->DrawTexture(Chest12, app->player->P1.position.x - 260, app->player->P1.position.y - 200);
+			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+				npc[12].img = false;
+			}
+		}
+
 	return true;
 }
 
@@ -627,6 +686,7 @@ void EntityNPC::OnCollision(Collider* c1, Collider* c2)
 
 					app->characterMenu->smoke += 3;
 					npc[5].opened = true;
+					
 
 
 				}
@@ -661,7 +721,7 @@ void EntityNPC::OnCollision(Collider* c1, Collider* c2)
 
 					app->characterMenu->smoke += 1;
 					app->characterMenu->healing += 2;
-					app->characterMenu->increaseDmg += 2;
+					app->characterMenu->increaseDmg += 1;
 					npc[9].opened = true;
 
 
