@@ -50,13 +50,13 @@ bool GuiButton::Update(float dt)
 		{
 			state = GuiControlState::FOCUSED;
 
-			if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_REPEAT || app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_REPEAT)
+			if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_REPEAT || app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_REPEAT || app->input->Pad->GetButton(SDL_CONTROLLER_BUTTON_A) == KEY_REPEAT)
 			{
 				state = GuiControlState::PRESSED;
 			}
 
 			// If mouse button pressed -> Generate event!
-			if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_UP || app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_UP)
+			if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_UP || app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_UP || app->input->Pad->GetButton(SDL_CONTROLLER_BUTTON_A) == KEY_UP)
 			{
 				NotifyObserver();
 			}

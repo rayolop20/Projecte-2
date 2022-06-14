@@ -56,22 +56,22 @@ bool Mouse::Update(float dt)
 	if (MouseOn)
 		ControllerOn = false;
 
-	if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+	if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT || (app->input->Pad->GetButton(SDL_CONTROLLER_BUTTON_DPAD_LEFT) == KEY_REPEAT) || (app->input->Pad->l_x < -0.5))
 	{
 		cursor.x -= mouseV;
 		ControllerOn = true;
 	}
-	if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+	if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT || (app->input->Pad->GetButton(SDL_CONTROLLER_BUTTON_DPAD_RIGHT) == KEY_REPEAT) || (app->input->Pad->l_x > 0.5))
 	{
 		cursor.x += mouseV;
 		ControllerOn = true;
 	}
-	if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
+	if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT || (app->input->Pad->GetButton(SDL_CONTROLLER_BUTTON_DPAD_UP) == KEY_REPEAT) || (app->input->Pad->l_y < -0.5))
 	{
 		cursor.y -= mouseV;
 		ControllerOn = true;
 	}
-	if (app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+	if (app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT || (app->input->Pad->GetButton(SDL_CONTROLLER_BUTTON_DPAD_UP) == KEY_REPEAT) || (app->input->Pad->l_y > 0.5))
 	{
 		cursor.y += mouseV;
 		ControllerOn = true;
