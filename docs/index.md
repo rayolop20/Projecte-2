@@ -2,7 +2,7 @@
 ### _made by Explosive_RPG_ 
 
 ## Logo
-![Image](https://github.com/rayolop20/Projecte-2/blob/main/Docs/Wiki_Files/logo_projecte.png?raw=true)
+![Image](https://github.com/rayolop20/Projecte-2/blob/main/Docs/Wiki_Files/logo_projecte_2.png?raw=true)
 
 ## WHO WE ARE?
 **Pau Olmos**
