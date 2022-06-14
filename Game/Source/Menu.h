@@ -61,6 +61,7 @@ public:
 	bool fps30 = true;
 	bool VsyncEnable = true;
 	bool credits = false;
+	bool controlCursor = false;
 
 	GuiButton* btnMenuConfig = nullptr;
 	GuiButton* btnMenuPlay = nullptr;

@@ -1480,7 +1480,7 @@ bool CharacterMenu_Screen::Update(float dt)
 		}
 	}
 
-	if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_UP && (typingTxt || typingTxt2) && TxtCont == 2)
+	if ((app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_UP || app->input->Pad->GetButton(SDL_CONTROLLER_BUTTON_A) == KEY_UP || app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_UP) && (typingTxt || typingTxt2) && TxtCont == 2)
 	{
 		typingTxt = false;
 		typingTxt2 = false;

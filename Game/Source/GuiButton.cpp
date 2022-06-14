@@ -37,13 +37,13 @@ bool GuiButton::Update(float dt)
 	{
 		// L14: TODO 3: Update the state of the GUiButton according to the mouse position
 		int mouseX, mouseY;
-		app->input->GetMousePosition(mouseX, mouseY);
-
-		//mouseX += -app->render->camera.x / app->win->GetScale();
-		//mouseY += -app->render->camera.y / app->win->GetScale();
 
 		mouseX = app->mouse->cursor.x;
 		mouseY = app->mouse->cursor.y;
+
+		mouseX += -app->render->camera.x / app->win->GetScale();
+		mouseY += -app->render->camera.y / app->win->GetScale();
+
 
 		if ((mouseX > bounds.x ) && (mouseX < (bounds.x + bounds.w )) &&
 			(mouseY > bounds.y ) && (mouseY < (bounds.y + bounds.h )))
@@ -304,7 +304,7 @@ bool GuiButton::Draw(Render* render)
 	//L14: TODO 4: Draw the button according the GuiControl State
 	case GuiControlState::FOCUSED:
 	{
-		if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_DOWN)
+		if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_DOWN || app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN || app->input->Pad->GetButton(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN)
 		{
 			app->audio->PlayFx(clickFx);
 		}

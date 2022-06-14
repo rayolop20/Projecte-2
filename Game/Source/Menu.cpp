@@ -167,6 +167,8 @@ bool Menu_Screen::Update(float dt)
 		btnMenuConfig->state = GuiControlState::NORMAL;
 		btnMenuExit->state = GuiControlState::NORMAL;
 		btnCredits->state = GuiControlState::NORMAL;
+
+		controlCursor = true;
 	}
 
 		
@@ -350,6 +352,9 @@ bool Menu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 					btnMenuConfig->state = GuiControlState::DISABLED;
 					btnMenuExit->state = GuiControlState::DISABLED;
 					btnCredits->state = GuiControlState::DISABLED;
+
+					controlCursor = false;
+
 					//CleanUp();
 				}
 
@@ -362,6 +367,8 @@ bool Menu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 					btnMenuConfig->state = GuiControlState::DISABLED;
 					btnMenuExit->state = GuiControlState::DISABLED;
 					btnCredits->state = GuiControlState::DISABLED;
+
+					controlCursor = false;
 				}
 				if (control->id == 2 && playing == true && credits == false)
 				{
@@ -372,16 +379,22 @@ bool Menu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 					app->gameMenu->btnResume->state = GuiControlState::DISABLED;
 					app->gameMenu->btnMenu->state = GuiControlState::DISABLED;
 					app->gameMenu->btnExit->state = GuiControlState::DISABLED;
+
+					controlCursor = false;
 				}
 				
 				if (control->id == 3 && credits == false)
 				{
 					exit = true;
+
+					controlCursor = false;
 				}
 				
 				if (control->id == 4 && credits == false)
 				{
 					credits = true;
+
+					controlCursor = false;
 				}
 
 				if (control->id == 7 && credits == false)
