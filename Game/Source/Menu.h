@@ -78,13 +78,14 @@ public:
 
 	SDL_Texture* options = nullptr;
 	SDL_Texture* creditsTexture = nullptr;
-	SDL_Rect* OptionsTxt = new SDL_Rect();
+
 
 	float timerCredits = 0;
 	float timerCreditsaux = 0;
 	int timerCreditCount = 0;
 private:
 
+	SDL_Rect* OptionsTxt = new SDL_Rect();
 
 	//no es fa falta i ns pk
 	/*

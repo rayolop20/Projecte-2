@@ -49,11 +49,21 @@ bool Scene::Start()
 		RELEASE_ARRAY(data);
 	};
 
+	total_iterations = 64;
+	MenuA = { 0 , 0 };
+	MenuB = { 5, 0 };
+	easing_active = true;
+
+	OptionsTxt->x = 0;
+	OptionsTxt->y = 0;
+	OptionsTxt->w = 0;
+	OptionsTxt->h = 559;
+
 	Puzle_Fail = app->audio->LoadFx("Assets/Audio/Fx/fail_puzle.wav");
 	Pressure_plate = app->audio->LoadFx("Assets/Audio/Fx/pressure_plate.wav");
 	Open_Door = app->audio->LoadFx("Assets/Audio/Fx/open_door.wav");
 	Puzle_Complete = app->audio->LoadFx("Assets/Audio/Fx/puzzle_complete.wav");
-	
+
 	door = app->tex->Load("Assets/Textures/Assets/door.png");
 	Wintext = app->tex->Load("Assets/Textures/Assets/pantalla_victoria.png");
 	app->map->DColisions();
@@ -83,12 +93,12 @@ bool Scene::Start()
 
 	if (puzzle1Active == true) {
 		//Wall1 = app->collisions->AddCollider({ 608+32,2176+32,32,32 }, Collider::Type::WALLH);
-		Wall1 = app->collisions->AddCollider({ 608,2176+32,32,32 }, Collider::Type::WALLV,this);
-		Wall2 = app->collisions->AddCollider({ 640,2176+32,32,32 }, Collider::Type::WALLV,this);
-		Wall3 = app->collisions->AddCollider({ 608+64,2176+32,32,32 }, Collider::Type::WALLV,this);
-		Wall4 = app->collisions->AddCollider({ 608,2112-64,32,32 }, Collider::Type::WALLV,this);
-		Wall5 = app->collisions->AddCollider({ 640,2112-64,32,32 }, Collider::Type::WALLV,this);
-		Wall6 = app->collisions->AddCollider({ 608+64,2112-64,32,32 }, Collider::Type::WALLV,this);
+		Wall1 = app->collisions->AddCollider({ 608,2176 + 32,32,32 }, Collider::Type::WALLV, this);
+		Wall2 = app->collisions->AddCollider({ 640,2176 + 32,32,32 }, Collider::Type::WALLV, this);
+		Wall3 = app->collisions->AddCollider({ 608 + 64,2176 + 32,32,32 }, Collider::Type::WALLV, this);
+		Wall4 = app->collisions->AddCollider({ 608,2112 - 64,32,32 }, Collider::Type::WALLV, this);
+		Wall5 = app->collisions->AddCollider({ 640,2112 - 64,32,32 }, Collider::Type::WALLV, this);
+		Wall6 = app->collisions->AddCollider({ 608 + 64,2112 - 64,32,32 }, Collider::Type::WALLV, this);
 	}
 	if (puzzle2Active == true) {
 		Wall16 = app->collisions->AddCollider({ 1216,832,32,32 }, Collider::Type::WALLV, this);
@@ -126,7 +136,7 @@ bool Scene::Update(float dt)
 		app->audio->PlayMusic("Assets/Audio/Music/music_8_bit_adventure.ogg");
 		musicActive = false;
 	}
-	
+
 	{
 		// L02: DONE 3: Request Load / Save when pressing L/S
 		if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN && app->BTSystem->battle == false)
@@ -134,14 +144,13 @@ bool Scene::Update(float dt)
 
 		if (app->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN && app->BTSystem->battle == false)
 			app->SaveGameRequest();
-		
+
 		if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN) {
 			debug = !debug;
 
 		}
 		app->render->camera.x = (app->player->P1.position.x - 608) * -1;
 		app->render->camera.y = (app->player->P1.position.y - 328) * -1;
-
 
 		// Draw map
 		app->map->Draw();
@@ -171,11 +180,11 @@ bool Scene::Update(float dt)
 
 				Pause();
 			}
-			
+
 
 		}
 
-		if ((app->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN || app->input->Pad->GetButton(SDL_CONTROLLER_BUTTON_Y) == KEY_DOWN) && !cMenu && xCont ==  0 && app->BTSystem->battle == false || app->BTSystem->InventoryEnable)
+		if ((app->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN || app->input->Pad->GetButton(SDL_CONTROLLER_BUTTON_Y) == KEY_DOWN) && !cMenu && xCont == 0 && app->BTSystem->battle == false || app->BTSystem->InventoryEnable)
 		{
 			cMenu = true;
 			paused = true;
@@ -197,12 +206,11 @@ bool Scene::Update(float dt)
 			xCont = 0;
 		}
 
+
+
+
 		if (app->menu->config == true) {
-			SDL_Rect* OptionsTxt = new SDL_Rect();
-			OptionsTxt->x = 0;
-			OptionsTxt->y = 0;
-			OptionsTxt->w = 918;
-			OptionsTxt->h = 559;
+
 			SDL_Rect* OptionsOn = new SDL_Rect();
 			OptionsOn->x = 8;
 			OptionsOn->y = 650;
@@ -223,6 +231,17 @@ bool Scene::Update(float dt)
 			Options30->y = 650;
 			Options30->w = 263;
 			Options30->h = 78;
+
+			if (OptionsTxt->w < 918 && OptionsTxt->w >= 0) {
+				OptionsTxt->w += EaseCameraBetweenPoints(MenuA, MenuB) * dt;
+			}
+			if (OptionsTxt->w < 0) {
+				OptionsTxt->w++;
+			}
+			else if (OptionsTxt->w > 918)
+			{
+				OptionsTxt->w--;
+			}
 			app->render->DrawTexture(app->menu->options, app->player->P1.position.x - 400, app->player->P1.position.y - 250, OptionsTxt);
 			app->menu->btnConfigBack->bounds.x = -app->render->camera.x + (app->win->GetWidth() / 2) - 150;
 			app->menu->btnConfigBack->bounds.y = -app->render->camera.y + 650;
@@ -266,6 +285,7 @@ bool Scene::Update(float dt)
 			app->menu->btnVsync->state = GuiControlState::NORMAL;
 
 		}
+		
 
 		if (puzzle1Active == true) {
 			Plate1 = app->collisions->AddCollider({ 64,2432,64,64 }, Collider::Type::PRESSURE_PLATE1);
@@ -352,7 +372,7 @@ bool Scene::Update(float dt)
 			Simon[6].colliderS = app->collisions->AddCollider({ 1135, 1205, 32, 32 }, Collider::Type::SIMON6);
 			app->render->DrawTexture(greyButton, 1135, 1205);
 
-			
+
 			if (prepared == false) {
 				PrepareSimon();
 			}
@@ -378,7 +398,7 @@ bool Scene::Update(float dt)
 				puzzle2Active = false;
 				app->audio->PlayFx(Puzle_Complete);
 			}
-			
+
 
 		}
 		else {
@@ -419,7 +439,7 @@ bool Scene::Update(float dt)
 				return false;
 			}
 		}
-
+		
 		return true;
 	}
 }
@@ -491,7 +511,7 @@ void Scene::Drawtorch2() {
 	if (torchCount3 == 4) {
 		app->render->DrawTexture(torch5Texture, 65, 1447);
 	}
-	if (torchCount3== 5) {
+	if (torchCount3 == 5) {
 		app->render->DrawTexture(torch6Texture, 65, 1447);
 	}
 }void Scene::Drawtorch4() {
@@ -524,7 +544,7 @@ S Scene::CreateSimonSays(int x, int y, int order)
 	Simon[order].Pos.x = x;
 	Simon[order].Pos.y = y;
 	Simon[order].num = order;
-		return Simon[order];
+	return Simon[order];
 }
 
 void Scene::PrepareSimon() {
@@ -683,7 +703,7 @@ bool Scene::PostUpdate()
 {
 	bool ret = true;
 
-	if(app->menu->exit)
+	if (app->menu->exit)
 		ret = false;
 
 	return ret;
@@ -711,4 +731,25 @@ void Scene::DebugPath()
 		app->render->DrawTexture(pathTex, pos.x, pos.y);
 	}
 	int a = 0;
+}
+
+float Scene::EaseCameraBetweenPoints(iPoint posA, iPoint posB)
+{
+	float value = function.backEaseOut(iterations, posA.x, posB.x - posA.x, total_iterations);
+
+
+	//speedY = function.linearEaseNull(iterations, 472, 572, 300);
+
+	//App->render->camera.y += speedY;
+
+	if (iterations < total_iterations) {
+		iterations++;
+	}
+
+	else {
+		iterations = 0;
+		easing_active = false;
+	}
+
+	return value;
 }

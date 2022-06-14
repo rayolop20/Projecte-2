@@ -332,6 +332,9 @@ public:
 	bool hitBlood5 = false;
 private:
 
+	//iPoint MenuA;
+	//iPoint MenuB;
+
 	SDL_Rect Player1;
 	SDL_Rect Player2;
 	SDL_Rect Player3;

@@ -7,6 +7,9 @@
 #include "GuiButton.h"
 #include "GuiCheckBox.h"
 #include "GuiSlider.h"
+#include "EasingFunctions.h"
+#include <vector>
+
 struct SDL_Texture;
 
 class StatsMenu_Screen : public Module
@@ -35,11 +38,13 @@ public:
 
 	bool OnGuiMouseClickEvent(GuiControl* control);
 
-	void Stats();
+	void Stats(float dt);
 
 	void MenuConfig();
 
 	void ShowStats(int a);
+
+	float EaseCameraBetweenPoints(iPoint posA, iPoint posB);
 
 	// Called before quitting
 	bool CleanUp();
@@ -49,7 +54,16 @@ public:
 	bool active = false;
 	bool IsPJ4 = true;
 	int FText = -1;
+
+	SDL_Rect* StatsPJ1 = new SDL_Rect();
+	SDL_Rect* StatsPJ2 = new SDL_Rect();
+	SDL_Rect* StatsPJ3 = new SDL_Rect();
+	SDL_Rect* StatsPJ4 = new SDL_Rect();
+	SDL_Rect* StatsPJ5 = new SDL_Rect();
+
 private:
+
+
 
 	int clickFx = 1;
 
@@ -73,6 +87,15 @@ private:
 	char PJMana[150] = { "\0" };
 	char PJSpecial[150] = { "\0" };
 
+
+	iPoint MenuA;
+	iPoint MenuB;
+
+	int iterations;
+	int total_iterations_Stats;
+	bool easing_active = false;
+	float speedX, speedY;
+	EasingFunctions function;
 
 };
 

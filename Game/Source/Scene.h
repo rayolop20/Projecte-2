@@ -4,6 +4,8 @@
 #include "Module.h"
 #include "GuiButton.h"
 #include "Entity.h"
+#include "EasingFunctions.h"
+#include <vector>
 
 struct SDL_Texture;
 struct S
@@ -79,14 +81,14 @@ public:
 	bool pressurePlate3 = true;
 
 	bool Quest3active = false;
-	
+
 	int pressurePlateTimer1 = 0;
 	int pressurePlateTimer2 = 0;
 	int pressurePlateTimer3 = 0;
 	int pressurePlateTimer1_ = 0;
 	int pressurePlateTimer2_ = 0;
 	int pressurePlateTimer3_ = 0;
-	
+
 	int torchCount1 = 0;
 	int torchCount2 = 0;
 	int torchCount3 = 0;
@@ -101,7 +103,7 @@ public:
 	Collider* Torch3;
 	Collider* Torch4;
 
-	
+
 	Collider* Wall1;
 	Collider* Wall2;
 	Collider* Wall3;
@@ -140,7 +142,7 @@ public:
 
 	int timerphase1 = 0;
 	int timerphase1_ = 0;
-	
+
 	int timerphase2 = 0;
 	int timerphase2_ = 0;
 
@@ -153,6 +155,8 @@ public:
 	bool tester2 = NULL;
 	bool tester3 = NULL;
 	bool tester4 = NULL;
+
+	float EaseCameraBetweenPoints(iPoint posA, iPoint posB);
 private:
 
 	SDL_Texture* img;
@@ -187,12 +191,24 @@ private:
 
 	SDL_Rect block;
 
+	SDL_Rect* OptionsTxt = new SDL_Rect();
+
 	iPoint origin;
 	bool originSelected = false;
+
+	iPoint MenuA;
+	iPoint MenuB;
 
 	int Puzle_Fail = 1;
 	int Pressure_plate = 1;
 	int Puzle_Complete = 1;
+
+	int iterations;
+	int total_iterations;
+	bool easing_active = false;
+	float speedX, speedY;
+
+	EasingFunctions function;
 
 };
 

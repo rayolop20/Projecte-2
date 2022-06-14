@@ -53,6 +53,35 @@ bool StatsMenu_Screen::Start()
 	char lookupTable[] = { "! @,_./0123456789$;< ?abcdefghijklmnopqrstuvwxyz" };
 	FText = app->fonts->Load("Assets/Textures/Fonts/fonts.png", lookupTable, 1);
 
+	MenuA = { 0 , 0 };
+	MenuB = { 5, 0 };
+	total_iterations_Stats = 300;
+
+	StatsPJ1->x = 70;
+	StatsPJ1->y = 56;
+	StatsPJ1->w = 0;
+	StatsPJ1->h = 424;
+
+	StatsPJ2->x = 70;
+	StatsPJ2->y = 56;
+	StatsPJ2->w = 0;
+	StatsPJ2->h = 424;
+
+	StatsPJ3->x = 70;
+	StatsPJ3->y = 56;
+	StatsPJ3->w = 0;
+	StatsPJ3->h = 424;
+
+	StatsPJ4->x = 70;
+	StatsPJ4->y = 56;
+	StatsPJ4->w = 0;
+	StatsPJ4->h = 424;
+
+	StatsPJ5->x = 70;
+	StatsPJ5->y = 56;
+	StatsPJ5->w = 0;
+	StatsPJ5->h = 424;
+
 	if (app->BTSystem->StatsEnable == false) {
 		Disable();
 	}
@@ -68,7 +97,8 @@ bool StatsMenu_Screen::PreUpdate()
 // Called each loop iteration
 bool StatsMenu_Screen::Update(float dt)
 {
-	Stats();
+	Stats(dt);
+
 	return true;
 }
 
@@ -82,7 +112,7 @@ bool StatsMenu_Screen::PostUpdate()
 	return ret;
 }
 
-void StatsMenu_Screen::Stats()
+void StatsMenu_Screen::Stats(float dt)
 {
 
 	if (app->BTSystem->StatsEnable == true) {
@@ -90,16 +120,23 @@ void StatsMenu_Screen::Stats()
 		app->BTSystem->CloseStatsMenu->bounds.y = -app->render->camera.y + 250;*/
 		if (app->player->P1.IsAlive == true)
 		{
-			SDL_Rect* StatsPJ1 = new SDL_Rect();
-			StatsPJ1->x = 70;
-			StatsPJ1->y = 56;
-			StatsPJ1->w = 278;
-			StatsPJ1->h = 424;
+
 			SDL_Rect* NamePJ1 = new SDL_Rect();
 			NamePJ1->x = 7;
 			NamePJ1->y = 17;
 			NamePJ1->w = 99;
 			NamePJ1->h = 110;
+
+			if (StatsPJ1->w <= 278 && StatsPJ1->w >= 0) {
+				StatsPJ1->w += EaseCameraBetweenPoints(MenuA, MenuB) * dt;
+			}
+			if (StatsPJ1->w < 0) {
+				StatsPJ1->w++;
+			}
+			else if (StatsPJ1->w > 278)
+			{
+				StatsPJ1->w--;
+			}
 			app->render->DrawTexture(StatsText, app->player->P1.position.x - 610 + 32, app->player->P1.position.y - 220 + 32, StatsPJ1);
 			app->render->DrawTexture(Britain_S, app->player->P1.position.x - 580 + 32, app->player->P1.position.y - 145 + 32, NamePJ1);
 			sprintf_s(PJName, "britsh captain");
@@ -127,16 +164,23 @@ void StatsMenu_Screen::Stats()
 		}
 		if (app->player->P2.IsAlive == true)
 		{
-			SDL_Rect* StatsPJ2 = new SDL_Rect();
-			StatsPJ2->x = 70;
-			StatsPJ2->y = 56;
-			StatsPJ2->w = 278;
-			StatsPJ2->h = 424;
+
 			SDL_Rect* NamePJ2 = new SDL_Rect();
 			NamePJ2->x = 4;
 			NamePJ2->y = 2;
 			NamePJ2->w = 131;
 			NamePJ2->h = 110;
+
+			if (StatsPJ2->w <= 278 && StatsPJ2->w >= 0) {
+				StatsPJ2->w += EaseCameraBetweenPoints(MenuA, MenuB) * dt;
+			}
+			if (StatsPJ2->w < 0) {
+				StatsPJ2->w++;
+			}
+			else if (StatsPJ2->w > 278)
+			{
+				StatsPJ2->w--;
+			}
 			app->render->DrawTexture(StatsText, app->player->P1.position.x - 332 + 64, app->player->P1.position.y - 220 + 32, StatsPJ2);
 			app->render->DrawTexture(American_S, app->player->P1.position.x - 330 + 64, app->player->P1.position.y - 145 + 32, NamePJ2);
 			sprintf_s(PJName, "american master");
@@ -162,16 +206,23 @@ void StatsMenu_Screen::Stats()
 		}
 		if (app->player->P3.IsAlive == true)
 		{
-			SDL_Rect* StatsPJ3 = new SDL_Rect();
-			StatsPJ3->x = 70;
-			StatsPJ3->y = 56;
-			StatsPJ3->w = 278;
-			StatsPJ3->h = 424;
+
 			SDL_Rect* NamePJ3 = new SDL_Rect();
 			NamePJ3->x = 35;
 			NamePJ3->y = 7;
 			NamePJ3->w = 134;
 			NamePJ3->h = 110;
+
+			if (StatsPJ3->w <= 278 && StatsPJ3->w >= 0) {
+				StatsPJ3->w += EaseCameraBetweenPoints(MenuA, MenuB) * dt;
+			}
+			if (StatsPJ3->w < 0) {
+				StatsPJ3->w++;
+			}
+			else if (StatsPJ3->w > 278)
+			{
+				StatsPJ3->w--;
+			}
 			app->render->DrawTexture(StatsText, app->player->P1.position.x - 54 + 96, app->player->P1.position.y - 220 + 32, StatsPJ3);
 			app->render->DrawTexture(Russian_S, app->player->P1.position.x - 25 + 96, app->player->P1.position.y - 145 + 32, NamePJ3);
 			sprintf_s(PJName, "russian sinper");
@@ -199,16 +250,23 @@ void StatsMenu_Screen::Stats()
 		}
 		if (app->player->P4.IsAlive == true && IsPJ4 == true)
 		{
-			SDL_Rect* StatsPJ4 = new SDL_Rect();
-			StatsPJ4->x = 70;
-			StatsPJ4->y = 56;
-			StatsPJ4->w = 278;
-			StatsPJ4->h = 424;
+
 			SDL_Rect* NamePJ4 = new SDL_Rect();
 			NamePJ4->x = 12;
 			NamePJ4->y = 62;
 			NamePJ4->w = 105;
 			NamePJ4->h = 110;
+
+			if (StatsPJ4->w <= 278 && StatsPJ4->w >= 0) {
+				StatsPJ4->w += EaseCameraBetweenPoints(MenuA, MenuB) * dt;
+			}
+			if (StatsPJ4->w < 0) {
+				StatsPJ4->w++;
+			}
+			else if (StatsPJ4->w > 278)
+			{
+				StatsPJ4->w--;
+			}
 			app->render->DrawTexture(StatsText, app->player->P1.position.x + 224 + 128, app->player->P1.position.y - 220 + 32, StatsPJ4);
 			app->render->DrawTexture(Italian_S, app->player->P1.position.x + 248 + 128, app->player->P1.position.y - 145 + 32, NamePJ4);
 			sprintf_s(PJName, "italian arditti");
@@ -232,16 +290,22 @@ void StatsMenu_Screen::Stats()
 		}
 		if (app->player->P4.IsAlive == true && IsPJ4 == false)
 		{
-			SDL_Rect* StatsPJ5 = new SDL_Rect();
-			StatsPJ5->x = 70;
-			StatsPJ5->y = 56;
-			StatsPJ5->w = 278;
-			StatsPJ5->h = 424;
+
 			SDL_Rect* NamePJ5 = new SDL_Rect();
 			NamePJ5->x = 29;
 			NamePJ5->y = 9;
 			NamePJ5->w = 121;
 			NamePJ5->h = 110;
+			if (StatsPJ5->w <= 278 && StatsPJ5->w >= 0) {
+				StatsPJ5->w += EaseCameraBetweenPoints(MenuA, MenuB) * dt;
+			}
+			if (StatsPJ5->w < 0) {
+				StatsPJ5->w++;
+			}
+			else if (StatsPJ5->w > 278)
+			{
+				StatsPJ5->w--;
+			}
 			app->render->DrawTexture(StatsText, app->player->P1.position.x + 224 + 128, app->player->P1.position.y - 220 + 32, StatsPJ5);
 			app->render->DrawTexture(French_S, app->player->P1.position.x + 233 + 128, app->player->P1.position.y - 145 + 32, NamePJ5);
 			sprintf_s(PJName, "french rusher");
@@ -279,8 +343,26 @@ bool StatsMenu_Screen::OnGuiMouseClickEvent(GuiControl* control)
 	return true;
 }
 
-void StatsMenu_Screen::ShowStats(int a)
+
+float StatsMenu_Screen::EaseCameraBetweenPoints(iPoint posA, iPoint posB)
 {
+	float value = function.backEaseOut(iterations, posA.x, posB.x - posA.x, total_iterations_Stats);
+
+
+	//speedY = function.linearEaseNull(iterations, 472, 572, 300);
+
+	//App->render->camera.y += speedY;
+
+	if (iterations < total_iterations_Stats) {
+		iterations++;
+	}
+
+	else {
+		iterations = 0;
+		easing_active = false;
+	}
+
+	return value;
 }
 
 bool StatsMenu_Screen::CleanUp()
