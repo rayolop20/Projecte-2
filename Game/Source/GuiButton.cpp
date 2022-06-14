@@ -10,6 +10,7 @@
 #include "BattleSystem.h"
 #include "CharacterMenu.h"
 #include "Menu.h"
+#include "Mouse.h"
 
 GuiButton::GuiButton(uint32 id, SDL_Rect bounds, const char* text) : GuiControl(GuiControlType::BUTTON, id)
 {
@@ -38,21 +39,24 @@ bool GuiButton::Update(float dt)
 		int mouseX, mouseY;
 		app->input->GetMousePosition(mouseX, mouseY);
 
-		mouseX += -app->render->camera.x / app->win->GetScale();
-		mouseY += -app->render->camera.y / app->win->GetScale();
+		//mouseX += -app->render->camera.x / app->win->GetScale();
+		//mouseY += -app->render->camera.y / app->win->GetScale();
+
+		mouseX = app->mouse->cursor.x;
+		mouseY = app->mouse->cursor.y;
 
 		if ((mouseX > bounds.x ) && (mouseX < (bounds.x + bounds.w )) &&
 			(mouseY > bounds.y ) && (mouseY < (bounds.y + bounds.h )))
 		{
 			state = GuiControlState::FOCUSED;
 
-			if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_REPEAT)
+			if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_REPEAT || app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_REPEAT)
 			{
 				state = GuiControlState::PRESSED;
 			}
 
 			// If mouse button pressed -> Generate event!
-			if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_UP)
+			if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_UP || app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_UP)
 			{
 				NotifyObserver();
 			}

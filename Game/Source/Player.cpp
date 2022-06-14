@@ -359,7 +359,7 @@ bool Player::Update(float dt)
 			}
 			//left
 			{
-				if ((app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT || (app->input->Pad->GetButton(SDL_CONTROLLER_BUTTON_DPAD_RIGHT)) || (app->input->Pad->l_x > 0.5)) && P1.moveXD == false && app->BTSystem->battle == false && P1.IsAlive == true)
+				if ((app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT || (app->input->Pad->GetButton(SDL_CONTROLLER_BUTTON_DPAD_RIGHT) == KEY_REPEAT) || (app->input->Pad->l_x > 0.5)) && P1.moveXD == false && app->BTSystem->battle == false && P1.IsAlive == true)
 				{
 					P1.position.x += 3;
 					P1.moveXA = true;
@@ -398,7 +398,7 @@ bool Player::Update(float dt)
 			}
 			//right
 			{
-				if ((app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT || (app->input->Pad->GetButton(SDL_CONTROLLER_BUTTON_DPAD_LEFT)) || (app->input->Pad->l_x < -0.5)) && P1.moveXA == false && app->BTSystem->battle == false && P1.IsAlive == true)
+				if ((app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT || (app->input->Pad->GetButton(SDL_CONTROLLER_BUTTON_DPAD_LEFT) == KEY_REPEAT) || (app->input->Pad->l_x < -0.5)) && P1.moveXA == false && app->BTSystem->battle == false && P1.IsAlive == true)
 				{
 					P1.position.x -= 3;
 					P1.moveXD = true;
@@ -436,7 +436,7 @@ bool Player::Update(float dt)
 			}
 			//up
 			{
-				if ((app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT || (app->input->Pad->GetButton(SDL_CONTROLLER_BUTTON_DPAD_UP)) || (app->input->Pad->l_y < -0.5)) && P1.moveYW == false && app->BTSystem->battle == false && P1.IsAlive == true)
+				if ((app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT || (app->input->Pad->GetButton(SDL_CONTROLLER_BUTTON_DPAD_UP) == KEY_REPEAT) || (app->input->Pad->l_y < -0.5)) && P1.moveYW == false && app->BTSystem->battle == false && P1.IsAlive == true)
 				{
 					P1.position.y -= 3;
 					P1.moveYS = true;
@@ -472,7 +472,7 @@ bool Player::Update(float dt)
 			}
 			//down
 			{
-				if ((app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT || (app->input->Pad->GetButton(SDL_CONTROLLER_BUTTON_DPAD_DOWN)) || (app->input->Pad->l_y > 0.5)) && P1.moveYS == false && app->BTSystem->battle == false && P1.IsAlive == true)
+				if ((app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT || (app->input->Pad->GetButton(SDL_CONTROLLER_BUTTON_DPAD_DOWN) == KEY_REPEAT) || (app->input->Pad->l_y > 0.5)) && P1.moveYS == false && app->BTSystem->battle == false && P1.IsAlive == true)
 				{
 					P1.position.y += 3;
 					P1.moveYW = true;
@@ -721,7 +721,7 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 			{
 				if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::SENSOR_PLAYER2 && P2.Move == false)
 				{
-					if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
+					if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || app->input->Pad->GetButton(SDL_CONTROLLER_BUTTON_X) == KEY_DOWN)
 					{
 
 						P2.Move = true;
@@ -736,7 +736,7 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 
 				if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::SENSOR_PLAYER3 && P3.Move == false)
 				{
-					if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
+					if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || app->input->Pad->GetButton(SDL_CONTROLLER_BUTTON_X) == KEY_DOWN)
 					{
 						P3.Move = true;
 						P3.P3Active = false;
@@ -750,7 +750,7 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 
 				if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::SENSOR_PLAYER4 && P4.Move == false)
 				{
-					if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
+					if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || app->input->Pad->GetButton(SDL_CONTROLLER_BUTTON_X) == KEY_DOWN)
 					{
 						P4.Move = true;
 						P4.P4Active = false;
@@ -1074,7 +1074,7 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 						app->scene->maxPhase = 0;
 					}
 				}
-				if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::TORCH1 && app->scene->puzzle3Active == true && app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN && app->scene->Quest3active == true)
+				if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::TORCH1 && app->scene->puzzle3Active == true && (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || app->input->Pad->GetButton(SDL_CONTROLLER_BUTTON_X) == KEY_DOWN) && app->scene->Quest3active == true)
 				{
 					if (app->scene->tester1 == true) {
 						if (app->scene->torchCount1 == 5) {
@@ -1087,7 +1087,7 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 				else {
 					app->scene->tester1 = true;
 				}
-				if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::TORCH2 && app->scene->puzzle3Active == true && app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN && app->scene->Quest3active == true)
+				if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::TORCH2 && app->scene->puzzle3Active == true && (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || app->input->Pad->GetButton(SDL_CONTROLLER_BUTTON_X) == KEY_DOWN) && app->scene->Quest3active == true)
 				{
 					if (app->scene->tester2 == true) {
 						if (app->scene->torchCount2 == 5) {
@@ -1100,7 +1100,7 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 				else {
 					app->scene->tester2 = true;
 				}
-				if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::TORCH3 && app->scene->puzzle3Active == true && app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN && app->scene->Quest3active == true)
+				if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::TORCH3 && app->scene->puzzle3Active == true && (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || app->input->Pad->GetButton(SDL_CONTROLLER_BUTTON_X) == KEY_DOWN) && app->scene->Quest3active == true)
 				{
 					if (app->scene->tester3 == true) {
 
@@ -1114,7 +1114,7 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 				else {
 					app->scene->tester3 = true;
 				}
-				if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::TORCH4 && app->scene->puzzle3Active == true && app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN && app->scene->Quest3active == true)
+				if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::TORCH4 && app->scene->puzzle3Active == true && (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || app->input->Pad->GetButton(SDL_CONTROLLER_BUTTON_X) == KEY_DOWN) && app->scene->Quest3active == true)
 				{
 					if (app->scene->tester4 == true) {
 						if (app->scene->torchCount4 == 5) {

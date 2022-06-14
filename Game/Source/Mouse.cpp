@@ -44,9 +44,44 @@ bool Mouse::Start()
 
 bool Mouse::Update(float dt)
 {
-	SDL_GetMouseState(&cursor.x, &cursor.y);
-	point.x = cursor.x;
-	point.y = cursor.y;
+	if (MouseOn)
+	{
+		SDL_GetMouseState(&cursor.x, &cursor.y);
+		point.x = cursor.x;
+		point.y = cursor.y;
+	}
+
+	if (ControllerOn)
+		MouseOn = false;
+	if (MouseOn)
+		ControllerOn = false;
+
+	if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+	{
+		cursor.x -= mouseV;
+		ControllerOn = true;
+	}
+	if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+	{
+		cursor.x += mouseV;
+		ControllerOn = true;
+	}
+	if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
+	{
+		cursor.y -= mouseV;
+		ControllerOn = true;
+	}
+	if (app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+	{
+		cursor.y += mouseV;
+		ControllerOn = true;
+	}
+
+	if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_DOWN)
+	{
+		MouseOn = true;
+		ControllerOn = false;
+	}
 
 	Draw();
 

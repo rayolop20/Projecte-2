@@ -139,7 +139,7 @@ bool Menu_Screen::Update(float dt)
 	}
 
 
-	if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
+	if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN || app->input->Pad->GetButton(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN)
 	{
 		menuScreen = false;
 	}
@@ -282,7 +282,7 @@ void Menu_Screen::CreditPhase() {
 		timerCreditCount = 1;
 	}
 	app->render->DrawTexture(creditsTexture, 0, -(timerCredits - timerCreditsaux));
-	if ((timerCredits - timerCreditsaux) > 4000 || app->input->GetKey(SDL_SCANCODE_RETURN)==KEY_DOWN || app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+	if ((timerCredits - timerCreditsaux) > 4000 || app->input->GetKey(SDL_SCANCODE_RETURN)==KEY_DOWN || app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || app->input->Pad->GetButton(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
 		credits = false;
 		timerCreditCount = 0;
 	}

@@ -22,11 +22,17 @@ public:
 
 	bool Draw();
 
+	SDL_Rect cursor;
+
 private:
 
 	SDL_Texture* cursor_img;
-	SDL_Rect cursor;
 	SDL_Rect point;
+
+	int mouseV = 10;
+
+	bool MouseOn = true;
+	bool ControllerOn = false;
 
 };
 
