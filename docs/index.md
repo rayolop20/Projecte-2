@@ -37,10 +37,12 @@
 * Art
 * Github: [YunqianAo](https://github.com/YunqianAo)
 
+
 ## Description
 You play as a grup of soldiers of the first world war who are sent to a mysterious castle in search of a powerful German commander and kill him, once in the castle, the soldiers, fell into a trap, getting captured and sent to the castle dungeon.
 
 Now your goal is to eliminate the German commander and finish the curse that prevents them from escaping from the castle and repeat what happened over and over again if they die, entering an infinite time loop.
+
 
 ## Features:
 In this game is a turn base rpg where you will have to be careful
