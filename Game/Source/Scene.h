@@ -112,9 +112,12 @@ public:
 	Collider* Wall17;
 	Collider* Wall18;
 
+	Collider* Win;
+
 	S Simon[7];
 
 	SDL_Texture* door = nullptr;
+	SDL_Texture* Wintext = nullptr;
 
 	int firstSimon = 0;
 	int secondSimon = 0;
@@ -130,6 +133,7 @@ public:
 	bool End4 = true;
 	bool End5 = true;
 	bool End6 = true;
+	bool Winends = false;
 
 	int phase = 0;
 	int maxPhase = 0;
