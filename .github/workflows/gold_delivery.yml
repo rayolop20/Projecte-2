@@ -16,8 +16,8 @@ jobs:
         uses: thedoctor0/zip-release@master
         with:
           filename: 'Explosive_RPG-Blood_War_Gold.zip'
-          path: './Output ./Build ./LICENSE ./README.md'
-          exclusions: '*.gitignore* *Projecte2.sln* ./.github ./Docs ./Game'
+          path: './Output ./LICENSE ./README.md'
+          exclusions: '*.gitignore* *Projecte2.sln* ./.github ./Docs ./Game ./Build'
 
       - name: Create Release
         uses: ncipollo/release-action@v1
