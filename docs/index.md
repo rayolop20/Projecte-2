@@ -90,7 +90,7 @@ around the map with which you can improve your allies and then be able to beat t
 [![Image](https://github.com/rayolop20/Projecte-2/blob/main/Docs/Wiki_Files/link_trailer.png?raw=true)](https://youtu.be/9Fuw6SAkWlE)
 
 ## LAST RELEASE
-[Explosive_RPG-Blood_War_v0.8](https://github.com/rayolop20/Projecte-2/releases/tag/v0.8)
+[Blood War Gold](https://github.com/rayolop20/Projecte-2/releases/tag/gold)
 
 
 ## Welcome to GitHub Pages
